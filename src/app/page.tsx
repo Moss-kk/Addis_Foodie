@@ -4,12 +4,15 @@ import { useState, useMemo } from 'react';
 import Header from '../components/Header';
 import FilterBar from '../components/FilterBar';
 import ReviewCard from '../components/ReviewCard';
+import PostDetailModal from '../components/PostDetailModal';
 import { mockPosts } from '../data/mockPosts';
+import { FoodPost } from '../types/post';
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [activePost, setActivePost] = useState<FoodPost | null>(null);
 
   // Filter and sort posts (newest first)
   const filteredPosts = useMemo(() => {
@@ -57,18 +60,19 @@ export default function Home() {
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col gap-6">
         
-        {/* Hero Area */}
-        <div className="text-center sm:text-left flex flex-col gap-2">
-          <h1 className="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-brand-dark tracking-tight leading-none">
-            Addis Ababa's Culinary Live Feed
-          </h1>
-          <p className="text-xs sm:text-sm text-zinc-500 font-medium max-w-2xl leading-relaxed">
-            Discover the best eats in town. Fresh, visual reviews parsed directly from official Instagram and Telegram channels.
+        {/* Compact Hero Banner */}
+        <div className="bg-brand-primary text-white py-6 px-6 rounded-3xl flex flex-col gap-1 shadow-md relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform duration-500" />
+          <h2 className="font-display font-black text-lg sm:text-xl lg:text-2xl tracking-tight flex items-center gap-1.5">
+            Discovering Foods in Addis 🇪🇹
+          </h2>
+          <p className="text-white/85 font-semibold text-[11px] sm:text-xs max-w-xl leading-relaxed">
+            Latest reviews & food spots aggregated live from Telegram & Instagram. Click any card to view detailed reviews inside the app.
           </p>
         </div>
 
         {/* Interactive Search Bar */}
-        <div className="relative w-full max-w-2xl sm:mx-0">
+        <div className="relative w-full max-w-2xl">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <svg className="h-4 sm:h-5 w-4 sm:w-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -127,7 +131,11 @@ export default function Home() {
         {filteredPosts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {filteredPosts.map((post) => (
-              <ReviewCard key={post.id} post={post} />
+              <ReviewCard
+                key={post.id}
+                post={post}
+                onClick={() => setActivePost(post)}
+              />
             ))}
           </div>
         ) : (
@@ -154,9 +162,17 @@ export default function Home() {
         )}
       </main>
 
+      {/* In-App Slide-Over / Centered Detail Modal */}
+      {activePost && (
+        <PostDetailModal
+          post={activePost}
+          onClose={() => setActivePost(null)}
+        />
+      )}
+
       {/* Footer */}
       <footer className="border-t border-zinc-200/50 bg-white/50 py-6 text-center mt-12">
-        <p className="text-[10px] sm:text-xs text-zinc-400 font-semibold tracking-wide uppercase">
+        <p className="text-[10px] sm:text-xs text-zinc-400 font-semibold tracking-wide uppercase font-sans">
           Addis Foodies © 2026 • Discovering Foods in Addis
         </p>
       </footer>
