@@ -23,3 +23,58 @@ To ensure instant readability on low-end mobile devices and high-DPI screens ali
 --font-primary: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 --font-display: 'Syne', 'Plus Jakarta Sans', sans-serif;
 --font-mono: 'JetBrains Mono', monospace;
+# UI Design Principles
+
+The Addis Foodies interface must communicate food before functionality.
+
+Visual hierarchy:
+
+1 Restaurant Photography
+
+2 Location
+
+3 Price
+
+4 Restaurant Name
+
+5 Category
+
+6 Review
+
+7 Social Links
+
+Every card must immediately answer
+
+Where?
+
+How much?
+
+What food?
+
+Should I visit?
+
+Every screen must feel
+
+Premium
+
+Minimal
+
+Modern
+
+Warm
+
+Fast
+
+Readable
+
+Food First
+
+Avoid dashboard aesthetics.
+
+Use large imagery.
+
+Bold pricing.
+
+High contrast location.
+
+Minimal text.

@@ -31,3 +31,34 @@ This document specifies the software requirements for the Addis Foodies Web Plat
 * **FR-2 (Automated Ingestion Engine):** Webhook endpoints fetching posts, reels, photos, captions, and map links from Telegram and Instagram.
 * **FR-3 (Hashtag & Caption Parser):** Auto-extracts tags (`#Bole`, `#Burger`, `#Fasting`) to classify places and price tiers ($/$$/$$$).
 * **FR-4 (Admin Dashboard):** KPI cards tracking sync health, recent activity logs, and content stats.
+# Development Governance
+
+The Addis Foodies project follows a documentation-first development process.
+
+Every feature must first be reflected in:
+
+• Software Requirements Specification (SRS)
+
+• DESIGN.md
+
+before implementation begins.
+
+If implementation requires architectural changes, the SRS must be updated first.
+
+No feature may exist in the codebase without documentation.
+
+Every Pull Request must satisfy:
+
+✓ SRS Updated
+
+✓ DESIGN Updated
+
+✓ Implementation Complete
+
+✓ Responsive
+
+✓ Accessible
+
+✓ Production Ready
+
+The SRS is considered the single source of truth.
