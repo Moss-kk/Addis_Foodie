@@ -62,3 +62,9 @@ Every Pull Request must satisfy:
 ✓ Production Ready
 
 The SRS is considered the single source of truth.
+## 3. System Features & Functional Requirements (continued)
+* **FR-5 (Paginated Feed):** Homepage feed loads an initial batch of 9 posts, newest-first; a "Load More" action reveals the next batch client-side without route change or layout shift.
+* **FR-6 (Advanced Filtering & Sorting):** Extend FilterBar with a Price Range filter (Under 300 Br / 300–700 Br / 700+ Br) and a Sort control (Newest, Price: Low to High, Price: High to Low), composable with existing Area/Category filters.
+* **FR-7 (Restaurant Profile Pages):** Each restaurant gets a dedicated page at `/restaurant/[slug]` aggregating every post tied to that `restaurantName`: total review count, average price, neighborhood, compiled menu (deduped across posts), and a grid of all its reviews. Reachable by tapping the restaurant name on any ReviewCard or PostDetailModal.
+
+**Document Version:** 3.1 (Sprint 2 — Feed Polish & Restaurant Pages)

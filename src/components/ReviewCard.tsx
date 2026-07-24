@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FoodPost } from '../types/post';
+import { slugify } from '../lib/restaurants';
 
 interface ReviewCardProps {
   post: FoodPost;
@@ -59,7 +61,13 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
         {/* Restaurant/Dish Highlight */}
         <div className="flex flex-col gap-1">
           <h3 className="font-display font-extrabold text-lg text-[#111827] leading-snug group-hover:text-brand-primary transition-colors duration-200">
-            {post.restaurantName}
+            <Link
+              href={`/restaurant/${slugify(post.restaurantName)}`}
+              onClick={(e) => e.stopPropagation()}
+              className="hover:underline hover:text-brand-primary transition-colors"
+            >
+              {post.restaurantName}
+            </Link>
           </h3>
           <span className="inline-flex items-center text-[10px] text-zinc-500 font-extrabold bg-zinc-50 border border-zinc-100 px-2 py-0.5 rounded-md w-fit uppercase tracking-wider">
             {post.category}

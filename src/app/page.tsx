@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Header from '../components/Header';
 import FilterBar from '../components/FilterBar';
 import ReviewCard from '../components/ReviewCard';
@@ -12,9 +12,17 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string | null>(null);
+  const [selectedSort, setSelectedSort] = useState<string>('newest');
+  const [visibleCount, setVisibleCount] = useState<number>(9);
   const [activePost, setActivePost] = useState<FoodPost | null>(null);
 
-  // Filter and sort posts (newest first)
+  // Reset pagination when filters, search, or sort change
+  useEffect(() => {
+    setVisibleCount(9);
+  }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
+
+  // Filter and sort posts
   const filteredPosts = useMemo(() => {
     return mockPosts
       .filter((post) => {
@@ -26,6 +34,19 @@ export default function Home() {
         // Category filter
         if (selectedCategory && post.category !== selectedCategory) {
           return false;
+        }
+
+        // Price Range filter
+        if (selectedPriceRange) {
+          if (selectedPriceRange === 'under-300' && post.price >= 300) {
+            return false;
+          }
+          if (selectedPriceRange === '300-700' && (post.price < 300 || post.price > 700)) {
+            return false;
+          }
+          if (selectedPriceRange === '700-plus' && post.price <= 700) {
+            return false;
+          }
         }
 
         // Search query filter
@@ -43,13 +64,32 @@ export default function Home() {
 
         return true;
       })
-      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-  }, [searchQuery, selectedLocation, selectedCategory]);
+      .sort((a, b) => {
+        if (selectedSort === 'price-asc') {
+          return a.price - b.price;
+        }
+        if (selectedSort === 'price-desc') {
+          return b.price - a.price;
+        }
+        // Default: newest first
+        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+      });
+  }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
+
+  const visiblePosts = useMemo(() => {
+    return filteredPosts.slice(0, visibleCount);
+  }, [filteredPosts, visibleCount]);
 
   const handleClearFilters = () => {
     setSearchQuery('');
     setSelectedLocation(null);
     setSelectedCategory(null);
+    setSelectedPriceRange(null);
+    setSelectedSort('newest');
+  };
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 9);
   };
 
   return (
@@ -130,23 +170,28 @@ export default function Home() {
         <FilterBar
           selectedLocation={selectedLocation}
           selectedCategory={selectedCategory}
+          selectedPriceRange={selectedPriceRange}
+          selectedSort={selectedSort}
           onLocationChange={setSelectedLocation}
           onCategoryChange={setSelectedCategory}
+          onPriceRangeChange={setSelectedPriceRange}
+          onSortChange={setSelectedSort}
         />
 
         {/* Status Count / Active Filters Info */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm text-zinc-500 font-semibold border-b border-zinc-200/50 pb-3">
           <div>
             {filteredPosts.length === mockPosts.length ? (
-              <span>Showing all {mockPosts.length} reviews</span>
+              <span>Showing {visiblePosts.length} of {mockPosts.length} reviews</span>
             ) : (
               <span>
                 Found {filteredPosts.length} {filteredPosts.length === 1 ? 'review' : 'reviews'}{' '}
-                {(selectedLocation || selectedCategory || searchQuery) && 'matching filters'}
+                {(selectedLocation || selectedCategory || selectedPriceRange || searchQuery) && 'matching filters'}
+                {filteredPosts.length > visiblePosts.length && ` (showing ${visiblePosts.length})`}
               </span>
             )}
           </div>
-          {(selectedLocation || selectedCategory || searchQuery) && (
+          {(selectedLocation || selectedCategory || selectedPriceRange || searchQuery || selectedSort !== 'newest') && (
             <button
               onClick={handleClearFilters}
               className="text-brand-primary hover:underline self-start sm:self-auto cursor-pointer"
@@ -157,15 +202,32 @@ export default function Home() {
         </div>
 
         {/* Review Cards Grid */}
-        {filteredPosts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {filteredPosts.map((post) => (
-              <ReviewCard
-                key={post.id}
-                post={post}
-                onClick={() => setActivePost(post)}
-              />
-            ))}
+        {visiblePosts.length > 0 ? (
+          <div className="flex flex-col gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {visiblePosts.map((post) => (
+                <ReviewCard
+                  key={post.id}
+                  post={post}
+                  onClick={() => setActivePost(post)}
+                />
+              ))}
+            </div>
+
+            {/* Load More Button */}
+            {visibleCount < filteredPosts.length && (
+              <div className="flex justify-center pt-4 pb-2">
+                <button
+                  onClick={handleLoadMore}
+                  className="w-full sm:w-auto bg-brand-dark hover:bg-brand-primary text-white font-bold rounded-xl py-3 px-8 transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer text-sm flex items-center justify-center gap-2 group"
+                >
+                  <span>Load More Reviews</span>
+                  <svg className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           /* Empty State */
@@ -178,7 +240,7 @@ export default function Home() {
             <div className="flex flex-col gap-1">
               <h3 className="font-display font-extrabold text-base sm:text-lg text-brand-dark">No Food Reviews Found</h3>
               <p className="text-xs sm:text-sm text-zinc-500 max-w-xs leading-relaxed">
-                We couldn't find any reviews matching "{searchQuery || selectedLocation || selectedCategory}". Try checking your spelling or selecting another category.
+                We couldn't find any reviews matching your criteria. Try adjusting your filters or search query.
               </p>
             </div>
             <button

@@ -1,8 +1,8 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FoodPost } from '../types/post';
+import { slugify } from '../lib/restaurants';
 
 interface PostDetailModalProps {
   post: FoodPost | null;
@@ -165,7 +165,13 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div className="flex flex-col gap-1.5">
                 <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark leading-tight">
-                  {post.restaurantName}
+                  <Link
+                    href={`/restaurant/${slugify(post.restaurantName)}`}
+                    onClick={onClose}
+                    className="hover:underline hover:text-brand-primary transition-colors"
+                  >
+                    {post.restaurantName}
+                  </Link>
                 </h2>
                 
                 {/* Location Badge (Bole, Kazanchis, etc.) */}
