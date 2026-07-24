@@ -18,8 +18,8 @@ export default function Home() {
   const filteredPosts = useMemo(() => {
     return mockPosts
       .filter((post) => {
-        // Location filter
-        if (selectedLocation && post.location !== selectedLocation) {
+        // Location filter (matches neighborhood property)
+        if (selectedLocation && post.neighborhood !== selectedLocation) {
           return false;
         }
 
@@ -60,41 +60,70 @@ export default function Home() {
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col gap-6">
         
-        {/* Compact Hero Banner */}
-        <div className="bg-brand-primary text-white py-6 px-6 rounded-3xl flex flex-col gap-1 shadow-md relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform duration-500" />
-          <h2 className="font-display font-black text-lg sm:text-xl lg:text-2xl tracking-tight flex items-center gap-1.5">
-            Discovering Foods in Addis 🇪🇹
-          </h2>
-          <p className="text-white/85 font-semibold text-[11px] sm:text-xs max-w-xl leading-relaxed">
-            Latest reviews & food spots aggregated live from Telegram & Instagram. Click any card to view detailed reviews inside the app.
-          </p>
-        </div>
+        {/* Large Prominent Hero Banner with Deep Crimson to Charcoal Gradient */}
+        <div className="bg-gradient-to-r from-[#8B1717] via-[#A81D1D] to-[#111827] text-white py-10 px-8 sm:px-12 rounded-3xl flex flex-col gap-6 shadow-md relative overflow-hidden group">
+          {/* Subtle design vectors in gradient background */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-brand-accent/5 rounded-full blur-3xl transform group-hover:scale-110 transition-transform duration-500 pointer-events-none" />
 
-        {/* Interactive Search Bar */}
-        <div className="relative w-full max-w-2xl">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg className="h-4 sm:h-5 w-4 sm:w-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+          {/* Hero Headline & Subtitle */}
+          <div className="flex flex-col gap-2 relative z-10">
+            <h2 className="font-display font-black text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-tight">
+              Discover the Best Food in Addis Ababa
+            </h2>
+            <p className="text-white/85 font-semibold text-xs sm:text-sm max-w-2xl leading-relaxed">
+              Auto-updated reviews straight from our Instagram & Telegram — no sign-up, just eat.
+            </p>
           </div>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by restaurant, category, area, or keywords..."
-            className="block w-full pl-9 pr-10 py-2.5 sm:py-3 border border-zinc-200 rounded-2xl bg-white text-zinc-800 placeholder-zinc-400 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all duration-200 shadow-2xs"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
-              className="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-400 hover:text-zinc-600 transition-colors"
-            >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+
+          {/* Prominent Search Bar (Embedded in Hero banner for unified layout) */}
+          <div className="relative w-full max-w-2xl z-10 shadow-lg rounded-2xl overflow-hidden">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <svg className="h-4 sm:h-5 w-4 sm:w-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-            </button>
-          )}
+            </div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by restaurant, area, dish, or keywords..."
+              className="block w-full pl-11 pr-10 py-3 sm:py-4 border-0 bg-white text-zinc-950 placeholder-zinc-400 text-xs sm:text-sm focus:outline-hidden focus:ring-0 focus:border-0"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-zinc-400 hover:text-zinc-600 transition-colors"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+
+          {/* Micro-Stats Row */}
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/80 border-t border-white/10 pt-4 z-10">
+            <div className="flex items-center gap-1">
+              <span>🔥</span>
+              <span>950+ Reviews</span>
+            </div>
+            <span className="hidden sm:inline text-white/20">|</span>
+            <div className="flex items-center gap-1">
+              <span>📍</span>
+              <span>320+ Spots</span>
+            </div>
+            <span className="hidden sm:inline text-white/20">|</span>
+            <div className="flex items-center gap-1">
+              <span>🏢</span>
+              <span>12 Areas</span>
+            </div>
+            <span className="hidden sm:inline text-white/20">|</span>
+            <div className="flex items-center gap-1">
+              <span>📡</span>
+              <span>2 Social Channels</span>
+            </div>
+          </div>
         </div>
 
         {/* Sticky Filter Bar */}
