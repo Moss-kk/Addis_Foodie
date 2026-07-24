@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-brand-primary: #A81D1D; /* Crimson */
+  --color-brand-accent: #F59E0B;  /* Amber Gold */
+  --color-brand-bg: #FAFAFA;      /* Soft Cream */
+  --color-brand-dark: #111827;    /* Charcoal */
+
+  /* Typography Stack */
+  --font-sans: var(--font-primary), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-display), "Plus Jakarta Sans", sans-serif;
+  --font-mono: var(--font-mono), monospace;
+}
+
+:root {
+  --background: #FAFAFA;
+  --foreground: #111827;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-primary), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Hide scrollbars for horizontal filter bar but allow scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
