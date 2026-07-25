@@ -60,26 +60,36 @@ export default function Header() {
         </div>
       </Link>
 
-      {/* Center Actions / Live Syncing badge */}
-      <div className="flex items-center gap-2 sm:gap-4">
-        {/* Navigation Links */}
-        <Link
-          href="/events"
-          className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 text-xs font-extrabold transition-all cursor-pointer"
-        >
-          <span>🎪 Events & Fests</span>
+      {/* Navigation Bar Links */}
+      <nav className="hidden lg:flex items-center gap-6 text-xs font-bold text-zinc-700">
+        <Link href="/" className="hover:text-[#A81D1D] transition-colors">
+          Explore Reviews
         </Link>
+        <Link href="/about" className="hover:text-[#A81D1D] transition-colors">
+          About Us
+        </Link>
+        <Link href="/services" className="hover:text-[#A81D1D] transition-colors">
+          Services
+        </Link>
+        <Link href="/events" className="hover:text-[#A81D1D] transition-colors flex items-center gap-1">
+          <span>🎪</span>
+          <span>Events & Fests</span>
+        </Link>
+        <Link href="/brand-kit" className="hover:text-[#A81D1D] transition-colors">
+          Brand Kit
+        </Link>
+      </nav>
 
-        {/* Live Syncing Indicator */}
-        <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50/90 border border-emerald-200/60 shadow-2xs">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="text-[10px] font-black text-emerald-800 tracking-wider uppercase font-sans">
-            Live Feed Sync
-          </span>
-        </div>
+      {/* Center Actions / Live Syncing badge & Work With Us CTA */}
+      <div className="flex items-center gap-2 sm:gap-3">
+        
+        {/* Work With Us Direct Button */}
+        <Link
+          href="/collaborate"
+          className="hidden sm:inline-flex items-center gap-1 bg-zinc-900 hover:bg-[#A81D1D] text-white font-extrabold text-xs py-1.5 px-3.5 rounded-full transition-all duration-200 shadow-xs cursor-pointer"
+        >
+          <span>🤝 Work With Us</span>
+        </Link>
 
         {/* Promote Spot CTA Button */}
         <button
@@ -94,16 +104,16 @@ export default function Header() {
 
         {/* Info & Socials Group */}
         <div className="flex items-center gap-1 sm:gap-2 border-l border-zinc-200 pl-2 sm:pl-3">
-          {/* About Button */}
-          <button
-            onClick={() => setShowAbout(true)}
+          {/* About Quick Button */}
+          <Link
+            href="/about"
             className="p-2 text-zinc-500 hover:text-[#A81D1D] hover:bg-zinc-100 rounded-full transition-colors duration-200 cursor-pointer"
             title="About Addis Foodies"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 111.083.984l-.04.02-1.083-.984zm.67-4.2a.75.75 0 100-1.5.75.75 0 000 1.5zM22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.201 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12z" />
             </svg>
-          </button>
+          </Link>
 
           <a
             href="https://t.me/addisfoodies"
@@ -118,7 +128,7 @@ export default function Header() {
           </a>
 
           <a
-            href="https://instagram.com/addisfoodies"
+            href="https://instagram.com/addis.foodie"
             target="_blank"
             rel="noopener noreferrer"
             title="Follow us on Instagram"
@@ -139,7 +149,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Promote Spot Dialog / Collaboration Modal */}
+      {/* Promote Spot Dialog / Quick Collaboration Modal */}
       {showPromo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
@@ -242,40 +252,11 @@ export default function Header() {
             )}
 
             <div className="border-t border-zinc-200 pt-3 flex items-center justify-between text-xs">
-              <span className="font-bold text-zinc-600">Telegram Direct:</span>
-              <a href="https://t.me/addisfoodies_admin" target="_blank" rel="noopener noreferrer" className="text-[#A81D1D] hover:underline font-mono font-bold">
-                @addisfoodies_admin
-              </a>
+              <span className="font-bold text-zinc-600 font-mono">Full Form Portal:</span>
+              <Link href="/collaborate" onClick={() => setShowPromo(false)} className="text-[#A81D1D] hover:underline font-bold">
+                Open Collaboration Hub ↗
+              </Link>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Brand Info Overlay Dialog */}
-      {showAbout && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            onClick={() => setShowAbout(false)}
-            className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
-          />
-          <div className="relative w-full max-w-sm bg-white rounded-3xl p-6 shadow-2xl z-10 border border-zinc-200 flex flex-col gap-4 animate-slide-up">
-            <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-[#A81D1D]">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 111.083.984l-.04.02-1.083-.984zm.67-4.2a.75.75 0 100-1.5.75.75 0 000 1.5zM22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.201 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12z" />
-              </svg>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <h3 className="font-display font-extrabold text-base text-zinc-950">About Addis Foodies</h3>
-              <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed font-semibold">
-                Addis Ababa's zero-login culinary platform auto-syncing live reviews from Instagram & Telegram. Explore restaurants in Bole, Kazanchis, Piassa, and Sarbet.
-              </p>
-            </div>
-            <button
-              onClick={() => setShowAbout(false)}
-              className="w-full bg-[#111827] hover:bg-[#A81D1D] text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-colors duration-200 cursor-pointer"
-            >
-              Close
-            </button>
           </div>
         </div>
       )}
