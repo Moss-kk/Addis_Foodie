@@ -20,7 +20,7 @@ Every millisecond of delay or visual noise costs user engagement. The Addis Food
 * **Logo Asset Path:** `/public/images/logo.png`
 * **Logo Style:** Circular dark badge featuring clean white cutlery (fork, knife, spoon) with bold brand typography.
 * **Tagline:** *"Discovering Foods in Addis"*
-
+mathch the dlofgo screen acolose ton stkem 
 ---
 
 ## 3. Typography & Font Stack
@@ -150,5 +150,81 @@ export const pulseGlow = {
     transition: { repeat: Infinity, duration: 2 }
   }
 };
+# UI/UX Design System & Specification
+## Addis Foodies — Official Web Platform
 
+---
+
+## 1. Brand Identity & Visual Philosophy
+
+The visual language of Addis Foodies balances editorial authority with culinary warmth[cite: 1]. The UI feels like a modern food magazine combined with a lightning-fast utility app[cite: 1].
+
+### 1.1 Core Color Palette
+
+| Name | Hex | CSS Variable | Usage |
+|---|---|---|---|
+| **Warm Crimson** | `#A81D1D` | `--primary` | Primary brand identity, badges, prominent CTAs, accent borders[cite: 1] |
+| **Amber Gold** | `#F59E0B` | `--secondary` | Highlights, ratings, price chips, featured flags[cite: 1] |
+| **Deep Charcoal** | `#111827` | `--foreground` | High-contrast typography, top bar, dark mode card containers[cite: 1] |
+| **Cream Canvas** | `#FAFAFA` | `--background` | Warm, non-glare background surface[cite: 1] |
+| **Card Surface** | `#FFFFFF` | `--card` | Elevated review and content card background |
+| **Muted Slate** | `#6B7280` | `--muted` | Secondary body text, timestamps, captions |
+
+---
+
+## 2. Typography Hierarchy
+
+*   **Primary Font:** `Inter` or `Plus Jakarta Sans` (Clean, legible geometric sans-serif for UI and numbers).
+*   **Display Font:** `Playfair Display` or `Outfit` (Editorial warmth for section titles and event heroes).
+
+```css
+h1 { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; line-height: 1.1; }
+h2 { font-family: var(--font-display); font-size: 1.875rem; font-weight: 700; }
+h3 { font-family: var(--font-sans); font-size: 1.25rem; font-weight: 600; }
+body { font-family: var(--font-sans); font-size: 1.0rem; line-height: 1.6; }
+3. Core Component Library
+3.1 Review Card Blueprint
++-------------------------------------------------------+
+| [Category Badge]                       [ Price Chip ] |
+|                                                       |
+|                  HERO IMAGE / CAROUSEL                |
+|                                                       |
+| [New Badge] 2 hrs ago                     [IG] [TG]   |
++-------------------------------------------------------+
+| Dish / Review Title                                   |
+| 📍 Neighborhood Landmark                              |
+|                                                       |
+| Selected Menu Items:                                  |
+| • Item One ................................ 450 ETB   |
+| • Item Two ................................ 800 ETB   |
++-------------------------------------------------------+
+3.2 Navigation Header
+Desktop: Left-aligned circular logo badge (Black with white cutlery icon)[cite: 1], centered links (Reviews, Events, Services, About), right-aligned primary CTA (Work With Us)[cite: 1].
+
+Mobile: Sticky top header with brand logo, search toggle, and slide-out navigation sheet. Bottom sticky quick-bar (Home, Search, Events, Collaborate).
+
+4. Page Layout Specifications
+4.1 Homepage Structure
+Top Alert Banner: Direct highlight for active major event (e.g., "🔥 Kitfo Fest #7 Live at Monarch Hotel — View Schedule").
+
+Editorial Hero: Search bar with quick suggestions + Tagline: "Discover trusted restaurant reviews by Addis Foodies."
+
+[cite: 1]
+
+Horizontal Filter Scroll: Fast-tap filter chips (All, Bole, Habesha, Fasting, Burgers, Coffee, $ Budget)[cite: 1].
+
+Recent Reviews Feed: Responsive 3-column grid featuring the newest review cards ordered chronologically[cite: 1].
+
+Featured Event Banner: High-impact full-width callout for upcoming culinary challenges.
+
+Services & Collaboration Teaser: Grid highlighting business offerings with direct form trigger[cite: 1].
+
+Footer: Social channels, legal info, media kit download, copyright[cite: 1].
+
+5. UI Inspiration & Directives
+Header & Clean Lines: Inspired by high-end culinary media.
+
+Card Micro-Interactions: Subtle scale-up on image hover (transform: scale(1.03) with dynamic image shadow).
+
+Accessibility: All text satisfies WCAG AA 4.5:1 contrast standards[cite: 1]. Tap targets on mobile are a minimum of 48x48px.
 ---

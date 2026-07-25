@@ -36,27 +36,33 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 h-16 border-b border-zinc-200/50 glass-panel flex items-center justify-between px-4 sm:px-6 shadow-2xs transition-all duration-300">
-      {/* Brand Logo & Wordmark */}
-      <Link href="/" className="flex items-center gap-3 group">
-        <div className="relative w-10 h-10 rounded-full overflow-hidden border border-zinc-200 shadow-xs group-hover:scale-105 transition-transform duration-200 flex-shrink-0">
-          <Image
-            src="/images/logo.png"
-            alt="Addis Foodies Logo"
-            fill
-            sizes="40px"
-            priority
-            className="object-cover"
-          />
-        </div>
-        <div className="flex flex-col -space-y-0.5">
-          <div className="flex items-baseline gap-0.5">
-            <span className="font-display font-black text-base sm:text-lg tracking-tight text-[#111827]">Addis</span>
-            <span className="font-display font-black text-base sm:text-lg tracking-tight text-[#A81D1D]">Foodies</span>
+    <header className="sticky top-0 z-50 h-16 border-b border-zinc-200/50 glass-panel flex items-center justify-between px-3 sm:px-6 shadow-2xs transition-all duration-300">
+      
+      {/* Brand Logo Rectangular Block (Redesigned per Design.md) */}
+      <Link href="/" className="group">
+        <div className="bg-[#111827] border border-[#A81D1D]/40 hover:border-[#A81D1D] rounded-2xl px-3 py-1.5 shadow-md flex items-center gap-2.5 transition-all duration-300 group-hover:scale-[1.02]">
+          {/* Circular Cutlery Badge */}
+          <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[#A81D1D] shadow-xs flex-shrink-0 bg-black">
+            <Image
+              src="/images/logo.png"
+              alt="Addis Foodies Cutlery Logo"
+              fill
+              sizes="32px"
+              priority
+              className="object-cover"
+            />
           </div>
-          <span className="text-[9px] font-extrabold text-zinc-500 font-sans tracking-widest uppercase">
-            Discovering Foods in Addis
-          </span>
+          
+          {/* Brand Typography Block */}
+          <div className="flex flex-col -space-y-0.5">
+            <div className="flex items-baseline gap-1">
+              <span className="font-display font-black text-sm sm:text-base tracking-tight text-white">Addis</span>
+              <span className="font-display font-black text-sm sm:text-base tracking-tight text-[#A81D1D]">Foodies</span>
+            </div>
+            <span className="text-[8px] sm:text-[9px] font-bold text-[#F59E0B] font-mono tracking-wider uppercase">
+              Discovering Foods in Addis
+            </span>
+          </div>
         </div>
       </Link>
 
@@ -80,13 +86,13 @@ export default function Header() {
         </Link>
       </nav>
 
-      {/* Center Actions / Live Syncing badge & Work With Us CTA */}
+      {/* Center Actions & Work With Us CTA */}
       <div className="flex items-center gap-2 sm:gap-3">
         
         {/* Work With Us Direct Button */}
         <Link
           href="/collaborate"
-          className="hidden sm:inline-flex items-center gap-1 bg-zinc-900 hover:bg-[#A81D1D] text-white font-extrabold text-xs py-1.5 px-3.5 rounded-full transition-all duration-200 shadow-xs cursor-pointer"
+          className="hidden sm:inline-flex items-center gap-1 bg-[#111827] hover:bg-[#A81D1D] text-white font-extrabold text-xs py-1.5 px-3.5 rounded-full transition-all duration-200 shadow-xs cursor-pointer"
         >
           <span>🤝 Work With Us</span>
         </Link>

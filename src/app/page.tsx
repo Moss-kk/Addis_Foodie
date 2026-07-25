@@ -28,7 +28,19 @@ export default function Home() {
     setVisibleCount(9);
   }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
 
-  // Filter and sort posts
+  // Group 1: Fresh & Recent Ingested Posts (Sorted strictly newest-first)
+  const recentPosts = useMemo(() => {
+    return [...mockPosts]
+      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+      .slice(0, 3);
+  }, []);
+
+  // Group 2: Popular & Top Rated Spots
+  const popularPosts = useMemo(() => {
+    return mockPosts.slice(2, 5);
+  }, []);
+
+  // Group 3: Filtered & Sorted Archive Posts
   const filteredPosts = useMemo(() => {
     return mockPosts
       .filter((post) => {
@@ -103,7 +115,7 @@ export default function Home() {
   };
 
   const scrollToGrid = () => {
-    const el = document.getElementById('review-grid-section');
+    const el = document.getElementById('archive-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -113,18 +125,18 @@ export default function Home() {
       <Header />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col gap-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col gap-10">
         
         {/* Real-time Festival & Event Banner */}
         <EventBanner />
 
-        {/* High-Impact Animated Hero Section (FR-1.1 Alignment) */}
+        {/* High-Impact Hero Section */}
         <div className="bg-gradient-to-r from-[#111827] via-[#8B1717] to-[#A81D1D] text-white py-12 px-8 sm:px-14 rounded-3xl flex flex-col gap-7 shadow-2xl relative overflow-hidden group">
           {/* Subtle glowing lights */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none" />
           <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl transform group-hover:scale-110 transition-transform duration-700 pointer-events-none" />
 
-          {/* Hero Headline & Subtitle (SRS v4.0 FR-1.1) */}
+          {/* Hero Headline & Subtitle */}
           <div className="flex flex-col gap-3 relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 w-fit text-[11px] font-black uppercase tracking-widest text-amber-400 backdrop-blur-md">
               ✨ Official Addis Foodies Web Portal
@@ -136,7 +148,7 @@ export default function Home() {
               Curated dining recommendations, exact menu pricing in ETB, and live event portals across Bole, Kazanchis, Piassa, and Sarbet — 100% zero-login discovery.
             </p>
 
-            {/* Prominent Action Buttons (SRS v4.0 FR-1.1) */}
+            {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
                 onClick={scrollToGrid}
@@ -145,17 +157,13 @@ export default function Home() {
                 🔍 Explore Reviews
               </button>
               <a
-                href="https://t.me/addisfoodies_admin"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/collaborate"
                 className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm py-2.5 px-5 rounded-full border border-white/20 backdrop-blur-xs transition-all cursor-pointer"
               >
                 🤝 Work With Addis Foodies
               </a>
               <a
-                href="https://t.me/addisfoodies_admin"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/collaborate"
                 className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm py-2.5 px-5 rounded-full border border-white/20 backdrop-blur-xs transition-all cursor-pointer"
               >
                 📝 Request a Review
@@ -235,68 +243,27 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Weekly Spotlights Carousel */}
-        <FeaturedCarousel
-          posts={mockPosts.slice(0, 4)}
-          onSelectPost={(post) => setActivePost(post)}
-        />
-
-        {/* Interactive Filter Bar */}
-        <FilterBar
-          selectedLocation={selectedLocation}
-          selectedCategory={selectedCategory}
-          selectedPriceRange={selectedPriceRange}
-          selectedSort={selectedSort}
-          onLocationChange={setSelectedLocation}
-          onCategoryChange={setSelectedCategory}
-          onPriceRangeChange={setSelectedPriceRange}
-          onSortChange={setSelectedSort}
-        />
-
-        {/* Reviews Grid Header */}
-        <div id="review-grid-section" className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-200/50 pb-3 pt-2">
-          <div className="flex items-center gap-2.5">
-            <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark">
-              Curated Food Discoveries
-            </h2>
-            <span className="bg-brand-primary/10 text-brand-primary font-black text-xs px-2.5 py-0.5 rounded-full">
-              {filteredPosts.length} {filteredPosts.length === 1 ? 'spot' : 'spots'}
+        {/* GROUP 1: 🕒 FRESH & RECENT DISCOVERIES (ALWAYS FRONT & CENTER) */}
+        <section className="flex flex-col gap-5 bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200/60 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-100 pb-4">
+            <div className="flex items-center gap-2.5">
+              <span className="text-2xl">🕒</span>
+              <div>
+                <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark">
+                  Fresh & Recent Discoveries
+                </h2>
+                <p className="text-xs text-zinc-500 font-medium">
+                  Latest reviews ingested directly from our official Telegram & Instagram channels.
+                </p>
+              </div>
+            </div>
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-red-50 text-brand-primary text-xs font-black uppercase tracking-wider border border-red-100/60 self-start sm:self-auto">
+              NEWEST FIRST
             </span>
           </div>
 
-          {(selectedLocation || selectedCategory || selectedPriceRange || searchQuery) && (
-            <button
-              onClick={handleClearFilters}
-              className="text-xs font-bold text-brand-primary hover:underline flex items-center gap-1 cursor-pointer self-start sm:self-auto"
-            >
-              <span>✕ Reset Filters</span>
-            </button>
-          )}
-        </div>
-
-        {/* Empty State */}
-        {filteredPosts.length === 0 ? (
-          <div className="bg-white rounded-3xl p-12 text-center border border-zinc-200/60 shadow-xs flex flex-col items-center gap-4 my-6">
-            <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center text-3xl">
-              🔍
-            </div>
-            <div className="flex flex-col gap-1">
-              <h3 className="font-display font-extrabold text-lg text-brand-dark">No Food Discoveries Found</h3>
-              <p className="text-xs sm:text-sm text-zinc-500 max-w-md font-medium">
-                We couldn't find any reviews matching "{searchQuery || selectedLocation || selectedCategory || selectedPriceRange}". Try clearing your filters or searching another dish.
-              </p>
-            </div>
-            <button
-              onClick={handleClearFilters}
-              className="mt-2 bg-brand-dark hover:bg-brand-primary text-white font-bold text-xs py-2.5 px-6 rounded-full transition-colors cursor-pointer"
-            >
-              Show All Reviews
-            </button>
-          </div>
-        ) : (
-          /* Paginated Review Grid */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {visiblePosts.map((post) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {recentPosts.map((post) => (
               <ReviewCard
                 key={post.id}
                 post={post}
@@ -304,30 +271,123 @@ export default function Home() {
               />
             ))}
           </div>
-        )}
+        </section>
 
-        {/* Load More Pagination Button (SRS v4.0 FR-5.1) */}
-        {visibleCount < filteredPosts.length && (
-          <div className="flex justify-center pt-4 pb-6">
-            <button
-              onClick={handleLoadMore}
-              disabled={isLoadingMore}
-              className="bg-brand-dark hover:bg-brand-primary text-white font-extrabold text-xs sm:text-sm py-3.5 px-10 rounded-2xl transition-all duration-200 shadow-md hover:shadow-lg hover:scale-102 flex items-center gap-2 cursor-pointer disabled:opacity-50"
-            >
-              {isLoadingMore ? (
-                <>
-                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Loading Discoveries...</span>
-                </>
-              ) : (
-                <span>LOAD MORE REVIEWS ({filteredPosts.length - visibleCount} REMAINING)</span>
-              )}
-            </button>
+        {/* GROUP 2: 🔥 POPULAR & TOP-RATED SPOTS */}
+        <section className="flex flex-col gap-5">
+          <div className="flex items-center justify-between border-b border-zinc-200/50 pb-3">
+            <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark flex items-center gap-2">
+              <span>🔥</span>
+              <span>Popular & Top Rated Spots</span>
+            </h2>
+            <span className="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/60">
+              ⭐ Highly Requested
+            </span>
           </div>
-        )}
+
+          <FeaturedCarousel
+            posts={popularPosts}
+            onSelectPost={(post) => setActivePost(post)}
+          />
+        </section>
+
+        {/* GROUP 3: 🏷️ INTERACTIVE DISCOVERY & PRICE ARCHIVE */}
+        <section id="archive-section" className="flex flex-col gap-6 pt-4">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🏷️</span>
+              <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark">
+                Search & Filter Review Archive
+              </h2>
+            </div>
+            <p className="text-xs text-zinc-500 font-medium">
+              Filter by neighborhood (Bole, Kazanchis, Piassa, Sarbet), price ranges in ETB, or category.
+            </p>
+          </div>
+
+          {/* Interactive Filter Bar */}
+          <FilterBar
+            selectedLocation={selectedLocation}
+            selectedCategory={selectedCategory}
+            selectedPriceRange={selectedPriceRange}
+            selectedSort={selectedSort}
+            onLocationChange={setSelectedLocation}
+            onCategoryChange={setSelectedCategory}
+            onPriceRangeChange={setSelectedPriceRange}
+            onSortChange={setSelectedSort}
+          />
+
+          {/* Archive Grid Header */}
+          <div className="flex items-center justify-between border-b border-zinc-200/50 pb-3">
+            <span className="bg-brand-primary/10 text-brand-primary font-black text-xs px-3 py-1 rounded-full">
+              Showing {filteredPosts.length} {filteredPosts.length === 1 ? 'spot' : 'spots'}
+            </span>
+
+            {(selectedLocation || selectedCategory || selectedPriceRange || searchQuery) && (
+              <button
+                onClick={handleClearFilters}
+                className="text-xs font-bold text-brand-primary hover:underline flex items-center gap-1 cursor-pointer"
+              >
+                <span>✕ Reset Filters</span>
+              </button>
+            )}
+          </div>
+
+          {/* Empty State */}
+          {filteredPosts.length === 0 ? (
+            <div className="bg-white rounded-3xl p-12 text-center border border-zinc-200/60 shadow-xs flex flex-col items-center gap-4 my-4">
+              <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center text-3xl">
+                🔍
+              </div>
+              <div className="flex flex-col gap-1">
+                <h3 className="font-display font-extrabold text-lg text-brand-dark">No Food Discoveries Found</h3>
+                <p className="text-xs sm:text-sm text-zinc-500 max-w-md font-medium">
+                  We couldn't find any reviews matching your criteria. Try clearing your filters or searching another dish.
+                </p>
+              </div>
+              <button
+                onClick={handleClearFilters}
+                className="mt-2 bg-brand-dark hover:bg-brand-primary text-white font-bold text-xs py-2.5 px-6 rounded-full transition-colors cursor-pointer"
+              >
+                Show All Reviews
+              </button>
+            </div>
+          ) : (
+            /* Paginated Review Grid */
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {visiblePosts.map((post) => (
+                <ReviewCard
+                  key={post.id}
+                  post={post}
+                  onClick={() => setActivePost(post)}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Load More Pagination Button */}
+          {visibleCount < filteredPosts.length && (
+            <div className="flex justify-center pt-4 pb-6">
+              <button
+                onClick={handleLoadMore}
+                disabled={isLoadingMore}
+                className="bg-brand-dark hover:bg-brand-primary text-white font-extrabold text-xs sm:text-sm py-3.5 px-10 rounded-2xl transition-all duration-200 shadow-md hover:shadow-lg hover:scale-102 flex items-center gap-2 cursor-pointer disabled:opacity-50"
+              >
+                {isLoadingMore ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Loading Discoveries...</span>
+                  </>
+                ) : (
+                  <span>LOAD MORE REVIEWS ({filteredPosts.length - visibleCount} REMAINING)</span>
+                )}
+              </button>
+            </div>
+          )}
+        </section>
 
         {/* Commercial Promotion Callout Footer Banner */}
-        <div className="bg-gradient-to-r from-brand-dark to-zinc-900 text-white rounded-3xl p-8 sm:p-10 border border-zinc-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 my-4">
+        <div className="bg-gradient-to-r from-brand-dark to-zinc-900 text-white rounded-3xl p-8 sm:p-10 border border-zinc-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 my-2">
           <div className="flex flex-col gap-2 text-center md:text-left">
             <span className="text-amber-400 font-extrabold text-xs uppercase tracking-widest">
               📢 Commercial Promotion Engine
@@ -341,12 +401,10 @@ export default function Home() {
           </div>
 
           <a
-            href="https://t.me/addisfoodies_admin"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/collaborate"
             className="bg-brand-primary hover:bg-[#8B1717] text-white font-black text-xs sm:text-sm py-3.5 px-8 rounded-full transition-all shadow-md hover:scale-105 flex-shrink-0 cursor-pointer"
           >
-            DM FOR PROMOTION ↗
+            WORK WITH US ↗
           </a>
         </div>
 
