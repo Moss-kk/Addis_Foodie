@@ -7,6 +7,33 @@ import Link from 'next/link';
 export default function Header() {
   const [showAbout, setShowAbout] = useState(false);
   const [showPromo, setShowPromo] = useState(false);
+  const [businessName, setBusinessName] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
+  const [promoType, setPromoType] = useState('Video Review');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmitInquiry = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!businessName || !contactPhone) return;
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch('/api/promotion', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ businessName, contactPhone, promoType, message }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      }
+    } catch (err) {
+      console.error('Failed to submit promotion request', err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 h-16 border-b border-zinc-200/50 glass-panel flex items-center justify-between px-4 sm:px-6 shadow-2xs transition-all duration-300">
@@ -48,8 +75,11 @@ export default function Header() {
 
         {/* Promote Spot CTA Button */}
         <button
-          onClick={() => setShowPromo(true)}
-          className="bg-gradient-to-r from-brand-primary to-rose-700 hover:from-[#8B1717] hover:to-brand-primary text-white font-extrabold text-xs py-1.5 px-3.5 sm:px-4 rounded-full transition-all duration-200 shadow-xs hover:shadow-md hover:scale-102 flex items-center gap-1.5 cursor-pointer"
+          onClick={() => {
+            setSubmitted(false);
+            setShowPromo(true);
+          }}
+          className="bg-gradient-to-r from-[#A81D1D] to-rose-700 hover:from-[#8B1717] hover:to-[#A81D1D] text-white font-extrabold text-xs py-1.5 px-3.5 sm:px-4 rounded-full transition-all duration-200 shadow-xs hover:shadow-md hover:scale-102 flex items-center gap-1.5 cursor-pointer"
         >
           <span>🚀 Promote Spot</span>
         </button>
@@ -59,7 +89,7 @@ export default function Header() {
           {/* About Button */}
           <button
             onClick={() => setShowAbout(true)}
-            className="p-2 text-zinc-500 hover:text-brand-primary hover:bg-zinc-100 rounded-full transition-colors duration-200 cursor-pointer"
+            className="p-2 text-zinc-500 hover:text-[#A81D1D] hover:bg-zinc-100 rounded-full transition-colors duration-200 cursor-pointer"
             title="About Addis Foodies"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -101,16 +131,16 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Promote Spot Dialog Modal */}
+      {/* Promote Spot Dialog / Collaboration Modal */}
       {showPromo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             onClick={() => setShowPromo(false)}
             className="absolute inset-0 bg-black/65 backdrop-blur-xs transition-opacity duration-300"
           />
-          <div className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl z-10 border border-zinc-200 flex flex-col gap-5 animate-slide-up">
+          <div className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-7 shadow-2xl z-10 border border-zinc-200 flex flex-col gap-4 animate-slide-up">
             <div className="flex items-center justify-between">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl font-black">
+              <div className="w-11 h-11 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-black">
                 📢
               </div>
               <button
@@ -123,36 +153,92 @@ export default function Header() {
               </button>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <h3 className="font-display font-black text-xl text-brand-dark">Promote Your Restaurant</h3>
-              <p className="text-xs sm:text-sm text-zinc-600 font-medium leading-relaxed">
-                Want your venue featured on Addis Foodies? We reach over 150,000+ hungry food lovers across Addis Ababa every single month.
+            <div className="flex flex-col gap-1">
+              <h3 className="font-display font-black text-xl text-[#111827]">Promote Your Restaurant</h3>
+              <p className="text-xs text-zinc-600 font-medium leading-relaxed">
+                Reach 150,000+ food lovers in Addis Ababa. Submit your details or DM us directly.
               </p>
             </div>
 
-            <div className="bg-zinc-50 p-4 rounded-2xl border border-zinc-200/60 flex flex-col gap-2.5">
-              <div className="flex items-center justify-between text-xs font-bold text-zinc-700">
-                <span>📱 Telegram Inquiries:</span>
-                <a href="https://t.me/addisfoodies_admin" target="_blank" rel="noopener noreferrer" className="text-brand-primary hover:underline font-mono">
-                  @addisfoodies_admin
-                </a>
+            {submitted ? (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-center flex flex-col gap-2">
+                <span className="text-2xl">✅</span>
+                <h4 className="font-display font-extrabold text-sm text-emerald-900">Request Submitted!</h4>
+                <p className="text-xs text-emerald-700">The Addis Foodies team will contact you at {contactPhone} within 24 hours.</p>
+                <button
+                  onClick={() => setShowPromo(false)}
+                  className="mt-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 rounded-xl text-xs"
+                >
+                  Done
+                </button>
               </div>
-              <div className="flex items-center justify-between text-xs font-bold text-zinc-700 border-t border-zinc-200/40 pt-2">
-                <span>📞 Hotline:</span>
-                <a href="tel:0966550000" className="text-brand-primary hover:underline font-mono">
-                  0966-55-00-00
-                </a>
-              </div>
-            </div>
+            ) : (
+              <form onSubmit={handleSubmitInquiry} className="flex flex-col gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider mb-1">Business / Venue Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={businessName}
+                    onChange={(e) => setBusinessName(e.target.value)}
+                    placeholder="e.g. Yado Kitfo"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-zinc-300 focus:outline-none focus:border-[#A81D1D]"
+                  />
+                </div>
 
-            <a
-              href="https://t.me/addisfoodies_admin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full bg-brand-primary hover:bg-[#8B1717] text-white font-bold py-3 px-4 rounded-xl text-xs sm:text-sm text-center transition-all duration-200 shadow-md flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <span>Send Direct Message on Telegram ↗</span>
-            </a>
+                <div>
+                  <label className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider mb-1">Contact Phone</label>
+                  <input
+                    type="tel"
+                    required
+                    value={contactPhone}
+                    onChange={(e) => setContactPhone(e.target.value)}
+                    placeholder="0911234567"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-zinc-300 focus:outline-none focus:border-[#A81D1D]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider mb-1">Promotion Type</label>
+                  <select
+                    value={promoType}
+                    onChange={(e) => setPromoType(e.target.value)}
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-zinc-300 focus:outline-none focus:border-[#A81D1D]"
+                  >
+                    <option value="Video Review">Video Review Coverage</option>
+                    <option value="Festival Slot">Kitfo Fest / Event Stall</option>
+                    <option value="Banner Slot">Homepage Banner Sponsorship</option>
+                    <option value="Photography">Food Photography & Reels</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-zinc-700 uppercase tracking-wider mb-1">Notes (Optional)</label>
+                  <textarea
+                    rows={2}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Special requests or target launch date..."
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-zinc-300 focus:outline-none focus:border-[#A81D1D]"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#A81D1D] hover:bg-[#8B1717] text-white font-bold py-2.5 rounded-xl text-xs sm:text-sm text-center transition-all duration-200 shadow-md cursor-pointer disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Submitting Request...' : 'Submit Collaboration Request'}
+                </button>
+              </form>
+            )}
+
+            <div className="border-t border-zinc-200 pt-3 flex items-center justify-between text-xs">
+              <span className="font-bold text-zinc-600">Telegram Direct:</span>
+              <a href="https://t.me/addisfoodies_admin" target="_blank" rel="noopener noreferrer" className="text-[#A81D1D] hover:underline font-mono font-bold">
+                @addisfoodies_admin
+              </a>
+            </div>
           </div>
         </div>
       )}
@@ -165,7 +251,7 @@ export default function Header() {
             className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
           />
           <div className="relative w-full max-w-sm bg-white rounded-3xl p-6 shadow-2xl z-10 border border-zinc-200 flex flex-col gap-4 animate-slide-up">
-            <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-brand-primary">
+            <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-[#A81D1D]">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 111.083.984l-.04.02-1.083-.984zm.67-4.2a.75.75 0 100-1.5.75.75 0 000 1.5zM22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.201 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12z" />
               </svg>
@@ -178,7 +264,7 @@ export default function Header() {
             </div>
             <button
               onClick={() => setShowAbout(false)}
-              className="w-full bg-brand-dark hover:bg-brand-primary text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-colors duration-200 cursor-pointer"
+              className="w-full bg-[#111827] hover:bg-[#A81D1D] text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-colors duration-200 cursor-pointer"
             >
               Close
             </button>

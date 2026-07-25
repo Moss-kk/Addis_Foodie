@@ -1,0 +1,66 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum EventStatus {
+  UPCOMING
+  LIVE_TODAY
+  COMPLETED
+}
+
+model Review {
+  id            String   @id @default(cuid())
+  title         String
+  venueName     String
+  venueSlug     String
+  venueHandle   String?
+  neighborhood  String
+  landmark      String
+  category      String
+  priceEtb      Float
+  menuItems     Json     // Array of [{ dish: string, price: number }]
+  caption       String
+  images        String[]
+  sourceChannel String   @default("TELEGRAM") // "TELEGRAM" | "INSTAGRAM"
+  sourceUrl     String?
+  postedAt      DateTime @default(now())
+  createdAt     DateTime @default(now())
+
+  @@index([neighborhood])
+  @@index([category])
+  @@index([venueSlug])
+  @@index([priceEtb])
+}
+
+model Event {
+  id             String      @id @default(cuid())
+  title          String      // e.g. "KITFO FEST #5"
+  slug           String      @unique
+  status         EventStatus @default(UPCOMING)
+  gregorianDates String      // e.g. "Sep 30 and Oct 01"
+  ethiopianDates String?     // e.g. "Meskerem 19 & 20"
+  timeRange      String      // e.g. "11:00 AM till 11:00 PM"
+  locationName   String      // e.g. "Monarch Hotel Roof Top"
+  landmark       String      // e.g. "Piassa, Around Tewdros Square"
+  offeringTags   String[]    // ["Kitfo", "Tibs", "Areke", "Tej"]
+  activities     String[]    // ["Guragyna Dancers", "Masinko", "Games", "DJs"]
+  entranceFee    String      @default("Free")
+  phones         String[]    // ["0966550000", "0911239270"]
+  posterImage    String
+  createdAt      DateTime    @default(now())
+}
+
+model PromotionInquiry {
+  id           String   @id @default(cuid())
+  businessName String
+  contactPhone String
+  promoType    String   // "Video Review", "Festival Slot", "Banner Slot", "Photography"
+  message      String?
+  status       String   @default("PENDING") // "PENDING" | "CONTACTED" | "COMPLETED"
+  createdAt    DateTime @default(now())
+}

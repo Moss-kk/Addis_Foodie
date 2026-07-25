@@ -1,3 +1,8 @@
+export interface MenuItem {
+  name: string;
+  price: number;
+}
+
 export interface FoodPost {
   id: string;
   restaurantName: string;
@@ -12,6 +17,33 @@ export interface FoodPost {
   category: 'Traditional' | 'Burgers' | 'Coffee' | 'Fasting';
   timestamp: string;
   originalPostUrl: string;
-  menuItems?: { name: string; price: number }[]; // for the detail breakdown table
+  menuItems?: MenuItem[]; // for the detail breakdown table
   mapUrl?: string; // for the Open in Maps button
+}
+
+export type EventStatus = 'UPCOMING' | 'LIVE_TODAY' | 'COMPLETED';
+
+export interface CulinaryEvent {
+  id: string;
+  title: string;
+  slug: string;
+  status: EventStatus;
+  gregorianDates: string;
+  ethiopianDates?: string;
+  timeRange: string;
+  locationName: string;
+  landmark: string;
+  offeringTags: string[];
+  activities: string[];
+  entranceFee: string;
+  phones: string[];
+  posterImage: string;
+  createdAt: string;
+}
+
+export interface PromotionInquiryPayload {
+  businessName: string;
+  contactPhone: string;
+  promoType: 'Video Review' | 'Festival Slot' | 'Banner Slot' | 'Photography';
+  message?: string;
 }

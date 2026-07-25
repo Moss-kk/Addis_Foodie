@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Header from '../../../components/Header';
 import RestaurantReviewGrid from '../../../components/RestaurantReviewGrid';
 import { getRestaurantBySlug, getAllRestaurantSlugs } from '../../../lib/restaurants';
+import { ReviewJsonLd } from '../../../components/JsonLd';
 
 export async function generateStaticParams() {
   return getAllRestaurantSlugs();
@@ -22,8 +23,13 @@ export default async function RestaurantPage({ params }: PageProps) {
     notFound();
   }
 
+  const primaryPost = restaurant.posts[0];
+
   return (
     <div className="flex flex-col min-h-screen bg-brand-bg text-brand-dark selection:bg-brand-primary/10 selection:text-brand-primary">
+      {/* Schema.org JSON-LD Structured Data */}
+      {primaryPost && <ReviewJsonLd post={primaryPost} />}
+
       {/* Sticky Header */}
       <Header />
 
