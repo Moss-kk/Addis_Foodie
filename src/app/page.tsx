@@ -102,6 +102,11 @@ export default function Home() {
     }, 250);
   };
 
+  const scrollToGrid = () => {
+    const el = document.getElementById('review-grid-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-brand-bg text-brand-dark selection:bg-brand-primary/10 selection:text-brand-primary">
       {/* Sticky Glass Header */}
@@ -113,23 +118,57 @@ export default function Home() {
         {/* Real-time Festival & Event Banner */}
         <EventBanner />
 
-        {/* High-Impact Animated Hero Section */}
+        {/* High-Impact Animated Hero Section (FR-1.1 Alignment) */}
         <div className="bg-gradient-to-r from-[#111827] via-[#8B1717] to-[#A81D1D] text-white py-12 px-8 sm:px-14 rounded-3xl flex flex-col gap-7 shadow-2xl relative overflow-hidden group">
-          {/* Subtle glowing lights & vector grid */}
+          {/* Subtle glowing lights */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none" />
           <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl transform group-hover:scale-110 transition-transform duration-700 pointer-events-none" />
 
-          {/* Hero Headline & Subtitle */}
+          {/* Hero Headline & Subtitle (SRS v4.0 FR-1.1) */}
           <div className="flex flex-col gap-3 relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 w-fit text-[11px] font-black uppercase tracking-widest text-amber-400 backdrop-blur-md">
-              ✨ Addis Ababa's Culinary Pulse
+              ✨ Official Addis Foodies Web Portal
             </div>
             <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight">
-              Discover the Best Food in Addis Ababa
+              Discover trusted restaurant reviews by Addis Foodies.
             </h1>
             <p className="text-white/85 font-semibold text-xs sm:text-base leading-relaxed">
-              Auto-updated reviews straight from our official Instagram & Telegram channels — 0 login, 100% foodie culture.
+              Curated dining recommendations, exact menu pricing in ETB, and live event portals across Bole, Kazanchis, Piassa, and Sarbet — 100% zero-login discovery.
             </p>
+
+            {/* Prominent Action Buttons (SRS v4.0 FR-1.1) */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <button
+                onClick={scrollToGrid}
+                className="bg-amber-500 hover:bg-amber-400 text-brand-dark font-extrabold text-xs sm:text-sm py-2.5 px-5 rounded-full shadow-md transition-all cursor-pointer"
+              >
+                🔍 Explore Reviews
+              </button>
+              <a
+                href="https://t.me/addisfoodies_admin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm py-2.5 px-5 rounded-full border border-white/20 backdrop-blur-xs transition-all cursor-pointer"
+              >
+                🤝 Work With Addis Foodies
+              </a>
+              <a
+                href="https://t.me/addisfoodies_admin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm py-2.5 px-5 rounded-full border border-white/20 backdrop-blur-xs transition-all cursor-pointer"
+              >
+                📝 Request a Review
+              </a>
+              <a
+                href="https://t.me/addisfoodies"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/80 hover:text-white font-bold text-xs underline sm:text-sm transition-colors cursor-pointer"
+              >
+                ✈️ Telegram Channel
+              </a>
+            </div>
           </div>
 
           {/* Prominent Search Bar */}
@@ -198,11 +237,11 @@ export default function Home() {
 
         {/* Weekly Spotlights Carousel */}
         <FeaturedCarousel
-          posts={mockPosts}
+          posts={mockPosts.slice(0, 4)}
           onSelectPost={(post) => setActivePost(post)}
         />
 
-        {/* Sticky Filter Bar */}
+        {/* Interactive Filter Bar */}
         <FilterBar
           selectedLocation={selectedLocation}
           selectedCategory={selectedCategory}
@@ -214,95 +253,106 @@ export default function Home() {
           onSortChange={setSelectedSort}
         />
 
-        {/* Status Count / Active Filters Info */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm text-zinc-500 font-semibold border-b border-zinc-200/50 pb-3">
-          <div>
-            {filteredPosts.length === mockPosts.length ? (
-              <span>Showing {visiblePosts.length} of {mockPosts.length} reviews</span>
-            ) : (
-              <span>
-                Found {filteredPosts.length} {filteredPosts.length === 1 ? 'review' : 'reviews'}{' '}
-                {(selectedLocation || selectedCategory || selectedPriceRange || searchQuery) && 'matching filters'}
-                {filteredPosts.length > visiblePosts.length && ` (showing ${visiblePosts.length})`}
-              </span>
-            )}
+        {/* Reviews Grid Header */}
+        <div id="review-grid-section" className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-200/50 pb-3 pt-2">
+          <div className="flex items-center gap-2.5">
+            <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark">
+              Curated Food Discoveries
+            </h2>
+            <span className="bg-brand-primary/10 text-brand-primary font-black text-xs px-2.5 py-0.5 rounded-full">
+              {filteredPosts.length} {filteredPosts.length === 1 ? 'spot' : 'spots'}
+            </span>
           </div>
-          {(selectedLocation || selectedCategory || selectedPriceRange || searchQuery || selectedSort !== 'newest') && (
+
+          {(selectedLocation || selectedCategory || selectedPriceRange || searchQuery) && (
             <button
               onClick={handleClearFilters}
-              className="text-brand-primary hover:underline self-start sm:self-auto cursor-pointer font-bold"
+              className="text-xs font-bold text-brand-primary hover:underline flex items-center gap-1 cursor-pointer self-start sm:self-auto"
             >
-              Reset all filters
+              <span>✕ Reset Filters</span>
             </button>
           )}
         </div>
 
-        {/* Review Cards Grid */}
-        {visiblePosts.length > 0 ? (
-          <div className="flex flex-col gap-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {visiblePosts.map((post) => (
-                <ReviewCard
-                  key={post.id}
-                  post={post}
-                  onClick={() => setActivePost(post)}
-                />
-              ))}
-            </div>
-
-            {/* Load More Button */}
-            {visibleCount < filteredPosts.length && (
-              <div className="flex justify-center pt-4 pb-2">
-                <button
-                  onClick={handleLoadMore}
-                  disabled={isLoadingMore}
-                  className="w-full sm:w-auto bg-brand-dark hover:bg-brand-primary text-white font-bold rounded-xl py-3 px-8 transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer text-sm flex items-center justify-center gap-2 group disabled:opacity-75"
-                >
-                  {isLoadingMore ? (
-                    <span className="inline-flex items-center gap-2">
-                      <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Appending Next Batch...
-                    </span>
-                  ) : (
-                    <>
-                      <span>Load More Reviews</span>
-                      <svg className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </>
-                  )}
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          /* Empty State */
-          <div className="flex flex-col items-center justify-center text-center py-16 sm:py-24 px-4 bg-white rounded-3xl border border-zinc-200/50 shadow-2xs gap-4 max-w-lg mx-auto w-full mt-4">
-            <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center text-brand-primary">
-              <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
+        {/* Empty State */}
+        {filteredPosts.length === 0 ? (
+          <div className="bg-white rounded-3xl p-12 text-center border border-zinc-200/60 shadow-xs flex flex-col items-center gap-4 my-6">
+            <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center text-3xl">
+              🔍
             </div>
             <div className="flex flex-col gap-1">
-              <h3 className="font-display font-extrabold text-base sm:text-lg text-brand-dark">No Food Reviews Found</h3>
-              <p className="text-xs sm:text-sm text-zinc-500 max-w-xs leading-relaxed font-medium">
-                We couldn't find any reviews matching your criteria. Try adjusting your search term or selecting another category.
+              <h3 className="font-display font-extrabold text-lg text-brand-dark">No Food Discoveries Found</h3>
+              <p className="text-xs sm:text-sm text-zinc-500 max-w-md font-medium">
+                We couldn't find any reviews matching "{searchQuery || selectedLocation || selectedCategory || selectedPriceRange}". Try clearing your filters or searching another dish.
               </p>
             </div>
             <button
               onClick={handleClearFilters}
-              className="bg-brand-dark hover:bg-brand-primary text-white text-xs font-bold py-2.5 px-6 rounded-xl transition-all duration-200 shadow-xs cursor-pointer"
+              className="mt-2 bg-brand-dark hover:bg-brand-primary text-white font-bold text-xs py-2.5 px-6 rounded-full transition-colors cursor-pointer"
             >
-              Reset All Filters
+              Show All Reviews
+            </button>
+          </div>
+        ) : (
+          /* Paginated Review Grid */
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {visiblePosts.map((post) => (
+              <ReviewCard
+                key={post.id}
+                post={post}
+                onClick={() => setActivePost(post)}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Load More Pagination Button (SRS v4.0 FR-5.1) */}
+        {visibleCount < filteredPosts.length && (
+          <div className="flex justify-center pt-4 pb-6">
+            <button
+              onClick={handleLoadMore}
+              disabled={isLoadingMore}
+              className="bg-brand-dark hover:bg-brand-primary text-white font-extrabold text-xs sm:text-sm py-3.5 px-10 rounded-2xl transition-all duration-200 shadow-md hover:shadow-lg hover:scale-102 flex items-center gap-2 cursor-pointer disabled:opacity-50"
+            >
+              {isLoadingMore ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Loading Discoveries...</span>
+                </>
+              ) : (
+                <span>LOAD MORE REVIEWS ({filteredPosts.length - visibleCount} REMAINING)</span>
+              )}
             </button>
           </div>
         )}
+
+        {/* Commercial Promotion Callout Footer Banner */}
+        <div className="bg-gradient-to-r from-brand-dark to-zinc-900 text-white rounded-3xl p-8 sm:p-10 border border-zinc-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 my-4">
+          <div className="flex flex-col gap-2 text-center md:text-left">
+            <span className="text-amber-400 font-extrabold text-xs uppercase tracking-widest">
+              📢 Commercial Promotion Engine
+            </span>
+            <h3 className="font-display font-black text-2xl sm:text-3xl">
+              Want Your Restaurant Featured on Addis Foodies?
+            </h3>
+            <p className="text-xs sm:text-sm text-zinc-400 max-w-xl font-medium">
+              We reach 150,000+ local food lovers every month across Instagram, Telegram, and Web. Request video reviews, menu showcases, or event coverage.
+            </p>
+          </div>
+
+          <a
+            href="https://t.me/addisfoodies_admin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-brand-primary hover:bg-[#8B1717] text-white font-black text-xs sm:text-sm py-3.5 px-8 rounded-full transition-all shadow-md hover:scale-105 flex-shrink-0 cursor-pointer"
+          >
+            DM FOR PROMOTION ↗
+          </a>
+        </div>
+
       </main>
 
-      {/* In-App Slide-Over / Centered Detail Modal */}
+      {/* Post Detail Drawer / Modal */}
       {activePost && (
         <PostDetailModal
           post={activePost}
@@ -310,34 +360,20 @@ export default function Home() {
         />
       )}
 
-      {/* Ultra-Sleek Modern Footer */}
-      <footer className="border-t border-zinc-200/60 bg-white py-12 px-6 mt-16">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-          <div className="flex flex-col gap-1">
-            <div className="flex items-baseline justify-center md:justify-start gap-1">
-              <span className="font-display font-black text-lg text-brand-dark">Addis</span>
-              <span className="font-display font-black text-lg text-brand-primary">Foodies</span>
-            </div>
-            <p className="text-xs font-medium text-zinc-500 max-w-sm">
-              Addis Ababa's premiere visual food discovery engine — zero login, live social sync, real prices.
-            </p>
+      {/* Global Footer */}
+      <footer className="border-t border-zinc-200/50 bg-white/50 py-8 text-center mt-12">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span className="font-display font-black text-sm text-brand-dark">Addis Foodies</span>
+            <span className="text-xs text-zinc-400 font-semibold">• Official Platform v4.0</span>
           </div>
-
-          <div className="flex flex-wrap justify-center gap-6 text-xs font-bold text-zinc-600">
-            <a href="https://t.me/addisfoodies" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">
-              Telegram Channel
-            </a>
-            <a href="https://instagram.com/addisfoodies" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary transition-colors">
-              Instagram Feed
-            </a>
-            <a href="tel:0966550000" className="hover:text-brand-primary transition-colors font-mono">
-              Hotline: 0966-55-00-00
-            </a>
-          </div>
-
-          <p className="text-[11px] text-zinc-400 font-semibold uppercase tracking-wider font-sans">
-            Addis Foodies © 2026 • Discovering Foods in Addis
+          <p className="text-[10px] sm:text-xs text-zinc-500 font-semibold tracking-wide uppercase">
+            Discovering Foods in Addis Ababa, Ethiopia © 2026
           </p>
+          <div className="flex items-center gap-4 text-xs font-bold text-zinc-600">
+            <a href="https://t.me/addisfoodies" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary">Telegram</a>
+            <a href="https://instagram.com/addisfoodies" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary">Instagram</a>
+          </div>
         </div>
       </footer>
     </div>

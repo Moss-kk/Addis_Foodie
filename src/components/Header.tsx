@@ -61,9 +61,17 @@ export default function Header() {
       </Link>
 
       {/* Center Actions / Live Syncing badge */}
-      <div className="flex items-center gap-3 sm:gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
+        {/* Navigation Links */}
+        <Link
+          href="/events"
+          className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 text-xs font-extrabold transition-all cursor-pointer"
+        >
+          <span>🎪 Events & Fests</span>
+        </Link>
+
         {/* Live Syncing Indicator */}
-        <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50/90 border border-emerald-200/60 shadow-2xs">
+        <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50/90 border border-emerald-200/60 shadow-2xs">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -85,7 +93,7 @@ export default function Header() {
         </button>
 
         {/* Info & Socials Group */}
-        <div className="flex items-center gap-1 sm:gap-2 border-l border-zinc-200 pl-3">
+        <div className="flex items-center gap-1 sm:gap-2 border-l border-zinc-200 pl-2 sm:pl-3">
           {/* About Button */}
           <button
             onClick={() => setShowAbout(true)}
