@@ -1,12 +1,16 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import Header from '../components/Header';
 import EventBanner from '../components/EventBanner';
 import FeaturedCarousel from '../components/FeaturedCarousel';
 import FilterBar from '../components/FilterBar';
 import ReviewCard from '../components/ReviewCard';
 import PostDetailModal from '../components/PostDetailModal';
+import AiCravingFinder from '../components/AiCravingFinder';
+import Footer from '../components/Footer';
 import { mockPosts } from '../data/mockPosts';
 import { FoodPost } from '../types/post';
 
@@ -28,33 +32,33 @@ export default function Home() {
     setVisibleCount(9);
   }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
 
-  // Group 1: Fresh & Recent Ingested Posts (Sorted strictly newest-first)
-  const recentPosts = useMemo(() => {
+  // Group 1: Featured This Week
+  const featuredPosts = useMemo(() => {
+    return mockPosts.slice(0, 4);
+  }, []);
+
+  // Group 2: Trending & Popular Reviews
+  const trendingPosts = useMemo(() => {
+    return mockPosts.slice(2, 5);
+  }, []);
+
+  // Group 3: Latest Ingested Reviews (Sorted newest-first)
+  const latestPosts = useMemo(() => {
     return [...mockPosts]
       .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
       .slice(0, 3);
   }, []);
 
-  // Group 2: Popular & Top Rated Spots
-  const popularPosts = useMemo(() => {
-    return mockPosts.slice(2, 5);
-  }, []);
-
-  // Group 3: Filtered & Sorted Archive Posts
+  // Group 4: Filtered & Sorted Archive Posts
   const filteredPosts = useMemo(() => {
     return mockPosts
       .filter((post) => {
-        // Location filter (matches neighborhood property)
         if (selectedLocation && post.neighborhood !== selectedLocation) {
           return false;
         }
-
-        // Category filter
         if (selectedCategory && post.category !== selectedCategory) {
           return false;
         }
-
-        // Price Range filter
         if (selectedPriceRange) {
           if (selectedPriceRange === 'under-300' && post.price >= 300) {
             return false;
@@ -66,8 +70,6 @@ export default function Home() {
             return false;
           }
         }
-
-        // Search query filter
         if (searchQuery.trim() !== '') {
           const query = searchQuery.toLowerCase().trim();
           const matchRestaurant = post.restaurantName.toLowerCase().includes(query);
@@ -79,7 +81,6 @@ export default function Home() {
             return false;
           }
         }
-
         return true;
       })
       .sort((a, b) => {
@@ -89,7 +90,6 @@ export default function Home() {
         if (selectedSort === 'price-desc') {
           return b.price - a.price;
         }
-        // Default: newest first
         return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
       });
   }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
@@ -114,6 +114,16 @@ export default function Home() {
     }, 250);
   };
 
+  const handleAiPrompt = (query: string, cat?: string, loc?: string, price?: string) => {
+    if (query) setSearchQuery(query);
+    if (cat) setSelectedCategory(cat);
+    if (loc) setSelectedLocation(loc);
+    if (price) setSelectedPriceRange(price);
+
+    const el = document.getElementById('archive-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const scrollToGrid = () => {
     const el = document.getElementById('archive-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -121,61 +131,47 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-brand-bg text-brand-dark selection:bg-brand-primary/10 selection:text-brand-primary">
-      {/* Sticky Glass Header */}
+      {/* SECTION 1: HEADER & NAVIGATION */}
       <Header />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col gap-10">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col gap-12">
         
-        {/* Real-time Festival & Event Banner */}
+        {/* Real-time Festival Banner */}
         <EventBanner />
 
-        {/* High-Impact Hero Section */}
-        <div className="bg-gradient-to-r from-[#111827] via-[#8B1717] to-[#A81D1D] text-white py-12 px-8 sm:px-14 rounded-3xl flex flex-col gap-7 shadow-2xl relative overflow-hidden group">
-          {/* Subtle glowing lights */}
+        {/* SECTION 2: HERO SECTION (PRODUCT POSITIONING OVERHAUL) */}
+        <div className="bg-gradient-to-r from-[#111827] via-[#8B1717] to-[#A81D1D] text-white py-14 px-8 sm:px-14 rounded-3xl flex flex-col gap-8 shadow-2xl relative overflow-hidden group">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl transform group-hover:scale-110 transition-transform duration-700 pointer-events-none" />
+          <div className="absolute -bottom-10 -right-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl transform group-hover:scale-110 transition-transform duration-700 pointer-events-none" />
 
-          {/* Hero Headline & Subtitle */}
-          <div className="flex flex-col gap-3 relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 w-fit text-[11px] font-black uppercase tracking-widest text-amber-400 backdrop-blur-md">
-              ✨ Official Addis Foodies Web Portal
+          {/* Hero Content */}
+          <div className="flex flex-col gap-4 relative z-10 max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 w-fit text-[11px] font-black uppercase tracking-widest text-amber-400 backdrop-blur-md">
+              ✨ The Official Digital Home of Addis Foodies
             </div>
-            <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight">
-              Discover trusted restaurant reviews by Addis Foodies.
+
+            <h1 className="font-display font-black text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-tight text-white">
+              Discover Addis Ababa One Bite at a Time
             </h1>
-            <p className="text-white/85 font-semibold text-xs sm:text-base leading-relaxed">
-              Curated dining recommendations, exact menu pricing in ETB, and live event portals across Bole, Kazanchis, Piassa, and Sarbet — 100% zero-login discovery.
+
+            <p className="text-white/90 font-semibold text-sm sm:text-lg leading-relaxed max-w-2xl">
+              Trusted restaurant reviews, hidden gems, food festivals, and culinary experiences curated by Addis Foodies.
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-3">
               <button
                 onClick={scrollToGrid}
-                className="bg-amber-500 hover:bg-amber-400 text-brand-dark font-extrabold text-xs sm:text-sm py-2.5 px-5 rounded-full shadow-md transition-all cursor-pointer"
+                className="bg-amber-500 hover:bg-amber-400 text-brand-dark font-black text-xs sm:text-sm py-3 px-6 rounded-full shadow-lg transition-all cursor-pointer hover:scale-102"
               >
                 🔍 Explore Reviews
               </button>
-              <a
+              <Link
                 href="/collaborate"
-                className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm py-2.5 px-5 rounded-full border border-white/20 backdrop-blur-xs transition-all cursor-pointer"
+                className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm py-3 px-6 rounded-full border border-white/20 backdrop-blur-xs transition-all cursor-pointer"
               >
                 🤝 Work With Addis Foodies
-              </a>
-              <a
-                href="/collaborate"
-                className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm py-2.5 px-5 rounded-full border border-white/20 backdrop-blur-xs transition-all cursor-pointer"
-              >
-                📝 Request a Review
-              </a>
-              <a
-                href="https://t.me/addisfoodies"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/80 hover:text-white font-bold text-xs underline sm:text-sm transition-colors cursor-pointer"
-              >
-                ✈️ Telegram Channel
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -223,47 +219,68 @@ export default function Home() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/80 border-t border-white/10 pt-4 z-10">
             <div className="flex items-center gap-1.5">
               <span>🔥</span>
-              <span>950+ Reviews Ingested</span>
+              <span>150,000+ Monthly Foodies</span>
             </div>
             <span className="hidden sm:inline text-white/20">|</span>
             <div className="flex items-center gap-1.5">
               <span>📍</span>
-              <span>320+ Spots Curated</span>
+              <span>320+ Curated Spots</span>
             </div>
             <span className="hidden sm:inline text-white/20">|</span>
             <div className="flex items-center gap-1.5">
               <span>🏢</span>
-              <span>4 Major Neighborhoods</span>
+              <span>4 Key Neighborhood Hubs</span>
             </div>
             <span className="hidden sm:inline text-white/20">|</span>
             <div className="flex items-center gap-1.5">
               <span>⚡</span>
-              <span>100% Zero-Login</span>
+              <span>100% Author-Verified Reviews</span>
             </div>
           </div>
         </div>
 
-        {/* GROUP 1: 🕒 FRESH & RECENT DISCOVERIES (ALWAYS FRONT & CENTER) */}
+        {/* SECTION 3: FEATURED THIS WEEK */}
+        <section className="flex flex-col gap-5">
+          <div className="flex items-center justify-between border-b border-zinc-200/50 pb-3">
+            <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark flex items-center gap-2">
+              <span>🌟</span>
+              <span>Featured This Week</span>
+            </h2>
+            <span className="text-xs font-bold text-brand-primary bg-red-50 px-3 py-1 rounded-full border border-red-100">
+              Editorial Spotlights
+            </span>
+          </div>
+
+          <FeaturedCarousel
+            posts={featuredPosts}
+            onSelectPost={(post) => setActivePost(post)}
+          />
+        </section>
+
+        {/* SECTION 4: USEFUL AI CRAVING FINDER */}
+        <AiCravingFinder onSelectPrompt={handleAiPrompt} />
+
+        {/* SECTION 5: LATEST REVIEWS (INGESTED FROM SOCIALS) */}
         <section className="flex flex-col gap-5 bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200/60 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-100 pb-4">
             <div className="flex items-center gap-2.5">
               <span className="text-2xl">🕒</span>
               <div>
                 <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark">
-                  Fresh & Recent Discoveries
+                  Latest Ingested Reviews
                 </h2>
                 <p className="text-xs text-zinc-500 font-medium">
-                  Latest reviews ingested directly from our official Telegram & Instagram channels.
+                  Fresh posts synced directly from official Telegram & Instagram channels.
                 </p>
               </div>
             </div>
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-red-50 text-brand-primary text-xs font-black uppercase tracking-wider border border-red-100/60 self-start sm:self-auto">
-              NEWEST FIRST
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-black uppercase tracking-wider border border-emerald-200 self-start sm:self-auto">
+              LIVE SYNC ACTIVE
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {recentPosts.map((post) => (
+            {latestPosts.map((post) => (
               <ReviewCard
                 key={post.id}
                 post={post}
@@ -273,27 +290,39 @@ export default function Home() {
           </div>
         </section>
 
-        {/* GROUP 2: 🔥 POPULAR & TOP-RATED SPOTS */}
-        <section className="flex flex-col gap-5">
-          <div className="flex items-center justify-between border-b border-zinc-200/50 pb-3">
-            <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark flex items-center gap-2">
-              <span>🔥</span>
-              <span>Popular & Top Rated Spots</span>
-            </h2>
-            <span className="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200/60">
-              ⭐ Highly Requested
-            </span>
+        {/* SECTION 6: POPULAR AREAS HOOK */}
+        <section className="flex flex-col gap-5 bg-gradient-to-r from-brand-dark to-zinc-900 text-white p-8 rounded-3xl shadow-xl">
+          <div className="flex flex-col gap-1">
+            <span className="text-amber-400 font-extrabold text-xs uppercase tracking-widest">Neighborhood Discovery</span>
+            <h2 className="font-display font-black text-2xl text-white">Popular Dining Districts in Addis</h2>
           </div>
 
-          <FeaturedCarousel
-            posts={popularPosts}
-            onSelectPost={(post) => setActivePost(post)}
-          />
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
+            {[
+              { name: 'Bole', desc: 'Gourmet burgers, lounges & cafes', icon: '📍' },
+              { name: 'Kazanchis', desc: 'Espresso roasters & modern dining', icon: '☕' },
+              { name: 'Piassa', desc: 'Traditional kitfo houses & heritage food', icon: '🍖' },
+              { name: 'Sarbet', desc: 'Fasting foods & artisanal bakeries', icon: '🌱' },
+            ].map((area) => (
+              <button
+                key={area.name}
+                onClick={() => {
+                  setSelectedLocation(area.name);
+                  scrollToGrid();
+                }}
+                className="bg-white/10 hover:bg-amber-500 hover:text-brand-dark p-4 rounded-2xl border border-white/15 text-left transition-all cursor-pointer group"
+              >
+                <span className="text-xl block mb-1">{area.icon}</span>
+                <h4 className="font-display font-extrabold text-base text-white group-hover:text-brand-dark">{area.name}</h4>
+                <p className="text-[11px] text-zinc-400 group-hover:text-zinc-900 font-medium">{area.desc}</p>
+              </button>
+            ))}
+          </div>
         </section>
 
-        {/* GROUP 3: 🏷️ INTERACTIVE DISCOVERY & PRICE ARCHIVE */}
-        <section id="archive-section" className="flex flex-col gap-6 pt-4">
-          <div className="flex flex-col gap-2">
+        {/* SECTION 7: INTERACTIVE REVIEWS & PRICE ARCHIVE */}
+        <section id="archive-section" className="flex flex-col gap-6 pt-2">
+          <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
               <span className="text-2xl">🏷️</span>
               <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark">
@@ -301,7 +330,7 @@ export default function Home() {
               </h2>
             </div>
             <p className="text-xs text-zinc-500 font-medium">
-              Filter by neighborhood (Bole, Kazanchis, Piassa, Sarbet), price ranges in ETB, or category.
+              Filter by neighborhood, price ranges in ETB (Under 300 Br / 300–700 Br / 700+ Br), or category.
             </p>
           </div>
 
@@ -386,31 +415,59 @@ export default function Home() {
           )}
         </section>
 
-        {/* Commercial Promotion Callout Footer Banner */}
-        <div className="bg-gradient-to-r from-brand-dark to-zinc-900 text-white rounded-3xl p-8 sm:p-10 border border-zinc-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 my-2">
+        {/* SECTION 8: WHY TRUST ADDIS FOODIES (EDITORIAL PROCESS & IMPACT) */}
+        <section className="bg-white p-8 sm:p-10 rounded-3xl border border-zinc-200/60 shadow-xs flex flex-col gap-6">
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-black text-brand-primary uppercase tracking-widest">Our Editorial Standards</span>
+            <h2 className="font-display font-extrabold text-2xl text-brand-dark">Why Trust Addis Foodies?</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs font-medium text-zinc-600">
+            <div className="bg-zinc-50 p-5 rounded-2xl border border-zinc-200/50 flex flex-col gap-2">
+              <span className="text-xl">🏆</span>
+              <h4 className="font-extrabold text-sm text-brand-dark">100% Curated & Author-Verified</h4>
+              <p>Every review is written strictly by our editorial team. No user spam, no star manipulation.</p>
+            </div>
+
+            <div className="bg-zinc-50 p-5 rounded-2xl border border-zinc-200/50 flex flex-col gap-2">
+              <span className="text-xl">💵</span>
+              <h4 className="font-extrabold text-sm text-brand-dark">Itemized Pricing Transparency</h4>
+              <p>We compile and verify dish pricing in ETB so local foodies have total clarity before visiting.</p>
+            </div>
+
+            <div className="bg-zinc-50 p-5 rounded-2xl border border-zinc-200/50 flex flex-col gap-2">
+              <span className="text-xl">📱</span>
+              <h4 className="font-extrabold text-sm text-brand-dark">Direct Social Flywheel</h4>
+              <p>Deep links to our original Instagram posts and Telegram updates for authentic multi-channel proof.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 9: RESTAURANT COLLABORATION CTA */}
+        <div className="bg-gradient-to-r from-brand-dark via-zinc-900 to-brand-primary text-white rounded-3xl p-8 sm:p-10 border border-zinc-800 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col gap-2 text-center md:text-left">
             <span className="text-amber-400 font-extrabold text-xs uppercase tracking-widest">
-              📢 Commercial Promotion Engine
+              📢 Commercial Collaboration Engine
             </span>
             <h3 className="font-display font-black text-2xl sm:text-3xl">
               Want Your Restaurant Featured on Addis Foodies?
             </h3>
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-xl font-medium">
+            <p className="text-xs sm:text-sm text-zinc-300 max-w-xl font-medium">
               We reach 150,000+ local food lovers every month across Instagram, Telegram, and Web. Request video reviews, menu showcases, or event coverage.
             </p>
           </div>
 
-          <a
+          <Link
             href="/collaborate"
-            className="bg-brand-primary hover:bg-[#8B1717] text-white font-black text-xs sm:text-sm py-3.5 px-8 rounded-full transition-all shadow-md hover:scale-105 flex-shrink-0 cursor-pointer"
+            className="bg-amber-500 hover:bg-amber-400 text-brand-dark font-black text-xs sm:text-sm py-3.5 px-8 rounded-full transition-all shadow-md hover:scale-105 flex-shrink-0 cursor-pointer"
           >
             WORK WITH US ↗
-          </a>
+          </Link>
         </div>
 
       </main>
 
-      {/* Post Detail Drawer / Modal */}
+      {/* Post Detail Modal */}
       {activePost && (
         <PostDetailModal
           post={activePost}
@@ -418,22 +475,8 @@ export default function Home() {
         />
       )}
 
-      {/* Global Footer */}
-      <footer className="border-t border-zinc-200/50 bg-white/50 py-8 text-center mt-12">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-display font-black text-sm text-brand-dark">Addis Foodies</span>
-            <span className="text-xs text-zinc-400 font-semibold">• Official Platform v4.0</span>
-          </div>
-          <p className="text-[10px] sm:text-xs text-zinc-500 font-semibold tracking-wide uppercase">
-            Discovering Foods in Addis Ababa, Ethiopia © 2026
-          </p>
-          <div className="flex items-center gap-4 text-xs font-bold text-zinc-600">
-            <a href="https://t.me/addisfoodies" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary">Telegram</a>
-            <a href="https://instagram.com/addisfoodies" target="_blank" rel="noopener noreferrer" className="hover:text-brand-primary">Instagram</a>
-          </div>
-        </div>
-      </footer>
+      {/* SECTION 10 & 11: MULTI-COLUMN BRAND FOOTER & NEWSLETTER */}
+      <Footer />
     </div>
   );
 }

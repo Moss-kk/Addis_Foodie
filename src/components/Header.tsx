@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Header() {
-  const [showAbout, setShowAbout] = useState(false);
   const [showPromo, setShowPromo] = useState(false);
   const [businessName, setBusinessName] = useState('');
   const [contactPhone, setContactPhone] = useState('');
@@ -13,6 +12,7 @@ export default function Header() {
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [lang, setLang] = useState<'EN' | 'AM'>('EN');
 
   const handleSubmitInquiry = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,10 +38,9 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 h-16 border-b border-zinc-200/50 glass-panel flex items-center justify-between px-3 sm:px-6 shadow-2xs transition-all duration-300">
       
-      {/* Brand Logo Rectangular Block (Redesigned per Design.md) */}
+      {/* Brand Logo Rectangular Block */}
       <Link href="/" className="group">
         <div className="bg-[#111827] border border-[#A81D1D]/40 hover:border-[#A81D1D] rounded-2xl px-3 py-1.5 shadow-md flex items-center gap-2.5 transition-all duration-300 group-hover:scale-[1.02]">
-          {/* Circular Cutlery Badge */}
           <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[#A81D1D] shadow-xs flex-shrink-0 bg-black">
             <Image
               src="/images/logo.png"
@@ -53,7 +52,6 @@ export default function Header() {
             />
           </div>
           
-          {/* Brand Typography Block */}
           <div className="flex flex-col -space-y-0.5">
             <div className="flex items-baseline gap-1">
               <span className="font-display font-black text-sm sm:text-base tracking-tight text-white">Addis</span>
@@ -67,28 +65,54 @@ export default function Header() {
       </Link>
 
       {/* Navigation Bar Links */}
-      <nav className="hidden lg:flex items-center gap-6 text-xs font-bold text-zinc-700">
+      <nav className="hidden lg:flex items-center gap-5 text-xs font-bold text-zinc-700">
         <Link href="/" className="hover:text-[#A81D1D] transition-colors">
-          Explore Reviews
+          Home
+        </Link>
+        <Link href="/#archive-section" className="hover:text-[#A81D1D] transition-colors">
+          Reviews
         </Link>
         <Link href="/about" className="hover:text-[#A81D1D] transition-colors">
-          About Us
+          About
+        </Link>
+        <Link href="/events" className="hover:text-[#A81D1D] transition-colors flex items-center gap-1">
+          <span>🎪</span>
+          <span>Events</span>
         </Link>
         <Link href="/services" className="hover:text-[#A81D1D] transition-colors">
           Services
         </Link>
-        <Link href="/events" className="hover:text-[#A81D1D] transition-colors flex items-center gap-1">
-          <span>🎪</span>
-          <span>Events & Fests</span>
-        </Link>
         <Link href="/brand-kit" className="hover:text-[#A81D1D] transition-colors">
           Brand Kit
+        </Link>
+        <Link href="/collaborate" className="hover:text-[#A81D1D] transition-colors">
+          Contact
         </Link>
       </nav>
 
       {/* Center Actions & Work With Us CTA */}
       <div className="flex items-center gap-2 sm:gap-3">
         
+        {/* Search Icon Trigger */}
+        <Link
+          href="/#archive-section"
+          className="p-2 text-zinc-600 hover:text-[#A81D1D] hover:bg-zinc-100 rounded-full transition-colors"
+          title="Search Reviews"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </Link>
+
+        {/* Language Switcher Badge */}
+        <button
+          onClick={() => setLang(lang === 'EN' ? 'AM' : 'EN')}
+          className="px-2.5 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-[10px] font-black text-zinc-700 hover:bg-zinc-200 transition-colors cursor-pointer"
+          title="Toggle Language"
+        >
+          {lang === 'EN' ? '🇬🇧 EN' : '🇪🇹 AM'}
+        </button>
+
         {/* Work With Us Direct Button */}
         <Link
           href="/collaborate"
@@ -107,52 +131,6 @@ export default function Header() {
         >
           <span>🚀 Promote Spot</span>
         </button>
-
-        {/* Info & Socials Group */}
-        <div className="flex items-center gap-1 sm:gap-2 border-l border-zinc-200 pl-2 sm:pl-3">
-          {/* About Quick Button */}
-          <Link
-            href="/about"
-            className="p-2 text-zinc-500 hover:text-[#A81D1D] hover:bg-zinc-100 rounded-full transition-colors duration-200 cursor-pointer"
-            title="About Addis Foodies"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 111.083.984l-.04.02-1.083-.984zm.67-4.2a.75.75 0 100-1.5.75.75 0 000 1.5zM22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.201 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12z" />
-            </svg>
-          </Link>
-
-          <a
-            href="https://t.me/addisfoodies"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Join our Telegram Channel"
-            className="p-2 text-zinc-500 hover:text-[#0088cc] hover:bg-zinc-100 rounded-full transition-colors duration-200"
-          >
-            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.6 1.5-1.55 2.75-2.92 2.75-2.92.3-.34.36-.5-.22-.52-.37-.02-1.92.95-4.82 2.9-.45.31-.86.46-1.22.45-.4-.01-1.17-.23-1.74-.41-.7-.22-1.25-.34-1.2-.72.03-.2.3-.41.82-.62 3.2-1.4 5.34-2.32 6.42-2.77 3.07-1.28 3.7-.15 3.7.37z" />
-            </svg>
-          </a>
-
-          <a
-            href="https://instagram.com/addis.foodie"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Follow us on Instagram"
-            className="p-2 text-zinc-500 hover:text-[#e1306c] hover:bg-zinc-100 rounded-full transition-colors duration-200"
-          >
-            <svg
-              className="w-5 h-5 stroke-current fill-none"
-              viewBox="0 0 24 24"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-          </a>
-        </div>
       </div>
 
       {/* Promote Spot Dialog / Quick Collaboration Modal */}

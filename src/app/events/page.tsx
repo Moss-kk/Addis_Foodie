@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 import { mockEvents } from '../../data/mockEvents';
 import { EventJsonLd } from '../../components/JsonLd';
 
@@ -15,7 +16,7 @@ export default function EventsPage() {
 
       <Header />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col gap-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col gap-10">
         
         {/* Navigation Breadcrumb */}
         <div>
@@ -31,24 +32,29 @@ export default function EventsPage() {
         </div>
 
         {/* Hero Section */}
-        <div className="bg-gradient-to-r from-brand-dark via-[#8B1717] to-brand-primary text-white py-10 px-8 sm:px-12 rounded-3xl flex flex-col gap-4 shadow-xl">
+        <div className="bg-gradient-to-r from-brand-dark via-[#8B1717] to-brand-primary text-white py-12 px-8 sm:px-14 rounded-3xl flex flex-col gap-4 shadow-2xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 w-fit text-[11px] font-black uppercase tracking-widest text-amber-400">
-            🎪 Addis Foodies Events Portal
+            🎪 Addis Foodies Events & Festivals Ecosystem
           </div>
           <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
-            Food Festivals & Culinary Challenges
+            Culinary Experiences & Food Festivals
           </h1>
-          <p className="text-white/80 font-medium text-xs sm:text-base max-w-2xl">
-            Discover landmark food festivals, cultural performances, live DJ lineups, and tasting challenges across Addis Ababa. Direct one-tap phone reservations.
+          <p className="text-white/85 font-medium text-xs sm:text-base max-w-2xl">
+            Real food experiences curated by Addis Foodies: Kitfo Festival, Coffee Week roaster spotlights, Burger Battles, Tibs challenges, fasting guides, and grand restaurant openings.
           </p>
         </div>
 
         {/* Events Grid */}
         <section className="flex flex-col gap-6">
-          <h2 className="font-display font-extrabold text-xl sm:text-2xl text-brand-dark flex items-center gap-2">
-            <span>🔥</span>
-            <span>Featured Events & Festivals</span>
-          </h2>
+          <div className="flex items-center justify-between border-b border-zinc-200/50 pb-3">
+            <h2 className="font-display font-extrabold text-xl sm:text-2xl text-brand-dark flex items-center gap-2">
+              <span>🔥</span>
+              <span>Signature Festivals & Special Promotions</span>
+            </h2>
+            <span className="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+              Curated Experiences
+            </span>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {mockEvents.map((event) => (
@@ -57,7 +63,7 @@ export default function EventsPage() {
                 className="bg-white rounded-3xl border border-zinc-200/80 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group"
               >
                 {/* Poster Image & Status Badge */}
-                <div className="relative h-60 w-full bg-zinc-900 overflow-hidden">
+                <div className="relative h-64 w-full bg-zinc-900 overflow-hidden">
                   <Image
                     src={event.posterImage}
                     alt={event.title}
@@ -65,17 +71,17 @@ export default function EventsPage() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
                   
                   {/* Status Badge */}
-                  <div className="absolute top-4 left-4 z-10">
+                  <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
                     {event.status === 'LIVE_TODAY' ? (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 text-white font-black text-xs uppercase tracking-wider shadow-md animate-pulse">
+                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500 text-white font-black text-xs uppercase tracking-wider shadow-md animate-pulse">
                         🚨 TODAY!! LIVE NOW
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-brand-dark font-black text-xs uppercase tracking-wider shadow-md">
-                        📅 UPCOMING FESTIVAL
+                        ⏳ IN {event.countdownDays} DAYS
                       </span>
                     )}
                   </div>
@@ -107,25 +113,27 @@ export default function EventsPage() {
                     </div>
                   </div>
 
+                  {/* Participating Restaurants */}
+                  {event.participatingVenues && event.participatingVenues.length > 0 && (
+                    <div className="flex flex-col gap-1.5">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-zinc-400">Participating Restaurants:</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {event.participatingVenues.map((venue, idx) => (
+                          <span key={idx} className="bg-red-50 text-brand-primary border border-red-100/60 text-[11px] font-extrabold px-2.5 py-0.5 rounded-md">
+                            🏬 {venue}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Offering Tags */}
                   <div className="flex flex-col gap-1.5">
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-zinc-400">Offerings & Menu Highlights:</span>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-zinc-400">Offerings & Highlights:</span>
                     <div className="flex flex-wrap gap-1.5">
                       {event.offeringTags.map((tag, idx) => (
                         <span key={idx} className="bg-amber-50 text-amber-900 border border-amber-200/60 text-[11px] font-bold px-2.5 py-1 rounded-full">
                           🍗 {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Activity Tags */}
-                  <div className="flex flex-col gap-1.5">
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-zinc-400">Entertainment & Activities:</span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {event.activities.map((act, idx) => (
-                        <span key={idx} className="bg-zinc-100 text-zinc-700 text-[11px] font-semibold px-2.5 py-1 rounded-full">
-                          🎭 {act}
                         </span>
                       ))}
                     </div>
@@ -157,11 +165,7 @@ export default function EventsPage() {
 
       </main>
 
-      <footer className="border-t border-zinc-200/50 bg-white/50 py-6 text-center mt-12">
-        <p className="text-[10px] sm:text-xs text-zinc-400 font-semibold tracking-wide uppercase font-sans">
-          Addis Foodies © 2026 • Discovering Foods in Addis
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }
