@@ -62,6 +62,11 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
             <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-black uppercase text-white tracking-wider border border-white/20">
               {post.sourcePlatform === 'telegram' ? '✈️ Telegram' : '📸 Instagram'}
             </div>
+
+            {/* Transparent Location Overlay Pill on Picture (Stitch Design) */}
+            <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#111827] flex items-center gap-1 shadow-sm border border-white/40">
+              📍 {post.location}
+            </div>
           </div>
 
           {/* CARD BODY CONTENT */}
