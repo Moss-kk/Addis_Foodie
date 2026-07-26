@@ -1,14 +1,14 @@
 # ADDIS FOODIES — DESIGN SYSTEM & REUSABLE COMPONENT MANUAL
 
 ===================================================================================
-ADDIS FOODIES DESIGN SYSTEM (v5.0 Official Master Design System Specification)
-Design Tokens, 8px Baseline Grid, Typography Hierarchy, Amharic Localization & Component Library
+ADDIS FOODIES DESIGN SYSTEM (v5.0 Official Master Specification)
+Design Tokens, 8px Baseline Grid, Typography Hierarchy, Full-Bleed Layouts & Touch Accessibility
 
 ## 1. Core Visual Tokens
 
 ### 1.1 Color Tokens
-- **Primary Crimson (`#A81D1D`)**: Brand badge ring, primary CTA buttons, active navigation underline indicators, focused input borders.
-- **Dark Crimson (`#8B1717`)**: Hero gradient overlay, active press states, dark CTA hover.
+- **Primary Crimson (`#A81D1D`)**: Brand badge ring, primary CTA buttons, active navigation indicators, focused input borders.
+- **Dark Crimson (`#8B1717`)**: Full-bleed Hero gradient overlay, active press states, dark CTA hover.
 - **Warm Amber (`#F59E0B`)**: Price chips in ETB, rating star badges, tagline text, live festival highlights, AI search highlights.
 - **Deep Charcoal (`#111827`)**: Brand logo block background, surface containers, primary body typography, dark cards.
 - **Soft Cream (`#FAFAFA`)**: Page canvas background surface.
@@ -17,7 +17,28 @@ Design Tokens, 8px Baseline Grid, Typography Hierarchy, Amharic Localization & C
 
 ---
 
-### 1.2 Typography Hierarchy & Font Stacks
+### 1.2 Layout & Grid Specifications (Full-Bleed 1440px Standard)
+- **Full-Bleed Sections**: Backgrounds (Hero, Call-to-Action, Footer) MUST stretch 100% full-viewport width (`w-full`), using inner container wrappers.
+- **Global Container Standard**: `max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12`.
+- **Responsive Breakpoints**:
+  - `320px`: Small Mobile (iPhone SE)
+  - `375px`: Mobile Standard
+  - `390px`: Mobile Medium
+  - `430px`: Mobile Large (Pro Max)
+  - `768px`: Tablet Portrait
+  - `1024px`: Tablet Landscape / Laptop
+  - `1440px`: Desktop Standard
+
+---
+
+### 1.3 Touch Accessibility & WCAG 2.2 AA Compliance
+- **Minimum Touch Target**: All interactive controls (buttons, chips, toggles, close triggers) MUST satisfy `min-h-[48px]` and `min-w-[48px]`.
+- **Focus Indicators**: All interactive elements must feature high-contrast visible focus rings (`focus-visible:ring-2 focus-visible:ring-[#A81D1D]`).
+- **Color Contrast**: Secondary body typography must maintain minimum 4.5:1 contrast against background surface (`#4B5563` or `#374151` on light, `#E5E7EB` on dark).
+
+---
+
+### 1.4 Typography Hierarchy & Font Stacks
 
 #### Latin Font Stack:
 - **Display Headings**: `Syne` (`font-syne font-black tracking-tight`).
@@ -33,51 +54,19 @@ Design Tokens, 8px Baseline Grid, Typography Hierarchy, Amharic Localization & C
 
 ---
 
-### 1.3 8px Baseline Spacing Grid & Responsive Breakpoints
-- **Base Grid Unit**: 8px baseline (`p-2` [8px], `p-4` [16px], `p-6` [24px], `p-8` [32px], `p-12` [48px]).
-- **Card Grid Spacing**: `gap-6` (24px) for desktop grids, `gap-4` (16px) for mobile.
-- **Responsive Breakpoints**:
-  - `sm`: 640px (Mobile landscape / small tablets)
-  - `md`: 768px (Tablets)
-  - `lg`: 1024px (Laptops / Small desktops)
-  - `xl`: 1280px (Standard desktops)
-
----
-
-### 1.4 Motion & Animation Specification
+### 1.5 Framer Motion Animation Specification
 - **Timing Curve**: `cubic-bezier(0.16, 1, 0.3, 1)` (ease-out smooth curve).
-- **Hover Transitions**: `duration-200` to `duration-300` for smooth scale (`scale-[1.02]`) and color shifts.
-- **Pulse Alert**: `animate-pulse` on `Emerald Green` live event badges.
+- **Hover Transitions**: Scale lift (`scale-[1.02]`), subtle card elevation (`shadow-xl`), and color shifts.
+- **Scroll Entrance**: Staggered fade and slide up (`y: 20 -> 0`, `opacity: 0 -> 1`).
 
 ---
 
-## 2. Reusable Component Specifications
+## 2. Strict Visual Hierarchy Specification (Review Cards)
 
-### 2.1 Header & Navigation (`Header.tsx`)
-- Rectangular Brand Badge Container (`#111827` background, `#A81D1D` 2px border ring).
-- Full Navigation Items (`Home`, `Reviews`, `Restaurants`, `Events`, `Services`, `About`, `Contact`, `Work With Us`).
-- Utility Group: Search icon trigger, Language Switcher (`EN | AM`), Collaboration modal trigger.
-
-### 2.2 Hero Section (`page.tsx`)
-- Headline: *"Discover Addis Ababa One Bite at a Time"*
-- Action CTAs: `Explore Reviews` (Warm Amber `#F59E0B`) and `Work With Addis Foodies` (Glass white border).
-- Prominent Search Bar with micro-stats row (`150,000+ Monthly Foodies | 320+ Curated Spots | 4 Key Hubs`).
-
-### 2.3 Useful AI Craving Finder (`AiCravingFinder.tsx`)
-- High-contrast dark charcoal card (`#111827`) with vibrant amber icon badge.
-- Preset craving chips: *"I'm craving Kitfo"*, *"Coffee around Bole"*, *"Best fasting food"*, *"Affordable lunch under 300 Br"*, *"Juiciest Burgers"*, *"Spots in Piassa"*.
-
-### 2.4 Review Card & Itemized Price Receipt (`ReviewCard.tsx` & `PriceReceiptModal.tsx`)
-- Aspect-ratio 4:3 photography container.
-- Warm Amber (`#F59E0B`) price badge overlay formatted with monospaced `JetBrains Mono` font.
-- Bold location landmark pill, category tag, review caption with hashtag highlighting, Telegram/Instagram source platform pill buttons, and itemized price breakdown trigger.
-
-### 2.5 Interactive Addis Ababa Discovery Map (`AddisMap.tsx`)
-- Dark charcoal 2D canvas representing Bole, Kazanchis, Piassa, and Sarbet.
-- Custom map pin triggers displaying price tooltips, dish icons, and instant filter synchronization.
-
-### 2.6 Story Video Reel Player (`VideoReelModal.tsx`)
-- 9:16 portrait video overlay player with audio toggle, dish tags, portion notes, and original social deep links.
-
-### 2.7 Multi-Column Brand Footer (`Footer.tsx`)
-- 4-column footer containing Brand Story, Directory Links, Legal/Press, Social Media Handles, and Newsletter Subscription Form.
+Every review card and listing MUST strictly prioritize details in this sequence:
+1. **Photography**: 4:3 high-definition image header with WebP optimization.
+2. **Restaurant Name**: Bold headline in `Syne` (`font-syne font-black text-[#111827]`).
+3. **Location**: Landmark location pill with pin icon (`📍 Bole, near Edna Mall`).
+4. **Price**: Monospaced Warm Amber (`#F59E0B`) ETB price badge.
+5. **Review**: Clamped caption snippet.
+6. **Actions**: Itemized receipt modal trigger & original social link.

@@ -32,6 +32,66 @@ body {
   font-family: var(--font-primary), "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Full-Bleed 100% Viewport Background Utilities */
+.full-bleed {
+  width: 100%;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Standardized Responsive 1440px Global Container */
+.site-container {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;   /* 16px (320px - 390px) */
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .site-container {
+    padding-left: 1.5rem; /* 24px (640px+) */
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-container {
+    padding-left: 2.5rem; /* 40px (1024px+) */
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .site-container {
+    padding-left: 3rem;   /* 48px (1440px+) */
+    padding-right: 3rem;
+  }
+}
+
+/* Touch Accessibility Requirement (Min 48px target height & width) */
+.touch-target {
+  min-height: 48px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Accessible Focus Indicators */
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid #A81D1D;
+  outline-offset: 2px;
 }
 
 /* Glassmorphism helpers */
@@ -42,7 +102,7 @@ body {
 }
 
 .glass-panel-dark {
-  background-color: rgba(17, 24, 39, 0.85);
+  background-color: rgba(17, 24, 39, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -64,8 +124,8 @@ body {
   display: none;
 }
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Micro-animations */
@@ -83,4 +143,3 @@ body {
 .animate-slide-up {
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-

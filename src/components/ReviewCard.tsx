@@ -1,10 +1,10 @@
 'use client';
 
+import React, { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FoodPost } from '../types/post';
-import { slugify } from '../lib/restaurants';
+import PriceReceiptModal from './PriceReceiptModal';
 
 interface ReviewCardProps {
   post: FoodPost;
@@ -12,110 +12,115 @@ interface ReviewCardProps {
 }
 
 export default function ReviewCard({ post, onClick }: ReviewCardProps) {
-  // Highlight hashtags in the card excerpt
-  const renderHighlightedExcerpt = (captionText: string) => {
-    const words = captionText.split(/(\s+)/);
+  const [showReceipt, setShowReceipt] = useState(false);
+
+  // Hashtag highlighting
+  const renderCaption = (text: string) => {
+    const words = text.split(' ');
     return words.map((word, idx) => {
       if (word.startsWith('#')) {
         return (
-          <span key={idx} className="text-brand-primary font-bold">
-            {word}
+          <span key={idx} className="text-[#A81D1D] font-bold hover:underline">
+            {word}{' '}
           </span>
         );
       }
-      return word;
+      return word + ' ';
     });
   };
 
   return (
-    <motion.article
-      onClick={onClick}
-      whileHover={{ y: -4, scale: 1.01 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="bg-white rounded-2xl overflow-hidden border border-zinc-200/70 shadow-xs hover:shadow-xl hover:border-[#A81D1D]/40 transition-all duration-300 flex flex-col group cursor-pointer"
-    >
-      {/* 1. Media container (4:3 Aspect Ratio Photography) */}
-      <div className="relative w-full aspect-[4/3] overflow-hidden bg-zinc-900">
-        <Image
-          src={post.image}
-          alt={post.restaurantName}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-        />
+    <>
+      <motion.div
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+        className="bg-white rounded-3xl overflow-hidden border border-zinc-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+      >
+        <div className="flex flex-col">
+          
+          {/* LEVEL 1: PHOTOGRAPHY (4:3 Media Aspect Ratio) */}
+          <div
+            onClick={onClick}
+            className="relative w-full aspect-[4/3] bg-zinc-100 overflow-hidden cursor-pointer"
+          >
+            <Image
+              src={post.image}
+              alt={post.restaurantName}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-        {/* Gradient vignette overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+            {/* Level 4 Overlay: Monospaced Warm Amber ETB Price Badge */}
+            <div className="absolute top-3 right-3 bg-[#111827]/90 backdrop-blur-md border border-[#F59E0B]/40 text-[#F59E0B] px-3.5 py-1.5 rounded-full font-mono font-black text-xs sm:text-sm shadow-md">
+              {post.priceFormatted}
+            </div>
 
-        {/* 3. Price Tag Overlay (Warm Amber Badge in JetBrains Mono) */}
-        <div className="absolute top-3 right-3 z-10">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-black text-[#111827] bg-[#F59E0B] border border-white/40 shadow-md tracking-tight">
-            {post.priceFormatted}
-          </span>
-        </div>
+            {/* Source Platform Badge */}
+            <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-black uppercase text-white tracking-wider border border-white/20">
+              {post.sourcePlatform === 'telegram' ? '✈️ Telegram' : '📸 Instagram'}
+            </div>
+          </div>
 
-        {/* 2. Bold Location Landmark Pill Overlay */}
-        <div className="absolute bottom-3 left-3 z-10">
-          <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-white bg-[#111827]/90 backdrop-blur-xs border border-white/20 px-3 py-1 rounded-full shadow-xs">
-            <svg className="w-3 h-3 text-[#F59E0B] fill-current" viewBox="0 0 24 24">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-            </svg>
-            <span className="truncate max-w-[160px]">{post.location}</span>
-          </span>
-        </div>
-      </div>
-
-      {/* Card Details */}
-      <div className="p-5 flex flex-col flex-1 gap-3">
-        
-        {/* Restaurant Name & Category */}
-        <div className="flex flex-col gap-1">
-          <h3 className="font-syne font-black text-lg text-[#111827] leading-snug group-hover:text-[#A81D1D] transition-colors duration-200">
-            <Link
-              href={`/restaurant/${slugify(post.restaurantName)}`}
-              onClick={(e) => e.stopPropagation()}
-              className="hover:underline hover:text-[#A81D1D] transition-colors"
+          {/* CARD BODY CONTENT */}
+          <div className="p-5 sm:p-6 flex flex-col gap-3">
+            
+            {/* LEVEL 2: RESTAURANT NAME */}
+            <h3
+              onClick={onClick}
+              className="font-syne font-black text-lg sm:text-xl text-[#111827] group-hover:text-[#A81D1D] transition-colors line-clamp-1 cursor-pointer"
             >
               {post.restaurantName}
-            </Link>
-          </h3>
-          <span className="inline-flex items-center text-[10px] text-[#A81D1D] font-extrabold bg-red-50 border border-red-100 px-2.5 py-0.5 rounded-md w-fit uppercase tracking-wider">
-            {post.category}
-          </span>
-        </div>
+            </h3>
 
-        {/* Review Caption */}
-        <p className="text-xs sm:text-sm text-zinc-600 line-clamp-2 leading-relaxed flex-1 font-medium">
-          {renderHighlightedExcerpt(post.caption)}
-        </p>
-
-        {/* Footer Actions & Source Platform Link */}
-        <div className="flex items-center justify-between pt-3 border-t border-zinc-100 mt-1">
-          <span className="text-[11px] font-extrabold text-[#A81D1D] group-hover:underline flex items-center gap-1 uppercase tracking-wider">
-            Read Full Review
-            <svg className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </span>
-
-          {/* Action buttons */}
-          <div className="flex items-center gap-1.5">
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-mono font-black text-[#111827] bg-[#F59E0B]/20 border border-[#F59E0B]/50 shadow-2xs uppercase tracking-wider">
-              🧾 Receipt
-            </span>
-            {post.sourcePlatform === 'telegram' ? (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-extrabold text-white bg-[#0088cc] shadow-2xs uppercase tracking-wider">
-                ✈️ TG Link
+            {/* LEVEL 3: LOCATION & LANDMARK PILL */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 text-zinc-800 text-[11px] font-bold border border-zinc-200">
+                <span>📍</span>
+                <span>{post.location}</span>
               </span>
-            ) : (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-extrabold text-white bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] shadow-2xs uppercase tracking-wider">
-                🎥 Reel
+              <span className="px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 text-[10px] font-black uppercase tracking-wider border border-amber-200">
+                {post.category}
               </span>
-            )}
+            </div>
+
+            {/* LEVEL 5: REVIEW CAPTION SNIPPET */}
+            <p className="text-xs text-zinc-600 font-medium leading-relaxed line-clamp-2 pt-1">
+              {renderCaption(post.caption)}
+            </p>
           </div>
+
         </div>
 
-      </div>
-    </motion.article>
+        {/* LEVEL 6: ACTIONS BAR (Min 48px Touch Targets) */}
+        <div className="px-5 sm:px-6 pb-5 pt-2 border-t border-zinc-100 flex items-center justify-between gap-3">
+          {/* Itemized Price Receipt Trigger Button */}
+          <button
+            onClick={() => setShowReceipt(true)}
+            className="touch-target px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-[#111827] hover:text-white text-[#111827] text-xs font-mono font-bold transition-all cursor-pointer border border-zinc-200 flex items-center gap-1.5 focus-ring"
+          >
+            <span>🧾 Itemized Receipt</span>
+          </button>
+
+          {/* Read Full Review Modal Trigger */}
+          <button
+            onClick={onClick}
+            className="touch-target px-4 py-2 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-extrabold transition-all shadow-xs hover:shadow-md cursor-pointer focus-ring"
+          >
+            Review ↗
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Itemized Price Receipt Modal */}
+      {showReceipt && (
+        <PriceReceiptModal
+          post={post}
+          onClose={() => setShowReceipt(false)}
+        />
+      )}
+    </>
   );
 }
