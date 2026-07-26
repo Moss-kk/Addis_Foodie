@@ -16,8 +16,8 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
   const reelPosts = posts.slice(0, 4);
 
   return (
-    <section className="flex flex-col gap-6 bg-gradient-to-r from-[#111827] via-[#1F2937] to-[#111827] text-white p-6 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden border border-zinc-800">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#A81D1D]/10 rounded-full blur-3xl pointer-events-none" />
+    <section className="flex flex-col gap-6 bg-gradient-to-r from-zinc-950 via-[#121215] to-zinc-950 text-white p-6 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden border border-zinc-800">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#F59E0B]/10 rounded-full blur-3xl pointer-events-none" />
 
       {/* Header Title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-5 relative z-10">
@@ -71,7 +71,7 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
 
             {/* Center Animated Play Button */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              <div className="w-14 h-14 rounded-full bg-[#A81D1D]/90 text-white flex items-center justify-center shadow-xl group-hover:scale-115 group-hover:bg-[#F59E0B] group-hover:text-[#111827] transition-all duration-300 border-2 border-white/40">
+              <div className="w-14 h-14 rounded-full bg-[#F59E0B] text-zinc-950 flex items-center justify-center shadow-xl group-hover:scale-115 group-hover:bg-amber-400 transition-all duration-300 border-2 border-white/40">
                 <svg className="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>

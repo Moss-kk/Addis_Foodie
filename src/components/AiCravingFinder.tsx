@@ -43,7 +43,7 @@ export default function AiCravingFinder({ onSelectPrompt }: AiCravingFinderProps
           <button
             key={idx}
             onClick={() => onSelectPrompt(item.query, item.category, item.location, item.priceRange)}
-            className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-[#A81D1D] text-white text-xs font-extrabold border border-white/20 hover:border-[#A81D1D] transition-all duration-200 cursor-pointer flex items-center gap-2 shadow-xs hover:scale-102"
+            className="px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-[#F59E0B] hover:text-zinc-950 text-zinc-200 text-xs font-bold border border-zinc-800 hover:border-[#F59E0B] transition-all duration-200 cursor-pointer flex items-center gap-2 shadow-xs hover:scale-102"
           >
             <span>{item.label}</span>
           </button>

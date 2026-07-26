@@ -8,17 +8,17 @@ description: Audits, validates, and synchronizes Design.md master tokens (colors
 Use this skill whenever creating or editing UI components in **Addis Foodies** to enforce strict compliance with `Design.md` (v5.0 Official Master Design System Specification).
 
 ## Color Tokens Checklist
-- [ ] **Primary Crimson (`#A81D1D`)**: Brand logo ring, primary CTAs, active nav links.
-- [ ] **Dark Crimson (`#8B1717`)**: Hero gradient overlay & CTA hover press states.
-- [ ] **Warm Amber (`#F59E0B`)**: Price badges in ETB, rating star chips, AI highlights.
-- [ ] **Deep Charcoal (`#111827`)**: Brand logo block, dark containers, primary body text.
-- [ ] **Soft Cream (`#FAFAFA`)**: Main page canvas surface background.
+- [ ] **Obsidian Canvas (`#09090B`)**: Full-page background canvas across all pages (Home, About, Events, Services, Collaborate).
+- [ ] **Sticky Header Glass (`bg-black/90 backdrop-blur-md border-zinc-800`)**: Full-width black header.
+- [ ] **Warm Amber Primary (`#F59E0B`)**: Brand logo accent ring, primary CTAs, active nav indicators, price chips in ETB, rating star badges.
+- [ ] **Refined Fiery Coral (`#FF3B30`)**: Subtle highlight accents & micro flame badges (minimized from dominating blocks).
+- [ ] **Deep Graphite Surface (`#121215` / `#18181B`)**: Dark glass container cards, modal bodies, and footer canvas.
 - [ ] **Emerald Green (`#10B981`)**: Real-time live status badges (`🚨 TODAY!! LIVE NOW`).
 
 ## Typography Stack Checklist
-- [ ] **Display Headings**: `font-syne font-black tracking-tight` (`Syne`).
-- [ ] **Section Headings**: `Plus Jakarta Sans` (`font-extrabold text-xl sm:text-2xl text-[#111827]`).
-- [ ] **Prices & Numbers**: `JetBrains Mono` (`font-mono font-black text-[#111827]`).
+- [ ] **Primary Body & UI**: `Outfit` (`font-sans font-medium text-zinc-100`).
+- [ ] **Display Headings**: `Syne` (`font-syne font-black tracking-tight text-white`).
+- [ ] **Prices & Numbers**: `JetBrains Mono` (`font-mono font-black text-[#F59E0B]`).
 - [ ] **Amharic Fallback**: Ensure Ethiopic line-height multiplier (`1.15x`).
 
 ## Audit Command

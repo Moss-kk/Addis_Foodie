@@ -8,9 +8,9 @@ export default function EventBanner() {
   if (closed) return null;
 
   return (
-    <div className="w-full bg-gradient-to-r from-[#111827] via-[#8B1717] to-[#A81D1D] text-white py-3.5 px-5 sm:px-8 rounded-2xl shadow-xl border border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4 relative overflow-hidden">
+    <div className="w-full bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 text-white py-3.5 px-5 sm:px-8 rounded-2xl shadow-xl border border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4 relative overflow-hidden">
       {/* Background Accent glow */}
-      <div className="absolute top-0 right-0 -mr-10 -mt-10 w-48 h-48 bg-[#F59E0B]/20 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute top-0 right-0 -mr-10 -mt-10 w-48 h-48 bg-[#F59E0B]/10 rounded-full blur-2xl pointer-events-none" />
 
       {/* Event Details */}
       <div className="flex items-center gap-3.5 z-10">

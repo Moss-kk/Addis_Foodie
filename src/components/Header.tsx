@@ -19,13 +19,13 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-panel border-b border-zinc-200/80 shadow-2xs transition-all">
+    <header className="sticky top-0 z-40 w-full bg-black/90 backdrop-blur-md border-b border-zinc-800/80 shadow-md transition-all">
       <div className="site-container py-3 flex items-center justify-between">
         
-        {/* Brand Logo Rectangular Block (Original Logo Restored) */}
+        {/* Brand Logo Rectangular Block */}
         <Link href="/" className="group focus-ring rounded-2xl">
-          <div className="bg-[#111827] border border-[#A81D1D]/40 hover:border-[#A81D1D] rounded-2xl px-3 py-1.5 shadow-md flex items-center gap-2.5 transition-all duration-300 group-hover:scale-[1.02]">
-            <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[#A81D1D] shadow-xs flex-shrink-0 bg-black">
+          <div className="bg-[#121215] border border-zinc-800 hover:border-[#F59E0B]/60 rounded-2xl px-3 py-1.5 shadow-md flex items-center gap-2.5 transition-all duration-300 group-hover:scale-[1.02]">
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[#F59E0B] shadow-xs flex-shrink-0 bg-black">
               <Image
                 src="/images/logo.png"
                 alt="Addis Foodies Logo"
@@ -37,7 +37,7 @@ export default function Header() {
             <div className="flex flex-col -space-y-0.5">
               <div className="flex items-baseline gap-1">
                 <span className="font-syne font-black text-sm sm:text-base tracking-tight text-white">Addis</span>
-                <span className="font-syne font-black text-sm sm:text-base tracking-tight text-[#A81D1D]">Foodies</span>
+                <span className="font-syne font-black text-sm sm:text-base tracking-tight text-[#F59E0B]">Foodies</span>
               </div>
               <span className="text-[9px] font-bold text-zinc-400 tracking-wider uppercase font-sans">
                 Discovering Foods
@@ -47,25 +47,25 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-8 text-xs font-bold text-zinc-700">
+        <nav className="hidden lg:flex items-center gap-8 text-xs font-bold text-zinc-300">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="hover:text-[#A81D1D] transition-colors relative py-2 group focus-ring"
+              className="hover:text-[#F59E0B] transition-colors relative py-2 group focus-ring text-zinc-200"
             >
               <span>{link.label}</span>
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A81D1D] transition-all duration-300 group-hover:w-full" />
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#F59E0B] transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </nav>
 
         {/* Right Actions: Language Switcher & Collaboration CTA */}
         <div className="flex items-center gap-3">
-          {/* Language Switcher Button (Min 48px Target) */}
+          {/* Language Switcher Button */}
           <button
             onClick={toggleLang}
-            className="touch-target px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-[#111827] text-xs font-mono font-black border border-zinc-300/80 transition-colors focus-ring cursor-pointer"
+            className="touch-target px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 text-xs font-mono font-bold border border-zinc-800 transition-colors focus-ring cursor-pointer"
             title="Switch Language"
             aria-label="Toggle language English or Amharic"
           >
@@ -75,15 +75,15 @@ export default function Header() {
           {/* Work With Us CTA */}
           <Link
             href="/collaborate"
-            className="hidden sm:inline-flex items-center justify-center touch-target px-5 py-2.5 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-extrabold shadow-md hover:shadow-lg transition-all cursor-pointer focus-ring"
+            className="hidden sm:inline-flex items-center justify-center touch-target px-5 py-2.5 rounded-xl bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 text-xs font-black shadow-md hover:shadow-lg transition-all cursor-pointer focus-ring hover:scale-102"
           >
             {t('workWithUs')} ↗
           </Link>
 
-          {/* Mobile Menu Hamburger Button (Min 48px Target) */}
+          {/* Mobile Menu Hamburger Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden touch-target p-2.5 rounded-xl text-zinc-700 hover:bg-zinc-100 transition-colors focus-ring cursor-pointer"
+            className="lg:hidden touch-target p-2.5 rounded-xl text-zinc-300 hover:bg-zinc-900 transition-colors focus-ring cursor-pointer border border-zinc-800"
             aria-label="Toggle Navigation Menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -105,7 +105,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="lg:hidden glass-panel-dark text-white border-b border-zinc-800 overflow-hidden"
+            className="lg:hidden bg-zinc-950/95 text-white border-b border-zinc-800 overflow-hidden"
           >
             <div className="site-container py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
@@ -113,18 +113,18 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="touch-target px-4 py-3 rounded-xl hover:bg-white/10 text-sm font-extrabold text-white transition-colors flex items-center justify-between"
+                  className="touch-target px-4 py-3 rounded-xl hover:bg-zinc-900 text-sm font-extrabold text-white transition-colors flex items-center justify-between"
                 >
                   <span>{link.label}</span>
-                  <span className="text-zinc-400">→</span>
+                  <span className="text-[#F59E0B]">→</span>
                 </Link>
               ))}
 
-              <div className="pt-2 border-t border-white/10 flex flex-col gap-3">
+              <div className="pt-2 border-t border-zinc-800 flex flex-col gap-3">
                 <Link
                   href="/collaborate"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full touch-target bg-[#A81D1D] hover:bg-[#8B1717] text-white font-black text-xs uppercase tracking-wider py-3.5 rounded-xl text-center shadow-lg transition-colors"
+                  className="w-full touch-target bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 font-black text-xs uppercase tracking-wider py-3.5 rounded-xl text-center shadow-lg transition-colors"
                 >
                   {t('workWithUs')} ↗
                 </Link>

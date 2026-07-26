@@ -27,12 +27,12 @@ export default function AddisMap({ onSelectDistrict }: AddisMapProps) {
   ];
 
   return (
-    <div className="bg-[#111827] text-white p-6 sm:p-8 rounded-3xl border border-zinc-800 shadow-xl flex flex-col gap-6 relative overflow-hidden">
+    <div className="bg-[#121215] text-white p-6 sm:p-8 rounded-3xl border border-zinc-800 shadow-xl flex flex-col gap-6 relative overflow-hidden">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-[#A81D1D]/20 text-[#A81D1D] border border-[#A81D1D]/40 flex items-center justify-center font-black text-xl">
+          <div className="w-10 h-10 rounded-2xl bg-[#F59E0B]/20 text-[#F59E0B] border border-[#F59E0B]/40 flex items-center justify-center font-black text-xl">
             📍
           </div>
           <div>
@@ -50,7 +50,7 @@ export default function AddisMap({ onSelectDistrict }: AddisMapProps) {
             <button
               key={d}
               onClick={() => onSelectDistrict(d)}
-              className="px-3 py-1 rounded-full text-xs font-extrabold bg-white/10 hover:bg-[#F59E0B] hover:text-[#111827] text-white border border-white/20 transition-all cursor-pointer"
+              className="px-3 py-1 rounded-full text-xs font-extrabold bg-zinc-900 hover:bg-[#F59E0B] hover:text-[#111827] text-white border border-zinc-800 transition-all cursor-pointer"
             >
               {d}
             </button>
@@ -93,10 +93,10 @@ export default function AddisMap({ onSelectDistrict }: AddisMapProps) {
               className="relative group cursor-pointer"
             >
               {/* Pulse Ring */}
-              <span className="absolute -inset-2 rounded-full bg-[#A81D1D]/40 animate-ping" />
+              <span className="absolute -inset-2 rounded-full bg-[#F59E0B]/40 animate-ping" />
 
               {/* Pin Icon */}
-              <div className="relative px-3 py-1.5 rounded-full bg-[#A81D1D] hover:bg-[#F59E0B] text-white hover:text-[#111827] font-mono font-black text-xs border border-white/40 shadow-lg transition-all duration-200 flex items-center gap-1">
+              <div className="relative px-3 py-1.5 rounded-full bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 font-mono font-black text-xs border border-white/40 shadow-lg transition-all duration-200 flex items-center gap-1">
                 <span>📍</span>
                 <span>{pin.priceETB} Br</span>
               </div>

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Syne, JetBrains_Mono } from "next/font/google";
+import { Outfit, Syne, JetBrains_Mono } from "next/font/google";
 import { LanguageProvider } from "../context/LanguageContext";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const outfit = Outfit({
   variable: "--font-primary",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 const syne = Syne({
@@ -34,9 +34,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} ${syne.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${outfit.variable} ${syne.variable} ${jetbrainsMono.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full flex flex-col bg-brand-bg text-brand-dark font-sans">
+      <body className="min-h-full flex flex-col bg-[#09090B] text-zinc-100 font-sans selection:bg-[#F59E0B]/20 selection:text-[#F59E0B]">
         <LanguageProvider>
           {children}
         </LanguageProvider>

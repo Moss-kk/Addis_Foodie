@@ -1,35 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  /* Stitch MCP Culinary Excellence Design System Tokens */
-  --color-brand-primary: #A81D1D;      /* Primary Crimson */
-  --color-brand-dark-crimson: #8B1717; /* Dark Crimson */
+  /* Addis Foodies Obsidian & Gold Modern Design System Tokens */
+  --color-brand-primary: #F59E0B;      /* Warm Amber / Gold Primary CTA */
+  --color-brand-coral: #FF3B30;        /* Refined Fiery Coral Highlight */
   --color-brand-accent: #F59E0B;       /* Warm Amber */
-  --color-brand-bg: #FAFAFA;           /* Soft Cream */
-  --color-brand-dark: #111827;         /* Deep Charcoal */
-  --color-brand-emerald: #10B981;      /* Emerald Green */
+  --color-brand-bg: #09090B;           /* Obsidian Black Canvas */
+  --color-brand-dark: #121215;         /* Deep Graphite Surface */
+  --color-brand-emerald: #10B981;      /* Emerald Green Status */
 
   /* Typography Stack */
-  --font-sans: var(--font-primary), "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-primary), "Outfit", system-ui, -apple-system, sans-serif;
   --font-display: var(--font-display), "Syne", sans-serif;
   --font-mono: var(--font-mono), "JetBrains Mono", monospace;
 }
 
 :root {
-  --background: #FAFAFA;
-  --foreground: #111827;
-  --brand-primary: #A81D1D;
-  --brand-dark-crimson: #8B1717;
+  --background: #09090B;
+  --foreground: #F4F4F5;
+  --brand-primary: #F59E0B;
+  --brand-coral: #FF3B30;
   --brand-amber: #F59E0B;
-  --brand-charcoal: #111827;
-  --brand-cream: #FAFAFA;
+  --brand-obsidian: #09090B;
+  --brand-charcoal: #121215;
   --brand-emerald: #10B981;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-primary), "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-primary), "Outfit", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -90,21 +90,21 @@ body {
   outline: none;
 }
 .focus-ring:focus-visible {
-  outline: 2px solid #A81D1D;
+  outline: 2px solid #F59E0B;
   outline-offset: 2px;
 }
 
 /* Glassmorphism helpers */
 .glass-panel {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(9, 9, 11, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
 
 .glass-panel-dark {
-  background-color: rgba(17, 24, 39, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: rgba(18, 18, 21, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 /* Monospaced Price Badge Utility */

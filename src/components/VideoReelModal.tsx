@@ -39,7 +39,7 @@ export default function VideoReelModal({ post, onClose }: VideoReelModalProps) {
         {/* Top Controls Header */}
         <div className="relative z-10 p-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="bg-[#A81D1D] text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full animate-pulse">
+            <span className="bg-[#F59E0B] text-zinc-950 text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full animate-pulse">
               🎥 REEL REVIEW
             </span>
             <span className="text-xs font-mono font-bold text-[#F59E0B]">
@@ -94,7 +94,7 @@ export default function VideoReelModal({ post, onClose }: VideoReelModalProps) {
             href={post.originalPostUrl || 'https://instagram.com/addis.foodie'}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full bg-[#A81D1D] hover:bg-[#8B1717] text-white font-black py-2.5 rounded-xl text-xs uppercase tracking-wider text-center transition-colors shadow-md cursor-pointer flex items-center justify-center gap-1.5"
+            className="w-full bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 font-black py-2.5 rounded-xl text-xs uppercase tracking-wider text-center transition-colors shadow-md cursor-pointer flex items-center justify-center gap-1.5"
           >
             <span>Watch Full Reel on Socials ↗</span>
           </a>
