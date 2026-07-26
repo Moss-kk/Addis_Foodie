@@ -17,14 +17,14 @@ export default function AiCravingFinder({ onSelectPrompt }: AiCravingFinderProps
   ];
 
   return (
-    <div className="bg-gradient-to-r from-[#111827] to-[#1F2937] text-white p-6 sm:p-8 rounded-3xl border border-zinc-800 shadow-xl flex flex-col gap-4">
+    <div className="bg-[#111827] text-white p-6 sm:p-8 rounded-3xl border border-zinc-800 shadow-xl flex flex-col gap-5">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-black text-base border border-amber-500/30">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-[#F59E0B]/20 text-[#F59E0B] flex items-center justify-center font-black text-lg border border-[#F59E0B]/30 shadow-xs">
             🤖
           </div>
           <div>
-            <h3 className="font-display font-extrabold text-base sm:text-lg text-white">
+            <h3 className="font-syne font-black text-lg sm:text-xl text-white">
               Useful AI Craving Finder
             </h3>
             <p className="text-xs text-zinc-400 font-medium">
@@ -32,7 +32,7 @@ export default function AiCravingFinder({ onSelectPrompt }: AiCravingFinderProps
             </p>
           </div>
         </div>
-        <span className="hidden sm:inline-flex text-[10px] font-mono font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20 uppercase">
+        <span className="hidden sm:inline-flex text-[10px] font-mono font-black text-[#F59E0B] bg-[#F59E0B]/10 px-3 py-1 rounded-full border border-[#F59E0B]/30 uppercase tracking-widest">
           AI Smart Search
         </span>
       </div>
@@ -43,7 +43,7 @@ export default function AiCravingFinder({ onSelectPrompt }: AiCravingFinderProps
           <button
             key={idx}
             onClick={() => onSelectPrompt(item.query, item.category, item.location, item.priceRange)}
-            className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-[#A81D1D] text-white text-xs font-bold border border-white/15 hover:border-[#A81D1D] transition-all duration-200 cursor-pointer flex items-center gap-1.5 shadow-xs hover:scale-102"
+            className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-[#A81D1D] text-white text-xs font-extrabold border border-white/20 hover:border-[#A81D1D] transition-all duration-200 cursor-pointer flex items-center gap-2 shadow-xs hover:scale-102"
           >
             <span>{item.label}</span>
           </button>

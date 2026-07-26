@@ -10,15 +10,17 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          primary: "#A81D1D", // Warm Crimson
-          accent: "#F59E0B",  // Amber Gold
-          bg: "#FAFAFA",      // Soft Cream
-          dark: "#111827",    // Dark Charcoal
+          primary: "#A81D1D",      // Primary Crimson
+          darkCrimson: "#8B1717",  // Dark Crimson
+          accent: "#F59E0B",       // Warm Amber
+          bg: "#FAFAFA",           // Soft Cream
+          dark: "#111827",         // Deep Charcoal
+          emerald: "#10B981",      // Emerald Green
         },
       },
       fontFamily: {
-        sans: ["var(--font-primary)", "system-ui", "-apple-system", "sans-serif"],
-        display: ["var(--font-display)", "Plus Jakarta Sans", "sans-serif"],
+        sans: ["var(--font-primary)", "Plus Jakarta Sans", "system-ui", "-apple-system", "sans-serif"],
+        display: ["var(--font-display)", "Syne", "sans-serif"],
         mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
       },
     },
@@ -27,3 +29,4 @@ const config: Config = {
 };
 
 export default config;
+

@@ -171,13 +171,6 @@ export default function AboutPage() {
             >
               Work With Addis Foodies ↗
             </Link>
-
-            <Link
-              href="/brand-kit"
-              className="bg-zinc-100 hover:bg-zinc-200 text-brand-dark font-extrabold text-xs py-3 px-6 rounded-full transition-all cursor-pointer"
-            >
-              Download Press & Brand Kit 📄
-            </Link>
           </div>
         </section>
 

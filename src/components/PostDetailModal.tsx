@@ -1,8 +1,11 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FoodPost } from '../types/post';
 import { slugify } from '../lib/restaurants';
+import PriceReceiptModal from './PriceReceiptModal';
 
 interface PostDetailModalProps {
   post: FoodPost | null;
@@ -55,56 +58,36 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
     });
   };
 
+  const [showReceipt, setShowReceipt] = useState(false);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Dark Translucent Backdrop */}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
+      {/* Background Backdrop */}
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-black/65 backdrop-blur-xs transition-opacity duration-300 animate-fade-in"
+        className="absolute inset-0 bg-black/75 backdrop-blur-xs transition-opacity duration-300 animate-fade-in"
       />
 
-      {/* Modal Container */}
-      <div className="relative w-full max-w-xl bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[88vh] animate-slide-up z-10 border border-zinc-200/50">
-        
-        {/* Action Row at Top */}
-        <div className="flex items-center justify-between border-b border-zinc-100 bg-zinc-50/80 backdrop-blur-xs px-6 py-3.5">
-          <div className="flex items-center gap-2">
-            <a
-              href={post.originalPostUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[11px] sm:text-xs font-black text-zinc-500 hover:text-[#0088cc] flex items-center gap-1.5 transition-colors uppercase tracking-wider"
+      {/* Main Modal Surface */}
+      <div className="relative w-full max-w-2xl max-h-[90vh] bg-white rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col animate-slide-up border border-zinc-200">
+        {/* Sticky Modal Top Header */}
+        <div className="sticky top-0 z-20 glass-panel border-b border-zinc-200/50 px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="bg-[#F59E0B] text-[#111827] text-xs sm:text-sm font-mono font-black py-1 px-3.5 rounded-full shadow-2xs">
+              {post.priceFormatted}
+            </span>
+            <button
+              onClick={() => setShowReceipt(true)}
+              className="bg-[#111827] hover:bg-[#A81D1D] text-white text-xs font-mono font-bold py-1 px-3 rounded-full transition-colors cursor-pointer"
             >
-              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-1-.65-.35-1 .22-1.6 1.5-1.55 2.75-2.92 2.75-2.92.3-.34.36-.5-.22-.52-.37-.02-1.92.95-4.82 2.9-.45.31-.86.46-1.22.45-.4-.01-1.17-.23-1.74-.41-.7-.22-1.25-.34-1.2-.72.03-.2.3-.41.82-.62 3.2-1.4 5.34-2.32 6.42-2.77 3.07-1.28 3.7-.15 3.7.37z" />
-              </svg>
-              View on Telegram ↗
-            </a>
-            <span className="text-zinc-300">|</span>
-            <a
-              href={post.originalPostUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[11px] sm:text-xs font-black text-zinc-500 hover:text-[#e1306c] flex items-center gap-1.5 transition-colors uppercase tracking-wider"
-            >
-              <svg
-                className="w-3.5 h-3.5 stroke-current fill-none"
-                viewBox="0 0 24 24"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              </svg>
-              View on Instagram ↗
-            </a>
+              🧾 View Itemized Receipt
+            </button>
           </div>
 
           <button
             onClick={onClose}
             aria-label="Close modal"
-            className="p-1 rounded-full text-zinc-400 hover:text-zinc-800 hover:bg-zinc-100 transition-all cursor-pointer"
+            className="p-1.5 rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 transition-all cursor-pointer"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -229,6 +212,14 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
         </div>
 
       </div>
+      
+      {/* Itemized Price Receipt Modal Overlay */}
+      {showReceipt && (
+        <PriceReceiptModal
+          post={post}
+          onClose={() => setShowReceipt(false)}
+        />
+      )}
       
       {/* CSS animation definitions */}
       <style jsx global>{`

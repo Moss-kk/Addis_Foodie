@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Header() {
   const [showPromo, setShowPromo] = useState(false);
@@ -12,7 +13,7 @@ export default function Header() {
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [lang, setLang] = useState<'EN' | 'AM'>('EN');
+  const { lang, toggleLang, t } = useLanguage();
 
   const handleSubmitInquiry = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,11 +37,11 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 h-16 border-b border-zinc-200/50 glass-panel flex items-center justify-between px-3 sm:px-6 shadow-2xs transition-all duration-300">
+    <header className="sticky top-0 z-50 h-16 border-b border-zinc-200/60 glass-panel flex items-center justify-between px-4 sm:px-8 shadow-xs transition-all duration-300">
       
-      {/* Brand Logo Rectangular Block */}
+      {/* Brand Logo Rectangular Badge Container */}
       <Link href="/" className="group">
-        <div className="bg-[#111827] border border-[#A81D1D]/40 hover:border-[#A81D1D] rounded-2xl px-3 py-1.5 shadow-md flex items-center gap-2.5 transition-all duration-300 group-hover:scale-[1.02]">
+        <div className="bg-[#111827] border-2 border-[#A81D1D] hover:border-[#F59E0B] rounded-xl px-3.5 py-1.5 shadow-md flex items-center gap-2.5 transition-all duration-300 group-hover:scale-[1.02]">
           <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[#A81D1D] shadow-xs flex-shrink-0 bg-black">
             <Image
               src="/images/logo.png"
@@ -54,10 +55,10 @@ export default function Header() {
           
           <div className="flex flex-col -space-y-0.5">
             <div className="flex items-baseline gap-1">
-              <span className="font-display font-black text-sm sm:text-base tracking-tight text-white">Addis</span>
-              <span className="font-display font-black text-sm sm:text-base tracking-tight text-[#A81D1D]">Foodies</span>
+              <span className="font-syne font-black text-sm sm:text-base tracking-tight text-white">Addis</span>
+              <span className="font-syne font-black text-sm sm:text-base tracking-tight text-[#A81D1D]">Foodies</span>
             </div>
-            <span className="text-[8px] sm:text-[9px] font-bold text-[#F59E0B] font-mono tracking-wider uppercase">
+            <span className="text-[8px] sm:text-[9px] font-extrabold text-[#F59E0B] font-mono tracking-wider uppercase">
               Discovering Foods in Addis
             </span>
           </div>
@@ -65,33 +66,35 @@ export default function Header() {
       </Link>
 
       {/* Navigation Bar Links */}
-      <nav className="hidden lg:flex items-center gap-5 text-xs font-bold text-zinc-700">
-        <Link href="/" className="hover:text-[#A81D1D] transition-colors">
-          Home
+      <nav className="hidden lg:flex items-center gap-6 text-xs font-extrabold text-zinc-700 uppercase tracking-wider">
+        <Link href="/" className="hover:text-[#A81D1D] transition-colors relative py-1 group">
+          <span>{t('home')}</span>
+          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A81D1D] transition-all duration-300 group-hover:w-full" />
         </Link>
-        <Link href="/#archive-section" className="hover:text-[#A81D1D] transition-colors">
-          Reviews
+        <Link href="/#archive-section" className="hover:text-[#A81D1D] transition-colors relative py-1 group">
+          <span>{t('reviews')}</span>
+          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A81D1D] transition-all duration-300 group-hover:w-full" />
         </Link>
-        <Link href="/about" className="hover:text-[#A81D1D] transition-colors">
-          About
+        <Link href="/about" className="hover:text-[#A81D1D] transition-colors relative py-1 group">
+          <span>{t('about')}</span>
+          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A81D1D] transition-all duration-300 group-hover:w-full" />
         </Link>
-        <Link href="/events" className="hover:text-[#A81D1D] transition-colors flex items-center gap-1">
-          <span>🎪</span>
-          <span>Events</span>
+        <Link href="/events" className="hover:text-[#A81D1D] transition-colors flex items-center gap-1.5 relative py-1 group">
+          <span>🎪 {t('events')}</span>
+          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A81D1D] transition-all duration-300 group-hover:w-full" />
         </Link>
-        <Link href="/services" className="hover:text-[#A81D1D] transition-colors">
-          Services
+        <Link href="/services" className="hover:text-[#A81D1D] transition-colors relative py-1 group">
+          <span>{t('services')}</span>
+          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A81D1D] transition-all duration-300 group-hover:w-full" />
         </Link>
-        <Link href="/brand-kit" className="hover:text-[#A81D1D] transition-colors">
-          Brand Kit
-        </Link>
-        <Link href="/collaborate" className="hover:text-[#A81D1D] transition-colors">
-          Contact
+        <Link href="/collaborate" className="hover:text-[#A81D1D] transition-colors relative py-1 group">
+          <span>{t('contact')}</span>
+          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A81D1D] transition-all duration-300 group-hover:w-full" />
         </Link>
       </nav>
 
       {/* Center Actions & Work With Us CTA */}
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-2.5 sm:gap-3.5">
         
         {/* Search Icon Trigger */}
         <Link
@@ -106,19 +109,19 @@ export default function Header() {
 
         {/* Language Switcher Badge */}
         <button
-          onClick={() => setLang(lang === 'EN' ? 'AM' : 'EN')}
-          className="px-2.5 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-[10px] font-black text-zinc-700 hover:bg-zinc-200 transition-colors cursor-pointer"
+          onClick={toggleLang}
+          className="px-2.5 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-[10px] font-black text-zinc-800 hover:border-[#A81D1D] transition-colors cursor-pointer"
           title="Toggle Language"
         >
-          {lang === 'EN' ? '🇬🇧 EN' : '🇪🇹 AM'}
+          {lang === 'EN' ? '🇬🇧 EN' : '🇪🇹 አማርኛ'}
         </button>
 
         {/* Work With Us Direct Button */}
         <Link
           href="/collaborate"
-          className="hidden sm:inline-flex items-center gap-1 bg-[#111827] hover:bg-[#A81D1D] text-white font-extrabold text-xs py-1.5 px-3.5 rounded-full transition-all duration-200 shadow-xs cursor-pointer"
+          className="hidden sm:inline-flex items-center gap-1 bg-[#111827] hover:bg-[#8B1717] text-white font-extrabold text-xs py-2 px-4 rounded-xl transition-all duration-200 shadow-xs cursor-pointer hover:scale-102"
         >
-          <span>🤝 Work With Us</span>
+          <span>🤝 {t('workWithUs')}</span>
         </Link>
 
         {/* Promote Spot CTA Button */}
@@ -127,9 +130,9 @@ export default function Header() {
             setSubmitted(false);
             setShowPromo(true);
           }}
-          className="bg-gradient-to-r from-[#A81D1D] to-rose-700 hover:from-[#8B1717] hover:to-[#A81D1D] text-white font-extrabold text-xs py-1.5 px-3.5 sm:px-4 rounded-full transition-all duration-200 shadow-xs hover:shadow-md hover:scale-102 flex items-center gap-1.5 cursor-pointer"
+          className="bg-[#A81D1D] hover:bg-[#8B1717] text-white font-extrabold text-xs py-2 px-4 rounded-xl transition-all duration-200 shadow-xs hover:shadow-md hover:scale-102 flex items-center gap-1.5 cursor-pointer"
         >
-          <span>🚀 Promote Spot</span>
+          <span>🚀 {t('promoteSpot')}</span>
         </button>
       </div>
 

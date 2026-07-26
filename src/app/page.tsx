@@ -10,11 +10,14 @@ import FilterBar from '../components/FilterBar';
 import ReviewCard from '../components/ReviewCard';
 import PostDetailModal from '../components/PostDetailModal';
 import AiCravingFinder from '../components/AiCravingFinder';
+import AddisMap from '../components/AddisMap';
 import Footer from '../components/Footer';
+import { LanguageProvider, useLanguage } from '../context/LanguageContext';
 import { mockPosts } from '../data/mockPosts';
 import { FoodPost } from '../types/post';
 
-export default function Home() {
+function HomeContent() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -139,38 +142,40 @@ export default function Home() {
         {/* Real-time Festival Banner */}
         <EventBanner />
 
-        {/* SECTION 2: HERO SECTION (PRODUCT POSITIONING OVERHAUL) */}
+        {/* SECTION 2: HERO SECTION (STITCH MCP CULINARY EXCELLENCE SPECIFICATION) */}
         <div className="bg-gradient-to-r from-[#111827] via-[#8B1717] to-[#A81D1D] text-white py-14 px-8 sm:px-14 rounded-3xl flex flex-col gap-8 shadow-2xl relative overflow-hidden group">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute -bottom-10 -right-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl transform group-hover:scale-110 transition-transform duration-700 pointer-events-none" />
+          <div className="absolute -bottom-10 -right-10 w-80 h-80 bg-[#F59E0B]/15 rounded-full blur-3xl transform group-hover:scale-110 transition-transform duration-700 pointer-events-none" />
 
           {/* Hero Content */}
           <div className="flex flex-col gap-4 relative z-10 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 w-fit text-[11px] font-black uppercase tracking-widest text-amber-400 backdrop-blur-md">
-              ✨ The Official Digital Home of Addis Foodies
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-[11px] font-black uppercase tracking-widest text-[#F59E0B] backdrop-blur-md">
+              ✨ {t('tagline')}
             </div>
 
-            <h1 className="font-display font-black text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-tight text-white">
-              Discover Addis Ababa One Bite at a Time
+            <h1 className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-tight text-white">
+              {t('heroTitle')}
             </h1>
 
             <p className="text-white/90 font-semibold text-sm sm:text-lg leading-relaxed max-w-2xl">
-              Trusted restaurant reviews, hidden gems, food festivals, and culinary experiences curated by Addis Foodies.
+              {t('heroSubtext')}
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-3">
+            <div className="flex flex-wrap items-center gap-3.5 pt-3">
               <button
                 onClick={scrollToGrid}
-                className="bg-amber-500 hover:bg-amber-400 text-brand-dark font-black text-xs sm:text-sm py-3 px-6 rounded-full shadow-lg transition-all cursor-pointer hover:scale-102"
+                className="bg-[#F59E0B] hover:bg-amber-400 text-[#111827] font-black text-xs sm:text-sm py-3.5 px-7 rounded-xl shadow-lg transition-all cursor-pointer hover:scale-102 flex items-center gap-2"
               >
-                🔍 Explore Reviews
+                <span>🔍</span>
+                <span>{t('exploreReviews')}</span>
               </button>
               <Link
                 href="/collaborate"
-                className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm py-3 px-6 rounded-full border border-white/20 backdrop-blur-xs transition-all cursor-pointer"
+                className="bg-white/15 hover:bg-white/25 text-white font-bold text-xs sm:text-sm py-3.5 px-7 rounded-xl border border-white/25 backdrop-blur-xs transition-all cursor-pointer hover:scale-102 flex items-center gap-2"
               >
-                🤝 Work With Addis Foodies
+                <span>🤝</span>
+                <span>{t('workWithAddisFoodies')}</span>
               </Link>
             </div>
           </div>
@@ -186,7 +191,7 @@ export default function Home() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by restaurant, area (Bole, Kazanchis...), dish, or keywords..."
+              placeholder={t('searchPlaceholder')}
               className="block w-full pl-12 pr-10 py-3.5 sm:py-4 border-0 bg-white text-zinc-950 placeholder-zinc-400 text-xs sm:text-sm font-semibold focus:outline-hidden"
             />
             {searchQuery && (
@@ -203,12 +208,12 @@ export default function Home() {
 
           {/* Quick Filter Tags Row */}
           <div className="flex flex-wrap items-center gap-2 z-10">
-            <span className="text-[11px] font-black uppercase text-white/70 tracking-wider mr-1">Trending:</span>
+            <span className="text-[11px] font-black uppercase text-white/70 tracking-wider mr-1">{t('trending')}:</span>
             {quickTags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => setSearchQuery(tag)}
-                className="px-3 py-1 rounded-full text-xs font-bold bg-white/10 hover:bg-amber-500 hover:text-brand-dark text-white border border-white/15 transition-all duration-200 cursor-pointer"
+                className="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/10 hover:bg-[#F59E0B] hover:text-[#111827] text-white border border-white/20 transition-all duration-200 cursor-pointer"
               >
                 #{tag}
               </button>
@@ -216,25 +221,25 @@ export default function Home() {
           </div>
 
           {/* Micro-Stats Row */}
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] sm:text-xs font-black uppercase tracking-widest text-white/80 border-t border-white/10 pt-4 z-10">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] sm:text-xs font-mono font-black uppercase tracking-widest text-white/80 border-t border-white/15 pt-4 z-10">
             <div className="flex items-center gap-1.5">
               <span>🔥</span>
-              <span>150,000+ Monthly Foodies</span>
+              <span>{t('monthlyFoodies')}</span>
             </div>
             <span className="hidden sm:inline text-white/20">|</span>
             <div className="flex items-center gap-1.5">
               <span>📍</span>
-              <span>320+ Curated Spots</span>
+              <span>{t('curatedSpots')}</span>
             </div>
             <span className="hidden sm:inline text-white/20">|</span>
             <div className="flex items-center gap-1.5">
               <span>🏢</span>
-              <span>4 Key Neighborhood Hubs</span>
+              <span>{t('neighborhoodHubs')}</span>
             </div>
             <span className="hidden sm:inline text-white/20">|</span>
             <div className="flex items-center gap-1.5">
               <span>⚡</span>
-              <span>100% Author-Verified Reviews</span>
+              <span>{t('authorVerified')}</span>
             </div>
           </div>
         </div>
@@ -242,12 +247,12 @@ export default function Home() {
         {/* SECTION 3: FEATURED THIS WEEK */}
         <section className="flex flex-col gap-5">
           <div className="flex items-center justify-between border-b border-zinc-200/50 pb-3">
-            <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark flex items-center gap-2">
+            <h2 className="font-syne font-black text-xl sm:text-2xl text-brand-dark flex items-center gap-2">
               <span>🌟</span>
-              <span>Featured This Week</span>
+              <span>{t('featuredThisWeek')}</span>
             </h2>
             <span className="text-xs font-bold text-brand-primary bg-red-50 px-3 py-1 rounded-full border border-red-100">
-              Editorial Spotlights
+              {t('editorialSpotlights')}
             </span>
           </div>
 
@@ -260,22 +265,22 @@ export default function Home() {
         {/* SECTION 4: USEFUL AI CRAVING FINDER */}
         <AiCravingFinder onSelectPrompt={handleAiPrompt} />
 
-        {/* SECTION 5: LATEST REVIEWS (INGESTED FROM SOCIALS) */}
+        {/* SECTION 5: LATEST REVIEWS */}
         <section className="flex flex-col gap-5 bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200/60 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-100 pb-4">
             <div className="flex items-center gap-2.5">
               <span className="text-2xl">🕒</span>
               <div>
-                <h2 className="font-display font-black text-xl sm:text-2xl text-brand-dark">
-                  Latest Ingested Reviews
+                <h2 className="font-syne font-black text-xl sm:text-2xl text-brand-dark">
+                  {t('latestIngestedReviews')}
                 </h2>
                 <p className="text-xs text-zinc-500 font-medium">
-                  Fresh posts synced directly from official Telegram & Instagram channels.
+                  {t('freshPostsSynced')}
                 </p>
               </div>
             </div>
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-black uppercase tracking-wider border border-emerald-200 self-start sm:self-auto">
-              LIVE SYNC ACTIVE
+              {t('liveSyncActive')}
             </span>
           </div>
 
@@ -290,35 +295,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 6: POPULAR AREAS HOOK */}
-        <section className="flex flex-col gap-5 bg-gradient-to-r from-brand-dark to-zinc-900 text-white p-8 rounded-3xl shadow-xl">
-          <div className="flex flex-col gap-1">
-            <span className="text-amber-400 font-extrabold text-xs uppercase tracking-widest">Neighborhood Discovery</span>
-            <h2 className="font-display font-black text-2xl text-white">Popular Dining Districts in Addis</h2>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-            {[
-              { name: 'Bole', desc: 'Gourmet burgers, lounges & cafes', icon: '📍' },
-              { name: 'Kazanchis', desc: 'Espresso roasters & modern dining', icon: '☕' },
-              { name: 'Piassa', desc: 'Traditional kitfo houses & heritage food', icon: '🍖' },
-              { name: 'Sarbet', desc: 'Fasting foods & artisanal bakeries', icon: '🌱' },
-            ].map((area) => (
-              <button
-                key={area.name}
-                onClick={() => {
-                  setSelectedLocation(area.name);
-                  scrollToGrid();
-                }}
-                className="bg-white/10 hover:bg-amber-500 hover:text-brand-dark p-4 rounded-2xl border border-white/15 text-left transition-all cursor-pointer group"
-              >
-                <span className="text-xl block mb-1">{area.icon}</span>
-                <h4 className="font-display font-extrabold text-base text-white group-hover:text-brand-dark">{area.name}</h4>
-                <p className="text-[11px] text-zinc-400 group-hover:text-zinc-900 font-medium">{area.desc}</p>
-              </button>
-            ))}
-          </div>
-        </section>
+        {/* SECTION 6: INTERACTIVE ADDIS ABABA NEIGHBORHOOD MAP */}
+        <AddisMap
+          onSelectDistrict={(district) => {
+            setSelectedLocation(district);
+            scrollToGrid();
+          }}
+        />
 
         {/* SECTION 7: INTERACTIVE REVIEWS & PRICE ARCHIVE */}
         <section id="archive-section" className="flex flex-col gap-6 pt-2">
@@ -479,4 +462,8 @@ export default function Home() {
       <Footer />
     </div>
   );
+}
+
+export default function Home() {
+  return <HomeContent />;
 }
