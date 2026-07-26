@@ -16,7 +16,7 @@ export default function EventsPage() {
   });
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#09090B] text-zinc-100 selection:bg-[#F59E0B]/20 selection:text-[#F59E0B]">
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-[#111827] selection:bg-[#A81D1D]/10 selection:text-[#A81D1D]">
       <Header />
 
       <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-10">
@@ -25,7 +25,7 @@ export default function EventsPage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-400 hover:text-[#F59E0B] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 hover:text-[#A81D1D] transition-colors cursor-pointer"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -35,14 +35,14 @@ export default function EventsPage() {
         </div>
 
         {/* Hero Banner */}
-        <div className="bg-gradient-to-br from-[#121215] via-[#18181C] to-black text-white py-14 px-8 sm:px-14 rounded-3xl flex flex-col gap-4 shadow-2xl border border-zinc-800">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#F59E0B]">
+        <div className="bg-gradient-to-br from-[#111827] via-[#8B1717] to-[#A81D1D] text-white py-14 px-8 sm:px-14 rounded-3xl flex flex-col gap-4 shadow-2xl border border-zinc-800">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#F59E0B]">
             🎪 Signature Food Festivals & Events Hub
           </div>
           <h1 className="font-syne font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight">
             Culinary Festivals in Addis Ababa
           </h1>
-          <p className="text-zinc-300 font-medium text-sm sm:text-lg max-w-3xl">
+          <p className="text-zinc-200 font-medium text-sm sm:text-lg max-w-3xl">
             Live coverage, vendor booth lineups, ticket info, and venue maps for Addis Ababa’s premier food festivals.
           </p>
         </div>
@@ -55,8 +55,8 @@ export default function EventsPage() {
               onClick={() => setSelectedStatus(status)}
               className={`touch-target px-5 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 selectedStatus === status
-                  ? 'bg-[#F59E0B] text-zinc-950 shadow-md font-black'
-                  : 'bg-zinc-900 text-zinc-300 border border-zinc-800 hover:bg-zinc-800'
+                  ? 'bg-[#A81D1D] text-white shadow-md font-black'
+                  : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-100'
               }`}
             >
               {status === 'ALL' && 'All Festivals'}
@@ -72,10 +72,10 @@ export default function EventsPage() {
           {filteredEvents.map((event) => (
             <div
               key={event.id}
-              className="bg-zinc-900/90 rounded-3xl overflow-hidden border border-zinc-800 shadow-xl hover:shadow-2xl hover:border-zinc-700 transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white rounded-3xl overflow-hidden border border-zinc-200 shadow-sm hover:shadow-xl hover:border-zinc-300 transition-all duration-300 flex flex-col justify-between group"
             >
               <div className="flex flex-col">
-                <div className="relative w-full aspect-[16/9] bg-zinc-950 overflow-hidden">
+                <div className="relative w-full aspect-[16/9] bg-zinc-100 overflow-hidden">
                   <Image
                     src={event.posterImage}
                     alt={event.title}
@@ -91,28 +91,28 @@ export default function EventsPage() {
                 </div>
 
                 <div className="p-6 sm:p-8 flex flex-col gap-4">
-                  <h3 className="font-syne font-black text-xl sm:text-2xl text-zinc-100 group-hover:text-[#F59E0B] transition-colors">
+                  <h3 className="font-syne font-black text-xl sm:text-2xl text-[#111827] group-hover:text-[#A81D1D] transition-colors">
                     {event.title}
                   </h3>
 
-                  <div className="flex flex-col gap-2 text-xs font-medium text-zinc-400">
+                  <div className="flex flex-col gap-2 text-xs font-medium text-zinc-600">
                     <div className="flex items-center gap-2">
                       <span>📅</span>
-                      <span className="font-bold text-zinc-200">{event.gregorianDates}</span>
+                      <span className="font-bold text-zinc-800">{event.gregorianDates}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>📍</span>
-                      <span className="text-zinc-300">{event.locationName} ({event.landmark})</span>
+                      <span className="text-zinc-700">{event.locationName} ({event.landmark})</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span>🎟️</span>
-                      <span className="font-mono font-bold text-[#F59E0B]">{event.entranceFee}</span>
+                      <span className="font-mono font-bold text-[#A81D1D]">{event.entranceFee}</span>
                     </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2 pt-2">
                     {event.offeringTags.map((tag, idx) => (
-                      <span key={idx} className="px-3 py-1 rounded-full bg-zinc-950 text-amber-400 text-[10px] font-bold uppercase tracking-wider border border-zinc-800">
+                      <span key={idx} className="px-3 py-1 rounded-full bg-zinc-100 text-[#111827] text-[10px] font-bold uppercase tracking-wider border border-zinc-200">
                         {tag}
                       </span>
                     ))}
@@ -120,13 +120,13 @@ export default function EventsPage() {
                 </div>
               </div>
 
-              <div className="p-6 pt-0 flex items-center justify-between border-t border-zinc-800/80 mt-2">
-                <span className="text-xs font-mono font-bold text-zinc-400">
+              <div className="p-6 pt-0 flex items-center justify-between border-t border-zinc-100 mt-2">
+                <span className="text-xs font-mono font-bold text-zinc-600">
                   📞 {event.phones[0]}
                 </span>
                 <Link
                   href="/collaborate"
-                  className="touch-target px-4 py-2 rounded-xl bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 text-xs font-black transition-all cursor-pointer"
+                  className="touch-target px-4 py-2 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-black transition-all cursor-pointer"
                 >
                   Sponsor Slot ↗
                 </Link>

@@ -34,9 +34,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${syne.variable} ${jetbrainsMono.variable} h-full antialiased dark`}
+      className={`${outfit.variable} ${syne.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#09090B] text-zinc-100 font-sans selection:bg-[#F59E0B]/20 selection:text-[#F59E0B]">
+      <body className="min-h-full flex flex-col bg-brand-bg text-brand-dark font-sans selection:bg-[#A81D1D]/10 selection:text-[#A81D1D]">
         <LanguageProvider>
           {children}
         </LanguageProvider>

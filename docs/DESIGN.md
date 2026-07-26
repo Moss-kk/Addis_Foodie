@@ -7,22 +7,23 @@ Obsidian Black Theme, Gold & Coral Accents, Outfit Typography & Component Specs
 ## 1. Core Visual Tokens
 
 ### 1.1 Color Tokens
-- **Obsidian Canvas (`#09090B`)**: Full-page background surface across all pages (Home, About, Events, Services, Collaborate).
-- **Sticky Header Glass (`bg-black/90 backdrop-blur-md border-zinc-800`)**: Pure black sticky navigation header.
-- **Warm Amber (`#F59E0B`)**: Primary CTA buttons, brand logo ring, active navigation underlines, ETB price chips, rating badges.
-- **Refined Fiery Coral (`#FF3B30`)**: Subtle micro highlight accents & flame tags (minimized from dominating blocks).
-- **Deep Graphite Surface (`#121215` / `#18181C`)**: Dark glass container cards, modal bodies, and multi-column footer background.
+- **Sticky Header Glass (`bg-black/95 backdrop-blur-md border-zinc-800`)**: Pure black sticky navigation header across all routes.
+- **Soft Cream Canvas (`#FAFAFA`)**: Main page background surface across all routes.
+- **Primary Crimson (`#A81D1D`)**: Brand logo badge ring, primary CTA buttons, active navigation underlines.
+- **Dark Crimson (`#8B1717`)**: Hero gradient overlay, active press states, dark CTA hover.
+- **Warm Amber (`#F59E0B`)**: Price chips in ETB, rating star badges, tagline text, live festival alerts.
+- **Deep Charcoal (`#111827`)**: Primary body typography, footer canvas, dark feature section containers.
 - **Emerald Green (`#10B981`)**: Real-time live status badges ("🚨 TODAY!! LIVE NOW").
 
 ---
 
 ### 1.2 Typography Hierarchy
-- **Primary Body & UI**: `Outfit` (font-sans text-zinc-100 font-medium).
-- **Display Headings**: `Syne` (font-syne font-black tracking-tight text-white).
-- **Section Headings**: `Syne` / `Outfit` (font-black text-xl sm:text-2xl text-zinc-100).
+- **Primary Body & UI**: `Outfit` (font-sans text-zinc-900 font-medium).
+- **Display Headings**: `Syne` (font-syne font-black tracking-tight).
+- **Section Headings**: `Syne` / `Outfit` (font-black text-xl sm:text-2xl text-[#111827]).
 - **Labels & Badges**: `Outfit` (font-extrabold text-[10px] sm:text-xs uppercase tracking-wider).
 - **Prices & Numbers**: `JetBrains Mono` (font-mono font-black text-[#F59E0B]).
-- **Locations**: `Outfit` (font-bold text-zinc-300).
+- **Locations**: `Outfit` (font-bold text-zinc-800).
 
 ---
 

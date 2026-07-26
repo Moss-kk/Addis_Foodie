@@ -105,16 +105,16 @@ function HomeContent() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#09090B] text-zinc-100 selection:bg-[#F59E0B]/20 selection:text-[#F59E0B]">
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-[#111827] selection:bg-[#A81D1D]/10 selection:text-[#A81D1D]">
       {/* HEADER NAVIGATION */}
       <Header />
 
       {/* SECTION 1: FULL-BLEED IMMERSIVE HERO */}
-      <section className="w-full bg-gradient-to-b from-[#121215] via-[#09090B] to-[#09090B] text-white py-16 sm:py-24 relative overflow-hidden border-b border-zinc-800/80">
+      <section className="w-full bg-gradient-to-b from-[#8B1717] via-[#A81D1D] to-[#111827] text-white py-16 sm:py-24 relative overflow-hidden border-b border-zinc-800">
         
-        {/* Subtle Ambient Radial Lighting */}
+        {/* Ambient Overlay Glow */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#F59E0B]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-10 -left-10 w-96 h-96 bg-[#FF3B30]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 -left-10 w-96 h-96 bg-black/30 rounded-full blur-3xl pointer-events-none" />
 
         <div className="site-container relative z-10 flex flex-col gap-10">
           
@@ -126,7 +126,7 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B] backdrop-blur-md"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B] backdrop-blur-md"
               >
                 ✨ {t('tagline')}
               </motion.div>
@@ -144,7 +144,7 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-zinc-300 font-medium text-base sm:text-xl leading-relaxed max-w-2xl"
+                className="text-zinc-200 font-medium text-base sm:text-xl leading-relaxed max-w-2xl"
               >
                 {t('heroSubtext')}
               </motion.p>
@@ -166,7 +166,7 @@ function HomeContent() {
 
                 <Link
                   href="/collaborate"
-                  className="touch-target bg-zinc-900/90 hover:bg-zinc-800 text-zinc-100 font-bold text-sm py-4 px-8 rounded-xl border border-zinc-800 transition-all cursor-pointer hover:scale-102 flex items-center gap-2.5 focus-ring"
+                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-4 px-8 rounded-xl border border-white/20 transition-all cursor-pointer hover:scale-102 flex items-center gap-2.5 focus-ring backdrop-blur-md"
                 >
                   <span>🤝</span>
                   <span>{t('workWithAddisFoodies')}</span>
@@ -176,25 +176,25 @@ function HomeContent() {
 
             {/* Floating Food Badges Showcase */}
             <div className="hidden lg:grid grid-cols-2 gap-4 flex-shrink-0 w-80">
-              <div className="bg-zinc-900/80 backdrop-blur-md p-4 rounded-2xl border border-zinc-800 flex flex-col gap-2 transform hover:scale-105 transition-transform">
+              <div className="bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex flex-col gap-2 transform hover:scale-105 transition-transform">
                 <span className="text-3xl">🍖</span>
                 <span className="font-syne font-bold text-sm text-white">Special Kitfo</span>
                 <span className="text-[11px] font-mono text-[#F59E0B] font-bold">850 Br • Bole</span>
               </div>
 
-              <div className="bg-zinc-900/80 backdrop-blur-md p-4 rounded-2xl border border-zinc-800 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform">
+              <div className="bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform">
                 <span className="text-3xl">☕</span>
                 <span className="font-syne font-bold text-sm text-white">Double Macchiato</span>
                 <span className="text-[11px] font-mono text-[#F59E0B] font-bold">150 Br • Sarbet</span>
               </div>
 
-              <div className="bg-zinc-900/80 backdrop-blur-md p-4 rounded-2xl border border-zinc-800 flex flex-col gap-2 transform hover:scale-105 transition-transform">
+              <div className="bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex flex-col gap-2 transform hover:scale-105 transition-transform">
                 <span className="text-3xl">🍔</span>
                 <span className="font-syne font-bold text-sm text-white">Gourmet Burger</span>
                 <span className="text-[11px] font-mono text-[#F59E0B] font-bold">680 Br • Bole</span>
               </div>
 
-              <div className="bg-zinc-900/80 backdrop-blur-md p-4 rounded-2xl border border-zinc-800 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform">
+              <div className="bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform">
                 <span className="text-3xl">🌱</span>
                 <span className="font-syne font-bold text-sm text-white">Special Beyaynetu</span>
                 <span className="text-[11px] font-mono text-[#F59E0B] font-bold">420 Br • Kazanchis</span>
@@ -204,7 +204,7 @@ function HomeContent() {
           </div>
 
           {/* Prominent Search Bar Container */}
-          <div className="relative w-full max-w-3xl shadow-2xl rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900/90">
+          <div className="relative w-full max-w-3xl shadow-2xl rounded-2xl overflow-hidden border border-white/30 bg-white">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <svg className="h-6 w-6 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -216,13 +216,13 @@ function HomeContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="block w-full pl-13 pr-12 py-4 sm:py-5 border-0 bg-transparent text-white placeholder-zinc-500 text-sm sm:text-base font-semibold focus:outline-none"
+              className="block w-full pl-13 pr-12 py-4 sm:py-5 border-0 bg-transparent text-zinc-950 placeholder-zinc-400 text-sm sm:text-base font-semibold focus:outline-none"
             />
 
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute inset-y-0 right-0 pr-4 flex items-center touch-target text-zinc-400 hover:text-zinc-200 focus-ring"
+                className="absolute inset-y-0 right-0 pr-4 flex items-center touch-target text-zinc-400 hover:text-zinc-700 focus-ring"
                 aria-label="Clear Search"
               >
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -234,12 +234,12 @@ function HomeContent() {
 
           {/* Trending Tags Row */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-mono font-black uppercase text-zinc-400 tracking-wider mr-1">{t('trending')}:</span>
+            <span className="text-xs font-mono font-black uppercase text-zinc-300 tracking-wider mr-1">{t('trending')}:</span>
             {quickTags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => setSearchQuery(tag)}
-                className="touch-target px-4 py-2 rounded-full text-xs font-bold bg-zinc-900/90 hover:bg-[#F59E0B] hover:text-zinc-950 text-zinc-300 border border-zinc-800 transition-all cursor-pointer focus-ring"
+                className="touch-target px-4 py-2 rounded-full text-xs font-bold bg-white/10 hover:bg-white text-white hover:text-zinc-950 border border-white/20 transition-all cursor-pointer focus-ring"
               >
                 #{tag}
               </button>
@@ -247,7 +247,7 @@ function HomeContent() {
           </div>
 
           {/* Micro-Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono font-black uppercase tracking-widest text-zinc-400 border-t border-zinc-800/80 pt-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono font-black uppercase tracking-widest text-zinc-300 border-t border-white/15 pt-6">
             <div className="flex items-center gap-2">
               <span className="text-base">🔥</span>
               <span>{t('monthlyFoodies')}</span>
@@ -312,11 +312,11 @@ function HomeContent() {
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2.5">
               <span className="text-3xl">🏷️</span>
-              <h2 className="font-syne font-black text-2xl sm:text-4xl text-zinc-100">
+              <h2 className="font-syne font-black text-2xl sm:text-4xl text-[#111827]">
                 {t('searchFilterArchive')}
               </h2>
             </div>
-            <p className="text-xs sm:text-sm text-zinc-400 font-medium max-w-2xl">
+            <p className="text-xs sm:text-sm text-zinc-600 font-medium max-w-2xl">
               {t('archiveSubtext')}
             </p>
           </div>
@@ -345,15 +345,15 @@ function HomeContent() {
               ))}
             </div>
           ) : (
-            <div className="bg-zinc-900/90 p-12 text-center rounded-3xl border border-zinc-800 shadow-sm flex flex-col items-center justify-center gap-4 my-6">
+            <div className="bg-white p-12 text-center rounded-3xl border border-zinc-200 shadow-sm flex flex-col items-center justify-center gap-4 my-6">
               <span className="text-5xl">🔍</span>
-              <h3 className="font-syne font-black text-xl text-zinc-100">No Matching Reviews Found</h3>
-              <p className="text-xs text-zinc-400 max-w-md font-medium">
+              <h3 className="font-syne font-black text-xl text-[#111827]">No Matching Reviews Found</h3>
+              <p className="text-xs text-zinc-500 max-w-md font-medium">
                 We couldn't find any reviews matching your search filters. Try resetting your search parameters.
               </p>
               <button
                 onClick={handleClearFilters}
-                className="touch-target px-6 py-3 rounded-xl bg-[#F59E0B] text-zinc-950 text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer hover:bg-amber-400"
+                className="touch-target px-6 py-3 rounded-xl bg-[#A81D1D] text-white text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer hover:bg-[#8B1717]"
               >
                 Reset All Filters
               </button>
@@ -366,7 +366,7 @@ function HomeContent() {
               <button
                 onClick={handleLoadMore}
                 disabled={isLoadingMore}
-                className="touch-target px-8 py-4 rounded-xl bg-zinc-900 hover:bg-[#F59E0B] hover:text-zinc-950 text-zinc-100 border border-zinc-800 text-xs font-mono font-black uppercase tracking-widest transition-all shadow-lg hover:scale-102 cursor-pointer focus-ring"
+                className="touch-target px-8 py-4 rounded-xl bg-[#111827] hover:bg-[#A81D1D] text-white border border-zinc-800 text-xs font-mono font-black uppercase tracking-widest transition-all shadow-lg hover:scale-102 cursor-pointer focus-ring"
               >
                 {isLoadingMore ? 'Loading More Food Spots...' : 'Load More Reviews ⚡'}
               </button>
@@ -375,7 +375,7 @@ function HomeContent() {
         </section>
 
         {/* SECTION 7: RESTAURANT COLLABORATION CTA */}
-        <div className="bg-[#121215] text-white rounded-3xl p-8 sm:p-12 border border-zinc-800 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="bg-[#111827] text-white rounded-3xl p-8 sm:p-12 border border-zinc-800 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex flex-col gap-3 text-center md:text-left">
             <span className="text-[#F59E0B] font-mono font-black text-xs uppercase tracking-widest">
               📢 Commercial Collaboration Engine

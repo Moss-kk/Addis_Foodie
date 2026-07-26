@@ -7,13 +7,14 @@ Obsidian Black Theme, Gold & Coral Accents, Outfit Typography & Full-Bleed Dark 
 ## 1. Core Visual Tokens
 
 ### 1.1 Color Tokens
-- **Obsidian Canvas (`#09090B`)**: Full-page background surface across all pages (Home, About, Events, Services, Collaborate).
-- **Sticky Header Glass (`bg-black/90 backdrop-blur-md border-zinc-800`)**: Pure black sticky navigation header.
-- **Warm Amber Primary (`#F59E0B`)**: Brand logo accent ring, primary CTAs, active navigation indicators, price chips in ETB, rating star badges.
-- **Refined Fiery Coral (`#FF3B30`)**: Subtle micro highlight accents & flame tags (minimized from dominating blocks).
-- **Deep Graphite Surface (`#121215` / `#18181C`)**: Dark glass container cards, modal bodies, and multi-column footer background.
+- **Sticky Header Glass (`bg-black/95 backdrop-blur-md border-zinc-800`)**: Pure black sticky navigation header across all routes.
+- **Soft Cream Canvas (`#FAFAFA`)**: Main page background surface across all routes.
+- **Primary Crimson (`#A81D1D`)**: Brand badge ring, primary CTA buttons, active navigation indicators, focused input borders.
+- **Dark Crimson (`#8B1717`)**: Full-bleed Hero gradient overlay, active press states, dark CTA hover.
+- **Warm Amber (`#F59E0B`)**: Price chips in ETB, rating star badges, tagline text, live festival highlights, AI search highlights.
+- **Deep Charcoal (`#111827`)**: Brand logo block background, surface containers, primary body typography, dark cards.
 - **Emerald Green (`#10B981`)**: Real-time live status badges ("🚨 TODAY!! LIVE NOW").
-- **Muted Steel (`#A1A1AA`)**: Secondary caption typography, structural dividers.
+- **Muted Steel (`#6B7280`)**: Secondary caption typography, structural dividers.
 
 ---
 

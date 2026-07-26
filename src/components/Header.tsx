@@ -19,13 +19,13 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-black/90 backdrop-blur-md border-b border-zinc-800/80 shadow-md transition-all">
+    <header className="sticky top-0 z-40 w-full bg-black/95 backdrop-blur-md border-b border-zinc-800 shadow-md transition-all">
       <div className="site-container py-3 flex items-center justify-between">
         
         {/* Brand Logo Rectangular Block */}
         <Link href="/" className="group focus-ring rounded-2xl">
-          <div className="bg-[#121215] border border-zinc-800 hover:border-[#F59E0B]/60 rounded-2xl px-3 py-1.5 shadow-md flex items-center gap-2.5 transition-all duration-300 group-hover:scale-[1.02]">
-            <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[#F59E0B] shadow-xs flex-shrink-0 bg-black">
+          <div className="bg-[#111827] border border-zinc-800 hover:border-[#A81D1D]/60 rounded-2xl px-3 py-1.5 shadow-md flex items-center gap-2.5 transition-all duration-300 group-hover:scale-[1.02]">
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[#A81D1D] shadow-xs flex-shrink-0 bg-black">
               <Image
                 src="/images/logo.png"
                 alt="Addis Foodies Logo"
@@ -37,7 +37,7 @@ export default function Header() {
             <div className="flex flex-col -space-y-0.5">
               <div className="flex items-baseline gap-1">
                 <span className="font-syne font-black text-sm sm:text-base tracking-tight text-white">Addis</span>
-                <span className="font-syne font-black text-sm sm:text-base tracking-tight text-[#F59E0B]">Foodies</span>
+                <span className="font-syne font-black text-sm sm:text-base tracking-tight text-[#A81D1D]">Foodies</span>
               </div>
               <span className="text-[9px] font-bold text-zinc-400 tracking-wider uppercase font-sans">
                 Discovering Foods
@@ -52,10 +52,10 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="hover:text-[#F59E0B] transition-colors relative py-2 group focus-ring text-zinc-200"
+              className="hover:text-white transition-colors relative py-2 group focus-ring text-zinc-200"
             >
               <span>{link.label}</span>
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#F59E0B] transition-all duration-300 group-hover:w-full" />
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#A81D1D] transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
         </nav>
@@ -75,7 +75,7 @@ export default function Header() {
           {/* Work With Us CTA */}
           <Link
             href="/collaborate"
-            className="hidden sm:inline-flex items-center justify-center touch-target px-5 py-2.5 rounded-xl bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 text-xs font-black shadow-md hover:shadow-lg transition-all cursor-pointer focus-ring hover:scale-102"
+            className="hidden sm:inline-flex items-center justify-center touch-target px-5 py-2.5 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-extrabold shadow-md hover:shadow-lg transition-all cursor-pointer focus-ring hover:scale-102"
           >
             {t('workWithUs')} ↗
           </Link>
@@ -116,7 +116,7 @@ export default function Header() {
                   className="touch-target px-4 py-3 rounded-xl hover:bg-zinc-900 text-sm font-extrabold text-white transition-colors flex items-center justify-between"
                 >
                   <span>{link.label}</span>
-                  <span className="text-[#F59E0B]">→</span>
+                  <span className="text-[#A81D1D]">→</span>
                 </Link>
               ))}
 
@@ -124,7 +124,7 @@ export default function Header() {
                 <Link
                   href="/collaborate"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full touch-target bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 font-black text-xs uppercase tracking-wider py-3.5 rounded-xl text-center shadow-lg transition-colors"
+                  className="w-full touch-target bg-[#A81D1D] hover:bg-[#8B1717] text-white font-extrabold text-xs uppercase tracking-wider py-3.5 rounded-xl text-center shadow-lg transition-colors"
                 >
                   {t('workWithUs')} ↗
                 </Link>

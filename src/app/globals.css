@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  /* Addis Foodies Obsidian & Gold Modern Design System Tokens */
-  --color-brand-primary: #F59E0B;      /* Warm Amber / Gold Primary CTA */
-  --color-brand-coral: #FF3B30;        /* Refined Fiery Coral Highlight */
+  /* Addis Foodies Master Design Tokens */
+  --color-brand-primary: #A81D1D;      /* Primary Crimson */
+  --color-brand-dark-crimson: #8B1717; /* Dark Crimson */
   --color-brand-accent: #F59E0B;       /* Warm Amber */
-  --color-brand-bg: #09090B;           /* Obsidian Black Canvas */
-  --color-brand-dark: #121215;         /* Deep Graphite Surface */
-  --color-brand-emerald: #10B981;      /* Emerald Green Status */
+  --color-brand-bg: #FAFAFA;           /* Soft Cream Canvas Surface */
+  --color-brand-dark: #111827;         /* Deep Charcoal */
+  --color-brand-emerald: #10B981;      /* Emerald Green */
 
   /* Typography Stack */
   --font-sans: var(--font-primary), "Outfit", system-ui, -apple-system, sans-serif;
@@ -16,13 +16,13 @@
 }
 
 :root {
-  --background: #09090B;
-  --foreground: #F4F4F5;
-  --brand-primary: #F59E0B;
-  --brand-coral: #FF3B30;
+  --background: #FAFAFA;
+  --foreground: #111827;
+  --brand-primary: #A81D1D;
+  --brand-dark-crimson: #8B1717;
   --brand-amber: #F59E0B;
-  --brand-obsidian: #09090B;
-  --brand-charcoal: #121215;
+  --brand-charcoal: #111827;
+  --brand-cream: #FAFAFA;
   --brand-emerald: #10B981;
 }
 
