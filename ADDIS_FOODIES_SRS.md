@@ -25,34 +25,21 @@ This Software Requirements Specification (SRS) defines the complete functional, 
 
 ---
 
-## 3. Core Functional Modules
+## 3. Core Functional Modules & Ambient Identity
 
 ### 3.1 12-Section Storytelling Homepage Layout Sequence
 1. **Header**: Brand Badge, Full Navigation, Search Icon, Language Switcher (`EN | AM`).
-2. **Hero Section**: Headline *"Discover Addis Ababa One Bite at a Time"*, subtext, CTAs (`Explore Reviews`, `Work With Addis Foodies`).
+2. **Hero Section**: 3D WebGL Brand Anchor (`Hero3DCanvas.tsx`), Headline *"Discover Addis Ababa One Bite at a Time"*, subtext, CTAs (`Explore Reviews`, `Work With Addis Foodies`).
 3. **Featured This Week**: High-impact editorial spotlights.
 4. **Trending Reviews**: Most requested reviews across Addis Ababa.
 5. **Search & Useful AI Craving Finder**: Natural language prompt chips (*"I'm craving Kitfo"*, *"Coffee around Bole"*, *"Affordable lunch under 300 Br"*).
 6. **Latest Ingested Reviews**: Chronological feed of newly ingested reviews.
 7. **Interactive Neighborhood Map & Popular Areas**: Dynamic 2D map visualization for Bole, Kazanchis, Piassa, and Sarbet.
-8. **Upcoming Food Events**: Culinary festivals, countdowns, and participating venues.
-9. **Why Trust Addis Foodies**: Review process, editorial impact, and independence statement.
-10. **Instagram & Telegram Highlights & Video Reels**: Visual media gallery & 9:16 portrait video review overlay player.
-11. **Restaurant Collaboration CTA**: Business invitation banner.
-12. **Comprehensive Multi-Column Brand Footer**: Directory, legal, press, and social handles.
+8. **Upcoming Food Events & Festival Engine**: Kitfo Fest #5 at Monarch Hotel Rooftop, countdowns, and participating venues.
+9. **Commercial Promotion Hub**: Direct booking center (`0966-55-00-00`, `@AddisFoodies`).
 
-### 3.2 Dynamic Bilingual Localization Protocol (`EN | AM`)
-- **Protocol**: Provide seamless client-side and server-side internationalization across English and Amharic (አማርኛ).
-- **Coverage**: Navigation, headlines, craving chips, neighborhood names, search place-holders, and itemized receipt labels.
+### 3.8 Ambient Culinary Identity
+- Semi-transparent Habesha culinary textures (Kitfo, Injera Mesob, Coffee Jebena watermarks) integrated into ambient layout backgrounds (`.bg-habesha-culinary-pattern`).
 
-### 3.3 Itemized Dish Price Receipt Engine
-- **Protocol**: Provide authentic itemized receipt breakdowns for reviewed restaurants, itemizing dish prices in ETB (`JetBrains Mono` typography).
-
----
-
-## 4. Non-Functional Requirements & Technical Standards
-
-* **NFR-1 Performance Target**: First Contentful Paint (FCP) < 1.2s on mobile 3G/4G networks in Addis Ababa.
-* **NFR-2 SEO & Structured Data**: Emit compliant JSON-LD (`Restaurant`, `Review`, `Event`, `BreadcrumbList`) across all dynamic and static pages.
-* **NFR-3 Accessibility & Ethiopic Typography**: Touch targets strictly >= 48x48px with Ethiopic line-height multiplier (`1.15x`).
-* **NFR-4 Analytics Requirements**: Track search queries, popular area filters, collaboration inquiry conversions, and event phone triggers server-side.
+### 4.6 Editorial About & Authority Hub (`/about`)
+- Dedicated `/about` editorial page detailing field methodologies (4-step inspection process), community impact metrics (150K+ reach), author independence guarantees, and media kit downloads (`tel:0966550000`).
