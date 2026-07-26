@@ -19,6 +19,9 @@ export interface FoodPost {
   originalPostUrl: string;
   menuItems?: MenuItem[]; // for the detail breakdown table
   mapUrl?: string; // for the Open in Maps button
+  videoUrl?: string; // video reel URL
+  reelPlatform?: 'instagram_reel' | 'tiktok_video';
+  viewsCount?: string; // e.g. "48.5K views"
 }
 
 export type EventStatus = 'UPCOMING' | 'LIVE_TODAY' | 'COMPLETED';

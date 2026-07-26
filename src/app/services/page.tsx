@@ -1,62 +1,98 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 export default function ServicesPage() {
-  const services = [
+  const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
+
+  const packages = [
     {
-      title: 'Restaurant & Menu Reviews',
-      icon: '🍽️',
-      description: 'Editorial review coverage with high-resolution food photography, detailed itemized menu pricing in ETB, and landmark location tags.',
+      name: 'Editorial Review Spotlight',
+      badge: 'POPULAR CHOICE',
+      price: '8,500 ETB',
+      duration: 'Single Spot Feature',
+      description: 'Comprehensive multi-photo review published directly across our official Telegram & Instagram channels.',
+      features: [
+        'High-resolution food photography (4+ dishes)',
+        'Itemized menu price breakdown in ETB',
+        'Landmark location mapping & phone contact',
+        'Multi-channel Telegram & Instagram publication',
+        '48-hour content turnaround guaranteed'
+      ],
+      ctaText: 'Book Review Spotlight',
+      featured: false
     },
     {
-      title: 'New Restaurant Launch Coverage',
-      icon: '🚀',
-      description: 'Multi-channel launch campaigns designed to generate immediate buzz and foot traffic for grand openings.',
+      name: 'Grand Launch & Video Reel Package',
+      badge: 'HIGH IMPACT',
+      price: '25,000 ETB',
+      duration: '7-Day Multi-Post Campaign',
+      description: 'Short-form vertical video reel (TikTok & Instagram Reels) + pinned featured post for grand openings.',
+      features: [
+        'Dedicated 9:16 vertical video reel (TikTok & Reels)',
+        'Professional video editing & background music',
+        'Pinned feature post on Telegram for 7 days',
+        'Instagram story polls & location tag mentions',
+        'Direct menu PDF download link integration'
+      ],
+      ctaText: 'Launch Video Campaign',
+      featured: true
     },
     {
-      title: 'Food Photography & Video Reels',
+      name: 'Signature Festival Sponsorship',
+      badge: 'EXCLUSIVE',
+      price: '45,000 ETB',
+      duration: 'Event Duration Coverage',
+      description: 'Exclusive media sponsorship & live coverage for signature food festivals (Kitfo Fest, Burger Challenge).',
+      features: [
+        'Dedicated vendor booth promotion & banner slot',
+        'Live festival event coverage & video interviews',
+        'Primary sponsor badge across all festival collateral',
+        'Post-event analytical impact report',
+        'VIP host introduction to top local food influencers'
+      ],
+      ctaText: 'Sponsor Festival Event',
+      featured: false
+    }
+  ];
+
+  const capabilities = [
+    {
+      title: 'High-Resolution Culinary Photography',
+      icon: '📷',
+      desc: 'Professional lighting and composition capturing texture, sizzle, and freshness of signature dishes.'
+    },
+    {
+      title: '9:16 Vertical Video Reels (TikTok & Reels)',
       icon: '🎥',
-      description: 'Short-form vertical video reels (Instagram Reels & TikTok) crafted to showcase dish presentation, ambiance, and taste.',
+      desc: 'Engaging short-form video stories showcasing kitchen prep, ambiance, and authentic tasting reactions.'
     },
     {
-      title: 'Social Media Promotion',
-      icon: '📱',
-      description: 'Dedicated featured posts and story highlights broadcast to 150,000+ local food lovers across Telegram and Instagram.',
+      title: 'Menu Digitization & Price Itemization',
+      icon: '🧾',
+      desc: 'Digitizing physical menus into verifiable itemized ETB price receipts for foodie transparency.'
     },
     {
-      title: 'Campaign Collaborations',
-      icon: '🎁',
-      description: 'Custom promotional challenges, giveaway campaigns, and seasonal food guides tailored to your brand goals.',
-    },
-    {
-      title: 'Event Coverage & Festival Hosting',
-      icon: '🎪',
-      description: 'Media partnership, live coverage, and festival hosting for signature culinary events like Kitfo Fest and Burger Challenges.',
-    },
-    {
-      title: 'Catering Promotion',
-      icon: '🍱',
-      description: 'Targeted promotion for corporate catering services, artisanal food products, and private chef experiences.',
-    },
-    {
-      title: 'Brand Partnerships',
-      icon: '🤝',
-      description: 'Long-term media sponsorships and brand ambassadorships with Ethiopia’s #1 digital food platform.',
-    },
+      title: 'Neighborhood Location Tagging',
+      icon: '📍',
+      desc: 'Exact Google Maps landmark guidance for Bole, Kazanchis, Piassa, and Sarbet food lovers.'
+    }
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-brand-bg text-brand-dark selection:bg-brand-primary/10 selection:text-brand-primary">
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-[#111827] selection:bg-[#A81D1D]/10 selection:text-[#A81D1D]">
       <Header />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col gap-10">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col gap-12">
         
-        {/* Breadcrumb */}
+        {/* Breadcrumb Navigation */}
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-500 hover:text-brand-primary transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-500 hover:text-[#A81D1D] transition-colors cursor-pointer"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -65,67 +101,165 @@ export default function ServicesPage() {
           </Link>
         </div>
 
-        {/* Hero Section */}
-        <div className="bg-gradient-to-r from-brand-dark via-[#8B1717] to-brand-primary text-white py-12 px-8 sm:px-14 rounded-3xl flex flex-col gap-4 shadow-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 w-fit text-[11px] font-black uppercase tracking-widest text-amber-400">
-            💼 Commercial Services Menu
+        {/* Commercial Hero Section */}
+        <div className="bg-gradient-to-r from-[#111827] via-[#8B1717] to-[#A81D1D] text-white py-14 px-8 sm:px-14 rounded-3xl flex flex-col gap-6 shadow-2xl relative overflow-hidden">
+          <div className="absolute -bottom-10 -right-10 w-72 h-72 bg-[#F59E0B]/15 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-[11px] font-black uppercase tracking-widest text-[#F59E0B]">
+            💼 Commercial Rate Card & Services Catalog (v5.0)
           </div>
-          <h1 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
-            Services & Promotional Capabilities
-          </h1>
-          <p className="text-white/85 font-medium text-xs sm:text-base max-w-2xl">
-            Explore our suite of promotional offerings designed for restaurant owners, food brands, and event organizers in Addis Ababa.
-          </p>
-        </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((item, idx) => (
-            <div
-              key={idx}
-              className="bg-white p-6 rounded-3xl border border-zinc-200/60 shadow-xs hover:shadow-xl hover:border-brand-primary/30 transition-all duration-300 flex flex-col gap-3 group"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 group-hover:bg-red-50 text-2xl flex items-center justify-center transition-colors">
-                {item.icon}
-              </div>
-
-              <h3 className="font-display font-extrabold text-base text-brand-dark group-hover:text-brand-primary transition-colors">
-                {item.title}
-              </h3>
-
-              <p className="text-xs text-zinc-500 font-medium leading-relaxed">
-                {item.description}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Call to Action Banner */}
-        <div className="bg-brand-dark text-white p-8 sm:p-10 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col gap-2">
-            <h3 className="font-display font-black text-2xl text-white">Ready to Promote Your Venue?</h3>
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-lg font-medium">
-              Submit your collaboration request or direct message our commercial team on Telegram.
+          <div className="flex flex-col gap-3 max-w-3xl">
+            <h1 className="font-syne font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight">
+              Promote Your Restaurant to 150,000+ Active Foodies
+            </h1>
+            <p className="text-white/90 font-semibold text-sm sm:text-lg leading-relaxed">
+              Transparent rate cards, verified food reviews, professional video reels, and festival media partnerships tailored for Addis Ababa’s dining scene.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link
-              href="/collaborate"
-              className="bg-brand-primary hover:bg-[#8B1717] text-white font-extrabold text-xs py-3 px-6 rounded-full transition-all shadow-md cursor-pointer"
-            >
-              Book Service Now ↗
-            </Link>
+          {/* Micro Stats Bar */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-white/15 pt-6 mt-2 font-mono text-xs font-bold text-white/90">
+            <div>
+              <span className="block text-[#F59E0B] text-lg font-black font-syne">150,000+</span>
+              <span>Monthly Reach</span>
+            </div>
+            <div>
+              <span className="block text-[#F59E0B] text-lg font-black font-syne">320+</span>
+              <span>Curated Venues</span>
+            </div>
+            <div>
+              <span className="block text-[#F59E0B] text-lg font-black font-syne">4 Hubs</span>
+              <span>Bole, Kazanchis...</span>
+            </div>
+            <div>
+              <span className="block text-[#F59E0B] text-lg font-black font-syne">48 Hours</span>
+              <span>Fast Turnaround</span>
+            </div>
           </div>
+        </div>
+
+        {/* Commercial Service Tier Rate Cards */}
+        <section className="flex flex-col gap-6">
+          <div className="text-center flex flex-col gap-2 max-w-2xl mx-auto">
+            <span className="text-xs font-mono font-black text-[#A81D1D] uppercase tracking-widest">Transparent Packages</span>
+            <h2 className="font-syne font-black text-2xl sm:text-3xl text-[#111827]">
+              Commercial Service Packages & Pricing
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-500 font-medium">
+              Choose the ideal promotion package for your restaurant launch, menu update, or food festival.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+            {packages.map((pkg, idx) => (
+              <div
+                key={idx}
+                className={`relative rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 ${
+                  pkg.featured
+                    ? 'bg-[#111827] text-white shadow-2xl border-2 border-[#F59E0B] transform md:-translate-y-2'
+                    : 'bg-white text-[#111827] border border-zinc-200 shadow-md hover:shadow-xl'
+                }`}
+              >
+                {pkg.featured && (
+                  <div className="absolute -top-3.5 left-1/2 transform -translate-x-1/2 bg-[#F59E0B] text-[#111827] text-[10px] font-mono font-black uppercase tracking-widest px-4 py-1 rounded-full shadow-md">
+                    ⚡ MOST POPULAR PACKAGE
+                  </div>
+                )}
+
+                <div className="flex flex-col gap-4">
+                  <span className={`text-[10px] font-mono font-black uppercase tracking-wider px-3 py-1 rounded-full w-fit ${
+                    pkg.featured ? 'bg-white/10 text-[#F59E0B]' : 'bg-red-50 text-[#A81D1D]'
+                  }`}>
+                    {pkg.badge}
+                  </span>
+
+                  <div>
+                    <h3 className="font-syne font-black text-xl mb-1">{pkg.name}</h3>
+                    <p className={`text-xs font-medium ${pkg.featured ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                      {pkg.description}
+                    </p>
+                  </div>
+
+                  <div className="border-t border-b py-4 my-2 border-zinc-200/20">
+                    <span className="font-mono font-black text-3xl text-[#F59E0B]">{pkg.price}</span>
+                    <span className={`text-xs font-semibold block mt-1 ${pkg.featured ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                      {pkg.duration}
+                    </span>
+                  </div>
+
+                  <ul className="flex flex-col gap-2.5 text-xs font-medium">
+                    {pkg.features.map((feat, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-2">
+                        <span className="text-[#10B981] font-bold">✓</span>
+                        <span className={pkg.featured ? 'text-zinc-200' : 'text-zinc-700'}>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-8">
+                  <Link
+                    href={`/collaborate?package=${encodeURIComponent(pkg.name)}`}
+                    className={`w-full text-center block py-3.5 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer ${
+                      pkg.featured
+                        ? 'bg-[#F59E0B] hover:bg-amber-400 text-[#111827]'
+                        : 'bg-[#A81D1D] hover:bg-[#8B1717] text-white'
+                    }`}
+                  >
+                    {pkg.ctaText} ↗
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Deliverables & Production Capabilities */}
+        <section className="bg-white p-8 sm:p-12 rounded-3xl border border-zinc-200 shadow-xs flex flex-col gap-8">
+          <div className="flex flex-col gap-1 border-b border-zinc-100 pb-4">
+            <span className="text-xs font-mono font-black text-[#A81D1D] uppercase tracking-widest">Production Standards</span>
+            <h2 className="font-syne font-black text-2xl text-[#111827]">
+              What Makes Addis Foodies Reviews Unique?
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {capabilities.map((cap, idx) => (
+              <div key={idx} className="bg-zinc-50 p-6 rounded-2xl border border-zinc-200/60 flex flex-col gap-3">
+                <span className="text-3xl">{cap.icon}</span>
+                <h3 className="font-syne font-bold text-base text-[#111827]">{cap.title}</h3>
+                <p className="text-xs text-zinc-500 font-medium leading-relaxed">{cap.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Direct Booking Banner */}
+        <div className="bg-[#111827] text-white rounded-3xl p-8 sm:p-12 border border-zinc-800 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col gap-2 text-center md:text-left">
+            <span className="text-[#F59E0B] font-mono font-black text-xs uppercase tracking-widest">
+              📢 Fast Track Collaboration
+            </span>
+            <h3 className="font-syne font-black text-2xl sm:text-3xl text-white">
+              Need a Custom Campaign or Urgent Launch Coverage?
+            </h3>
+            <p className="text-xs sm:text-sm text-zinc-300 max-w-xl font-medium">
+              Submit your venue details directly through our commercial intake form or chat with our team on Telegram.
+            </p>
+          </div>
+
+          <Link
+            href="/collaborate"
+            className="bg-[#F59E0B] hover:bg-amber-400 text-[#111827] font-black text-xs sm:text-sm py-4 px-8 rounded-full transition-all shadow-lg hover:scale-105 flex-shrink-0 cursor-pointer"
+          >
+            START COLLABORATION INQUIRY ↗
+          </Link>
         </div>
 
       </main>
 
-      <footer className="border-t border-zinc-200/50 bg-white/50 py-6 text-center mt-12">
-        <p className="text-[10px] sm:text-xs text-zinc-400 font-semibold tracking-wide uppercase font-sans">
-          Addis Foodies © 2026 • Commercial Services Catalog
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }

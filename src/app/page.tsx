@@ -10,6 +10,7 @@ import FilterBar from '../components/FilterBar';
 import ReviewCard from '../components/ReviewCard';
 import PostDetailModal from '../components/PostDetailModal';
 import AiCravingFinder from '../components/AiCravingFinder';
+import VideoReelsSection from '../components/VideoReelsSection';
 import AddisMap from '../components/AddisMap';
 import Footer from '../components/Footer';
 import { LanguageProvider, useLanguage } from '../context/LanguageContext';
@@ -264,6 +265,9 @@ function HomeContent() {
 
         {/* SECTION 4: USEFUL AI CRAVING FINDER */}
         <AiCravingFinder onSelectPrompt={handleAiPrompt} />
+
+        {/* SECTION 5: TIKTOK & INSTAGRAM VIDEO REELS SPOTLIGHT */}
+        <VideoReelsSection posts={mockPosts} />
 
         {/* SECTION 5: LATEST REVIEWS */}
         <section className="flex flex-col gap-5 bg-white p-6 sm:p-8 rounded-3xl border border-zinc-200/60 shadow-xs">
