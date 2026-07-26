@@ -109,21 +109,21 @@ function HomeContent() {
       {/* HEADER NAVIGATION */}
       <Header />
 
-      {/* SECTION 1: FULL-BLEED IMMERSIVE HERO WITH STITCH TRANSPARENT PICTURE OVERLAY */}
-      <section className="w-full relative min-h-[600px] sm:min-h-[700px] flex items-center py-16 sm:py-24 text-white overflow-hidden border-b border-zinc-800">
+      {/* SECTION 1: FULL-BLEED IMMERSIVE HERO WITH DRIBBBLE-STYLE ETHIOPIAN CULINARY OVERLAY */}
+      <section className="w-full relative min-h-[640px] sm:min-h-[720px] flex items-center py-16 sm:py-24 text-white overflow-hidden border-b border-zinc-800">
         
-        {/* Background Picture with Transparent Gradient Overlay as in Stitch Design */}
+        {/* Authentic Ethiopian Culinary Background Picture with Dark Transparent Gradient */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1920&q=80"
-            alt="Addis Ababa Culinary Table"
+            src="https://images.unsplash.com/photo-1585937421612-70a0f261c0b7?auto=format&fit=crop&w=2000&q=90"
+            alt="Authentic Ethiopian Culinary Feast & Coffee Ceremony"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center brightness-75 scale-105 transition-transform duration-1000"
+            className="object-cover object-center brightness-[0.45] scale-105 transition-transform duration-1000"
           />
-          {/* Transparent Dark Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/95 via-[#111827]/80 to-[#111827]/40" />
+          {/* Dark Transparent Gradient Overlay as in Dribbble & Stitch Design */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/95 via-[#111827]/85 to-black/50" />
         </div>
 
         <div className="site-container relative z-10 flex flex-col gap-10">
@@ -136,7 +136,7 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B] backdrop-blur-md"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B] backdrop-blur-md shadow-lg"
               >
                 ✨ {t('tagline')}
               </motion.div>
@@ -147,7 +147,10 @@ function HomeContent() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="font-syne font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.08] text-white"
               >
-                {t('heroTitle')}
+                Discover Addis Ababa <br className="hidden sm:inline" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#F59E0B] via-amber-300 to-[#FF3B30]">
+                  One Bite at a Time
+                </span>
               </motion.h1>
 
               <motion.p
@@ -186,28 +189,28 @@ function HomeContent() {
 
             {/* Floating Food Badges Showcase */}
             <div className="hidden lg:grid grid-cols-2 gap-4 flex-shrink-0 w-80">
-              <div className="bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex flex-col gap-2 transform hover:scale-105 transition-transform">
+              <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform hover:scale-105 transition-transform shadow-xl">
                 <span className="text-3xl">🍖</span>
-                <span className="font-syne font-bold text-sm text-white">Special Kitfo</span>
-                <span className="text-[11px] font-mono text-[#F59E0B] font-bold">850 Br • Bole</span>
+                <span className="font-syne font-bold text-sm text-white">Special Kitfo Platter</span>
+                <span className="text-[11px] font-mono text-[#F59E0B] font-black">850 Br • Bole</span>
               </div>
 
-              <div className="bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform">
+              <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform shadow-xl">
                 <span className="text-3xl">☕</span>
                 <span className="font-syne font-bold text-sm text-white">Double Macchiato</span>
-                <span className="text-[11px] font-mono text-[#F59E0B] font-bold">150 Br • Sarbet</span>
+                <span className="text-[11px] font-mono text-[#F59E0B] font-black">150 Br • Sarbet</span>
               </div>
 
-              <div className="bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex flex-col gap-2 transform hover:scale-105 transition-transform">
+              <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform hover:scale-105 transition-transform shadow-xl">
                 <span className="text-3xl">🍔</span>
-                <span className="font-syne font-bold text-sm text-white">Gourmet Burger</span>
-                <span className="text-[11px] font-mono text-[#F59E0B] font-bold">680 Br • Bole</span>
+                <span className="font-syne font-bold text-sm text-white">Flame Gourmet Burger</span>
+                <span className="text-[11px] font-mono text-[#F59E0B] font-black">680 Br • Bole</span>
               </div>
 
-              <div className="bg-black/40 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform">
+              <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform shadow-xl">
                 <span className="text-3xl">🌱</span>
                 <span className="font-syne font-bold text-sm text-white">Special Beyaynetu</span>
-                <span className="text-[11px] font-mono text-[#F59E0B] font-bold">420 Br • Kazanchis</span>
+                <span className="text-[11px] font-mono text-[#F59E0B] font-black">420 Br • Kazanchis</span>
               </div>
             </div>
 

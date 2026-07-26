@@ -30,11 +30,11 @@ export default function FeaturedCarousel({ posts, onSelectPost }: FeaturedCarous
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
           </span>
-          <h3 className="font-syne font-black text-lg sm:text-xl text-zinc-100 tracking-tight">
+          <h3 className="font-syne font-black text-lg sm:text-xl text-[#111827] tracking-tight">
             Weekly Foodie Spotlights
           </h3>
         </div>
-        <span className="text-xs font-bold text-zinc-400">
+        <span className="text-xs font-bold text-zinc-600">
           Handpicked Must-Try Spots
         </span>
       </div>
