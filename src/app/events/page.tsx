@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import EventShowcaseCard from '../../components/events/EventShowcaseCard';
 import { mockEvents } from '../../data/mockEvents';
 
 export default function EventsPage() {
@@ -46,6 +47,9 @@ export default function EventsPage() {
             Live coverage, vendor booth lineups, ticket info, and venue maps for Addis Ababa’s premier food festivals.
           </p>
         </div>
+
+        {/* Landmark Featured Festival (Kitfo Fest #5 Engine) */}
+        <EventShowcaseCard />
 
         {/* Status Filter Tabs */}
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2">

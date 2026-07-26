@@ -14,6 +14,9 @@ import AiCravingFinder from '../components/AiCravingFinder';
 import VideoReelsSection from '../components/VideoReelsSection';
 import AddisMap from '../components/AddisMap';
 import Footer from '../components/Footer';
+import Hero3DCanvas from '../components/home/Hero3DCanvas';
+import EventShowcaseCard from '../components/events/EventShowcaseCard';
+import PromotionHub from '../components/promotions/PromotionHub';
 import { LanguageProvider, useLanguage } from '../context/LanguageContext';
 import { mockPosts } from '../data/mockPosts';
 import { FoodPost } from '../types/post';
@@ -285,13 +288,30 @@ function HomeContent() {
       {/* MAIN SITE CONTENT CONTAINER */}
       <main className="site-container py-12 flex flex-col gap-16">
         
+        {/* 3D WebGL Brand Anchor Hero Canvas */}
+        <Hero3DCanvas />
+
         {/* Real-time Festival Banner Alert */}
         <EventBanner />
 
+        {/* Landmark Event & Festival Showcase (e.g. Kitfo Fest #5) */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between border-b border-zinc-200 pb-3">
+            <h2 className="font-syne font-black text-2xl sm:text-3xl text-[#111827] flex items-center gap-2.5">
+              <span>🎪</span>
+              <span>Featured Festival & Event Engine</span>
+            </h2>
+            <span className="text-xs font-mono font-black text-[#A81D1D] bg-[#A81D1D]/10 px-3.5 py-1.5 rounded-full border border-[#A81D1D]/20 uppercase tracking-widest">
+              Live Media Coverage
+            </span>
+          </div>
+          <EventShowcaseCard />
+        </section>
+
         {/* SECTION 2: FEATURED THIS WEEK */}
         <section className="flex flex-col gap-6">
-          <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
-            <h2 className="font-syne font-black text-2xl sm:text-3xl text-zinc-100 flex items-center gap-2.5">
+          <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
+            <h2 className="font-syne font-black text-2xl sm:text-3xl text-[#111827] flex items-center gap-2.5">
               <span>🌟</span>
               <span>{t('featuredThisWeek')}</span>
             </h2>
@@ -319,6 +339,9 @@ function HomeContent() {
             scrollToGrid();
           }}
         />
+
+        {/* Commercial Promotion & Business Hub */}
+        <PromotionHub />
 
         {/* SECTION 6: INTERACTIVE REVIEWS & PRICE ARCHIVE */}
         <section id="archive-section" className="flex flex-col gap-8 pt-4">

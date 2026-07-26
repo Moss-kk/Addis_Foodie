@@ -1,0 +1,172 @@
+'use client';
+
+import React from 'react';
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  Phone,
+  Ticket,
+  Music,
+  UtensilsCrossed,
+  Send,
+  Camera,
+} from 'lucide-react';
+
+export interface EventData {
+  title: string;
+  tagline: string;
+  venue: string;
+  locationDetails: string;
+  dateStr: string;
+  timeStr: string;
+  entranceFee: string;
+  menuHighlights: string[];
+  entertainment: string[];
+  contacts: string[];
+  telegramUrl: string;
+  instagramUrl: string;
+  tiktokUrl: string;
+}
+
+const defaultEvent: EventData = {
+  title: 'KITFO FEST #5',
+  tagline: '🚨 TODAY!! TODAY!! TODAY!! 🚨',
+  venue: 'MONARCH HOTEL (ROOF TOP)',
+  locationDetails: 'Piassa, Around Tewdros Square, Infront of Friendship park @monarchparkview',
+  dateStr: 'Sat & Sun Meskerem 19 and 20 | Sep 30 and Oct 01',
+  timeStr: '11:00 AM till 11:00 PM',
+  entranceFee: 'No entrance fee',
+  menuHighlights: ['Kitfo', 'Tibs', 'Tire Siga', 'Desserts', 'Cake', 'Ice Cream', 'Areke', 'Tej'],
+  entertainment: ['Gurage Cultural Dancers & Singers', 'Masinko Performance', 'DJ Lineup', 'Games'],
+  contacts: ['0966-55-00-00', '0911-23-92-70'],
+  telegramUrl: 'https://t.me/AddisFoodies',
+  instagramUrl: 'https://instagram.com/addis.foodie',
+  tiktokUrl: 'https://tiktok.com/@addis.foodie',
+};
+
+export function EventShowcaseCard({ event = defaultEvent }: { event?: EventData }) {
+  return (
+    <div className="w-full bg-[#111827] text-white rounded-3xl overflow-hidden shadow-2xl border-2 border-[#A81D1D] my-8">
+      {/* Top Banner Alert */}
+      <div className="bg-gradient-to-r from-[#A81D1D] via-[#8B1717] to-[#F59E0B] px-6 py-3 flex items-center justify-between">
+        <span className="font-black text-sm md:text-base tracking-widest text-white uppercase flex items-center gap-2 font-mono">
+          <Ticket className="w-5 h-5 text-amber-300 animate-bounce" />
+          Official Event Announcement
+        </span>
+        <span className="bg-black/40 text-amber-300 text-xs font-black px-3 py-1 rounded-full border border-amber-400/30 uppercase tracking-wider font-mono">
+          {event.entranceFee}
+        </span>
+      </div>
+
+      <div className="p-6 md:p-8 space-y-6">
+        {/* Title & Venue */}
+        <div>
+          <p className="text-amber-400 font-black text-sm tracking-wide uppercase font-mono">{event.tagline}</p>
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mt-1 font-syne">
+            {event.title}
+          </h2>
+          <div className="flex items-center gap-2 text-rose-400 font-black text-lg md:text-xl mt-2">
+            <MapPin className="w-6 h-6 shrink-0" />
+            <span>📍 {event.venue}</span>
+          </div>
+          <p className="text-xs md:text-sm text-zinc-400 mt-1 pl-8 font-medium">{event.locationDetails}</p>
+        </div>
+
+        {/* Date & Time Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-zinc-900/80 p-4 rounded-2xl border border-zinc-800">
+          <div className="flex items-center gap-3">
+            <Calendar className="w-6 h-6 text-[#F59E0B]" />
+            <div>
+              <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest font-mono">Date & Days</p>
+              <p className="text-sm font-extrabold text-zinc-100">{event.dateStr}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Clock className="w-6 h-6 text-[#F59E0B]" />
+            <div>
+              <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest font-mono">Hours</p>
+              <p className="text-sm font-extrabold text-zinc-100">{event.timeStr}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Offerings & Entertainment */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Menu Highlights */}
+          <div className="space-y-2">
+            <h4 className="text-xs font-black uppercase text-amber-400 tracking-wider flex items-center gap-2 font-mono">
+              <UtensilsCrossed className="w-4 h-4" /> Food & Beverage Menu
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {event.menuHighlights.map((item, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 bg-zinc-800 text-zinc-200 text-xs font-bold rounded-lg border border-zinc-700"
+                >
+                  🐂 {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Entertainment */}
+          <div className="space-y-2">
+            <h4 className="text-xs font-black uppercase text-amber-400 tracking-wider flex items-center gap-2 font-mono">
+              <Music className="w-4 h-4" /> Live Performance & Shows
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {event.entertainment.map((item, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 bg-rose-950/60 text-rose-200 text-xs font-bold rounded-lg border border-rose-900/50"
+                >
+                  💃 {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Action Callouts & Reservations */}
+        <div className="pt-4 border-t border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 flex-wrap">
+            <Phone className="w-5 h-5 text-[#A81D1D]" />
+            <span className="text-xs font-bold text-zinc-400">Info & Reservations:</span>
+            {event.contacts.map((phone, i) => (
+              <a
+                key={i}
+                href={`tel:${phone.replace(/-/g, '')}`}
+                className="text-sm font-black text-amber-400 underline hover:text-amber-300 transition-colors font-mono cursor-pointer"
+              >
+                {phone}
+              </a>
+            ))}
+          </div>
+
+          {/* Social Quick Links */}
+          <div className="flex items-center gap-3">
+            <a
+              href={event.telegramUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="p-2.5 bg-blue-600/20 text-blue-400 rounded-xl hover:bg-blue-600 hover:text-white transition-all border border-blue-500/30 flex items-center gap-1.5 text-xs font-bold"
+            >
+              <Send className="w-4 h-4" /> Telegram
+            </a>
+            <a
+              href={event.instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="p-2.5 bg-pink-600/20 text-pink-400 rounded-xl hover:bg-pink-600 hover:text-white transition-all border border-pink-500/30 flex items-center gap-1.5 text-xs font-bold"
+            >
+              <Camera className="w-4 h-4" /> Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default EventShowcaseCard;
