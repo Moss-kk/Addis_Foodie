@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -24,14 +25,20 @@ export default function Footer() {
           
           {/* Column 1: Brand Positioning */}
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#111827] border-2 border-[#A81D1D] flex items-center justify-center text-lg shadow-md">
-                🍽️
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="relative w-9 h-9 rounded-full overflow-hidden border-2 border-[#A81D1D] shadow-xs flex-shrink-0 bg-black">
+                <Image
+                  src="/images/logo.png"
+                  alt="Addis Foodies Logo"
+                  fill
+                  className="object-cover"
+                />
               </div>
-              <span className="font-syne font-black text-xl text-white tracking-tight">
-                ADDIS FOODIES
-              </span>
-            </div>
+              <div className="flex items-baseline gap-1">
+                <span className="font-syne font-black text-xl tracking-tight text-white">Addis</span>
+                <span className="font-syne font-black text-xl tracking-tight text-[#A81D1D]">Foodies</span>
+              </div>
+            </Link>
 
             <p className="text-xs text-zinc-300 font-medium leading-relaxed">
               The Official Digital Home of Addis Foodies. Curated restaurant reviews, hidden food gems, and culinary festival coverage across Bole, Kazanchis, Piassa, and Sarbet.

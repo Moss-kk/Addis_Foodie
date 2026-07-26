@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -21,22 +22,27 @@ export default function Header() {
     <header className="sticky top-0 z-40 w-full glass-panel border-b border-zinc-200/80 shadow-2xs transition-all">
       <div className="site-container py-3 flex items-center justify-between">
         
-        {/* Brand Logo Rectangular Badge */}
-        <Link
-          href="/"
-          className="flex items-center gap-3 group focus-ring rounded-xl p-1"
-          aria-label="Addis Foodies Home"
-        >
-          <div className="w-11 h-11 rounded-xl bg-[#111827] border-2 border-[#A81D1D] flex items-center justify-center text-xl shadow-md group-hover:scale-105 transition-transform duration-300">
-            🍽️
-          </div>
-          <div className="flex flex-col">
-            <span className="font-syne font-black text-lg sm:text-xl tracking-tight text-[#111827] leading-none group-hover:text-[#A81D1D] transition-colors">
-              ADDIS FOODIES
-            </span>
-            <span className="text-[10px] font-bold text-[#F59E0B] tracking-widest uppercase font-mono mt-0.5">
-              DISCOVERING FOODS IN ADDIS
-            </span>
+        {/* Brand Logo Rectangular Block (Original Logo Restored) */}
+        <Link href="/" className="group focus-ring rounded-2xl">
+          <div className="bg-[#111827] border border-[#A81D1D]/40 hover:border-[#A81D1D] rounded-2xl px-3 py-1.5 shadow-md flex items-center gap-2.5 transition-all duration-300 group-hover:scale-[1.02]">
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-[#A81D1D] shadow-xs flex-shrink-0 bg-black">
+              <Image
+                src="/images/logo.png"
+                alt="Addis Foodies Logo"
+                fill
+                className="object-cover"
+              />
+            </div>
+            
+            <div className="flex flex-col -space-y-0.5">
+              <div className="flex items-baseline gap-1">
+                <span className="font-syne font-black text-sm sm:text-base tracking-tight text-white">Addis</span>
+                <span className="font-syne font-black text-sm sm:text-base tracking-tight text-[#A81D1D]">Foodies</span>
+              </div>
+              <span className="text-[9px] font-bold text-zinc-400 tracking-wider uppercase font-sans">
+                Discovering Foods
+              </span>
+            </div>
           </div>
         </Link>
 
