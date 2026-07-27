@@ -19,283 +19,167 @@ import {
   Camera,
   Send,
   Phone,
-  X 
+  Compass,
+  Award,
+  Video
 } from 'lucide-react';
+
 import Header from '../components/Header';
+import HeroSection from '../components/home/HeroSection';
+import AddisAiAssistant from '../components/home/AddisAiAssistant';
+import VideoReelsCarousel from '../components/home/VideoReelsCarousel';
+import MagazineFeatured from '../components/home/MagazineFeatured';
+import FoodMapPreview from '../components/home/FoodMapPreview';
 import EventBanner from '../components/EventBanner';
-import VideoReelsCarousel from '../components/VideoReelsCarousel';
+import TraditionalFoodSpotlight from '../components/home/TraditionalFoodSpotlight';
+import SrsOverviewSection from '../components/home/SrsOverviewSection';
+import SocialHubSection from '../components/home/SocialHubSection';
+import TrustSection from '../components/home/TrustSection';
 import ReviewCard from '../components/ReviewCard';
 import PostDetailModal from '../components/PostDetailModal';
+import PriceReceiptModal from '../components/PriceReceiptModal';
 import AiCravingFinder from '../components/AiCravingFinder';
 import Footer from '../components/Footer';
 import MobileBottomNav from '../components/layout/MobileBottomNav';
+
 import { useLanguage } from '../context/LanguageContext';
 import { mockPosts } from '../data/mockPosts';
 import { FoodPost } from '../types/post';
 
 export default function HomePage() {
   const { t } = useLanguage();
-  const [searchQuery, setSearchQuery] = useState('');
+  
+  // Search state from Hero multi-field engine
+  const [searchFilters, setSearchFilters] = useState({
+    query: '',
+    location: '',
+    price: '',
+    cuisine: '',
+  });
+
   const [activePost, setActivePost] = useState<FoodPost | null>(null);
+  const [activeReceiptPost, setActiveReceiptPost] = useState<FoodPost | null>(null);
 
-  // Quick tags for instant hero search
-  const quickTags = ['Bole', 'Burgers', 'Doro Wot', 'Shiro Tegabino', 'Fasting', 'Macchiato'];
+  // Filter posts based on multi-field search engine
+  const filteredPosts = useMemo(() => {
+    return mockPosts.filter((post) => {
+      // 1. Text Query Filter
+      if (searchFilters.query) {
+        const q = searchFilters.query.toLowerCase();
+        const matchTitle = post.restaurantName.toLowerCase().includes(q);
+        const matchCaption = post.caption.toLowerCase().includes(q);
+        const matchLocation = post.location.toLowerCase().includes(q);
+        const matchCategory = post.category.toLowerCase().includes(q);
+        if (!matchTitle && !matchCaption && !matchLocation && !matchCategory) return false;
+      }
 
-  // Show top 4 featured spots on homepage as per v4.0 SRS rules
-  const topFourSpots = useMemo(() => mockPosts.slice(0, 4), []);
+      // 2. Location Filter
+      if (searchFilters.location) {
+        if (!post.location.toLowerCase().includes(searchFilters.location.toLowerCase())) return false;
+      }
 
-  const handleAiPrompt = (query: string) => {
-    if (query) setSearchQuery(query);
-    const el = document.getElementById('featured-spots');
+      // 3. Category / Cuisine Filter
+      if (searchFilters.cuisine) {
+        if (!post.category.toLowerCase().includes(searchFilters.cuisine.toLowerCase())) return false;
+      }
+
+      return true;
+    });
+  }, [searchFilters]);
+
+  // Lead featured post for magazine spotlight
+  const leadFeaturedPost = useMemo(() => mockPosts[0], []);
+  const secondaryFeaturedPosts = useMemo(() => mockPosts.slice(1, 4), []);
+
+  const handleHeroSearch = (filters: { query: string; location: string; price: string; cuisine: string }) => {
+    setSearchFilters(filters);
+    const el = document.getElementById('reviews-feed');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const scrollToGrid = () => {
-    const el = document.getElementById('featured-spots');
+  const handleAiPrompt = (query: string) => {
+    if (query) setSearchFilters(prev => ({ ...prev, query }));
+    const el = document.getElementById('reviews-feed');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToFeed = () => {
+    const el = document.getElementById('reviews-feed');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF8F5] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
-      {/* HEADER NAVIGATION WITH LOGO & PRIMARY CTA */}
-      <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+    <div className="flex flex-col min-h-screen bg-[#FAF8F5] text-zinc-900 transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+      
+      {/* 1. HEADER NAVIGATION */}
+      <Header
+        searchQuery={searchFilters.query}
+        onSearchChange={(q) => setSearchFilters(prev => ({ ...prev, query: q }))}
+      />
 
-      {/* SECTION 1: HERO WITH AUTHENTIC TRADITIONAL KITFO / HABESHA FOOD BACKGROUND */}
-      <section className="w-full relative min-h-[540px] sm:min-h-[620px] flex items-center py-12 sm:py-20 text-white overflow-hidden border-b border-zinc-800/80 bg-[#120907]">
+      {/* 2. HERO SECTION — CINEMATIC KEN BURNS ZOOM, TRUST BADGE, STATS */}
+      <HeroSection
+        onSearch={handleHeroSearch}
+        onExploreClick={scrollToFeed}
+      />
+
+      {/* MAIN HOMEPAGE MAGAZINE FLOW */}
+      <main className="site-container py-12 flex flex-col gap-16">
         
-        {/* Authentic Kitfo / Habesha Food Photography Background */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <Image
-            src="https://images.unsplash.com/photo-1541518763669-27fef04b14e8?auto=format&fit=crop&w=2000&q=90"
-            alt="Authentic Habesha Traditional Kitfo Feast - Addis Foodies"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center brightness-[0.65] contrast-[1.15] scale-105 transition-all duration-1000"
-          />
-          {/* Flame Gradient Overlay for High Contrast Legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#120907]/95 via-[#120907]/80 to-black/70" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#120907] via-transparent to-black/50" />
-        </div>
+        {/* 3. ADDIS AI ASSISTANT WIDGET (Matching Image 2 Mockup) */}
+        <AddisAiAssistant />
 
-        <div className="site-container relative z-10 flex flex-col gap-6">
-          
-          {/* Hero Content Header */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-            
-            <div className="flex flex-col gap-4 max-w-3xl">
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A100C]/90 border border-[#E53935]/30 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#FF8C00] backdrop-blur-md shadow-lg"
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>The Official Digital Home of Addis Foodies</span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.15] text-[#FFF8F6]"
-              >
-                Discover Addis Ababa <br className="hidden sm:inline" />
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF8C00] via-amber-300 to-[#E53935]">
-                  One Bite at a Time
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-[#D1C2BD] font-medium text-xs sm:text-base leading-relaxed max-w-2xl"
-              >
-                Trusted Habesha restaurant reviews, hidden food gems, real ETB menu prices, and live culinary festival coverage published direct from <strong className="text-white">@addisfoodiess</strong>.
-              </motion.p>
-
-              {/* Social Channels & Contact Bar */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="flex flex-wrap items-center gap-3 pt-1 text-xs font-mono font-bold text-zinc-300"
-              >
-                <a
-                  href="https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-pink-600/30 text-white border border-white/20 transition-all hover:scale-102"
-                >
-                  <Camera className="w-3.5 h-3.5 text-pink-400" />
-                  <span>@addisfoodiess Instagram Post ↗</span>
-                </a>
-
-                <a
-                  href="https://t.me/addisfoodies"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-sky-600/30 text-white border border-white/20 transition-all hover:scale-102"
-                >
-                  <Send className="w-3.5 h-3.5 text-sky-400" />
-                  <span>Telegram Feed ↗</span>
-                </a>
-
-                <a
-                  href="tel:0966550000"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 text-[#FF8C00] border border-amber-500/40 hover:bg-amber-500/30 transition-all"
-                >
-                  <Phone className="w-3.5 h-3.5 text-[#FF8C00]" />
-                  <span>0966-55-00-00</span>
-                </a>
-              </motion.div>
-
-              {/* Action Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-wrap items-center gap-3 pt-2"
-              >
-                <button
-                  onClick={scrollToGrid}
-                  className="touch-target bg-[#E53935] hover:bg-[#B71C1C] text-white font-bold text-xs sm:text-sm py-3.5 px-7 rounded-xl shadow-xl transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring"
-                >
-                  <Search className="w-4 h-4" />
-                  <span>{t('exploreReviews')}</span>
-                </button>
-
-                <Link
-                  href="/collaborate"
-                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm py-3.5 px-7 rounded-xl border border-white/20 transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring backdrop-blur-md"
-                >
-                  <Handshake className="w-4 h-4 text-[#FF8C00]" />
-                  <span>{t('workWithAddisFoodies')}</span>
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* 2 Key Floating Highlight Cards */}
-            <div className="hidden lg:flex flex-col gap-4 flex-shrink-0 w-72">
-              <div className="bg-[#1A100C]/80 backdrop-blur-md p-4 rounded-2xl border border-red-500/20 flex items-center gap-3.5 shadow-xl hover:border-amber-500/30 transition-all">
-                <div className="w-10 h-10 rounded-xl bg-[#E53935]/20 border border-[#E53935]/40 flex items-center justify-center flex-shrink-0">
-                  <Utensils className="w-5 h-5 text-[#FF8C00]" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-syne font-bold text-xs text-white">Special Kitfo Platter</span>
-                  <span className="text-[11px] font-mono text-[#FF8C00] font-bold">850 Br • Bole</span>
-                </div>
-              </div>
-
-              <div className="bg-[#1A100C]/80 backdrop-blur-md p-4 rounded-2xl border border-red-500/20 flex items-center gap-3.5 shadow-xl hover:border-amber-500/30 transition-all">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center flex-shrink-0">
-                  <Coffee className="w-5 h-5 text-[#FF8C00]" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-syne font-bold text-xs text-white">Double Macchiato</span>
-                  <span className="text-[11px] font-mono text-[#FF8C00] font-bold">150 Br • Sarbet</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Prominent Search Bar */}
-          <div className="relative w-full max-w-3xl shadow-2xl rounded-2xl overflow-hidden border border-white/20 bg-white">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-zinc-400" />
-            </div>
-
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t('searchPlaceholder')}
-              className="block w-full pl-12 pr-12 py-4 border-0 bg-transparent text-zinc-950 placeholder-zinc-400 text-xs sm:text-base font-semibold focus:outline-none"
-            />
-
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute inset-y-0 right-0 pr-4 flex items-center touch-target text-zinc-400 hover:text-zinc-700 focus-ring"
-                aria-label="Clear Search"
-              >
-                <X className="h-5 w-5 text-zinc-500" />
-              </button>
-            )}
-          </div>
-
-          {/* Trending Craving Chips */}
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth pb-1">
-            <span className="text-xs font-mono font-bold uppercase text-[#D1C2BD] tracking-wider flex-shrink-0">{t('trending')}:</span>
-            {quickTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setSearchQuery(tag)}
-                className="touch-target px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white text-white hover:text-zinc-950 border border-white/15 transition-all cursor-pointer flex-shrink-0 focus-ring"
-              >
-                #{tag}
-              </button>
-            ))}
-          </div>
-
-          {/* Micro-Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] sm:text-xs font-mono font-semibold uppercase tracking-wider text-[#D1C2BD] border-t border-white/10 pt-4">
-            <div className="flex items-center gap-1.5">
-              <Flame className="w-4 h-4 text-[#FF8C00]" />
-              <span>{t('monthlyFoodies')}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-[#E53935]" />
-              <span>{t('curatedSpots')}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Building2 className="w-4 h-4 text-sky-400" />
-              <span>{t('neighborhoodHubs')}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-[#10B981]" />
-              <span>{t('authorVerified')}</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* MAIN HOMEPAGE STREAMLINED FEED */}
-      <main className="site-container py-10 flex flex-col gap-12">
-        
-        {/* Real-time Festival Banner Alert */}
-        <EventBanner />
-
-        {/* SECTION 2: 9:16 SHORT-FORM VIDEO REELS FEED */}
+        {/* 4. FEATURED VIDEO & REELS CAROUSEL */}
         <VideoReelsCarousel />
 
-        {/* SECTION 3: TOP 4 CURATED SPOTS THIS WEEK */}
-        <section id="featured-spots" className="flex flex-col gap-6 pt-2">
-          <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+        {/* 5. MAGAZINE FEATURED REVIEW LAYOUT (1 Lead Spotlight + 3 Secondary) */}
+        <MagazineFeatured
+          leadPost={leadFeaturedPost}
+          secondaryPosts={secondaryFeaturedPosts}
+          onPostClick={setActivePost}
+          onReceiptClick={setActiveReceiptPost}
+        />
+
+        {/* 6. INTERACTIVE FOOD MAP PREVIEW */}
+        <FoodMapPreview />
+
+        {/* 7. UPCOMING EVENTS & KITFO FEST 2026 SPOTLIGHT BANNER */}
+        <EventBanner />
+
+        {/* 8. TRADITIONAL ETHIOPIAN FOODS SPOTLIGHT */}
+        <TraditionalFoodSpotlight
+          onSelectDish={(dish) => handleAiPrompt(dish)}
+        />
+
+        {/* 9. REVIEWS ARCHIVE & GRID SECTION */}
+        <section id="reviews-feed" className="flex flex-col gap-8 pt-4">
+          
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-stone-200 dark:border-stone-800 pb-4 gap-4">
             <div>
-              <h2 className="font-syne font-black text-xl sm:text-3xl text-zinc-900 dark:text-[#FFF8F6] flex items-center gap-2">
-                <Star className="w-6 h-6 text-[#FF8C00]" />
-                <span>Top Curated Spots This Week</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E53935]/10 border border-[#E53935]/20 text-xs font-mono font-bold text-[#E53935] uppercase tracking-wider mb-2">
+                <Compass className="w-4 h-4" />
+                <span>Curated Review Archive</span>
+              </div>
+              <h2 className="font-display font-black text-2xl sm:text-4xl text-zinc-950 dark:text-white">
+                Explore Verified Food Reviews
               </h2>
-              <p className="text-xs text-zinc-600 dark:text-[#D1C2BD] font-medium pt-1">
-                Hand-picked culinary highlights across Addis Ababa
+              <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-medium pt-1">
+                Showing {filteredPosts.length} verified culinary reviews in Bole, Kazanchis, Piassa & Sarbet
               </p>
             </div>
 
             <Link
               href="/reviews"
-              className="touch-target px-4 py-2 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white text-xs font-extrabold transition-all shadow-md flex items-center gap-1.5"
+              className="touch-target px-5 py-2.5 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white font-extrabold text-xs transition-all shadow-md flex items-center gap-1.5 w-fit"
             >
-              <span>Explore All Reviews</span>
+              <span>View All Archive</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {topFourSpots.map((post) => (
+          {/* Grid of Review Cards (1 Card Per Row on Mobile, 2 on SM, 3 on LG) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredPosts.map((post) => (
               <ReviewCard
                 key={post.id}
                 post={post}
@@ -303,20 +187,65 @@ export default function HomePage() {
               />
             ))}
           </div>
+
         </section>
 
-        {/* SECTION 4: INTERACTIVE PILL-BASED AI CRAVING FINDER */}
+        {/* 10. INTERACTIVE PILL-BASED AI CRAVING FINDER */}
         <AiCravingFinder onSelectPrompt={handleAiPrompt} />
+
+        {/* 11. SRS OVERVIEW & TECH STACK SECTION (Matching Image 2 Mockup) */}
+        <SrsOverviewSection />
+
+        {/* 12. SOCIAL HUB SECTION (@addisfoodiess Instagram & Telegram) */}
+        <SocialHubSection />
+
+        {/* 13. COMMUNITY TRUST & NUMBERS SECTION */}
+        <TrustSection />
+
+        {/* 14. B2B & WORK WITH ADDIS FOODIES COMMERCIAL CALLOUT */}
+        <section className="w-full py-12 px-8 rounded-3xl bg-gradient-to-r from-[#E53935] via-red-600 to-[#FF8C00] text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+          <div className="relative z-10 flex flex-col gap-3 max-w-2xl text-left">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/30 border border-white/20 text-xs font-mono font-bold text-amber-200 uppercase tracking-wider w-fit">
+              <Handshake className="w-4 h-4 text-amber-300" />
+              <span>For Restaurants & Brands</span>
+            </div>
+            <h2 className="font-display font-black text-3xl sm:text-5xl leading-tight">
+              Work With Addis Foodies
+            </h2>
+            <p className="text-sm sm:text-base text-amber-50 font-medium leading-relaxed">
+              Elevate your restaurant with multi-platform food reviews, cinematic video reels, event partnerships, and custom brand campaigns.
+            </p>
+          </div>
+
+          <div className="relative z-10 flex flex-wrap items-center gap-4 flex-shrink-0">
+            <Link
+              href="/collaborate"
+              className="touch-target bg-[#111827] hover:bg-black text-white font-extrabold text-sm py-4 px-8 rounded-2xl shadow-xl transition-all hover:scale-105 flex items-center gap-2 focus-ring"
+            >
+              <span>Explore Business Portal</span>
+              <ArrowRight className="w-4 h-4 text-[#FF8C00]" />
+            </Link>
+          </div>
+        </section>
 
       </main>
 
+      {/* 12. RICH FOOTER */}
       <Footer />
       <MobileBottomNav />
 
+      {/* MODALS */}
       {activePost && (
         <PostDetailModal
           post={activePost}
           onClose={() => setActivePost(null)}
+        />
+      )}
+
+      {activeReceiptPost && (
+        <PriceReceiptModal
+          post={activeReceiptPost}
+          onClose={() => setActiveReceiptPost(null)}
         />
       )}
     </div>

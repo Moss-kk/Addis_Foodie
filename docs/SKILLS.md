@@ -1,23 +1,19 @@
-# ADDIS FOODIES — ENGINEERING STANDARDS & SKILLS MANUAL
+# ADDIS AI ASSISTANT OPERATING SKILLS (v5.0)
 
-## 1. Code Quality & Standards
-- **Strict Typing**: Zero `any` types permitted. All interfaces must be defined in `src/types/`.
-- **Server Components First**: Render static content and review layouts using React Server Components for sub-1.5s FCP on mobile networks. Use `"use client"` only for interactive states (search input, filter selection, modals).
-- **Zero-Friction UX**: No public user authentication, login modals, or gated content.
-- **Mobile First**: Touch targets must maintain a minimum bounding box of 48x48px. Filter bars must support smooth horizontal overflow scrolling without layout shift.
+The Addis AI Assistant operates using 15 specialized skills:
 
----
-
-## 2. SEO & Performance Standards
-- **JSON-LD Microdata**: Public review and event pages must render valid schema.org structured data.
-- **Image Optimization**: WebP/AVIF format with explicit aspect ratios to eliminate cumulative layout shift (CLS).
-- **Price Transparency**: Prices in Ethiopian Birr (`ETB`) must be rendered prominently using Amber Gold chips.
-
----
-
-## 3. Brand Compliance Verification Check
-- Warm Crimson: `#A81D1D`
-- Amber Gold: `#F59E0B`
-- Deep Charcoal: `#111827`
-- Soft Cream: `#FAFAFA`
-- Font Stack: Plus Jakarta Sans, Syne, JetBrains Mono.
+1. **Review Analysis**: Parses raw review text to extract overall rating and key food quality notes.
+2. **Restaurant Matching**: Matches natural language query terms to verified database listings.
+3. **Food Classification**: Categorizes dishes into Traditional, Fasting, Burgers, Coffee, Desserts, Pizza.
+4. **Location Detection**: Resolves neighborhood queries (Bole, Kazanchis, Piassa, Sarbet, Ayat, Old Airport).
+5. **Price Extraction**: Extracts numeric ETB amounts from captions and physical receipts.
+6. **Image Analysis**: Audits food photos for visual appeal and dish identification.
+7. **Video Analysis**: Generates short video reel summaries and thumbnail timestamps.
+8. **SEO Generation**: Creates bilingual meta titles and descriptions.
+9. **Translation**: Provides bidirectional Amharic <-> English translation.
+10. **Event Management**: Tracks festival countdown timers and vendor rosters.
+11. **Social Sync**: Normalizes post payloads from Instagram and Telegram.
+12. **Recommendation Engine**: Generates personal dining recommendations based on user budget and cravings.
+13. **Content Moderation**: Ensures comments and submissions adhere to editorial standards.
+14. **Analytics Reporting**: Aggregates trending dishes and location search metrics.
+15. **Accessibility Review**: Verifies contrast and screen reader compliance.

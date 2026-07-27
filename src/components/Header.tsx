@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Menu, X, Globe, ArrowUpRight, Sun, Moon, Flame } from 'lucide-react';
+import { Search, Menu, X, Globe, ArrowUpRight, Sun, Moon, Flame, Handshake } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import AddisFoodieLogo from './ui/AddisFoodieLogo';
@@ -33,32 +33,35 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
   };
 
   const navLinks = [
-    { href: '/', label: t('exploreReviews') },
-    { href: '/about', label: t('about') },
+    { href: '/', label: 'Home' },
+    { href: '/reviews', label: t('exploreReviews') },
+    { href: '/map', label: 'Food Map' },
+    { href: '/videos', label: 'Videos & Reels' },
     { href: '/events', label: t('events') },
     { href: '/services', label: t('services') },
-    { href: '/collaborate', label: t('contact') },
+    { href: '/about', label: t('about') },
+    { href: '/collaborate', label: 'Work With Us' },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 dark:bg-[#120907]/95 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 shadow-sm transition-colors duration-300">
+    <header className="sticky top-0 z-50 w-full bg-[#FAF8F5]/90 dark:bg-[#120907]/90 backdrop-blur-xl border-b border-stone-200/80 dark:border-stone-800/80 shadow-xs transition-colors duration-300">
       
       {/* Top Announcement Bar */}
       <div className="bg-gradient-to-r from-[#B71C1C] via-[#E53935] to-[#FF8C00] text-white py-1 px-4 text-center text-[11px] font-mono font-bold tracking-wide flex items-center justify-center gap-2">
         <Flame className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-        <span>Official Food Discovery Engine for Addis Ababa • @addisfoodiess</span>
+        <span>Official Food Media Headquarters & Discovery Platform • @addisfoodiess</span>
         <span className="hidden sm:inline-block bg-white/20 px-2 py-0.5 rounded text-[10px] uppercase font-black">
-          Zero-Login
+          Addis Ababa
         </span>
       </div>
 
       <div className="site-container py-3 flex items-center justify-between gap-3 max-w-full">
         
-        {/* Brand Logo Rectangular Block */}
+        {/* Brand Logo Block */}
         <AddisFoodieLogo diluted={true} />
 
-        {/* Desktop Navigation Links - High Contrast & Bold */}
-        <nav className="hidden lg:flex items-center gap-7 text-xs font-black">
+        {/* Desktop Navigation Links - Clean & Uncompressed */}
+        <nav className="hidden lg:flex items-center gap-5 text-xs font-black font-display">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -68,7 +71,7 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
                 className={`transition-all relative py-1.5 flex items-center gap-1 focus-ring ${
                   isActive
                     ? 'text-[#E53935] font-black'
-                    : 'text-zinc-800 dark:text-zinc-200 hover:text-[#E53935] dark:hover:text-[#FF8C00]'
+                    : 'text-stone-800 dark:text-stone-200 hover:text-[#E53935] dark:hover:text-[#FF8C00]'
                 }`}
               >
                 <span>{link.label}</span>
@@ -83,22 +86,24 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
           })}
         </nav>
 
-        {/* Right Actions */}
+        {/* Right Action Controls */}
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-          {/* Mobile Search Toggle Button */}
+          
+          {/* Search Trigger Button */}
           <button
             onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
-            className="md:hidden p-2 rounded-xl bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-800 focus-ring cursor-pointer"
+            className="touch-target p-2 rounded-xl bg-white dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 border border-stone-200/80 dark:border-stone-800 focus-ring cursor-pointer flex items-center gap-1.5 text-xs font-mono font-bold shadow-xs"
             aria-label="Toggle Search"
           >
-            <Search className="w-4 h-4" />
+            <Search className="w-4 h-4 text-[#E53935]" />
+            <span className="hidden md:inline text-stone-500 dark:text-stone-400">Search</span>
           </button>
 
-          {/* Day & Night Mood Switcher Button */}
+          {/* Day & Night Mood Switcher */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-800 transition-all focus-ring cursor-pointer flex items-center justify-center shadow-xs"
-            title={isDark ? 'Switch to Day Light Mode' : 'Switch to Night Flame Mode'}
+            className="touch-target p-2 rounded-xl bg-white dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 border border-stone-200/80 dark:border-stone-800 transition-all focus-ring cursor-pointer flex items-center justify-center shadow-xs"
+            title={isDark ? 'Switch to Day Light Canvas' : 'Switch to Night Flame Canvas'}
             aria-label="Toggle theme mode"
           >
             {isDark ? (
@@ -108,30 +113,29 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
             )}
           </button>
 
-          {/* Language Switcher Button */}
+          {/* Language Switcher */}
           <button
             onClick={toggleLang}
-            className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-900 dark:text-zinc-200 text-[11px] sm:text-xs font-mono font-bold border border-zinc-200 dark:border-zinc-800 transition-colors focus-ring cursor-pointer flex items-center gap-1 shadow-xs"
-            title="Switch Language"
+            className="touch-target px-2.5 sm:px-3 py-1.5 rounded-xl bg-white dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-900 dark:text-stone-200 text-[11px] sm:text-xs font-mono font-bold border border-stone-200/80 dark:border-stone-800 transition-colors focus-ring cursor-pointer flex items-center gap-1 shadow-xs"
             aria-label="Toggle language English or Amharic"
           >
             <Globe className="w-3.5 h-3.5 text-[#E53935]" />
             <span>{lang === 'EN' ? 'EN|አማ' : 'አማ|EN'}</span>
           </button>
 
-          {/* Work With Us CTA (Desktop Only) */}
+          {/* Work With Us Primary CTA (Desktop) */}
           <Link
             href="/collaborate"
-            className="hidden sm:inline-flex items-center justify-center gap-1.5 px-4.5 py-2 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white text-xs font-extrabold shadow-md hover:shadow-lg transition-all cursor-pointer focus-ring hover:scale-102"
+            className="touch-target hidden sm:inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white text-xs font-extrabold shadow-md hover:shadow-lg transition-all cursor-pointer focus-ring hover:scale-102"
           >
-            <span>{t('workWithUs')}</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
+            <Handshake className="w-3.5 h-3.5 text-amber-200" />
+            <span>Work With Us</span>
           </Link>
 
-          {/* Mobile Menu Hamburger Button */}
+          {/* Mobile Navigation Drawer Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-xl text-zinc-800 dark:text-zinc-200 bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors focus-ring cursor-pointer border border-zinc-200 dark:border-zinc-800"
+            className="touch-target lg:hidden p-2 rounded-xl text-stone-800 bg-white hover:bg-stone-100 transition-colors focus-ring cursor-pointer border border-stone-200/80"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -139,16 +143,16 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
         </div>
       </div>
 
-      {/* Mobile Search Expandable Box */}
+      {/* Expandable Search Input Bar */}
       <AnimatePresence>
         {mobileSearchOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 px-4 py-3"
+            className="bg-zinc-50 dark:bg-[#1A100C] border-b border-zinc-200 dark:border-zinc-800 px-4 py-3"
           >
-            <form onSubmit={handleSearchSubmit} className="relative flex items-center w-full">
+            <form onSubmit={handleSearchSubmit} className="site-container relative flex items-center w-full">
               <Search className="absolute left-3 w-4 h-4 text-zinc-400" />
               <input
                 type="text"
@@ -157,8 +161,8 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
                   setLocalSearch(e.target.value);
                   if (onSearchChange) onSearchChange(e.target.value);
                 }}
-                placeholder="Search Bole, Kitfo, Burgers..."
-                className="w-full bg-white dark:bg-zinc-900 text-zinc-950 dark:text-white placeholder-zinc-400 text-xs pl-9 pr-3 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 focus:border-[#E53935] outline-none font-semibold"
+                placeholder="Search food, restaurants, Bole, Kitfo, Doro Wat..."
+                className="w-full bg-white dark:bg-zinc-900 text-zinc-950 dark:text-white placeholder-zinc-400 text-xs sm:text-sm pl-9 pr-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 focus:border-[#E53935] outline-none font-semibold shadow-inner"
                 autoFocus
               />
             </form>
@@ -166,7 +170,7 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
         )}
       </AnimatePresence>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Menu Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -193,10 +197,10 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
                 <Link
                   href="/collaborate"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full bg-[#E53935] hover:bg-[#B71C1C] text-white font-black text-xs uppercase tracking-wider py-3 rounded-xl text-center shadow-lg transition-colors flex items-center justify-center gap-1.5"
+                  className="w-full bg-[#E53935] hover:bg-[#B71C1C] text-white font-black text-xs uppercase tracking-wider py-3.5 rounded-xl text-center shadow-lg transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>{t('workWithUs')}</span>
-                  <ArrowUpRight className="w-4 h-4" />
+                  <Handshake className="w-4 h-4 text-amber-200" />
+                  <span>Work With Addis Foodies</span>
                 </Link>
               </div>
             </div>

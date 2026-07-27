@@ -105,14 +105,14 @@ export default function ServicesPage() {
         </div>
 
         {/* Hero Section */}
-        <div className="bg-gradient-to-br from-[#111827] via-[#8B1717] to-[#E53935] text-white py-14 px-8 sm:px-14 rounded-3xl flex flex-col gap-4 shadow-xl border border-red-500/20">
+        <div className="bg-[#111827] text-white py-14 px-8 sm:px-14 rounded-3xl flex flex-col gap-4 shadow-xl border border-white/10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#FF8C00]">
             💼 B2B Commercial Services & Media Rates
           </div>
-          <h1 className="font-syne font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight">
+          <h1 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight">
             Partner With Ethiopia’s Top Food Review Brand
           </h1>
-          <p className="text-zinc-200 font-medium text-sm sm:text-lg max-w-3xl">
+          <p className="text-stone-200 font-medium text-sm sm:text-lg max-w-3xl">
             Amplify your restaurant launch, menu feature, or food festival to over 150,000 active foodies across Addis Ababa.
           </p>
         </div>
@@ -123,10 +123,10 @@ export default function ServicesPage() {
             <span className="text-xs font-mono font-black text-[#E53935] uppercase tracking-widest">
               Standard Rate Cards
             </span>
-            <h2 className="font-syne font-black text-2xl sm:text-4xl text-zinc-950">
+            <h2 className="font-display font-black text-2xl sm:text-4xl text-zinc-950">
               Choose Your Media Campaign
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-600 font-medium">
+            <p className="text-xs sm:text-sm text-stone-600 font-medium">
               Transparent rate pricing in Ethiopian Birr (ETB) with clear deliverable guarantees.
             </p>
           </div>
@@ -153,7 +153,7 @@ export default function ServicesPage() {
                   </div>
 
                   <div>
-                    <h3 className="font-syne font-black text-xl">{pkg.name}</h3>
+                    <h3 className="font-display font-black text-xl">{pkg.name}</h3>
                     <p className="text-xs opacity-75 font-medium pt-1">{pkg.description}</p>
                   </div>
 

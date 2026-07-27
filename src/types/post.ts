@@ -22,6 +22,7 @@ export interface FoodPost {
   videoUrl?: string; // video reel URL
   reelPlatform?: 'instagram_reel' | 'tiktok_video';
   viewsCount?: string; // e.g. "48.5K views"
+  rating?: string; // e.g. "4.8"
 }
 
 export type EventStatus = 'UPCOMING' | 'LIVE_TODAY' | 'COMPLETED';

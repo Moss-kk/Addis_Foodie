@@ -1,21 +1,46 @@
-# ADDIS FOODIES ARCHITECTURE DOCUMENTATION (v4.0 - Flame & Simplicity)
+# ADDIS FOODIES SYSTEM ARCHITECTURE (v5.0)
 
-## 1. System Overview
-Addis Foodies is a modern, high-converting food discovery platform and review aggregator for Addis Ababa, Ethiopia.
+## System Overview Diagram
 
-## 2. Directory Architecture & Page Routing
-- **`/` (Streamlined Homepage)**: Hero Search, 9:16 Short-Form Video Reels Feed, Top 4 Curated Spots, and Pill-Based AI Craving Finder.
-- **`/reviews` (Dedicated Reviews Hub)**: Full review archive, neighborhood filters (Bole, Kazanchis, Piassa, Sarbet), category filters, and monospaced ETB price filters.
-- **`/about` (Editorial & Methodology)**: 4-step inspection process, 150,000+ monthly reach stats, and brand methodology.
-- **`/events` (Events & Festivals)**: Kitfo Fest #5 and festival management.
-- **`/services` & `/collaborate` (Commercial Services)**: Restaurant onboarding, menu launches, and food photography.
+```
+[Social Media Platforms] (Instagram / Telegram / TikTok / Facebook)
+           │
+           ▼
+[Social Sync Ingestion Service] ──► [AI Content Processing Engine]
+                                                │
+                                                ▼
+                                    [CMS Approval Queue]
+                                                │
+                                                ▼
+                                    [PostgreSQL / Prisma DB]
+                                                │
+                                                ▼
+                                 [ADFP Next.js Platform Core]
+                                     ├── Web Application
+                                     ├── Interactive Food Map
+                                     ├── Video Reels Carousel
+                                     └── Addis AI Assistant
+                                                │
+                                                ▼
+                                   [Mobile App Ready APIs]
+                                  (PWA / Flutter / React Native)
+```
 
-## 3. Flame Design System (v4.0 Tokens)
-- Base Background (Night): `#120907` (Deep Flame Fade Charcoal)
-- Card Surface (Night): `#1A100C` (Warm Dark Slate with 1px border `rgba(229, 57, 53, 0.18)`)
-- Base Background (Day): `#FAFAFA` (Soft Cream Surface)
-- Card Surface (Day): `#FFFFFF` (Crisp White Surface)
-- Primary Accent: `#E53935` (Ember Flame Red)
-- Secondary Accent: `#FF8C00` (Culinary Flame Gold)
-- Text Primary: `#FFF8F6`
-- Text Secondary: `#D1C2BD`
+## Key Architectural Layers
+
+1. **Ingestion & Social Sync Layer**:
+   - Webhook listeners for Instagram Graph API and Telegram Bot API.
+   - Media file processor uploading high-res images and 9:16 reels to Cloudinary.
+
+2. **AI & Natural Language Layer**:
+   - Addis AI Assistant processing queries in Amharic & English.
+   - Automated metadata extraction (Dish, Restaurant, Location, Price ETB).
+
+3. **Data & Storage Layer**:
+   - PostgreSQL relational database managed by Prisma ORM.
+   - Redis caching for high-speed review searches and trending queries.
+
+4. **Presentation & UI Layer**:
+   - Next.js 16 App Router with Turbopack.
+   - Responsive Day/Night Theme Context (`ThemeContext.tsx`).
+   - Multilingual Context (`LanguageContext.tsx`).

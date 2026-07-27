@@ -19,9 +19,18 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-primary)", "Plus Jakarta Sans", "system-ui", "-apple-system", "sans-serif"],
-        display: ["var(--font-display)", "Syne", "sans-serif"],
+        sans: ["var(--font-primary)", "Inter", "system-ui", "-apple-system", "sans-serif"],
+        display: ["var(--font-display)", "Plus Jakarta Sans", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
+      },
+      keyframes: {
+        kenburns: {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.12)" },
+        },
+      },
+      animation: {
+        kenburns: "kenburns 20s ease-out infinite alternate",
       },
     },
   },

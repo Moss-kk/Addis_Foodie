@@ -2,225 +2,241 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import {
-  ShieldCheck,
-  Users,
-  MapPin,
-  Utensils,
-  Sparkles,
-  Phone,
+import { 
+  ShieldCheck, 
+  Users, 
+  MapPin, 
+  Utensils, 
+  Sparkles, 
+  Phone, 
   ArrowRight,
+  Award,
+  Calendar,
+  Download,
+  Building2,
+  CheckCircle,
+  Heart
 } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import MobileBottomNav from '../../components/layout/MobileBottomNav';
-import { useLanguage } from '../../context/LanguageContext';
+
+const timelineEvents = [
+  {
+    year: '2021',
+    title: 'Founded @addisfoodiess',
+    description: 'Started as a passionate Instagram account documenting authentic local food gems in Bole & Piassa.',
+  },
+  {
+    year: '2023',
+    title: 'Kitfo Fest Inauguration',
+    description: 'Launched Kitfo Fest #1 at Monarch Rooftop, gathering over 2,500 food enthusiasts in a single weekend.',
+  },
+  {
+    year: '2024',
+    title: 'Itemized Price Receipt Transparency',
+    description: 'Introduced verified ETB price logs to give food lovers 100% pricing clarity across Addis restaurants.',
+  },
+  {
+    year: '2026',
+    title: 'Official Digital Headquarters',
+    description: 'Elevated into Ethiopia’s premier food media brand, digital magazine, and multi-festival production hub.',
+  },
+];
+
+const achievements = [
+  { metric: '150,000+', label: 'Active Monthly Food Lovers', sub: 'Across Instagram & Telegram' },
+  { metric: '500+', label: 'Verified Restaurant Reviews', sub: 'Bole, Kazanchis, Piassa, Sarbet' },
+  { metric: '20+', label: 'Culinary Festivals Hosted', sub: 'Kitfo Fest, Burger Battle, Coffee Week' },
+  { metric: '100+', label: 'Partner Restaurants', sub: 'Authentic Habesha & Modern Dining' },
+];
+
+const partners = [
+  { name: 'Kategna Restaurant', location: 'Bole' },
+  { name: 'Yod Abyssinia', location: 'Bole' },
+  { name: 'Monarch Parkview', location: 'Piassa' },
+  { name: 'Tomoca Coffee', location: 'Piassa & Bole' },
+  { name: 'Fin Fine Cultural', location: 'Kazanchis' },
+  { name: 'Makush Art Gallery & Cafe', location: 'Bole' },
+];
 
 export default function AboutPage() {
-  const { lang } = useLanguage();
-
-  const stats = [
-    { label: lang === 'EN' ? 'Monthly Foodies Reach' : 'ወርሃዊ ተከታታዮች', value: '150,000+', icon: Users },
-    { label: lang === 'EN' ? 'Field Reviews Ingested' : 'የተደረጉ ግምገማዎች', value: '500+', icon: Utensils },
-    { label: lang === 'EN' ? 'Key Districts Covered' : 'የተሸፈኑ ክፍለ ከተሞች', value: '4 Main', icon: MapPin },
-    { label: lang === 'EN' ? 'Editorial Independence' : 'ገለልተኛ ግምገማ', value: '100%', icon: ShieldCheck },
-  ];
-
-  const methodologySteps = [
-    {
-      num: '01',
-      title: lang === 'EN' ? 'Anonymous Field Inspection' : 'ድብቅ የመስክ ጉብኝት',
-      desc:
-        lang === 'EN'
-          ? 'Our review inspectors visit dining spots unannounced to sample authentic dishes as everyday customers.'
-          : 'የግምገማ ባለሙያዎቻችን እንደማንኛውም ደንበኛ ያለቅድመ ማስታወቂያ በመገኘት ምግቦችን ይመዝናሉ።',
-    },
-    {
-      num: '02',
-      title: lang === 'EN' ? 'Itemized ETB Price Audit' : 'ትክክለኛ የዋጋ ምዝገባ',
-      desc:
-        lang === 'EN'
-          ? 'We record every dish price in Ethiopian Birr (ETB) directly on receipt logs for total price transparency.'
-          : 'እያንዳንዱን የካፌና ምግብ ቤት ዋጋ በብር (ETB) በትክክል መዝግበን ይፋ እናደርጋለን።',
-    },
-    {
-      num: '03',
-      title: lang === 'EN' ? 'Cinematic 9:16 Video Capture' : 'ምርጥ ቪዲዮና ፎቶ',
-      desc:
-        lang === 'EN'
-          ? 'Short 9:16 portrait video clips capture sizzling Kitfo, coffee roasting, and real restaurant atmosphere.'
-          : 'የክትፎ፣ የቡናና የምግብ ቤቱን እውነተኛ ሁኔታ የሚያሳዩ አጫጭር ቪዲዮዎችን እንቀርጻለን።',
-    },
-    {
-      num: '04',
-      title: lang === 'EN' ? 'Independent Editorial Verdict' : 'ገለልተኛ ውሳኔና አስተያየት',
-      desc:
-        lang === 'EN'
-          ? 'Final verdicts are published directly by Addis Foodies—no paid fake 5-star ratings allowed.'
-          : 'ትክክለኛውን የአዲስ ፉዲስ አስተያየት ብቻ እናስፍራለን—በክፍያ የሚደረግ የሐሰት ደረጃ መስጠት አይፈቀድም።',
-    },
-  ];
-
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF8F5] text-zinc-900 transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#FAF8F5] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       <Header />
 
-      <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-14 relative z-10">
-        {/* Breadcrumb Navigation */}
+      <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-16 relative z-10">
+        
+        {/* Breadcrumb */}
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 hover:text-[#E53935] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-500 hover:text-[#E53935] transition-colors"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-            </svg>
-            <span>Back to Discovery Feed</span>
+            <ArrowRight className="w-4 h-4 rotate-180 text-[#E53935]" />
+            <span>Back to Digital Headquarters</span>
           </Link>
         </div>
 
         {/* HERO SECTION */}
-        <section className="bg-gradient-to-br from-[#111827] via-[#8B1717] to-[#E53935] text-white py-14 px-6 sm:px-12 rounded-3xl flex flex-col gap-6 shadow-xl border border-red-500/20 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF8C00]/10 rounded-full blur-3xl pointer-events-none" />
+        <section className="bg-[#111827] text-white p-8 sm:p-14 rounded-3xl flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl border border-white/10">
+          <div className="flex flex-col gap-4 max-w-2xl text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E53935]/20 border border-[#E53935]/40 text-xs font-mono font-bold uppercase tracking-widest text-[#FF8C00] w-fit">
+              <Sparkles className="w-4 h-4 text-[#FF8C00]" />
+              <span>Brand Story & Editorial Heritage</span>
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#FF8C00] backdrop-blur-md"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#FF8C00]" />
-            {lang === 'EN' ? 'The Voice of Addis Ababa’s Culinary Scene' : 'የአዲስ አበባ የምግብና ካፌ ባህል ታማኝ መሪ'}
-          </motion.div>
+            <h1 className="font-display font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-none">
+              Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF8C00] via-amber-300 to-[#E53935]">Addis Foodies</span>
+            </h1>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-tight"
-          >
-            {lang === 'EN' ? (
-              <>
-                The Voice of Addis Ababa’s <span className="text-[#FF8C00]">Culinary Scene</span>
-              </>
-            ) : (
-              <>
-                የአዲስ አበባ የምግብና ካፌ ባህል <span className="text-[#FF8C00]">ታማኝ መሪ</span>
-              </>
-            )}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-zinc-200 text-base sm:text-xl max-w-3xl font-medium leading-relaxed"
-          >
-            {lang === 'EN'
-              ? 'Addis Foodies is the premiere culinary review brand in Ethiopia. We discover, review, and showcase trusted food experiences across Bole, Kazanchis, Piassa, and Sarbet for over 150,000 food lovers.'
-              : 'አዲስ ፉዲስ በኢትዮጵያ ውስጥ ተመርጠው የቀረቡ የምግብ ቤትና የካፌ ግምገማዎችን የሚያቀርብ ታዋቂ ዲጂታል መድረክ ነው። በቦሌ፣ ካዛንችስ፣ ፒያሳና ሳርቤት ያሉ ምርጥ ቦታዎችን ለ150,000+ ተከታታዮች እናስተዋውቃለን።'}
-          </motion.p>
-        </section>
-
-        {/* IMPACT STATS STRIP */}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((stat, idx) => {
-            const Icon = stat.icon;
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="bg-white p-6 rounded-2xl text-center space-y-2 border border-stone-200 shadow-xs hover:border-amber-500/40 transition-colors"
-              >
-                <Icon className="w-6 h-6 text-[#E53935] mx-auto" />
-                <p className="text-2xl sm:text-3xl font-black text-[#E53935] font-mono">
-                  {stat.value}
-                </p>
-                <p className="text-xs font-bold text-zinc-600 uppercase tracking-wider font-mono">
-                  {stat.label}
-                </p>
-              </motion.div>
-            );
-          })}
-        </section>
-
-        {/* EDITORIAL METHODOLOGY */}
-        <section className="space-y-8 bg-white p-8 sm:p-12 rounded-3xl border border-stone-200 shadow-sm">
-          <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono font-black text-[#E53935] uppercase tracking-widest">
-              {lang === 'EN' ? 'Field Methodology' : 'የግምገማ አሰራራችን'}
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-black text-zinc-950 font-syne">
-              {lang === 'EN' ? 'How We Inspect & Review' : 'የግምገማ አሰራራችን'}
-            </h2>
-            <p className="text-zinc-600 text-xs sm:text-sm font-medium">
-              {lang === 'EN'
-                ? 'Our rigorous 4-step editorial methodology guarantees authenticity and total price transparency.'
-                : 'እውነተኛነቱን ያረጋገጠ ባለ 4-ደረጃ የግምገማ ሂደታችን።'}
+            <p className="text-stone-300 font-medium text-sm sm:text-lg leading-relaxed">
+              The official digital media headquarters, culinary magazine, and event hub celebrating the vibrant flavors and culture of Addis Ababa, Ethiopia.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-            {methodologySteps.map((step, idx) => (
-              <motion.div
+          <div className="flex flex-col gap-3 w-full sm:w-auto">
+            <a
+              href="/docs/ADDIS_FOODIES_MEDIA_KIT_2026.pdf"
+              download
+              onClick={(e) => {
+                e.preventDefault();
+                alert('Downloading Addis Foodies 2026 Media Kit (PDF)...');
+              }}
+              className="touch-target px-6 py-3.5 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-105 cursor-pointer"
+            >
+              <Download className="w-4 h-4 text-amber-200" />
+              <span>Download Media Kit (PDF)</span>
+            </a>
+          </div>
+        </section>
+
+        {/* 1. NUMBERS & KEY ACHIEVEMENTS STRIP */}
+        <section className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          {achievements.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs text-center flex flex-col gap-2 hover:border-[#E53935]/40 transition-colors"
+            >
+              <span className="font-display font-black text-3xl sm:text-4xl text-[#E53935]">
+                {item.metric}
+              </span>
+              <span className="font-display font-bold text-xs sm:text-sm text-zinc-900">
+                {item.label}
+              </span>
+              <span className="text-[11px] font-mono text-stone-500">
+                {item.sub}
+              </span>
+            </motion.div>
+          ))}
+        </section>
+
+        {/* 2. BRAND TIMELINE */}
+        <section className="flex flex-col gap-8 bg-white p-8 sm:p-12 rounded-3xl border border-stone-200/80 shadow-xs">
+          <div>
+            <span className="text-xs font-mono font-bold text-[#FF8C00] uppercase tracking-wider">
+              Chronological Journey
+            </span>
+            <h2 className="font-display font-black text-2xl sm:text-4xl text-zinc-900">
+              Addis Foodies Timeline
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            {timelineEvents.map((ev, idx) => (
+              <div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-stone-50 p-6 sm:p-8 rounded-2xl border border-stone-200 flex gap-5 items-start"
+                className="bg-stone-50 p-6 rounded-2xl border border-stone-200/80 flex flex-col gap-3 relative"
               >
-                <span className="text-3xl sm:text-4xl font-black text-[#E53935] font-mono shrink-0">
-                  {step.num}
+                <span className="font-mono font-black text-3xl text-[#E53935]">
+                  {ev.year}
                 </span>
-                <div className="space-y-1.5">
-                  <h3 className="text-lg font-bold text-zinc-900 font-syne">{step.title}</h3>
-                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-medium">{step.desc}</p>
-                </div>
-              </motion.div>
+                <h3 className="font-display font-bold text-base text-zinc-900">
+                  {ev.title}
+                </h3>
+                <p className="text-xs text-stone-600 leading-relaxed font-medium">
+                  {ev.description}
+                </p>
+              </div>
             ))}
           </div>
         </section>
 
-        {/* PROMOTION & PARTNERSHIP CALLOUT */}
-        <section className="bg-gradient-to-br from-[#111827] via-[#8B1717] to-[#E53935] text-white p-8 sm:p-12 rounded-3xl border border-red-500/20 shadow-xl relative overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-3 max-w-xl">
-            <span className="px-3 py-1 bg-white/10 text-white text-[10px] font-black uppercase rounded-full tracking-widest font-mono border border-white/20">
-              {lang === 'EN' ? 'Partner With Us' : 'ከእኛ ጋር ይስሩ'}
+        {/* 3. EDITORIAL METHODOLOGY */}
+        <section className="flex flex-col gap-8 bg-[#111827] text-white p-8 sm:p-12 rounded-3xl border border-white/10 shadow-xl">
+          <div>
+            <span className="text-xs font-mono font-bold text-[#FF8C00] uppercase tracking-wider">
+              Verification Standards
             </span>
-            <h3 className="text-2xl sm:text-4xl font-black text-white font-syne">
-              {lang === 'EN'
-                ? 'Own a Restaurant in Addis Ababa?'
-                : 'በአዲስ አበባ የምግብ ቤት ወይም ካፌ ባለቤት ነዎት?'}
-            </h3>
-            <p className="text-zinc-200 text-xs sm:text-sm leading-relaxed font-medium">
-              {lang === 'EN'
-                ? 'Request editorial reviews, festival event coverage (e.g., Kitfo Fest), or custom video media production.'
-                : 'የምግብ ቤትዎን ግምገማ፣ የሁነቶች ዝግጅት ወይም ፕሮሞሽን በጥራት ለማቅረብ ያነጋግሩን።'}
+            <h2 className="font-display font-black text-2xl sm:text-4xl text-white">
+              4-Step Review Inspection Methodology
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { num: '01', title: 'Anonymous Field Visit', desc: 'Inspectors visit dining spots unannounced as ordinary paying customers.' },
+              { num: '02', title: 'Itemized ETB Audit', desc: 'Every price is logged in ETB directly from official receipts for total transparency.' },
+              { num: '03', title: 'Cinematic Visuals', desc: 'Capturing sizzling Kitfo, coffee roasting, and real dining atmosphere.' },
+              { num: '04', title: 'Independent Verdict', desc: 'Final ratings published directly by Addis Foodies editorial staff—no paid fake reviews.' },
+            ].map((step, i) => (
+              <div key={i} className="bg-white/5 p-6 rounded-2xl border border-white/10 flex flex-col gap-2">
+                <span className="font-mono font-black text-2xl text-[#E53935]">{step.num}</span>
+                <h4 className="font-display font-bold text-sm text-white">{step.title}</h4>
+                <p className="text-xs text-stone-300 leading-relaxed font-medium">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 4. PARTNERS & COMMUNITY */}
+        <section className="flex flex-col gap-6">
+          <div className="border-b border-stone-200 pb-3">
+            <h2 className="font-display font-black text-2xl sm:text-3xl text-zinc-900">
+              Featured Restaurant Partners
+            </h2>
+            <p className="text-xs sm:text-sm text-stone-600 font-medium pt-1">
+              A continuous network of landmark culinary spots across Addis Ababa
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 shrink-0 w-full md:w-auto">
-            <a
-              href="tel:0966550000"
-              className="px-6 py-4 bg-[#E53935] hover:bg-[#B71C1C] text-white font-black text-xs uppercase rounded-xl transition-all shadow-xl flex items-center justify-center gap-2 min-h-[48px] font-mono cursor-pointer"
-            >
-              <Phone className="w-4 h-4 text-[#FF8C00]" />
-              <span>0966-55-00-00</span>
-            </a>
-            <Link
-              href="/collaborate"
-              className="px-6 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-black text-xs uppercase rounded-xl transition-all flex items-center justify-center gap-2 min-h-[48px] font-mono cursor-pointer backdrop-blur-md"
-            >
-              <span>{lang === 'EN' ? 'Work With Us' : 'አብረውን ይስሩ'}</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {partners.map((p, idx) => (
+              <div
+                key={idx}
+                className="bg-white border border-stone-200/80 p-4 rounded-2xl text-center flex flex-col justify-center items-center gap-1 shadow-xs hover:border-[#FF8C00]/40 transition-colors"
+              >
+                <Building2 className="w-5 h-5 text-[#FF8C00] mb-1" />
+                <span className="font-display font-bold text-xs text-zinc-900">{p.name}</span>
+                <span className="text-[10px] font-mono text-stone-500">{p.location}</span>
+              </div>
+            ))}
           </div>
         </section>
+
+        {/* CALL TO ACTION */}
+        <section className="bg-gradient-to-r from-[#E53935] to-[#FF8C00] text-white p-8 sm:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+          <div>
+            <h3 className="font-display font-black text-2xl sm:text-4xl">Ready to Collaborate?</h3>
+            <p className="text-xs sm:text-sm font-medium text-amber-100 pt-1">
+              Join 100+ partner restaurants featured on Addis Foodies.
+            </p>
+          </div>
+          <Link
+            href="/collaborate"
+            className="touch-target px-8 py-4 bg-[#111827] hover:bg-black text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-xl transition-all hover:scale-105 flex items-center gap-2"
+          >
+            <span>Work With Us</span>
+            <ArrowRight className="w-4 h-4 text-[#FF8C00]" />
+          </Link>
+        </section>
+
       </main>
 
       <Footer />

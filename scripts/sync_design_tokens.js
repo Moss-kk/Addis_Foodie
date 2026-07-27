@@ -6,15 +6,18 @@
 const fs = require('fs');
 const path = require('path');
 
-console.log('🔄 Auditing & Syncing Design System Tokens for Addis Foodies (v5.0)...');
+console.log('🔄 Auditing & Syncing Design System Tokens for Addis Foodies (v6.0)...');
 
 const rootDir = path.resolve(__dirname, '..');
-const designMdPath = path.join(rootDir, 'Design.md');
+let designMdPath = path.join(rootDir, 'docs', 'DESIGN.md');
+if (!fs.existsSync(designMdPath)) {
+  designMdPath = path.join(rootDir, 'Design.md');
+}
 const tailwindConfigPath = path.join(rootDir, 'tailwind.config.ts');
 const globalsCssPath = path.join(rootDir, 'src', 'app', 'globals.css');
 
 if (!fs.existsSync(designMdPath)) {
-  console.error('❌ Design.md missing!');
+  console.error('❌ DESIGN.md missing!');
   process.exit(1);
 }
 

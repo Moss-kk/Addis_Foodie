@@ -64,11 +64,11 @@ export default function ReviewsPage() {
             <span>Curated Review Archive</span>
           </div>
 
-          <h1 className="font-syne font-black text-3xl sm:text-5xl text-zinc-950">
+          <h1 className="font-display font-black text-3xl sm:text-5xl text-zinc-950">
             Foodie Reviews & Itemized Price Audits
           </h1>
 
-          <p className="text-sm text-zinc-600 font-medium max-w-2xl">
+          <p className="text-sm text-stone-600 font-medium max-w-2xl">
             Explore verified restaurant reviews, street food gems, and price breakdowns across Bole, Kazanchis, Piassa, and Sarbet.
           </p>
         </div>
@@ -101,7 +101,7 @@ export default function ReviewsPage() {
         ) : (
           <div className="bg-white border border-stone-200 p-12 rounded-3xl text-center flex flex-col items-center gap-4 my-8 shadow-xs">
             <Sparkles className="w-10 h-10 text-[#FF8C00]" />
-            <h3 className="font-syne font-bold text-xl text-zinc-900">No reviews found matching your search</h3>
+            <h3 className="font-display font-black text-xl text-zinc-900">No reviews found matching your search</h3>
             <p className="text-xs text-zinc-600">Try clearing filters or searching for different food items</p>
             <button
               onClick={() => {

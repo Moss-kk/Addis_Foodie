@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Outfit, Syne, JetBrains_Mono } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import { LanguageProvider } from "../context/LanguageContext";
 import { ThemeProvider } from "../context/ThemeContext";
 import "./globals.css";
 
-const outfit = Outfit({
+const inter = Inter({
   variable: "--font-primary",
   subsets: ["latin"],
   display: "swap",
   fallback: ["system-ui", "-apple-system", "sans-serif"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const syne = Syne({
+const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
@@ -29,8 +29,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Addis Foodies — Discovering Foods in Addis",
-  description: "A modern, visual-first food review aggregator for Addis Ababa. Find burgers, coffee, fasting, and traditional foods in Bole, Kazanchis, Piassa, and Sarbet.",
+  title: "Addis Foodies — The Official Digital Home of Ethiopian Food Culture",
+  description: "The premier editorial media brand and food review destination in Addis Ababa. Discover curated dining, street food gems, and price audits across Bole, Kazanchis, Piassa, and Sarbet.",
 };
 
 export default function RootLayout({
@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${syne.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans transition-colors duration-300 bg-[#FAF8F5] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6]">
         <ThemeProvider>

@@ -28,10 +28,10 @@ export default function AiCravingFinder({ onSelectPrompt }: AiCravingFinderProps
             <Sparkles className="w-4 h-4 text-[#FF8C00]" />
           </div>
           <div>
-            <h3 className="font-syne font-black text-base sm:text-lg text-zinc-950 flex items-center gap-2">
+            <h3 className="font-display font-black text-base sm:text-lg text-zinc-950 flex items-center gap-2">
               <span>What are you craving?</span>
             </h3>
-            <p className="text-xs text-zinc-600 font-medium">
+            <p className="text-xs text-stone-600 font-medium">
               Tap any craving pill below for instant smart recommendations across Addis Ababa.
             </p>
           </div>

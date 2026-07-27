@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  /* ADDIS FOODIES MASTER DESIGN TOKENS (v4.0 Flame & Day/Night Aesthetic) */
+  /* ADDIS FOODIES MASTER DESIGN TOKENS (v6.0 Premium Editorial Aesthetic) */
   --color-brand-primary: #E53935;      /* Ember Flame Red */
   --color-brand-dark-crimson: #B71C1C; /* Dark Flame Crimson */
   --color-brand-accent: #FF8C00;       /* Culinary Flame Gold */
   --color-brand-emerald: #10B981;      /* Live Status Green */
 
   /* Typography Stack */
-  --font-sans: var(--font-primary), "Outfit", "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-display: var(--font-primary), "Outfit", sans-serif;
+  --font-sans: var(--font-primary), "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-display), "Plus Jakarta Sans", system-ui, sans-serif;
   --font-mono: var(--font-mono), "JetBrains Mono", monospace;
 }
 
@@ -24,21 +24,21 @@
   --text-muted: #57534E;
 }
 
-/* Dark Override Fallback also mapped to refined Broken White Canvas */
+/* Dark Flame Night Mode Variables */
 .dark {
-  --background: #FAF8F5;
-  --foreground: #111827;
-  --card-bg: #FFFFFF;
-  --card-border: #E5E7EB;
+  --background: #120907;
+  --foreground: #FFF8F6;
+  --card-bg: #1A100C;
+  --card-border: rgba(229, 57, 53, 0.18);
   --brand-primary: #E53935;
   --brand-amber: #FF8C00;
-  --text-muted: #57534E;
+  --text-muted: #D1C2BD;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-primary), "Outfit", "Plus Jakarta Sans", system-ui, sans-serif;
+  font-family: var(--font-primary), "Inter", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -131,4 +131,18 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Ken Burns Slow Cinematic Zoom Animation */
+@keyframes kenburns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.12);
+  }
+}
+
+.animate-kenburns {
+  animation: kenburns 24s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
 }
