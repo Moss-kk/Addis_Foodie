@@ -99,7 +99,15 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
       {/* Video Player Modal */}
       {activeReel && (
         <VideoReelModal
-          post={activeReel}
+          reel={{
+            id: activeReel.id,
+            restaurantName: activeReel.restaurantName,
+            dishName: activeReel.restaurantName,
+            priceFormatted: activeReel.priceFormatted,
+            location: activeReel.location,
+            thumbnail: activeReel.image,
+            sourcePlatform: activeReel.sourcePlatform === 'telegram' ? 'telegram' : 'instagram',
+          }}
           onClose={() => setActiveReel(null)}
         />
       )}

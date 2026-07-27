@@ -1,35 +1,36 @@
 @import "tailwindcss";
 
 @theme {
-  /* Addis Foodies Master Design Tokens */
-  --color-brand-primary: #A81D1D;      /* Primary Crimson */
-  --color-brand-dark-crimson: #8B1717; /* Dark Crimson */
-  --color-brand-accent: #F59E0B;       /* Warm Amber */
-  --color-brand-bg: #FAFAFA;           /* Soft Cream Canvas Surface */
-  --color-brand-dark: #111827;         /* Deep Charcoal */
-  --color-brand-emerald: #10B981;      /* Emerald Green */
+  /* ADDIS FOODIES MASTER DESIGN TOKENS (v4.0 Flame Aesthetic) */
+  --color-brand-primary: #E53935;      /* Ember Flame Red */
+  --color-brand-dark-crimson: #B71C1C; /* Dark Flame Crimson */
+  --color-brand-accent: #FF8C00;       /* Culinary Flame Gold */
+  --color-brand-bg: #120907;           /* Deep Flame Fade Charcoal */
+  --color-brand-surface: #1A100C;      /* Warm Dark Card Surface */
+  --color-brand-[#1A100C]: #1A100C;
+  --color-brand-dark: #120907;
+  --color-brand-emerald: #10B981;      /* Live Status Green */
 
   /* Typography Stack */
-  --font-sans: var(--font-primary), "Outfit", system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-display), "Syne", sans-serif;
+  --font-sans: var(--font-primary), "Outfit", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: var(--font-primary), "Outfit", sans-serif;
   --font-mono: var(--font-mono), "JetBrains Mono", monospace;
 }
 
 :root {
-  --background: #FAFAFA;
-  --foreground: #111827;
-  --brand-primary: #A81D1D;
-  --brand-dark-crimson: #8B1717;
-  --brand-amber: #F59E0B;
-  --brand-charcoal: #111827;
-  --brand-cream: #FAFAFA;
+  --background: #120907;
+  --foreground: #FFF8F6;
+  --brand-primary: #E53935;
+  --brand-amber: #FF8C00;
+  --brand-surface: #1A100C;
+  --brand-cream: #FFF8F6;
   --brand-emerald: #10B981;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-primary), "Outfit", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-primary), "Outfit", "Plus Jakarta Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -51,27 +52,27 @@ body {
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;   /* 16px (320px - 390px) */
+  padding-left: 1rem;
   padding-right: 1rem;
 }
 
 @media (min-width: 640px) {
   .site-container {
-    padding-left: 1.5rem; /* 24px (640px+) */
+    padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .site-container {
-    padding-left: 2.5rem; /* 40px (1024px+) */
+    padding-left: 2.5rem;
     padding-right: 2.5rem;
   }
 }
 
 @media (min-width: 1440px) {
   .site-container {
-    padding-left: 3rem;   /* 48px (1440px+) */
+    padding-left: 3rem;
     padding-right: 3rem;
   }
 }
@@ -90,54 +91,27 @@ body {
   outline: none;
 }
 .focus-ring:focus-visible {
-  outline: 2px solid #F59E0B;
+  outline: 2px solid #FF8C00;
   outline-offset: 2px;
 }
 
 /* Glassmorphism helpers */
 .glass-panel {
-  background-color: rgba(9, 9, 11, 0.85);
+  background-color: rgba(26, 16, 12, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
 
-.glass-panel-dark {
-  background-color: rgba(18, 18, 21, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+/* Flame Card Border Glow */
+.flame-card {
+  background-color: #1A100C;
+  border: 1px solid rgba(229, 57, 53, 0.18);
+  box-shadow: 0 10px 30px -10px rgba(18, 9, 7, 0.8);
 }
 
-/* Ambient Ethiopian Culinary Watermark Overlay */
-.bg-habesha-culinary-pattern {
-  background-image: 
-    radial-gradient(circle at 50% 20%, rgba(168, 29, 29, 0.15), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(245, 158, 11, 0.08), transparent 30%),
-    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f59e0b' fill-opacity='0.03' fill-rule='evenodd'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20S-10 18.954-10 30s8.954 20 20 20 20-8.954 20-20zm0 0c0 11.046 8.954 20 20 20s20-8.954 20-20-8.954-20-20-20-20 8.954-20 20z'/%3E%3C/g%3E%3C/svg%3E");
-}
-
-/* Glassmorphic Warm Surface */
-.glass-card-warm {
-  background: rgba(24, 24, 27, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(63, 63, 70, 0.5);
-}
-
-.glass-card-warm:hover {
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 20px 40px -15px rgba(168, 29, 29, 0.2);
-}
-
-/* Monospaced Price Badge Utility */
-.font-price {
-  font-family: var(--font-mono), "JetBrains Mono", monospace;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-}
-
-/* Heading Display Utility */
-.font-syne {
-  font-family: var(--font-display), "Syne", sans-serif;
+.flame-card:hover {
+  border-color: rgba(255, 140, 0, 0.4);
+  box-shadow: 0 15px 35px -10px rgba(229, 57, 53, 0.25);
 }
 
 /* Hide scrollbars for horizontal filter bar but allow scrolling */
@@ -147,20 +121,4 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* Micro-animations */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-slide-up {
-  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

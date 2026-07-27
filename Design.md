@@ -1,58 +1,27 @@
-# ADDIS FOODIES — DESIGN SYSTEM & REUSABLE COMPONENT MANUAL
+# ADDIS FOODIES DESIGN SYSTEM (v4.0 - Flame & Simplicity)
 
-===================================================================================
-ADDIS FOODIES DESIGN SYSTEM (v5.0 Stitch Master Specification)
-Obsidian Black Theme, Primary Crimson & Warm Amber Accents, Syne & Outfit Typography, Phone-First UX
-===================================================================================
+## 1. Color System (Flame Aesthetic)
+- `--bg-primary`: `#120907` (Deep Flame Fade Charcoal with warm red undertones)
+- `--bg-surface`: `#1A100C` (Warm Dark Card Surface with subtle ember border `rgba(229, 57, 53, 0.15)`)
+- `--accent-red`: `#E53935` (Vibrant Flame Ember Red)
+- `--accent-amber`: `#FF8C00` (Culinary Flame Gold / Fire Glow)
+- `--text-primary`: `#FFF8F6` (Warm Off-White)
+- `--text-secondary`: `#D1C2BD` (Muted Warm Clay)
+- `--accent-emerald`: `#10B981` (Live Status Green)
 
-## 1. Core Visual Tokens
+## 2. Typography Rules
+- DO NOT use wide/extended display fonts for titles longer than 3 words.
+- Primary Title Font: 'Outfit' or 'Plus Jakarta Sans', SemiBold/Bold (700/800), tight tracking (-0.02em).
+- Body Font: 'Outfit' / 'Inter', Regular (400) / Medium (500) / SemiBold (600).
+- Monospaced Price Font: 'JetBrains Mono', ExtraBold (800).
 
-### 1.1 Color Tokens
-- **Sticky Header Glass (`bg-black/95 backdrop-blur-md border-zinc-800`)**: Pure black sticky navigation header with embedded search bar on top.
-- **Soft Cream Canvas (`#FAFAFA`)**: Main page background surface across all routes.
-- **Primary Crimson (`#A81D1D`)**: Brand logo badge ring, primary CTA buttons, active navigation underlines, focused input borders.
-- **Dark Crimson (`#8B1717`)**: Hero gradient overlays, active press states, dark CTA hover.
-- **Warm Amber (`#F59E0B`)**: Monospaced ETB price chips, rating star badges, tagline highlights, AI search highlights.
-- **Deep Charcoal (`#111827`)**: Brand logo container, footer surface, primary body typography, dark section cards.
-- **Emerald Green (`#10B981`)**: Real-time live status badges ("🚨 TODAY!! LIVE NOW").
-- **Muted Steel (`#6B7280`)**: Secondary caption typography, structural dividers.
+## 3. Layout Simplicity & Page Division
+- **HOMEPAGE (`/`) MUST BE MINIMAL**: Hero Search + 9:16 Video Reels Feed + Top 4 Curated Spots + AI Craving Finder.
+- **DEDICATED REVIEWS HUB (`/reviews`)**: Move heavy 6-column grid archives, neighborhood filters, and price range ETB selectors here.
+- **ABOUT PAGE (`/about`)**: Editorial 4-step inspection process, 150,000+ monthly reach stats, and brand methodology.
+- **EVENTS PAGE (`/events`)**: Kitfo Fest, rooftop takeovers, and festival tickets.
+- **COMMERCIAL SERVICES (`/services` & `/collaborate`)**: B2B restaurant onboarding, menu launches, and food photography.
 
----
-
-### 1.2 Mobile-First & Phone Usability Standards
-- **Sticky Search on Top**: Integrated top header search box for immediate phone query access.
-- **Mobile Bottom Navigation Bar**: Fixed bottom bar on `< sm` viewports for thumb-reachable navigation (Home, Reviews, Events, Services, Contact).
-- **Direct Phone Booking Action**: Direct `tel:` call trigger on review cards (`📞 Call`).
-- **Minimum Touch Target**: All interactive controls satisfy `min-h-[48px]` and `min-w-[48px]`.
-- **Horizontal Craving Chips**: Smooth swipeable pill slider for instant food craving filtering on small mobile displays.
-
----
-
-### 1.3 Typography Hierarchy & Font Stacks
-
-#### Latin Font Stack:
-- **Primary Body & UI**: `Outfit` (`font-sans font-medium text-zinc-900`).
-- **Display Headings**: `Syne` (`font-syne font-black tracking-tight text-[#111827]`).
-- **Prices & Numbers**: `JetBrains Mono` (`font-mono font-black text-[#F59E0B]`).
-- **Locations & Tags**: `Outfit` (`font-bold text-zinc-700`).
-
-#### Amharic (Ethiopic) Font Stack:
-- **Fallback Hierarchy**: `Noto Sans Ethiopic`, `Abyssinica SIL`, `system-ui`, `sans-serif`.
-- **Amharic Line-Height Rule**: Increase line-height multiplier by `1.15x` for Ethiopic glyph readability.
-
----
-
-## 2. Reusable Component Specs & Templates Hub
-
-### 2.1 Review Card Visual Sequence
-1. **Photography Header**: 4:3 WebP media ratio.
-2. **Restaurant Name**: Bold headline in `Syne`.
-3. **Location & Category Pill**: Landmark location badge with pin icon (`📍 Bole`).
-4. **Monospaced Price Badge**: Monospaced Warm Amber (`#F59E0B`) ETB price badge.
-5. **Caption Snippet**: 2-line clamped review summary with hashtag highlights.
-6. **Mobile Action Bar**: `📞 Call` direct trigger, `🧾 Itemized Receipt` trigger, and `Review ↗` details trigger.
-
-### 2.2 Template Showcase Hub
-- **Vendor Promotion Template**: Ready-to-use template for restaurant promotion & menu receipts.
-- **Festival & Event Kit**: Comprehensive event ticket registration and live coverage showcase.
-- **Curator Guide Template**: Downloadable PDF & interactive neighborhood food map template.
+## 4. Component Rules
+- **Restaurant Review Cards**: MAXIMUM 1 CTA button per card ('Read Review'). Remove extra buttons like 'Call' or 'Receipt' from card faces—place them on detail modals only.
+- **Short-Form Video Reels**: 9:16 vertical portrait cards in smooth horizontal snap container with price badge overlay, dish title, and play video modal.

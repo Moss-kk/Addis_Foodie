@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -15,128 +15,64 @@ import {
   Star, 
   Utensils, 
   Coffee, 
-  Leaf, 
-  ArrowUpRight, 
-  Tag, 
+  ArrowRight,
   X 
 } from 'lucide-react';
 import Header from '../components/Header';
 import EventBanner from '../components/EventBanner';
-import FeaturedCarousel from '../components/FeaturedCarousel';
-import FilterBar from '../components/FilterBar';
+import VideoReelsCarousel from '../components/VideoReelsCarousel';
 import ReviewCard from '../components/ReviewCard';
 import PostDetailModal from '../components/PostDetailModal';
 import AiCravingFinder from '../components/AiCravingFinder';
 import Footer from '../components/Footer';
 import MobileBottomNav from '../components/layout/MobileBottomNav';
-import { LanguageProvider, useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../context/LanguageContext';
 import { mockPosts } from '../data/mockPosts';
 import { FoodPost } from '../types/post';
 
-function HomeContent() {
+export default function HomePage() {
   const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedPriceRange, setSelectedPriceRange] = useState<string | null>(null);
-  const [selectedSort, setSelectedSort] = useState<string>('newest');
-  const [visibleCount, setVisibleCount] = useState<number>(9);
   const [activePost, setActivePost] = useState<FoodPost | null>(null);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   // Quick tags for instant hero search
   const quickTags = ['Bole', 'Burgers', 'Doro Wot', 'Shiro Tegabino', 'Fasting', 'Macchiato'];
 
-  useEffect(() => {
-    setVisibleCount(9);
-  }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
+  // Show top 4 featured spots on homepage as per v4.0 SRS rules
+  const topFourSpots = useMemo(() => mockPosts.slice(0, 4), []);
 
-  const featuredPosts = useMemo(() => mockPosts.slice(0, 4), []);
-
-  const filteredPosts = useMemo(() => {
-    return mockPosts
-      .filter((post) => {
-        if (selectedLocation && post.neighborhood !== selectedLocation) return false;
-        if (selectedCategory && post.category !== selectedCategory) return false;
-        if (selectedPriceRange) {
-          if (selectedPriceRange === 'under-300' && post.price >= 300) return false;
-          if (selectedPriceRange === '300-700' && (post.price < 300 || post.price > 700)) return false;
-          if (selectedPriceRange === '700-plus' && post.price <= 700) return false;
-        }
-        if (searchQuery.trim() !== '') {
-          const query = searchQuery.toLowerCase().trim();
-          const matchRestaurant = post.restaurantName.toLowerCase().includes(query);
-          const matchLocation = post.location.toLowerCase().includes(query);
-          const matchCategory = post.category.toLowerCase().includes(query);
-          const matchCaption = post.caption.toLowerCase().includes(query);
-
-          if (!matchRestaurant && !matchLocation && !matchCategory && !matchCaption) {
-            return false;
-          }
-        }
-        return true;
-      })
-      .sort((a, b) => {
-        if (selectedSort === 'price-asc') return a.price - b.price;
-        if (selectedSort === 'price-desc') return b.price - a.price;
-        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-      });
-  }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
-
-  const visiblePosts = useMemo(() => filteredPosts.slice(0, visibleCount), [filteredPosts, visibleCount]);
-
-  const handleClearFilters = () => {
-    setSearchQuery('');
-    setSelectedLocation(null);
-    setSelectedCategory(null);
-    setSelectedPriceRange(null);
-    setSelectedSort('newest');
-  };
-
-  const handleLoadMore = () => {
-    setIsLoadingMore(true);
-    setTimeout(() => {
-      setVisibleCount((prev) => prev + 9);
-      setIsLoadingMore(false);
-    }, 250);
-  };
-
-  const handleAiPrompt = (query: string, cat?: string, loc?: string, price?: string) => {
+  const handleAiPrompt = (query: string) => {
     if (query) setSearchQuery(query);
-    if (cat) setSelectedCategory(cat);
-    if (loc) setSelectedLocation(loc);
-    if (price) setSelectedPriceRange(price);
-
-    const el = document.getElementById('archive-section');
+    const el = document.getElementById('featured-spots');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   const scrollToGrid = () => {
-    const el = document.getElementById('archive-section');
+    const el = document.getElementById('featured-spots');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-[#111827] selection:bg-[#A81D1D]/10 selection:text-[#A81D1D] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
-      {/* HEADER NAVIGATION WITH TOP SEARCH */}
+    <div className="flex flex-col min-h-screen bg-[#120907] text-[#FFF8F6] selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+      {/* HEADER NAVIGATION WITH LOGO & PRIMARY CTA */}
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-      {/* SECTION 1: IMMERSIVE STITCH HERO WITH CINEMATIC HABESHA DINNER TABLE */}
-      <section className="w-full relative min-h-[560px] sm:min-h-[660px] flex items-center py-12 sm:py-24 text-white overflow-hidden border-b border-zinc-800 bg-[#111827]">
+      {/* SECTION 1: IMMERSIVE FLAME HERO WITH CINEMATIC DINNER OVERLAY */}
+      <section className="w-full relative min-h-[520px] sm:min-[#620px] flex items-center py-10 sm:py-20 text-white overflow-hidden border-b border-zinc-800/80 bg-[#120907]">
         
-        {/* Stitch Cinematic Overhead Habesha Dinner Table Background */}
+        {/* Cinematic Background Image */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
             src="https://images.unsplash.com/photo-1541518763669-27fef04b14e8?auto=format&fit=crop&w=2000&q=90"
-            alt="Cinematic Overhead Habesha Feast Dinner Table"
+            alt="Authentic Habesha Ethiopian Food Feast"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center brightness-[0.75] contrast-[1.1] scale-105 transition-all duration-1000"
+            className="object-cover object-center brightness-[0.7] contrast-[1.1] scale-105 transition-all duration-1000"
           />
-          {/* Stitch Gradient Blending Overlay: From Deep Charcoal to Translucent */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/95 via-[#111827]/80 to-black/50" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-transparent to-black/40" />
+          {/* Flame Fade Charcoal Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#120907]/95 via-[#120907]/85 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#120907] via-transparent to-black/40" />
         </div>
 
         <div className="site-container relative z-10 flex flex-col gap-6">
@@ -149,7 +85,7 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#F59E0B] backdrop-blur-md shadow-lg"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1A100C]/80 border border-red-500/20 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#FF8C00] backdrop-blur-md shadow-lg"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>{t('tagline')}</span>
@@ -159,10 +95,10 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="font-syne font-black text-3xl sm:text-5xl lg:text-7xl tracking-tight leading-[1.1] text-white"
+                className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.15] text-[#FFF8F6]"
               >
                 Discover Addis Ababa <br className="hidden sm:inline" />
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#F59E0B] via-amber-300 to-[#FF3B30]">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF8C00] via-amber-300 to-[#E53935]">
                   One Bite at a Time
                 </span>
               </motion.h1>
@@ -171,7 +107,7 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-zinc-200 font-medium text-xs sm:text-lg leading-relaxed max-w-2xl"
+                className="text-[#D1C2BD] font-medium text-xs sm:text-base leading-relaxed max-w-2xl"
               >
                 {t('heroSubtext')}
               </motion.p>
@@ -185,7 +121,7 @@ function HomeContent() {
               >
                 <button
                   onClick={scrollToGrid}
-                  className="touch-target bg-[#A81D1D] hover:bg-[#8B1717] text-white font-bold text-xs sm:text-sm py-3.5 px-7 rounded-xl shadow-xl transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring"
+                  className="touch-target bg-[#E53935] hover:bg-[#B71C1C] text-white font-bold text-xs sm:text-sm py-3.5 px-7 rounded-xl shadow-xl transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring"
                 >
                   <Search className="w-4 h-4" />
                   <span>{t('exploreReviews')}</span>
@@ -195,31 +131,31 @@ function HomeContent() {
                   href="/collaborate"
                   className="touch-target bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm py-3.5 px-7 rounded-xl border border-white/20 transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring backdrop-blur-md"
                 >
-                  <Handshake className="w-4 h-4 text-[#F59E0B]" />
+                  <Handshake className="w-4 h-4 text-[#FF8C00]" />
                   <span>{t('workWithAddisFoodies')}</span>
                 </Link>
               </motion.div>
             </div>
 
-            {/* 2 Key Floating Highlight Cards (Decluttered from 4 down to 2) */}
+            {/* 2 Key Floating Highlight Cards */}
             <div className="hidden lg:flex flex-col gap-4 flex-shrink-0 w-72">
-              <div className="bg-black/60 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex items-center gap-3.5 shadow-xl hover:border-white/30 transition-all">
-                <div className="w-10 h-10 rounded-xl bg-[#A81D1D]/20 border border-[#A81D1D]/40 flex items-center justify-center flex-shrink-0">
-                  <Utensils className="w-5 h-5 text-[#F59E0B]" />
+              <div className="bg-[#1A100C]/80 backdrop-blur-md p-4 rounded-2xl border border-red-500/20 flex items-center gap-3.5 shadow-xl hover:border-amber-500/30 transition-all">
+                <div className="w-10 h-10 rounded-xl bg-[#E53935]/20 border border-[#E53935]/40 flex items-center justify-center flex-shrink-0">
+                  <Utensils className="w-5 h-5 text-[#FF8C00]" />
                 </div>
                 <div className="flex flex-col">
                   <span className="font-syne font-bold text-xs text-white">Special Kitfo Platter</span>
-                  <span className="text-[11px] font-mono text-[#F59E0B] font-bold">850 Br • Bole</span>
+                  <span className="text-[11px] font-mono text-[#FF8C00] font-bold">850 Br • Bole</span>
                 </div>
               </div>
 
-              <div className="bg-black/60 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex items-center gap-3.5 shadow-xl hover:border-white/30 transition-all">
+              <div className="bg-[#1A100C]/80 backdrop-blur-md p-4 rounded-2xl border border-red-500/20 flex items-center gap-3.5 shadow-xl hover:border-amber-500/30 transition-all">
                 <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center flex-shrink-0">
-                  <Coffee className="w-5 h-5 text-[#F59E0B]" />
+                  <Coffee className="w-5 h-5 text-[#FF8C00]" />
                 </div>
                 <div className="flex flex-col">
                   <span className="font-syne font-bold text-xs text-white">Double Macchiato</span>
-                  <span className="text-[11px] font-mono text-[#F59E0B] font-bold">150 Br • Sarbet</span>
+                  <span className="text-[11px] font-mono text-[#FF8C00] font-bold">150 Br • Sarbet</span>
                 </div>
               </div>
             </div>
@@ -253,7 +189,7 @@ function HomeContent() {
 
           {/* Trending Craving Chips */}
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth pb-1">
-            <span className="text-xs font-mono font-bold uppercase text-zinc-400 tracking-wider flex-shrink-0">{t('trending')}:</span>
+            <span className="text-xs font-mono font-bold uppercase text-[#D1C2BD] tracking-wider flex-shrink-0">{t('trending')}:</span>
             {quickTags.map((tag) => (
               <button
                 key={tag}
@@ -266,13 +202,13 @@ function HomeContent() {
           </div>
 
           {/* Micro-Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] sm:text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 border-t border-white/10 pt-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] sm:text-xs font-mono font-semibold uppercase tracking-wider text-[#D1C2BD] border-t border-white/10 pt-4">
             <div className="flex items-center gap-1.5">
-              <Flame className="w-4 h-4 text-[#F59E0B]" />
+              <Flame className="w-4 h-4 text-[#FF8C00]" />
               <span>{t('monthlyFoodies')}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-[#A81D1D]" />
+              <MapPin className="w-4 h-4 text-[#E53935]" />
               <span>{t('curatedSpots')}</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -288,148 +224,62 @@ function HomeContent() {
         </div>
       </section>
 
-
-      {/* MAIN SITE CONTENT CONTAINER */}
-      <main className="site-container py-10 flex flex-col gap-14">
+      {/* MAIN HOMEPAGE STREAMLINED FEED */}
+      <main className="site-container py-10 flex flex-col gap-12">
         
         {/* Real-time Festival Banner Alert */}
         <EventBanner />
 
-        {/* SECTION 2: FEATURED THIS WEEK */}
-        <section className="flex flex-col gap-6">
-          <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
-            <h2 className="font-syne font-black text-xl sm:text-3xl text-[#111827] flex items-center gap-2">
-              <Star className="w-6 h-6 text-[#F59E0B]" />
-              <span>{t('featuredThisWeek')}</span>
-            </h2>
-            <span className="text-[10px] sm:text-xs font-extrabold text-[#F59E0B] bg-[#F59E0B]/10 px-3 py-1 rounded-full border border-[#F59E0B]/20 uppercase tracking-wider">
-              {t('editorialSpotlights')}
-            </span>
-          </div>
+        {/* SECTION 2: 9:16 SHORT-FORM VIDEO REELS FEED */}
+        <VideoReelsCarousel />
 
-          <FeaturedCarousel
-            posts={featuredPosts}
-            onSelectPost={(post) => setActivePost(post)}
-          />
-        </section>
-
-        {/* SECTION 3: USEFUL AI CRAVING FINDER */}
-        <AiCravingFinder onSelectPrompt={handleAiPrompt} />
-
-        {/* SECTION 4: INTERACTIVE REVIEWS & PRICE ARCHIVE */}
-        <section id="archive-section" className="flex flex-col gap-8 pt-2">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <Tag className="w-6 h-6 text-[#A81D1D]" />
-              <h2 className="font-syne font-black text-2xl sm:text-4xl text-[#111827]">
-                {t('searchFilterArchive')}
+        {/* SECTION 3: TOP 4 CURATED SPOTS THIS WEEK */}
+        <section id="featured-spots" className="flex flex-col gap-6 pt-2">
+          <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+            <div>
+              <h2 className="font-syne font-black text-xl sm:text-3xl text-[#FFF8F6] flex items-center gap-2">
+                <Star className="w-6 h-6 text-[#FF8C00]" />
+                <span>Top Curated Spots This Week</span>
               </h2>
+              <p className="text-xs text-[#D1C2BD] font-medium pt-1">
+                Hand-picked culinary highlights across Addis Ababa
+              </p>
             </div>
-            <p className="text-xs sm:text-sm text-zinc-600 font-medium max-w-2xl">
-              {t('archiveSubtext')}
-            </p>
+
+            <Link
+              href="/reviews"
+              className="touch-target px-4 py-2 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white text-xs font-extrabold transition-all shadow-md flex items-center gap-1.5"
+            >
+              <span>Explore All Reviews</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
-
-          {/* Filter Bar Controls */}
-          <FilterBar
-            selectedLocation={selectedLocation}
-            selectedCategory={selectedCategory}
-            selectedPriceRange={selectedPriceRange}
-            selectedSort={selectedSort}
-            onLocationChange={setSelectedLocation}
-            onCategoryChange={setSelectedCategory}
-            onPriceRangeChange={setSelectedPriceRange}
-            onSortChange={setSelectedSort}
-          />
-
-          {/* Reviews Grid */}
-          {visiblePosts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {visiblePosts.map((post) => (
-                <ReviewCard
-                  key={post.id}
-                  post={post}
-                  onClick={() => setActivePost(post)}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="bg-white p-12 text-center rounded-3xl border border-zinc-200 shadow-sm flex flex-col items-center justify-center gap-4 my-6">
-              <span className="text-5xl">🔍</span>
-              <h3 className="font-syne font-black text-xl text-[#111827]">No Matching Reviews Found</h3>
-              <p className="text-xs text-zinc-500 max-w-md font-medium">
-                We couldn't find any reviews matching your search filters. Try resetting your search parameters.
-              </p>
-              <button
-                onClick={handleClearFilters}
-                className="touch-target px-6 py-3 rounded-xl bg-[#A81D1D] text-white text-xs font-black uppercase tracking-wider transition-all shadow-md cursor-pointer hover:bg-[#8B1717]"
-              >
-                Reset All Filters
-              </button>
-            </div>
-          )}
-
-          {/* Load More Button */}
-          {visiblePosts.length < filteredPosts.length && (
-            <div className="flex justify-center pt-6">
-              <button
-                onClick={handleLoadMore}
-                disabled={isLoadingMore}
-                className="touch-target px-8 py-4 rounded-xl bg-[#111827] hover:bg-[#A81D1D] text-white border border-zinc-800 text-xs font-mono font-black uppercase tracking-widest transition-all shadow-lg hover:scale-102 cursor-pointer focus-ring"
-              >
-                {isLoadingMore ? 'Loading More Food Spots...' : 'Load More Reviews ⚡'}
-              </button>
-            </div>
-          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {topFourSpots.map((post) => (
+              <ReviewCard
+                key={post.id}
+                post={post}
+                onClick={() => setActivePost(post)}
+              />
+            ))}
+          </div>
         </section>
 
-        {/* SECTION 7: RESTAURANT COLLABORATION CTA */}
-        <div className="bg-[#111827] text-white rounded-3xl p-8 sm:p-12 border border-zinc-800 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex flex-col gap-3 text-center md:text-left">
-            <span className="text-[#F59E0B] font-mono font-black text-xs uppercase tracking-widest">
-              📢 Commercial Collaboration Engine
-            </span>
-            <h3 className="font-syne font-black text-2xl sm:text-4xl text-white">
-              Want Your Restaurant Featured on Addis Foodies?
-            </h3>
-            <p className="text-xs sm:text-sm text-zinc-300 max-w-xl font-medium">
-              Reach 150,000+ local food lovers every month across Instagram, Telegram, and Web. Request video reviews, menu showcases, or event coverage.
-            </p>
-          </div>
-
-          <Link
-            href="/collaborate"
-            className="touch-target bg-[#F59E0B] hover:bg-amber-400 text-[#111827] font-black text-xs sm:text-sm py-4 px-8 rounded-full transition-all shadow-lg hover:scale-105 flex-shrink-0 cursor-pointer focus-ring"
-          >
-            WORK WITH US ↗
-          </Link>
-        </div>
+        {/* SECTION 4: INTERACTIVE PILL-BASED AI CRAVING FINDER */}
+        <AiCravingFinder onSelectPrompt={handleAiPrompt} />
 
       </main>
 
-      {/* Post Detail Modal */}
+      <Footer />
+      <MobileBottomNav />
+
       {activePost && (
         <PostDetailModal
           post={activePost}
           onClose={() => setActivePost(null)}
         />
       )}
-
-      {/* MULTI-COLUMN BRAND FOOTER */}
-      <Footer />
-
-      {/* MOBILE STICKY BOTTOM NAVIGATION BAR */}
-      <MobileBottomNav />
     </div>
   );
 }
-
-export default function Home() {
-  return (
-    <LanguageProvider>
-      <HomeContent />
-    </LanguageProvider>
-  );
-}
-

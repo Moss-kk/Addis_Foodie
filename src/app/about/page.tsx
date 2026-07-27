@@ -1,27 +1,24 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   ShieldCheck,
-  Award,
   Users,
   MapPin,
   Utensils,
-  Camera,
-  CheckCircle2,
-  Phone,
   Sparkles,
+  Phone,
   ArrowRight,
 } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { LanguageProvider, useLanguage } from '../../context/LanguageContext';
+import MobileBottomNav from '../../components/layout/MobileBottomNav';
+import { useLanguage } from '../../context/LanguageContext';
 
-function AboutContent() {
-  const { lang, t } = useLanguage();
+export default function AboutPage() {
+  const { lang } = useLanguage();
 
   const stats = [
     { label: lang === 'EN' ? 'Monthly Foodies Reach' : 'ወርሃዊ ተከታታዮች', value: '150,000+', icon: Users },
@@ -49,7 +46,7 @@ function AboutContent() {
     },
     {
       num: '03',
-      title: lang === 'EN' ? 'Cinematic Video Capture' : 'ምርጥ ቪዲዮና ፎቶ',
+      title: lang === 'EN' ? 'Cinematic 9:16 Video Capture' : 'ምርጥ ቪዲዮና ፎቶ',
       desc:
         lang === 'EN'
           ? 'Short 9:16 portrait video clips capture sizzling Kitfo, coffee roasting, and real restaurant atmosphere.'
@@ -66,15 +63,15 @@ function AboutContent() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-[#111827] selection:bg-[#A81D1D]/10 selection:text-[#A81D1D] bg-habesha-culinary-pattern relative overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-[#120907] text-[#FFF8F6] selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       <Header />
 
-      <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-16 relative z-10">
+      <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-14 relative z-10">
         {/* Breadcrumb Navigation */}
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 hover:text-[#A81D1D] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#D1C2BD] hover:text-[#FF8C00] transition-colors cursor-pointer"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -84,16 +81,16 @@ function AboutContent() {
         </div>
 
         {/* HERO SECTION */}
-        <section className="bg-gradient-to-br from-[#111827] via-[#8B1717] to-[#A81D1D] text-white py-16 px-8 sm:px-14 rounded-3xl flex flex-col gap-6 shadow-2xl border border-zinc-800 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#F59E0B]/10 rounded-full blur-3xl pointer-events-none" />
+        <section className="bg-gradient-to-br from-[#1A100C] via-[#120907] to-black text-white py-14 px-6 sm:px-12 rounded-3xl flex flex-col gap-6 shadow-2xl border border-red-500/20 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF8C00]/10 rounded-full blur-3xl pointer-events-none" />
 
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B] backdrop-blur-md"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#FF8C00] backdrop-blur-md"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#F59E0B]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#FF8C00]" />
             {lang === 'EN' ? 'The Voice of Addis Ababa’s Culinary Scene' : 'የአዲስ አበባ የምግብና ካፌ ባህል ታማኝ መሪ'}
           </motion.div>
 
@@ -101,15 +98,15 @@ function AboutContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-tight"
+            className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl text-[#FFF8F6] tracking-tight leading-tight"
           >
             {lang === 'EN' ? (
               <>
-                The Voice of Addis Ababa’s <span className="text-[#F59E0B]">Culinary Scene</span>
+                The Voice of Addis Ababa’s <span className="text-[#FF8C00]">Culinary Scene</span>
               </>
             ) : (
               <>
-                የአዲስ አበባ የምግብና ካፌ ባህል <span className="text-[#F59E0B]">ታማኝ መሪ</span>
+                የአዲስ አበባ የምግብና ካፌ ባህል <span className="text-[#FF8C00]">ታማኝ መሪ</span>
               </>
             )}
           </motion.h1>
@@ -118,7 +115,7 @@ function AboutContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-zinc-200 text-base sm:text-xl max-w-3xl font-medium leading-relaxed"
+            className="text-[#D1C2BD] text-base sm:text-xl max-w-3xl font-medium leading-relaxed"
           >
             {lang === 'EN'
               ? 'Addis Foodies is the premiere culinary review brand in Ethiopia. We discover, review, and showcase trusted food experiences across Bole, Kazanchis, Piassa, and Sarbet for over 150,000 food lovers.'
@@ -137,13 +134,13 @@ function AboutContent() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="bg-white p-6 rounded-2xl text-center space-y-2 border border-zinc-200 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-[#1A100C] p-6 rounded-2xl text-center space-y-2 border border-red-500/20 shadow-md hover:border-amber-500/40 transition-colors"
               >
-                <Icon className="w-6 h-6 text-[#A81D1D] mx-auto" />
-                <p className="text-2xl sm:text-3xl font-black text-[#A81D1D] font-mono">
+                <Icon className="w-6 h-6 text-[#E53935] mx-auto" />
+                <p className="text-2xl sm:text-3xl font-black text-[#FF8C00] font-mono">
                   {stat.value}
                 </p>
-                <p className="text-xs font-bold text-zinc-600 uppercase tracking-wider font-mono">
+                <p className="text-xs font-bold text-[#D1C2BD] uppercase tracking-wider font-mono">
                   {stat.label}
                 </p>
               </motion.div>
@@ -152,15 +149,15 @@ function AboutContent() {
         </section>
 
         {/* EDITORIAL METHODOLOGY */}
-        <section className="space-y-8 bg-white p-8 sm:p-12 rounded-3xl border border-zinc-200 shadow-sm">
+        <section className="space-y-8 bg-[#1A100C] p-8 sm:p-12 rounded-3xl border border-red-500/20 shadow-xl">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono font-black text-[#A81D1D] uppercase tracking-widest">
+            <span className="text-xs font-mono font-black text-[#FF8C00] uppercase tracking-widest">
               {lang === 'EN' ? 'Field Methodology' : 'የግምገማ አሰራራችን'}
             </span>
-            <h2 className="text-2xl sm:text-4xl font-black text-[#111827] font-syne">
+            <h2 className="text-2xl sm:text-4xl font-black text-[#FFF8F6] font-syne">
               {lang === 'EN' ? 'How We Inspect & Review' : 'የግምገማ አሰራራችን'}
             </h2>
-            <p className="text-zinc-600 text-xs sm:text-sm font-medium">
+            <p className="text-[#D1C2BD] text-xs sm:text-sm font-medium">
               {lang === 'EN'
                 ? 'Our rigorous 4-step editorial methodology guarantees authenticity and total price transparency.'
                 : 'እውነተኛነቱን ያረጋገጠ ባለ 4-ደረጃ የግምገማ ሂደታችን።'}
@@ -175,14 +172,14 @@ function AboutContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-zinc-50 p-6 sm:p-8 rounded-2xl border border-zinc-200/80 flex gap-5 items-start"
+                className="bg-[#120907] p-6 sm:p-8 rounded-2xl border border-zinc-800 flex gap-5 items-start"
               >
-                <span className="text-3xl sm:text-4xl font-black text-[#A81D1D] font-mono shrink-0">
+                <span className="text-3xl sm:text-4xl font-black text-[#E53935] font-mono shrink-0">
                   {step.num}
                 </span>
                 <div className="space-y-1.5">
-                  <h3 className="text-lg font-bold text-[#111827] font-syne">{step.title}</h3>
-                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-medium">{step.desc}</p>
+                  <h3 className="text-lg font-bold text-white font-syne">{step.title}</h3>
+                  <p className="text-xs sm:text-sm text-[#D1C2BD] leading-relaxed font-medium">{step.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -190,9 +187,9 @@ function AboutContent() {
         </section>
 
         {/* PROMOTION & PARTNERSHIP CALLOUT */}
-        <section className="bg-[#111827] text-white p-8 sm:p-12 rounded-3xl border border-zinc-800 shadow-2xl relative overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+        <section className="bg-[#1A100C] text-white p-8 sm:p-12 rounded-3xl border border-red-500/20 shadow-2xl relative overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-3 max-w-xl">
-            <span className="px-3 py-1 bg-[#A81D1D] text-white text-[10px] font-black uppercase rounded-full tracking-widest font-mono">
+            <span className="px-3 py-1 bg-[#E53935] text-white text-[10px] font-black uppercase rounded-full tracking-widest font-mono">
               {lang === 'EN' ? 'Partner With Us' : 'ከእኛ ጋር ይስሩ'}
             </span>
             <h3 className="text-2xl sm:text-4xl font-black text-white font-syne">
@@ -200,7 +197,7 @@ function AboutContent() {
                 ? 'Own a Restaurant in Addis Ababa?'
                 : 'በአዲስ አበባ የምግብ ቤት ወይም ካፌ ባለቤት ነዎት?'}
             </h3>
-            <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed font-medium">
+            <p className="text-[#D1C2BD] text-xs sm:text-sm leading-relaxed font-medium">
               {lang === 'EN'
                 ? 'Request editorial reviews, festival event coverage (e.g., Kitfo Fest), or custom video media production.'
                 : 'የምግብ ቤትዎን ግምገማ፣ የሁነቶች ዝግጅት ወይም ፕሮሞሽን በጥራት ለማቅረብ ያነጋግሩን።'}
@@ -210,14 +207,14 @@ function AboutContent() {
           <div className="flex flex-col sm:flex-row gap-4 shrink-0 w-full md:w-auto">
             <a
               href="tel:0966550000"
-              className="px-6 py-4 bg-[#A81D1D] hover:bg-[#8B1717] text-white font-black text-xs uppercase rounded-xl transition-all shadow-xl flex items-center justify-center gap-2 min-h-[48px] font-mono cursor-pointer"
+              className="px-6 py-4 bg-[#E53935] hover:bg-[#B71C1C] text-white font-black text-xs uppercase rounded-xl transition-all shadow-xl flex items-center justify-center gap-2 min-h-[48px] font-mono cursor-pointer"
             >
-              <Phone className="w-4 h-4 text-[#F59E0B]" />
+              <Phone className="w-4 h-4 text-[#FF8C00]" />
               <span>0966-55-00-00</span>
             </a>
             <Link
               href="/collaborate"
-              className="px-6 py-4 bg-white/10 hover:bg-white/20 text-[#F59E0B] border border-white/20 font-black text-xs uppercase rounded-xl transition-all flex items-center justify-center gap-2 min-h-[48px] font-mono cursor-pointer backdrop-blur-md"
+              className="px-6 py-4 bg-white/10 hover:bg-white/20 text-[#FF8C00] border border-white/20 font-black text-xs uppercase rounded-xl transition-all flex items-center justify-center gap-2 min-h-[48px] font-mono cursor-pointer backdrop-blur-md"
             >
               <span>{lang === 'EN' ? 'Work With Us' : 'አብረውን ይስሩ'}</span>
               <ArrowRight className="w-4 h-4" />
@@ -227,15 +224,7 @@ function AboutContent() {
       </main>
 
       <Footer />
+      <MobileBottomNav />
     </div>
   );
 }
-
-export default function AboutPage() {
-  return (
-    <LanguageProvider>
-      <AboutContent />
-    </LanguageProvider>
-  );
-}
-
