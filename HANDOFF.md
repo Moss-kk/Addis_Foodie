@@ -1,6 +1,6 @@
-# ADDIS FOODIES — AI CROSS-COLLABORATION HANDOFF DOCUMENT (v5.0)
+# ADDIS FOODIES — AI CROSS-COLLABORATION HANDOFF DOCUMENT (v5.0 Stitch Master)
 
-This document provides complete technical, design, architectural, and route context for any AI assistant or developer continuing work on the **Addis Foodies** project.
+This document provides complete technical, design, architectural, and route context for any AI assistant or developer working on the **Addis Foodies** project.
 
 ---
 
@@ -9,42 +9,25 @@ This document provides complete technical, design, architectural, and route cont
 - **Core Tagline:** *"Discover Addis Ababa One Bite at a Time"*
 - **Vision:** The Official Digital Home of Addis Foodies.
 - **Value Proposition:** An authoritative, visual-first culinary discovery magazine and review aggregator for Addis Ababa, Ethiopia (Bole, Kazanchis, Piassa, Sarbet). Amplifies 150,000+ monthly foodies across Instagram, Telegram, and Web.
-- **No User Account Requirement:** All content is curated, author-verified by Addis Foodies editorial field inspectors.
 
 ---
 
-## 🛠️ Technology Stack & Environment
-- **Framework:** Next.js 16 (App Router with Turbopack)
-- **Styling:** Tailwind CSS v4 + Custom Glassmorphism CSS utilities
-- **Language:** TypeScript 5.x (Strict mode)
-- **Animation:** Framer Motion v12
-- **Fonts (Google Fonts):**
-  - Display: `Syne` (`font-syne font-black`)
-  - Body & UI: `Plus Jakarta Sans` (`font-sans`)
-  - Prices & Numbers: `JetBrains Mono` (`font-mono`)
-  - Ethiopic Fallback: `Noto Sans Ethiopic` / `Abyssinica SIL`
+## 🎨 Stitch Design System & Phone-First UX Overhaul
 
----
-
-## 🎨 Master Design System Tokens (Stitch MCP Asset `454fb3c749314435921ae5b007fef532`)
-
+### Master Visual Tokens
 - **Primary Crimson (`#A81D1D`)**: Brand logo border ring, primary CTAs, active hover underlines, focus borders.
 - **Dark Crimson (`#8B1717`)**: Hero gradient overlay, active press states, CTA dark hover.
-- **Warm Amber (`#F59E0B`)**: Price badges in ETB, rating star chips, tagline text, live alerts, AI tags.
-- **Deep Charcoal (`#111827`)**: Brand logo block, dark containers, body headings, receipts background.
+- **Warm Amber (`#F59E0B`)**: Monospaced ETB price badges, rating star chips, tagline text, live alerts, AI tags.
+- **Deep Charcoal (`#111827`)**: Brand logo container, dark card containers, body headings, receipts background.
 - **Soft Cream (`#FAFAFA`)**: Page canvas background.
 - **Emerald Green (`#10B981`)**: Real-time live status badges (`🚨 TODAY!! LIVE NOW`).
 
----
-
-## 🌐 Dynamic Bilingual Localization (`EN | AM`)
-- **Location:** `src/lib/i18n.ts` & `src/context/LanguageContext.tsx`
-- **Usage in Components:**
-  ```tsx
-  import { useLanguage } from '../context/LanguageContext';
-  const { lang, toggleLang, t } = useLanguage();
-  return <button onClick={toggleLang}>{t('exploreReviews')}</button>;
-  ```
+### Mobile Phone Usability Enhancements
+1. **Top Sticky Search**: Accessible search box in sticky top navigation header (`Header.tsx`).
+2. **Mobile Bottom Navigation Bar**: Fixed bottom bar for phone viewports (`MobileBottomNav.tsx`).
+3. **Direct Click-to-Call Action**: Phone booking action button (`📞 Call`) on review cards (`ReviewCard.tsx`).
+4. **Horizontal Craving Chips**: Swipeable craving chips (`Kitfo`, `Burgers`, `Fasting`, `Coffee`, `Bole`).
+5. **Templates Hub**: Dedicated template showcase component (`TemplateShowcase.tsx`) for event & vendor promotion kits.
 
 ---
 
@@ -52,56 +35,42 @@ This document provides complete technical, design, architectural, and route cont
 
 ```
 c:\Users\user\Documents\Addis_Foodie\
-├── ADDIS_FOODIES_SRS.md       # v5.0 Official Master SRS Specification
-├── Design.md                  # v5.0 Official Master Design System Manual
-├── HANDOFF.md                 # Persistent AI Cross-Collaboration Handoff Document
-├── tailwind.config.ts         # Extended brand colors & typography fonts
+├── Design.md                  # v5.0 Official Master Design System Specification
+├── ARCHITECTURE.md            # Technical Architecture & Topology Document
+├── HANDOFF.md                 # AI Cross-Collaboration Handoff Document
+├── README.md                  # Project Readme
+├── tailwind.config.ts         # Brand color tokens & typography configuration
 ├── scripts/
-│   └── sync_design_tokens.js  # Automated token verification script
+│   └── sync_design_tokens.js  # Automated design token verification script
 └── src/
     ├── app/
     │   ├── layout.tsx         # Root layout with LanguageProvider
-    │   ├── page.tsx           # 7-Section Storytelling Homepage
-    │   ├── about/             # About Addis Foodies editorial standards
+    │   ├── page.tsx           # Social & Food Curation Homepage (with Sticky Search & Templates Hub)
+    │   ├── about/             # About Addis Foodies page
     │   ├── events/            # Culinary Events & Festivals Hub
     │   ├── services/          # Commercial Rate Card & Services Catalog
     │   └── collaborate/       # Commercial Partnership & Review Inquiry
-    ├── components/
-    │   ├── Header.tsx         # Brand logo badge, navigation, language toggle
-    │   ├── Footer.tsx         # 4-Column brand footer & newsletter
-    │   ├── ReviewCard.tsx     # 4:3 image card with price chip & receipt trigger
-    │   ├── PriceReceiptModal  # Monospaced itemized ETB price receipt
-    │   ├── AddisMap.tsx       # 2D Interactive Addis Ababa Discovery Map
-    │   ├── VideoReelsSection  # 9:16 TikTok & Instagram Video Reels Spotlight
-    │   ├── VideoReelModal.tsx # Portrait video review player modal
-    │   ├── AiCravingFinder    # Natural language preset craving chips
-    │   └── EventBanner.tsx    # Emerald Green live status event alert
-    ├── context/
-    │   └── LanguageContext    # Client-side language state (EN / AM)
-    ├── data/
-    │   ├── mockPosts.ts       # Curated review posts with video reel metadata
-    │   └── mockEvents.ts      # Festival & event data
-    ├── lib/
-    │   └── i18n.ts            # English & Amharic dictionaries
-    └── types/
-        └── post.ts            # FoodPost, CulinaryEvent, MenuItem types
+    └── components/
+        ├── Header.tsx         # Sticky header with brand badge & top search box
+        ├── Footer.tsx         # Multi-column brand footer
+        ├── ReviewCard.tsx     # 4:3 media card with monospaced price chip & call action
+        ├── FilterBar.tsx      # Swipeable craving pill slider
+        ├── AiCravingFinder.tsx# Natural language preset craving chips
+        ├── EventBanner.tsx    # Emerald green live event alert banner
+        ├── templates/
+        │   └── TemplateShowcase.tsx # Food curation & event templates hub
+        └── layout/
+            └── MobileBottomNav.tsx # Fixed phone bottom navigation bar
 ```
 
 ---
 
-## 🔧 Token Verification & Build Verification Commands
+## 🔧 Token Verification & Build Commands
 - **Run Token Audit Script:**
   ```bash
-  cmd /c node scripts/sync_design_tokens.js
+  node scripts/sync_design_tokens.js
   ```
-- **Run Next.js Turbopack Production Build:**
+- **Run Next.js Production Build:**
   ```bash
-  cmd /c npm run build
+  npm run build
   ```
-
----
-
-## 💡 Next Steps & Roadmap for Continuing AI Assistants
-1. **Instagram Graph API / Telegram Bot Webhook Integration:** Replace static mock data with real-time webhooks parsing incoming post captions into structured `FoodPost` objects.
-2. **Database Integration:** Connect Prisma schema to PostgreSQL database to persist commercial collaboration inquiries.
-3. **PWA Offline Support:** Add service workers for offline caching of food review cards in low-connectivity areas of Addis Ababa.

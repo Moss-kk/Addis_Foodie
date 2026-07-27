@@ -11,12 +11,8 @@ import FilterBar from '../components/FilterBar';
 import ReviewCard from '../components/ReviewCard';
 import PostDetailModal from '../components/PostDetailModal';
 import AiCravingFinder from '../components/AiCravingFinder';
-import VideoReelsSection from '../components/VideoReelsSection';
-import AddisMap from '../components/AddisMap';
 import Footer from '../components/Footer';
-import Hero3DCanvas from '../components/home/Hero3DCanvas';
-import EventShowcaseCard from '../components/events/EventShowcaseCard';
-import PromotionHub from '../components/promotions/PromotionHub';
+import MobileBottomNav from '../components/layout/MobileBottomNav';
 import { LanguageProvider, useLanguage } from '../context/LanguageContext';
 import { mockPosts } from '../data/mockPosts';
 import { FoodPost } from '../types/post';
@@ -40,9 +36,6 @@ function HomeContent() {
   }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
 
   const featuredPosts = useMemo(() => mockPosts.slice(0, 4), []);
-  const latestPosts = useMemo(() => {
-    return [...mockPosts].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).slice(0, 3);
-  }, []);
 
   const filteredPosts = useMemo(() => {
     return mockPosts
@@ -108,14 +101,14 @@ function HomeContent() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-[#111827] selection:bg-[#A81D1D]/10 selection:text-[#A81D1D]">
-      {/* HEADER NAVIGATION */}
-      <Header />
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-[#111827] selection:bg-[#A81D1D]/10 selection:text-[#A81D1D] pb-16 sm:pb-0">
+      {/* HEADER NAVIGATION WITH TOP SEARCH */}
+      <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-      {/* SECTION 1: FULL-BLEED IMMERSIVE HERO WITH DRIBBBLE-STYLE ETHIOPIAN CULINARY OVERLAY */}
-      <section className="w-full relative min-h-[640px] sm:min-h-[720px] flex items-center py-16 sm:py-24 text-white overflow-hidden border-b border-zinc-800">
+      {/* SECTION 1: IMMERSIVE HERO WITH ETHIOPIAN CULINARY OVERLAY */}
+      <section className="w-full relative min-h-[580px] sm:min-h-[720px] flex items-center py-12 sm:py-24 text-white overflow-hidden border-b border-zinc-800">
         
-        {/* Authentic Ethiopian Culinary Background Picture with Dark Transparent Gradient */}
+        {/* Ethiopian Culinary Background Picture */}
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1585937421612-70a0f261c0b7?auto=format&fit=crop&w=2000&q=90"
@@ -125,16 +118,15 @@ function HomeContent() {
             sizes="100vw"
             className="object-cover object-center brightness-[0.45] scale-105 transition-transform duration-1000"
           />
-          {/* Dark Transparent Gradient Overlay as in Dribbble & Stitch Design */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/95 via-[#111827]/85 to-black/50" />
         </div>
 
-        <div className="site-container relative z-10 flex flex-col gap-10">
+        <div className="site-container relative z-10 flex flex-col gap-8">
           
           {/* Main Hero Header Content */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-10">
             
-            <div className="flex flex-col gap-5 max-w-3xl">
+            <div className="flex flex-col gap-4 max-w-3xl">
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -148,7 +140,7 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="font-syne font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.08] text-white"
+                className="font-syne font-black text-3xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.1] text-white"
               >
                 Discover Addis Ababa <br className="hidden sm:inline" />
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#F59E0B] via-amber-300 to-[#FF3B30]">
@@ -160,7 +152,7 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-zinc-200 font-medium text-base sm:text-xl leading-relaxed max-w-2xl"
+                className="text-zinc-200 font-medium text-sm sm:text-xl leading-relaxed max-w-2xl"
               >
                 {t('heroSubtext')}
               </motion.p>
@@ -170,11 +162,11 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-wrap items-center gap-4 pt-2"
+                className="flex flex-wrap items-center gap-3 pt-2"
               >
                 <button
                   onClick={scrollToGrid}
-                  className="touch-target bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 font-black text-sm py-4 px-8 rounded-xl shadow-xl transition-all cursor-pointer hover:scale-102 flex items-center gap-2.5 focus-ring"
+                  className="touch-target bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 font-black text-xs sm:text-sm py-3.5 px-6 sm:px-8 rounded-xl shadow-xl transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring"
                 >
                   <span>🔍</span>
                   <span>{t('exploreReviews')}</span>
@@ -182,7 +174,7 @@ function HomeContent() {
 
                 <Link
                   href="/collaborate"
-                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-4 px-8 rounded-xl border border-white/20 transition-all cursor-pointer hover:scale-102 flex items-center gap-2.5 focus-ring backdrop-blur-md"
+                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm py-3.5 px-6 sm:px-8 rounded-xl border border-white/20 transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring backdrop-blur-md"
                 >
                   <span>🤝</span>
                   <span>{t('workWithAddisFoodies')}</span>
@@ -219,10 +211,10 @@ function HomeContent() {
 
           </div>
 
-          {/* Prominent Search Bar Container */}
+          {/* Search Input Box */}
           <div className="relative w-full max-w-3xl shadow-2xl rounded-2xl overflow-hidden border border-white/30 bg-white">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <svg className="h-6 w-6 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <svg className="h-5 w-5 sm:h-6 sm:w-6 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
@@ -232,7 +224,7 @@ function HomeContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="block w-full pl-13 pr-12 py-4 sm:py-5 border-0 bg-transparent text-zinc-950 placeholder-zinc-400 text-sm sm:text-base font-semibold focus:outline-none"
+              className="block w-full pl-11 sm:pl-13 pr-10 sm:pr-12 py-3.5 sm:py-5 border-0 bg-transparent text-zinc-950 placeholder-zinc-400 text-xs sm:text-base font-semibold focus:outline-none"
             />
 
             {searchQuery && (
@@ -241,21 +233,21 @@ function HomeContent() {
                 className="absolute inset-y-0 right-0 pr-4 flex items-center touch-target text-zinc-400 hover:text-zinc-700 focus-ring"
                 aria-label="Clear Search"
               >
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             )}
           </div>
 
-          {/* Trending Tags Row */}
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-mono font-black uppercase text-zinc-300 tracking-wider mr-1">{t('trending')}:</span>
+          {/* Trending Craving Chips (Phone horizontal scroll friendly) */}
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth pb-1">
+            <span className="text-xs font-mono font-black uppercase text-zinc-300 tracking-wider flex-shrink-0">{t('trending')}:</span>
             {quickTags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => setSearchQuery(tag)}
-                className="touch-target px-4 py-2 rounded-full text-xs font-bold bg-white/10 hover:bg-white text-white hover:text-zinc-950 border border-white/20 transition-all cursor-pointer focus-ring"
+                className="touch-target px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/10 hover:bg-white text-white hover:text-zinc-950 border border-white/20 transition-all cursor-pointer flex-shrink-0 focus-ring"
               >
                 #{tag}
               </button>
@@ -263,7 +255,7 @@ function HomeContent() {
           </div>
 
           {/* Micro-Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono font-black uppercase tracking-widest text-zinc-300 border-t border-white/15 pt-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[11px] sm:text-xs font-mono font-black uppercase tracking-widest text-zinc-300 border-t border-white/15 pt-5">
             <div className="flex items-center gap-2">
               <span className="text-base">🔥</span>
               <span>{t('monthlyFoodies')}</span>
@@ -286,36 +278,19 @@ function HomeContent() {
       </section>
 
       {/* MAIN SITE CONTENT CONTAINER */}
-      <main className="site-container py-12 flex flex-col gap-16">
+      <main className="site-container py-10 flex flex-col gap-14">
         
-        {/* 3D WebGL Brand Anchor Hero Canvas */}
-        <Hero3DCanvas />
-
         {/* Real-time Festival Banner Alert */}
         <EventBanner />
-
-        {/* Landmark Event & Festival Showcase (e.g. Kitfo Fest #5) */}
-        <section className="space-y-4">
-          <div className="flex items-center justify-between border-b border-zinc-200 pb-3">
-            <h2 className="font-syne font-black text-2xl sm:text-3xl text-[#111827] flex items-center gap-2.5">
-              <span>🎪</span>
-              <span>Featured Festival & Event Engine</span>
-            </h2>
-            <span className="text-xs font-mono font-black text-[#A81D1D] bg-[#A81D1D]/10 px-3.5 py-1.5 rounded-full border border-[#A81D1D]/20 uppercase tracking-widest">
-              Live Media Coverage
-            </span>
-          </div>
-          <EventShowcaseCard />
-        </section>
 
         {/* SECTION 2: FEATURED THIS WEEK */}
         <section className="flex flex-col gap-6">
           <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
-            <h2 className="font-syne font-black text-2xl sm:text-3xl text-[#111827] flex items-center gap-2.5">
+            <h2 className="font-syne font-black text-xl sm:text-3xl text-[#111827] flex items-center gap-2.5">
               <span>🌟</span>
               <span>{t('featuredThisWeek')}</span>
             </h2>
-            <span className="text-xs font-extrabold text-[#F59E0B] bg-[#F59E0B]/10 px-3.5 py-1.5 rounded-full border border-[#F59E0B]/20 uppercase tracking-wider">
+            <span className="text-[10px] sm:text-xs font-extrabold text-[#F59E0B] bg-[#F59E0B]/10 px-3 py-1 rounded-full border border-[#F59E0B]/20 uppercase tracking-wider">
               {t('editorialSpotlights')}
             </span>
           </div>
@@ -329,22 +304,8 @@ function HomeContent() {
         {/* SECTION 3: USEFUL AI CRAVING FINDER */}
         <AiCravingFinder onSelectPrompt={handleAiPrompt} />
 
-        {/* SECTION 4: TIKTOK & INSTAGRAM VIDEO REELS SPOTLIGHT */}
-        <VideoReelsSection posts={mockPosts} />
-
-        {/* SECTION 5: INTERACTIVE ADDIS ABABA NEIGHBORHOOD MAP */}
-        <AddisMap
-          onSelectDistrict={(district) => {
-            setSelectedLocation(district);
-            scrollToGrid();
-          }}
-        />
-
-        {/* Commercial Promotion & Business Hub */}
-        <PromotionHub />
-
-        {/* SECTION 6: INTERACTIVE REVIEWS & PRICE ARCHIVE */}
-        <section id="archive-section" className="flex flex-col gap-8 pt-4">
+        {/* SECTION 4: INTERACTIVE REVIEWS & PRICE ARCHIVE */}
+        <section id="archive-section" className="flex flex-col gap-8 pt-2">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2.5">
               <span className="text-3xl">🏷️</span>
@@ -356,6 +317,7 @@ function HomeContent() {
               {t('archiveSubtext')}
             </p>
           </div>
+
 
           {/* Filter Bar Controls */}
           <FilterBar
@@ -371,7 +333,7 @@ function HomeContent() {
 
           {/* Reviews Grid */}
           {visiblePosts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {visiblePosts.map((post) => (
                 <ReviewCard
                   key={post.id}
@@ -444,6 +406,9 @@ function HomeContent() {
 
       {/* MULTI-COLUMN BRAND FOOTER */}
       <Footer />
+
+      {/* MOBILE STICKY BOTTOM NAVIGATION BAR */}
+      <MobileBottomNav />
     </div>
   );
 }
@@ -455,3 +420,4 @@ export default function Home() {
     </LanguageProvider>
   );
 }
+

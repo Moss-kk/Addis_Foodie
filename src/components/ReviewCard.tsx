@@ -54,7 +54,7 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             {/* Level 4 Overlay: Monospaced Warm Amber ETB Price Badge */}
-            <div className="absolute top-3 right-3 bg-[#111827]/90 backdrop-blur-md border border-[#F59E0B]/40 text-[#F59E0B] px-3.5 py-1.5 rounded-full font-mono font-black text-xs sm:text-sm shadow-md">
+            <div className="absolute top-3 right-3 bg-[#111827]/90 backdrop-blur-md border border-[#F59E0B]/40 text-[#F59E0B] px-3 py-1.5 rounded-full font-mono font-black text-xs sm:text-sm shadow-md">
               {post.priceFormatted}
             </div>
 
@@ -63,7 +63,7 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
               {post.sourcePlatform === 'telegram' ? '✈️ Telegram' : '📸 Instagram'}
             </div>
 
-            {/* Transparent Location Overlay Pill on Picture (Stitch Design) */}
+            {/* Location Overlay Pill */}
             <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#111827] flex items-center gap-1 shadow-sm border border-white/40">
               📍 {post.location}
             </div>
@@ -80,7 +80,7 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
               {post.restaurantName}
             </h3>
 
-            {/* LEVEL 3: LOCATION & LANDMARK PILL */}
+            {/* LEVEL 3: LOCATION & CATEGORY */}
             <div className="flex items-center gap-2 flex-wrap">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 text-zinc-800 text-[11px] font-bold border border-zinc-200">
                 <span>📍</span>
@@ -91,7 +91,7 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
               </span>
             </div>
 
-            {/* LEVEL 5: REVIEW CAPTION SNIPPET */}
+            {/* LEVEL 5: CAPTION */}
             <p className="text-xs text-zinc-600 font-medium leading-relaxed line-clamp-2 pt-1">
               {renderCaption(post.caption)}
             </p>
@@ -99,20 +99,30 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
 
         </div>
 
-        {/* LEVEL 6: ACTIONS BAR */}
-        <div className="px-5 sm:px-6 pb-5 pt-3 border-t border-zinc-100 flex items-center justify-between gap-3">
-          {/* Itemized Price Receipt Trigger Button */}
+        {/* LEVEL 6: ACTIONS BAR (Direct Phone Call + Receipt + Review) */}
+        <div className="px-4 sm:px-6 pb-5 pt-3 border-t border-zinc-100 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
+          {/* Quick Call Action for Phone Users */}
+          <a
+            href="tel:+251911000000"
+            className="touch-target px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-[#855300] text-xs font-bold border border-amber-200 transition-colors flex items-center gap-1.5 focus-ring"
+            title="Call Restaurant Directly"
+          >
+            <span>📞</span>
+            <span>Call</span>
+          </a>
+
+          {/* Receipt Trigger */}
           <button
             onClick={() => setShowReceipt(true)}
-            className="touch-target px-3.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-mono font-bold transition-all cursor-pointer border border-zinc-200 flex items-center gap-1.5 focus-ring"
+            className="touch-target px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-mono font-bold transition-all cursor-pointer border border-zinc-200 flex items-center gap-1 focus-ring"
           >
-            <span>🧾 Itemized Receipt</span>
+            <span>🧾 Receipt</span>
           </button>
 
-          {/* Read Full Review Modal Trigger */}
+          {/* Read Full Review */}
           <button
             onClick={onClick}
-            className="touch-target px-4 py-2 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-black transition-all shadow-xs hover:shadow-md cursor-pointer focus-ring"
+            className="touch-target px-3.5 py-2 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-black transition-all shadow-xs hover:shadow-md cursor-pointer focus-ring"
           >
             Review ↗
           </button>
@@ -129,3 +139,4 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
     </>
   );
 }
+

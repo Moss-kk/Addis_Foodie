@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import PromotionHub from '../../components/promotions/PromotionHub';
+import TemplateShowcase from '../../components/templates/TemplateShowcase';
 
 export default function ServicesPage() {
   const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
@@ -215,6 +217,12 @@ export default function ServicesPage() {
           </div>
         </section>
 
+        {/* Commercial Promotion & Business Hub */}
+        <PromotionHub />
+
+        {/* Ready-to-Use Templates Hub */}
+        <TemplateShowcase />
+
         {/* Deliverables & Production Capabilities */}
         <section className="bg-white p-8 sm:p-12 rounded-3xl border border-zinc-200 shadow-sm flex flex-col gap-8">
           <div className="flex flex-col gap-1 border-b border-zinc-100 pb-4">
@@ -263,3 +271,4 @@ export default function ServicesPage() {
     </div>
   );
 }
+
