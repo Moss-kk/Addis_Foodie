@@ -71,23 +71,29 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
       {/* Main Modal Surface */}
       <div className="relative w-full max-w-2xl max-h-[90vh] bg-zinc-900 text-zinc-100 rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col animate-slide-up border border-zinc-800">
         {/* Sticky Modal Top Header */}
-        <div className="sticky top-0 z-20 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="sticky top-0 z-20 bg-zinc-950/95 backdrop-blur-md border-b border-zinc-800 px-6 py-4 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 flex-wrap">
             <span className="bg-[#F59E0B] text-zinc-950 text-xs sm:text-sm font-mono font-black py-1 px-3.5 rounded-full shadow-2xs">
               {post.priceFormatted}
             </span>
+            <a
+              href="tel:+251911000000"
+              className="bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-extrabold py-1 px-3 rounded-full transition-colors cursor-pointer flex items-center gap-1 shadow-xs"
+            >
+              📞 Call Restaurant
+            </a>
             <button
               onClick={() => setShowReceipt(true)}
-              className="bg-zinc-900 hover:bg-[#F59E0B] hover:text-zinc-950 text-zinc-200 text-xs font-mono font-bold py-1 px-3 rounded-full transition-colors cursor-pointer border border-zinc-800"
+              className="bg-zinc-900 hover:bg-zinc-800 text-zinc-200 text-xs font-mono font-bold py-1 px-3 rounded-full transition-colors cursor-pointer border border-zinc-800"
             >
-              🧾 View Itemized Receipt
+              🧾 Price Breakdown
             </button>
           </div>
 
           <button
             onClick={onClose}
             aria-label="Close modal"
-            className="p-1.5 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all cursor-pointer"
+            className="p-1.5 rounded-full text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all cursor-pointer flex-shrink-0"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />

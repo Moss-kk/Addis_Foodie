@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Sparkles, Utensils, Coffee, Leaf, Banknote, Flame, MapPin } from 'lucide-react';
 
 interface AiCravingFinderProps {
   onSelectPrompt: (prompt: string, category?: string, location?: string, priceRange?: string) => void;
@@ -8,47 +9,56 @@ interface AiCravingFinderProps {
 
 export default function AiCravingFinder({ onSelectPrompt }: AiCravingFinderProps) {
   const cravingPrompts = [
-    { label: "🥩 I'm craving Kitfo", query: 'Kitfo', category: 'Traditional' },
-    { label: "☕ Coffee around Bole", query: 'Coffee', location: 'Bole', category: 'Coffee' },
-    { label: "🌙 Best fasting food", query: 'Fasting', category: 'Fasting' },
-    { label: "💵 Affordable lunch under 300 Br", query: 'Lunch', priceRange: 'under-300' },
-    { label: "🍔 Juiciest Burgers", query: 'Burger', category: 'Burgers' },
-    { label: "📍 Spots in Piassa", query: 'Piassa', location: 'Piassa' },
+    { label: "Special Kitfo Platter", query: 'Kitfo', category: 'Traditional', icon: Utensils },
+    { label: "Coffee in Bole", query: 'Coffee', location: 'Bole', category: 'Coffee', icon: Coffee },
+    { label: "Fasting Delicacies", query: 'Fasting', category: 'Fasting', icon: Leaf },
+    { label: "Lunch Under 300 ETB", query: 'Lunch', priceRange: 'under-300', icon: Banknote },
+    { label: "Flame Burgers", query: 'Burger', category: 'Burgers', icon: Flame },
+    { label: "Piassa Spots", query: 'Piassa', location: 'Piassa', icon: MapPin },
   ];
 
   return (
-    <div className="bg-[#111827] text-white p-6 sm:p-8 rounded-3xl border border-zinc-800 shadow-xl flex flex-col gap-5">
-      <div className="flex items-center justify-between">
+    <div className="w-full bg-zinc-950/90 backdrop-blur-md p-6 sm:p-7 rounded-3xl border border-zinc-800 shadow-xl flex flex-col gap-4 relative overflow-hidden group">
+      {/* Subtle Ambient Glow */}
+      <div className="absolute top-0 right-0 -mr-12 -mt-12 w-40 h-40 bg-[#F59E0B]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#F59E0B]/20 transition-all" />
+
+      <div className="flex items-center justify-between z-10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-[#F59E0B]/20 text-[#F59E0B] flex items-center justify-center font-black text-lg border border-[#F59E0B]/30 shadow-xs">
-            🤖
+          <div className="w-9 h-9 rounded-xl bg-[#F59E0B]/20 text-[#F59E0B] flex items-center justify-center border border-[#F59E0B]/30 flex-shrink-0 shadow-xs">
+            <Sparkles className="w-4 h-4 text-[#F59E0B]" />
           </div>
           <div>
-            <h3 className="font-syne font-black text-lg sm:text-xl text-white">
-              Useful AI Craving Finder
+            <h3 className="font-syne font-black text-base sm:text-lg text-white flex items-center gap-2">
+              <span>What are you craving?</span>
             </h3>
             <p className="text-xs text-zinc-400 font-medium">
-              Tap any craving below for instant smart recommendations across Addis Ababa.
+              Tap any craving pill below for instant smart recommendations across Addis Ababa.
             </p>
           </div>
         </div>
-        <span className="hidden sm:inline-flex text-[10px] font-mono font-black text-[#F59E0B] bg-[#F59E0B]/10 px-3 py-1 rounded-full border border-[#F59E0B]/30 uppercase tracking-widest">
+
+        <span className="hidden sm:inline-flex text-[10px] font-mono font-bold text-[#F59E0B] bg-[#F59E0B]/10 px-3 py-1 rounded-full border border-[#F59E0B]/30 uppercase tracking-widest">
           AI Smart Search
         </span>
       </div>
 
-      {/* Preset Craving Chips */}
-      <div className="flex flex-wrap gap-2.5 pt-1">
-        {cravingPrompts.map((item, idx) => (
-          <button
-            key={idx}
-            onClick={() => onSelectPrompt(item.query, item.category, item.location, item.priceRange)}
-            className="px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-[#F59E0B] hover:text-zinc-950 text-zinc-200 text-xs font-bold border border-zinc-800 hover:border-[#F59E0B] transition-all duration-200 cursor-pointer flex items-center gap-2 shadow-xs hover:scale-102"
-          >
-            <span>{item.label}</span>
-          </button>
-        ))}
+      {/* Modern Rounded Chip Pills */}
+      <div className="flex flex-wrap gap-2.5 pt-1 z-10">
+        {cravingPrompts.map((item, idx) => {
+          const IconComponent = item.icon;
+          return (
+            <button
+              key={idx}
+              onClick={() => onSelectPrompt(item.query, item.category, item.location, item.priceRange)}
+              className="touch-target px-4 py-2.5 rounded-full bg-zinc-900/90 hover:bg-[#F59E0B] hover:text-zinc-950 text-zinc-200 text-xs font-semibold border border-zinc-800 hover:border-[#F59E0B] transition-all duration-200 cursor-pointer flex items-center gap-2 shadow-xs hover:scale-102"
+            >
+              <IconComponent className="w-3.5 h-3.5 text-[#F59E0B] group-hover:text-zinc-950" />
+              <span>{item.label}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
 }
+

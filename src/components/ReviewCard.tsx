@@ -132,33 +132,19 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
 
         </div>
 
-        {/* LEVEL 6: ACTIONS BAR (Primary Crimson CTA + Muted Secondary Utility Actions) */}
-        <div className="px-5 pb-5 pt-3 border-t border-zinc-100 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
-          {/* Muted Quick Call Action */}
-          <a
-            href="tel:+251911000000"
-            className="touch-target px-3 py-2 rounded-xl bg-zinc-50 hover:bg-zinc-100 text-zinc-700 text-xs font-medium border border-zinc-200 transition-colors flex items-center gap-1.5 focus-ring"
-            title="Call Restaurant Directly"
-          >
-            <Phone className="w-3.5 h-3.5 text-zinc-500" />
-            <span>Call</span>
-          </a>
+        {/* LEVEL 6: ACTIONS BAR (Single Primary CTA as per Eater / Infatuation UX Audit Standard) */}
+        <div className="px-5 pb-4 pt-3 border-t border-zinc-100 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 text-xs text-zinc-500 font-semibold">
+            <Send className="w-3.5 h-3.5 text-[#A81D1D]" />
+            <span>Verified Curation</span>
+          </div>
 
-          {/* Muted Receipt Action */}
-          <button
-            onClick={() => setShowReceipt(true)}
-            className="touch-target px-3 py-2 rounded-xl bg-zinc-50 hover:bg-zinc-100 text-zinc-700 text-xs font-mono font-medium transition-all cursor-pointer border border-zinc-200 flex items-center gap-1.5 focus-ring"
-          >
-            <Receipt className="w-3.5 h-3.5 text-zinc-500" />
-            <span>Receipt</span>
-          </button>
-
-          {/* Unified Primary Conversion CTA */}
+          {/* Single High-Converting Primary CTA Button */}
           <button
             onClick={onClick}
-            className="touch-target px-4 py-2 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-bold transition-all shadow-xs hover:shadow-md cursor-pointer focus-ring flex items-center gap-1"
+            className="touch-target px-4 py-2 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-extrabold transition-all shadow-xs hover:shadow-md cursor-pointer focus-ring flex items-center gap-1 group-hover:scale-102"
           >
-            <span>Review</span>
+            <span>Read Review</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
         </div>

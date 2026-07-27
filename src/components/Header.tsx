@@ -44,23 +44,6 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
         {/* Brand Logo Rectangular Block */}
         <AddisFoodieLogo diluted={true} />
 
-        {/* Desktop Search Bar (Hidden on Mobile to Prevent Overflow) */}
-        <form onSubmit={handleSearchSubmit} className="hidden md:flex flex-1 max-w-md mx-4">
-          <div className="relative flex items-center w-full">
-            <Search className="absolute left-3 w-4 h-4 text-zinc-400" />
-            <input
-              type="text"
-              value={onSearchChange ? searchQuery : localSearch}
-              onChange={(e) => {
-                setLocalSearch(e.target.value);
-                if (onSearchChange) onSearchChange(e.target.value);
-              }}
-              placeholder="Search Bole, Kitfo, Burgers..."
-              className="w-full bg-zinc-900/90 text-white placeholder-zinc-400 text-xs sm:text-sm pl-9 pr-3 py-2 rounded-xl border border-zinc-800 focus:border-[#A81D1D] focus:ring-1 focus:ring-[#A81D1D] outline-none transition-all"
-            />
-          </div>
-        </form>
-
         {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-6 text-xs font-bold text-zinc-300">
           {navLinks.map((link) => (
