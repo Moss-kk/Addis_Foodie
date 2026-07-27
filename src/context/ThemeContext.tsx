@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-type Theme = 'dark' | 'light';
+type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
@@ -11,15 +11,15 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'dark',
+  theme: 'light',
   toggleTheme: () => {},
-  isDark: true,
+  isDark: false,
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>('light');
 
-  // Load theme from localStorage on initial render
+  // Sync theme with localStorage and document class on initial mount
   useEffect(() => {
     const savedTheme = localStorage.getItem('addis_foodies_theme') as Theme | null;
     if (savedTheme === 'light' || savedTheme === 'dark') {
@@ -30,8 +30,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         document.documentElement.classList.remove('dark');
       }
     } else {
-      // Default to dark flame mode
-      document.documentElement.classList.add('dark');
+      // Default to minimal clean light day mode
+      setTheme('light');
+      document.documentElement.classList.remove('dark');
     }
   }, []);
 
