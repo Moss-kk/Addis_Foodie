@@ -1,45 +1,23 @@
-# Software Requirements Specification (SRS)
-## Addis Foodies Digital Platform (v5.0 Official Master Specification)
-### The Official Digital Home of Addis Foodies
+# SOFTWARE REQUIREMENTS SPECIFICATION (SRS v4.0 - Flame & Simplified Architecture)
 
----
+## 1. Page Routing & Architecture
+1. `/` (Minimalist Homepage): High-converting landing page featuring Hero Search, 9:16 Short-Form Video Reels Feed, Top 4 Curated Spots, and Pill-Based AI Craving Finder.
+2. `/reviews` (Dedicated Reviews Hub): Paginated archive with advanced filters (Price ETB, Neighborhood, Cuisine).
+3. `/about` (Editorial & Methodology): Brand story, 4-step inspection methodology, statistics (150k+ monthly reach).
+4. `/events` (Events & Festivals): Festival management (Kitfo Fest #5, Monarch Rooftop takeovers).
+5. `/services` (Commercial Services): B2B restaurant onboarding, menu launches, and food photography.
+6. `/collaborate` (Business & Contact): Partnership onboarding form and instant contact.
 
-## 1. Executive Summary & Product Positioning
+## 2. Design Tokens (v4.0 Flame Theme)
+- Base Background (Night): `#120907` (Deep Flame Fade Charcoal)
+- Card Surface (Night): `#1A100C` (Warm Dark Brown Slate, 1px border `rgba(229, 57, 53, 0.18)`)
+- Base Background (Day): `#FAFAFA` (Soft Cream Surface)
+- Card Surface (Day): `#FFFFFF` (Crisp White Surface)
+- Primary Accent: `#E53935` (Ember Flame Red)
+- Secondary Accent: `#FF8C00` (Culinary Flame Gold)
+- Text Primary: `#FFF8F6`
+- Text Secondary: `#D1C2BD`
 
-### 1.1 Document Purpose
-This Software Requirements Specification (SRS) defines the complete functional, non-functional, business, editorial, and architectural requirements for the official digital platform of **Addis Foodies**.
-
-### 1.2 Product Positioning
-- **Core Tagline**: *"Discover Addis Ababa One Bite at a Time"*
-- **Product Vision**: The Official Digital Home of Addis Foodies.
-- **Value Proposition**: Rather than a generic user-generated review directory (like Yelp or TripAdvisor), the platform amplifies Addis Foodies' existing trusted brand, editorial authority, social media reach (150,000+ monthly foodies across Instagram & Telegram), and real food photography.
-
----
-
-## 2. Brand Strategy & Editorial Guidelines
-
-### 2.1 Brand Identity & Voice
-- **Tone**: Authentic, passionate, authoritative, visually rich, and local-first.
-- **Author Attribution**: Every review and verdict is authored solely by Addis Foodies.
-- **Price Transparency**: Every dish and review card explicitly displays prices in Ethiopian Birr (`ETB`).
-
----
-
-## 3. Core Functional Modules & Ambient Identity
-
-### 3.1 12-Section Storytelling Homepage Layout Sequence
-1. **Header**: Brand Badge, Full Navigation, Search Icon, Language Switcher (`EN | AM`).
-2. **Hero Section**: 3D WebGL Brand Anchor (`Hero3DCanvas.tsx`), Headline *"Discover Addis Ababa One Bite at a Time"*, subtext, CTAs (`Explore Reviews`, `Work With Addis Foodies`).
-3. **Featured This Week**: High-impact editorial spotlights.
-4. **Trending Reviews**: Most requested reviews across Addis Ababa.
-5. **Search & Useful AI Craving Finder**: Natural language prompt chips (*"I'm craving Kitfo"*, *"Coffee around Bole"*, *"Affordable lunch under 300 Br"*).
-6. **Latest Ingested Reviews**: Chronological feed of newly ingested reviews.
-7. **Interactive Neighborhood Map & Popular Areas**: Dynamic 2D map visualization for Bole, Kazanchis, Piassa, and Sarbet.
-8. **Upcoming Food Events & Festival Engine**: Kitfo Fest #5 at Monarch Hotel Rooftop, countdowns, and participating venues.
-9. **Commercial Promotion Hub**: Direct booking center (`0966-55-00-00`, `@AddisFoodies`).
-
-### 3.8 Ambient Culinary Identity
-- Semi-transparent Habesha culinary textures (Kitfo, Injera Mesob, Coffee Jebena watermarks) integrated into ambient layout backgrounds (`.bg-habesha-culinary-pattern`).
-
-### 4.6 Editorial About & Authority Hub (`/about`)
-- Dedicated `/about` editorial page detailing field methodologies (4-step inspection process), community impact metrics (150K+ reach), author independence guarantees, and media kit downloads (`tel:0966550000`).
+## 3. Cards & Overlays
+- 1 single primary CTA button ("Read Review ↗") on review card faces.
+- Move secondary actions ("Call Restaurant", "Itemized Receipt") into detail modals.

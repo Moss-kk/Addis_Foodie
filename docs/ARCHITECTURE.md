@@ -1,72 +1,21 @@
-# ADDIS FOODIES — TECHNICAL ARCHITECTURE & SYSTEM SPECIFICATIONS
+# ADDIS FOODIES ARCHITECTURE DOCUMENTATION (v4.0 - Flame & Simplicity)
 
-## 1. System Architecture Overview
+## 1. System Overview
+Addis Foodies is a modern, high-converting food discovery platform and review aggregator for Addis Ababa, Ethiopia.
 
-```
-+-----------------------------------------------------------------------------------+
-|                                 FRONTEND LAYER                                    |
-|   Next.js (App Router)  |  React 19  |  TypeScript  |  Tailwind CSS               |
-|   Three.js / React Three Fiber / Drei  |  Framer Motion                           |
-+-----------------------------------------------------------------------------------+
-                                         |
-+-----------------------------------------------------------------------------------+
-|                                  BACKEND & API                                    |
-|   Next.js Server Actions & Route Handlers  |  Prisma ORM  |  Zod Validation      |
-+-----------------------------------------------------------------------------------+
-                                         |
-+-----------------------------------------------------------------------------------+
-|                             DATABASE & CACHE LAYER                                |
-|   PostgreSQL  |  Redis (Upstash) for Rate Limiting & Social Ingestion Webhooks    |
-+-----------------------------------------------------------------------------------+
-```
+## 2. Directory Architecture & Page Routing
+- **`/` (Streamlined Homepage)**: Hero Search, 9:16 Short-Form Video Reels Feed, Top 4 Curated Spots, and Pill-Based AI Craving Finder.
+- **`/reviews` (Dedicated Reviews Hub)**: Full review archive, neighborhood filters (Bole, Kazanchis, Piassa, Sarbet), category filters, and monospaced ETB price filters.
+- **`/about` (Editorial & Methodology)**: 4-step inspection process, 150,000+ monthly reach stats, and brand methodology.
+- **`/events` (Events & Festivals)**: Kitfo Fest #5 and festival management.
+- **`/services` & `/collaborate` (Commercial Services)**: Restaurant onboarding, menu launches, and food photography.
 
----
-
-## 2. Technical Stack Specifications
-
-- **Framework**: Next.js (App Router, Server Components & Server Actions)
-- **Language**: TypeScript (Strict Mode)
-- **Styling**: Tailwind CSS + Radix / Shadcn UI primitives
-- **ORM & Database**: Prisma ORM with PostgreSQL backend
-- **Caching & ISR**: On-demand Incremental Static Regeneration (ISR) revalidated via Server Actions / Webhooks
-- **SEO & Microdata**: JSON-LD (`Restaurant`, `Review`, `Event`, `BreadcrumbList`) rendered on Server Components
-
----
-
-## 3. Webhook & Ingestion Pipeline
-- **Instagram Graph API Connector**: Webhook handler receiving media payload, extracting caption text, images, and permalinks.
-- **Telegram Bot API Connector**: Webhook handler parsing channel posts from `@AddisFoodies`.
-- **NLP / Regex Parsing Rules**:
-  - Venue Name / Handle (`@venue`)
-  - Price Tag (`ETB [0-9,]+`, `[0-9,]+\s*Birr`, `[0-9,]+\s*Br`)
-  - Area Tag (`#Bole`, `#Piassa`, `#Kazanchis`, etc.)
-  - Menu Array (`[{ dish: string, price: number }]`)
-
----
-
-## 4. SEO & Structured Data (JSON-LD)
-All public pages render compliant schema.org structured data:
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Review",
-  "itemReviewed": {
-    "@type": "Restaurant",
-    "name": "Yado Kitfo",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Addis Ababa",
-      "streetAddress": "Bole near Millennium Hall"
-    }
-  },
-  "reviewRating": {
-    "@type": "Rating",
-    "ratingValue": "4.8",
-    "bestRating": "5"
-  },
-  "author": {
-    "@type": "Organization",
-    "name": "Addis Foodies"
-  }
-}
-```
+## 3. Flame Design System (v4.0 Tokens)
+- Base Background (Night): `#120907` (Deep Flame Fade Charcoal)
+- Card Surface (Night): `#1A100C` (Warm Dark Slate with 1px border `rgba(229, 57, 53, 0.18)`)
+- Base Background (Day): `#FAFAFA` (Soft Cream Surface)
+- Card Surface (Day): `#FFFFFF` (Crisp White Surface)
+- Primary Accent: `#E53935` (Ember Flame Red)
+- Secondary Accent: `#FF8C00` (Culinary Flame Gold)
+- Text Primary: `#FFF8F6`
+- Text Secondary: `#D1C2BD`
