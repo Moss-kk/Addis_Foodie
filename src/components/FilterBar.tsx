@@ -1,5 +1,8 @@
 'use client';
 
+import React from 'react';
+import { MapPin, Utensils, Coffee, Leaf, Flame, Banknote } from 'lucide-react';
+
 interface FilterBarProps {
   selectedLocation: string | null;
   selectedCategory: string | null;
@@ -22,23 +25,23 @@ export default function FilterBar({
   onSortChange,
 }: FilterBarProps) {
   const locations = [
-    { label: '📍 Bole', value: 'Bole' },
-    { label: '📍 Kazanchis', value: 'Kazanchis' },
-    { label: '📍 Piassa', value: 'Piassa' },
-    { label: '📍 Sarbet', value: 'Sarbet' },
+    { label: 'Bole', value: 'Bole', icon: MapPin },
+    { label: 'Kazanchis', value: 'Kazanchis', icon: MapPin },
+    { label: 'Piassa', value: 'Piassa', icon: MapPin },
+    { label: 'Sarbet', value: 'Sarbet', icon: MapPin },
   ];
 
   const categories = [
-    { label: '🍔 Burgers', value: 'Burgers' },
-    { label: '☕ Coffee', value: 'Coffee' },
-    { label: '🌱 Fasting', value: 'Fasting' },
-    { label: '🇪🇹 Traditional', value: 'Traditional' },
+    { label: 'Burgers', value: 'Burgers', icon: Flame },
+    { label: 'Coffee', value: 'Coffee', icon: Coffee },
+    { label: 'Fasting', value: 'Fasting', icon: Leaf },
+    { label: 'Traditional', value: 'Traditional', icon: Utensils },
   ];
 
   const priceRanges = [
-    { label: '💵 Under 300 Br', value: 'under-300' },
-    { label: '💵 300–700 Br', value: '300-700' },
-    { label: '💵 700+ Br', value: '700-plus' },
+    { label: 'Under 300 Br', value: 'under-300', icon: Banknote },
+    { label: '300–700 Br', value: '300-700', icon: Banknote },
+    { label: '700+ Br', value: '700-plus', icon: Banknote },
   ];
 
   const isAllActive = !selectedLocation && !selectedCategory && !selectedPriceRange;
@@ -50,7 +53,7 @@ export default function FilterBar({
   };
 
   return (
-    <div className="sticky top-14 z-40 bg-[#FAFAFA]/90 backdrop-blur-md border-b border-zinc-200 py-3 px-4 sm:px-6 shadow-sm">
+    <div className="sticky top-14 z-30 bg-[#FAFAFA]/95 backdrop-blur-md border-b border-zinc-200 py-2.5 px-4 sm:px-6 shadow-sm">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
         {/* Scrollable Chip Row */}
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-1 pb-1 md:pb-0">
@@ -72,18 +75,20 @@ export default function FilterBar({
           {/* Location Chips */}
           <div className="flex items-center gap-2">
             {locations.map((loc) => {
+              const IconComp = loc.icon;
               const isActive = selectedLocation === loc.value;
               return (
                 <button
                   key={loc.value}
                   onClick={() => onLocationChange(isActive ? null : loc.value)}
-                  className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer ${
+                  className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5 ${
                     isActive
                       ? 'bg-[#A81D1D] text-white border-[#A81D1D] shadow-xs scale-102 font-black'
                       : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50'
                   }`}
                 >
-                  {loc.label}
+                  <IconComp className="w-3 h-3 text-[#A81D1D]" />
+                  <span>{loc.label}</span>
                 </button>
               );
             })}
@@ -95,18 +100,20 @@ export default function FilterBar({
           {/* Category Chips */}
           <div className="flex items-center gap-2">
             {categories.map((cat) => {
+              const IconComp = cat.icon;
               const isActive = selectedCategory === cat.value;
               return (
                 <button
                   key={cat.value}
                   onClick={() => onCategoryChange(isActive ? null : cat.value)}
-                  className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer ${
+                  className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5 ${
                     isActive
                       ? 'bg-[#A81D1D] text-white border-[#A81D1D] shadow-xs scale-102 font-black'
                       : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50'
                   }`}
                 >
-                  {cat.label}
+                  <IconComp className="w-3 h-3 text-[#F59E0B]" />
+                  <span>{cat.label}</span>
                 </button>
               );
             })}
@@ -118,25 +125,27 @@ export default function FilterBar({
           {/* Price Range Chips */}
           <div className="flex items-center gap-2">
             {priceRanges.map((price) => {
+              const IconComp = price.icon;
               const isActive = selectedPriceRange === price.value;
               return (
                 <button
                   key={price.value}
                   onClick={() => onPriceRangeChange(isActive ? null : price.value)}
-                  className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer ${
+                  className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5 ${
                     isActive
                       ? 'bg-[#A81D1D] text-white border-[#A81D1D] shadow-xs scale-102 font-black'
                       : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50'
                   }`}
                 >
-                  {price.label}
+                  <IconComp className="w-3 h-3 text-[#10B981]" />
+                  <span>{price.label}</span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Sort Dropdown Pinned Right */}
+        {/* Sort Dropdown */}
         <div className="flex items-center gap-2 flex-shrink-0 self-end md:self-auto">
           <label htmlFor="sort-select" className="text-xs font-mono font-bold text-zinc-400 whitespace-nowrap">
             Sort:
@@ -156,4 +165,5 @@ export default function FilterBar({
     </div>
   );
 }
+
 

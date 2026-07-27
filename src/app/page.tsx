@@ -4,6 +4,22 @@ import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { 
+  Sparkles, 
+  Search, 
+  Handshake, 
+  Flame, 
+  MapPin, 
+  Building2, 
+  ShieldCheck, 
+  Star, 
+  Utensils, 
+  Coffee, 
+  Leaf, 
+  ArrowUpRight, 
+  Tag, 
+  X 
+} from 'lucide-react';
 import Header from '../components/Header';
 import EventBanner from '../components/EventBanner';
 import FeaturedCarousel from '../components/FeaturedCarousel';
@@ -101,12 +117,12 @@ function HomeContent() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-[#111827] selection:bg-[#A81D1D]/10 selection:text-[#A81D1D] pb-16 sm:pb-0">
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-[#111827] selection:bg-[#A81D1D]/10 selection:text-[#A81D1D] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       {/* HEADER NAVIGATION WITH TOP SEARCH */}
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
       {/* SECTION 1: IMMERSIVE HERO WITH ETHIOPIAN CULINARY OVERLAY */}
-      <section className="w-full relative min-h-[580px] sm:min-h-[720px] flex items-center py-12 sm:py-24 text-white overflow-hidden border-b border-zinc-800">
+      <section className="w-full relative min-h-[520px] sm:min-h-[640px] flex items-center py-10 sm:py-20 text-white overflow-hidden border-b border-zinc-800">
         
         {/* Ethiopian Culinary Background Picture */}
         <div className="absolute inset-0 z-0">
@@ -121,26 +137,27 @@ function HomeContent() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/95 via-[#111827]/85 to-black/50" />
         </div>
 
-        <div className="site-container relative z-10 flex flex-col gap-8">
+        <div className="site-container relative z-10 flex flex-col gap-6">
           
           {/* Main Hero Header Content */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-10">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
             
             <div className="flex flex-col gap-4 max-w-3xl">
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B] backdrop-blur-md shadow-lg"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#F59E0B] backdrop-blur-md shadow-lg"
               >
-                ✨ {t('tagline')}
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>{t('tagline')}</span>
               </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="font-syne font-black text-3xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.1] text-white"
+                className="font-syne font-black text-3xl sm:text-5xl lg:text-7xl tracking-tight leading-[1.1] text-white"
               >
                 Discover Addis Ababa <br className="hidden sm:inline" />
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#F59E0B] via-amber-300 to-[#FF3B30]">
@@ -152,7 +169,7 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-zinc-200 font-medium text-sm sm:text-xl leading-relaxed max-w-2xl"
+                className="text-zinc-200 font-medium text-xs sm:text-lg leading-relaxed max-w-2xl"
               >
                 {t('heroSubtext')}
               </motion.p>
@@ -162,21 +179,21 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-wrap items-center gap-3 pt-2"
+                className="flex flex-wrap items-center gap-3 pt-1"
               >
                 <button
                   onClick={scrollToGrid}
-                  className="touch-target bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 font-black text-xs sm:text-sm py-3.5 px-6 sm:px-8 rounded-xl shadow-xl transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring"
+                  className="touch-target bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 font-black text-xs sm:text-sm py-3 px-6 sm:px-7 rounded-xl shadow-xl transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring"
                 >
-                  <span>🔍</span>
+                  <Search className="w-4 h-4" />
                   <span>{t('exploreReviews')}</span>
                 </button>
 
                 <Link
                   href="/collaborate"
-                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm py-3.5 px-6 sm:px-8 rounded-xl border border-white/20 transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring backdrop-blur-md"
+                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm py-3 px-6 sm:px-7 rounded-xl border border-white/20 transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring backdrop-blur-md"
                 >
-                  <span>🤝</span>
+                  <Handshake className="w-4 h-4 text-[#F59E0B]" />
                   <span>{t('workWithAddisFoodies')}</span>
                 </Link>
               </motion.div>
@@ -185,25 +202,25 @@ function HomeContent() {
             {/* Floating Food Badges Showcase */}
             <div className="hidden lg:grid grid-cols-2 gap-4 flex-shrink-0 w-80">
               <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform hover:scale-105 transition-transform shadow-xl">
-                <span className="text-3xl">🍖</span>
+                <Utensils className="w-6 h-6 text-[#F59E0B]" />
                 <span className="font-syne font-bold text-sm text-white">Special Kitfo Platter</span>
                 <span className="text-[11px] font-mono text-[#F59E0B] font-black">850 Br • Bole</span>
               </div>
 
               <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform shadow-xl">
-                <span className="text-3xl">☕</span>
+                <Coffee className="w-6 h-6 text-[#F59E0B]" />
                 <span className="font-syne font-bold text-sm text-white">Double Macchiato</span>
                 <span className="text-[11px] font-mono text-[#F59E0B] font-black">150 Br • Sarbet</span>
               </div>
 
               <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform hover:scale-105 transition-transform shadow-xl">
-                <span className="text-3xl">🍔</span>
+                <Flame className="w-6 h-6 text-[#F59E0B]" />
                 <span className="font-syne font-bold text-sm text-white">Flame Gourmet Burger</span>
                 <span className="text-[11px] font-mono text-[#F59E0B] font-black">680 Br • Bole</span>
               </div>
 
               <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform shadow-xl">
-                <span className="text-3xl">🌱</span>
+                <Leaf className="w-6 h-6 text-[#10B981]" />
                 <span className="font-syne font-bold text-sm text-white">Special Beyaynetu</span>
                 <span className="text-[11px] font-mono text-[#F59E0B] font-black">420 Br • Kazanchis</span>
               </div>
@@ -211,12 +228,10 @@ function HomeContent() {
 
           </div>
 
-          {/* Search Input Box */}
+          {/* Prominent Search Bar */}
           <div className="relative w-full max-w-3xl shadow-2xl rounded-2xl overflow-hidden border border-white/30 bg-white">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <svg className="h-5 w-5 sm:h-6 sm:w-6 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+              <Search className="h-5 w-5 text-zinc-400" />
             </div>
 
             <input
@@ -224,7 +239,7 @@ function HomeContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="block w-full pl-11 sm:pl-13 pr-10 sm:pr-12 py-3.5 sm:py-5 border-0 bg-transparent text-zinc-950 placeholder-zinc-400 text-xs sm:text-base font-semibold focus:outline-none"
+              className="block w-full pl-11 sm:pl-12 pr-10 sm:pr-12 py-3.5 sm:py-4.5 border-0 bg-transparent text-zinc-950 placeholder-zinc-400 text-xs sm:text-base font-semibold focus:outline-none"
             />
 
             {searchQuery && (
@@ -233,14 +248,12 @@ function HomeContent() {
                 className="absolute inset-y-0 right-0 pr-4 flex items-center touch-target text-zinc-400 hover:text-zinc-700 focus-ring"
                 aria-label="Clear Search"
               >
-                <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X className="h-5 w-5 text-zinc-500" />
               </button>
             )}
           </div>
 
-          {/* Trending Craving Chips (Phone horizontal scroll friendly) */}
+          {/* Trending Craving Chips */}
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth pb-1">
             <span className="text-xs font-mono font-black uppercase text-zinc-300 tracking-wider flex-shrink-0">{t('trending')}:</span>
             {quickTags.map((tag) => (
@@ -255,27 +268,28 @@ function HomeContent() {
           </div>
 
           {/* Micro-Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[11px] sm:text-xs font-mono font-black uppercase tracking-widest text-zinc-300 border-t border-white/15 pt-5">
-            <div className="flex items-center gap-2">
-              <span className="text-base">🔥</span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] sm:text-xs font-mono font-black uppercase tracking-widest text-zinc-300 border-t border-white/15 pt-4">
+            <div className="flex items-center gap-1.5">
+              <Flame className="w-4 h-4 text-[#F59E0B]" />
               <span>{t('monthlyFoodies')}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-base">📍</span>
+            <div className="flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-[#A81D1D]" />
               <span>{t('curatedSpots')}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-base">🏢</span>
+            <div className="flex items-center gap-1.5">
+              <Building2 className="w-4 h-4 text-sky-400" />
               <span>{t('neighborhoodHubs')}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-base">⚡</span>
+            <div className="flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-[#10B981]" />
               <span>{t('authorVerified')}</span>
             </div>
           </div>
 
         </div>
       </section>
+
 
       {/* MAIN SITE CONTENT CONTAINER */}
       <main className="site-container py-10 flex flex-col gap-14">
@@ -286,8 +300,8 @@ function HomeContent() {
         {/* SECTION 2: FEATURED THIS WEEK */}
         <section className="flex flex-col gap-6">
           <div className="flex items-center justify-between border-b border-zinc-200 pb-4">
-            <h2 className="font-syne font-black text-xl sm:text-3xl text-[#111827] flex items-center gap-2.5">
-              <span>🌟</span>
+            <h2 className="font-syne font-black text-xl sm:text-3xl text-[#111827] flex items-center gap-2">
+              <Star className="w-6 h-6 text-[#F59E0B]" />
               <span>{t('featuredThisWeek')}</span>
             </h2>
             <span className="text-[10px] sm:text-xs font-extrabold text-[#F59E0B] bg-[#F59E0B]/10 px-3 py-1 rounded-full border border-[#F59E0B]/20 uppercase tracking-wider">
@@ -307,8 +321,8 @@ function HomeContent() {
         {/* SECTION 4: INTERACTIVE REVIEWS & PRICE ARCHIVE */}
         <section id="archive-section" className="flex flex-col gap-8 pt-2">
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2.5">
-              <span className="text-3xl">🏷️</span>
+            <div className="flex items-center gap-2">
+              <Tag className="w-6 h-6 text-[#A81D1D]" />
               <h2 className="font-syne font-black text-2xl sm:text-4xl text-[#111827]">
                 {t('searchFilterArchive')}
               </h2>

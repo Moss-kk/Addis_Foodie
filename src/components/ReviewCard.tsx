@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { MapPin, Send, Camera, Receipt, Phone, ArrowUpRight } from 'lucide-react';
 import { FoodPost } from '../types/post';
 import PriceReceiptModal from './PriceReceiptModal';
 
@@ -59,13 +60,24 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
             </div>
 
             {/* Source Platform Badge */}
-            <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-black uppercase text-white tracking-wider border border-white/20">
-              {post.sourcePlatform === 'telegram' ? '✈️ Telegram' : '📸 Instagram'}
+            <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-black uppercase text-white tracking-wider border border-white/20 flex items-center gap-1">
+              {post.sourcePlatform === 'telegram' ? (
+                <>
+                  <Send className="w-3 h-3 text-sky-400" />
+                  <span>Telegram</span>
+                </>
+              ) : (
+                <>
+                  <Camera className="w-3 h-3 text-pink-400" />
+                  <span>Instagram</span>
+                </>
+              )}
             </div>
 
             {/* Location Overlay Pill */}
             <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#111827] flex items-center gap-1 shadow-sm border border-white/40">
-              📍 {post.location}
+              <MapPin className="w-3.5 h-3.5 text-[#A81D1D]" />
+              <span>{post.location}</span>
             </div>
           </div>
 
@@ -82,8 +94,8 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
 
             {/* LEVEL 3: LOCATION & CATEGORY */}
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 text-zinc-800 text-[11px] font-bold border border-zinc-200">
-                <span>📍</span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-800 text-[11px] font-bold border border-zinc-200">
+                <MapPin className="w-3 h-3 text-[#A81D1D]" />
                 <span>{post.location}</span>
               </span>
               <span className="px-2.5 py-1 rounded-full bg-zinc-100 text-[#111827] text-[10px] font-black uppercase tracking-wider border border-zinc-200">
@@ -99,32 +111,34 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
 
         </div>
 
-        {/* LEVEL 6: ACTIONS BAR (Direct Phone Call + Receipt + Review) */}
+        {/* LEVEL 6: ACTIONS BAR */}
         <div className="px-4 sm:px-6 pb-5 pt-3 border-t border-zinc-100 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
-          {/* Quick Call Action for Phone Users */}
+          {/* Quick Call Action */}
           <a
             href="tel:+251911000000"
             className="touch-target px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-[#855300] text-xs font-bold border border-amber-200 transition-colors flex items-center gap-1.5 focus-ring"
             title="Call Restaurant Directly"
           >
-            <span>📞</span>
+            <Phone className="w-3.5 h-3.5" />
             <span>Call</span>
           </a>
 
           {/* Receipt Trigger */}
           <button
             onClick={() => setShowReceipt(true)}
-            className="touch-target px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-mono font-bold transition-all cursor-pointer border border-zinc-200 flex items-center gap-1 focus-ring"
+            className="touch-target px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-mono font-bold transition-all cursor-pointer border border-zinc-200 flex items-center gap-1.5 focus-ring"
           >
-            <span>🧾 Receipt</span>
+            <Receipt className="w-3.5 h-3.5 text-zinc-600" />
+            <span>Receipt</span>
           </button>
 
           {/* Read Full Review */}
           <button
             onClick={onClick}
-            className="touch-target px-3.5 py-2 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-black transition-all shadow-xs hover:shadow-md cursor-pointer focus-ring"
+            className="touch-target px-3.5 py-2 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-black transition-all shadow-xs hover:shadow-md cursor-pointer focus-ring flex items-center gap-1"
           >
-            Review ↗
+            <span>Review</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </motion.div>
@@ -139,4 +153,5 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
     </>
   );
 }
+
 
