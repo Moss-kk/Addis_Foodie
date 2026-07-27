@@ -47,7 +47,7 @@ const defaultEvent: EventData = {
 
 export function EventShowcaseCard({ event = defaultEvent }: { event?: EventData }) {
   return (
-    <div className="w-full bg-[#1A100C] text-[#FFF8F6] rounded-3xl overflow-hidden shadow-2xl border-2 border-[#E53935] my-8">
+    <div className="w-full bg-[#111827] text-white rounded-3xl overflow-hidden shadow-xl border-2 border-[#E53935] my-8">
       {/* Top Banner Alert */}
       <div className="bg-gradient-to-r from-[#E53935] via-[#B71C1C] to-[#FF8C00] px-6 py-3 flex items-center justify-between">
         <span className="font-black text-sm md:text-base tracking-widest text-white uppercase flex items-center gap-2 font-mono">
@@ -70,22 +70,22 @@ export function EventShowcaseCard({ event = defaultEvent }: { event?: EventData 
             <MapPin className="w-6 h-6 shrink-0" />
             <span>📍 {event.venue}</span>
           </div>
-          <p className="text-xs md:text-sm text-[#D1C2BD] mt-1 pl-8 font-medium">{event.locationDetails}</p>
+          <p className="text-xs md:text-sm text-zinc-300 mt-1 pl-8 font-medium">{event.locationDetails}</p>
         </div>
 
         {/* Date & Time Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#120907] p-4 rounded-2xl border border-zinc-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-zinc-900 p-4 rounded-2xl border border-zinc-800">
           <div className="flex items-center gap-3">
             <Calendar className="w-6 h-6 text-[#FF8C00]" />
             <div>
-              <p className="text-[10px] text-[#D1C2BD] font-bold uppercase tracking-widest font-mono">Date & Days</p>
+              <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest font-mono">Date & Days</p>
               <p className="text-sm font-extrabold text-white">{event.dateStr}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <Clock className="w-6 h-6 text-[#FF8C00]" />
             <div>
-              <p className="text-[10px] text-[#D1C2BD] font-bold uppercase tracking-widest font-mono">Hours</p>
+              <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest font-mono">Hours</p>
               <p className="text-sm font-extrabold text-white">{event.timeStr}</p>
             </div>
           </div>

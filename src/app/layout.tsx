@@ -37,7 +37,7 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} ${syne.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans transition-colors duration-300 bg-white dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6]">
+      <body className="min-h-full flex flex-col font-sans transition-colors duration-300 bg-[#FAF8F5] text-zinc-900">
         <ThemeProvider>
           <LanguageProvider>
             {children}

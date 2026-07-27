@@ -39,7 +39,7 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/90 dark:bg-[#181110]/95 backdrop-blur-lg border-b border-zinc-200 dark:border-[#3D2622]/80 shadow-xs max-w-full overflow-hidden transition-colors duration-300">
+    <header className="sticky top-0 z-40 w-full bg-[#FAF8F5]/90 backdrop-blur-lg border-b border-stone-200/80 shadow-xs max-w-full overflow-hidden transition-colors duration-300">
       <div className="site-container py-2.5 flex items-center justify-between gap-2 max-w-full">
         
         {/* Brand Logo Rectangular Block */}

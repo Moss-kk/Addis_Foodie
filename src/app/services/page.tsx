@@ -86,7 +86,7 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#FAF8F5] text-zinc-900 transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       <Header />
 
       <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-12">
@@ -95,7 +95,7 @@ export default function ServicesPage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 dark:text-[#D1C2BD] hover:text-[#FF8C00] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 hover:text-[#E53935] transition-colors cursor-pointer"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -105,7 +105,7 @@ export default function ServicesPage() {
         </div>
 
         {/* Hero Section */}
-        <div className="bg-gradient-to-br from-[#1A100C] via-[#8B1717] to-[#E53935] text-white py-14 px-8 sm:px-14 rounded-3xl flex flex-col gap-4 shadow-2xl border border-red-500/20">
+        <div className="bg-gradient-to-br from-[#111827] via-[#8B1717] to-[#E53935] text-white py-14 px-8 sm:px-14 rounded-3xl flex flex-col gap-4 shadow-xl border border-red-500/20">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#FF8C00]">
             💼 B2B Commercial Services & Media Rates
           </div>
@@ -120,13 +120,13 @@ export default function ServicesPage() {
         {/* Promotional Rate Packages */}
         <section className="flex flex-col gap-6">
           <div className="text-center flex flex-col items-center gap-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono font-black text-[#FF8C00] uppercase tracking-widest">
+            <span className="text-xs font-mono font-black text-[#E53935] uppercase tracking-widest">
               Standard Rate Cards
             </span>
-            <h2 className="font-syne font-black text-2xl sm:text-4xl text-zinc-950 dark:text-[#FFF8F6]">
+            <h2 className="font-syne font-black text-2xl sm:text-4xl text-zinc-950">
               Choose Your Media Campaign
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-[#D1C2BD] font-medium">
+            <p className="text-xs sm:text-sm text-zinc-600 font-medium">
               Transparent rate pricing in Ethiopian Birr (ETB) with clear deliverable guarantees.
             </p>
           </div>
@@ -137,15 +137,15 @@ export default function ServicesPage() {
                 key={idx}
                 className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between gap-6 transition-all duration-300 ${
                   pkg.featured
-                    ? 'bg-[#1A100C] text-[#FFF8F6] border-2 border-[#E53935] shadow-2xl scale-[1.02]'
-                    : 'bg-white dark:bg-[#1A100C] text-zinc-900 dark:text-[#FFF8F6] border border-zinc-200 dark:border-red-500/20 shadow-sm hover:shadow-xl'
+                    ? 'bg-[#111827] text-white border-2 border-[#E53935] shadow-xl scale-[1.02]'
+                    : 'bg-white text-zinc-900 border border-stone-200 shadow-xs hover:shadow-lg'
                 }`}
               >
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-between">
                     <span
                       className={`text-[10px] font-mono font-black px-3 py-1 rounded-full ${
-                        pkg.featured ? 'bg-[#E53935] text-white' : 'bg-zinc-100 dark:bg-[#120907] text-[#FF8C00] border border-zinc-200 dark:border-zinc-800'
+                        pkg.featured ? 'bg-[#E53935] text-white' : 'bg-amber-50 text-[#B71C1C] border border-amber-200'
                       }`}
                     >
                       {pkg.badge}
@@ -157,8 +157,8 @@ export default function ServicesPage() {
                     <p className="text-xs opacity-75 font-medium pt-1">{pkg.description}</p>
                   </div>
 
-                  <div className="py-2 border-y border-zinc-200 dark:border-zinc-800/80">
-                    <span className="font-mono font-black text-2xl text-[#FF8C00]">{pkg.price}</span>
+                  <div className="py-2 border-y border-stone-200">
+                    <span className="font-mono font-black text-2xl text-[#E53935]">{pkg.price}</span>
                     <span className="text-xs block opacity-60 font-mono">{pkg.duration}</span>
                   </div>
 

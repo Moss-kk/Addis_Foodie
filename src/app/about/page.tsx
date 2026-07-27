@@ -63,7 +63,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#FAF8F5] text-zinc-900 transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       <Header />
 
       <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-14 relative z-10">
@@ -71,7 +71,7 @@ export default function AboutPage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#D1C2BD] hover:text-[#FF8C00] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 hover:text-[#E53935] transition-colors cursor-pointer"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -81,7 +81,7 @@ export default function AboutPage() {
         </div>
 
         {/* HERO SECTION */}
-        <section className="bg-gradient-to-br from-[#1A100C] via-[#120907] to-black text-white py-14 px-6 sm:px-12 rounded-3xl flex flex-col gap-6 shadow-2xl border border-red-500/20 relative overflow-hidden">
+        <section className="bg-gradient-to-br from-[#111827] via-[#8B1717] to-[#E53935] text-white py-14 px-6 sm:px-12 rounded-3xl flex flex-col gap-6 shadow-xl border border-red-500/20 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF8C00]/10 rounded-full blur-3xl pointer-events-none" />
 
           <motion.div
@@ -98,7 +98,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl text-[#FFF8F6] tracking-tight leading-tight"
+            className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-tight"
           >
             {lang === 'EN' ? (
               <>
@@ -115,7 +115,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-[#D1C2BD] text-base sm:text-xl max-w-3xl font-medium leading-relaxed"
+            className="text-zinc-200 text-base sm:text-xl max-w-3xl font-medium leading-relaxed"
           >
             {lang === 'EN'
               ? 'Addis Foodies is the premiere culinary review brand in Ethiopia. We discover, review, and showcase trusted food experiences across Bole, Kazanchis, Piassa, and Sarbet for over 150,000 food lovers.'
@@ -134,13 +134,13 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="bg-[#1A100C] p-6 rounded-2xl text-center space-y-2 border border-red-500/20 shadow-md hover:border-amber-500/40 transition-colors"
+                className="bg-white p-6 rounded-2xl text-center space-y-2 border border-stone-200 shadow-xs hover:border-amber-500/40 transition-colors"
               >
                 <Icon className="w-6 h-6 text-[#E53935] mx-auto" />
-                <p className="text-2xl sm:text-3xl font-black text-[#FF8C00] font-mono">
+                <p className="text-2xl sm:text-3xl font-black text-[#E53935] font-mono">
                   {stat.value}
                 </p>
-                <p className="text-xs font-bold text-[#D1C2BD] uppercase tracking-wider font-mono">
+                <p className="text-xs font-bold text-zinc-600 uppercase tracking-wider font-mono">
                   {stat.label}
                 </p>
               </motion.div>
@@ -149,15 +149,15 @@ export default function AboutPage() {
         </section>
 
         {/* EDITORIAL METHODOLOGY */}
-        <section className="space-y-8 bg-[#1A100C] p-8 sm:p-12 rounded-3xl border border-red-500/20 shadow-xl">
+        <section className="space-y-8 bg-white p-8 sm:p-12 rounded-3xl border border-stone-200 shadow-sm">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono font-black text-[#FF8C00] uppercase tracking-widest">
+            <span className="text-xs font-mono font-black text-[#E53935] uppercase tracking-widest">
               {lang === 'EN' ? 'Field Methodology' : 'የግምገማ አሰራራችን'}
             </span>
-            <h2 className="text-2xl sm:text-4xl font-black text-[#FFF8F6] font-syne">
+            <h2 className="text-2xl sm:text-4xl font-black text-zinc-950 font-syne">
               {lang === 'EN' ? 'How We Inspect & Review' : 'የግምገማ አሰራራችን'}
             </h2>
-            <p className="text-[#D1C2BD] text-xs sm:text-sm font-medium">
+            <p className="text-zinc-600 text-xs sm:text-sm font-medium">
               {lang === 'EN'
                 ? 'Our rigorous 4-step editorial methodology guarantees authenticity and total price transparency.'
                 : 'እውነተኛነቱን ያረጋገጠ ባለ 4-ደረጃ የግምገማ ሂደታችን።'}
@@ -172,14 +172,14 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-[#120907] p-6 sm:p-8 rounded-2xl border border-zinc-800 flex gap-5 items-start"
+                className="bg-stone-50 p-6 sm:p-8 rounded-2xl border border-stone-200 flex gap-5 items-start"
               >
                 <span className="text-3xl sm:text-4xl font-black text-[#E53935] font-mono shrink-0">
                   {step.num}
                 </span>
                 <div className="space-y-1.5">
-                  <h3 className="text-lg font-bold text-white font-syne">{step.title}</h3>
-                  <p className="text-xs sm:text-sm text-[#D1C2BD] leading-relaxed font-medium">{step.desc}</p>
+                  <h3 className="text-lg font-bold text-zinc-900 font-syne">{step.title}</h3>
+                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed font-medium">{step.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -187,9 +187,9 @@ export default function AboutPage() {
         </section>
 
         {/* PROMOTION & PARTNERSHIP CALLOUT */}
-        <section className="bg-[#1A100C] text-white p-8 sm:p-12 rounded-3xl border border-red-500/20 shadow-2xl relative overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+        <section className="bg-gradient-to-br from-[#111827] via-[#8B1717] to-[#E53935] text-white p-8 sm:p-12 rounded-3xl border border-red-500/20 shadow-xl relative overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-3 max-w-xl">
-            <span className="px-3 py-1 bg-[#E53935] text-white text-[10px] font-black uppercase rounded-full tracking-widest font-mono">
+            <span className="px-3 py-1 bg-white/10 text-white text-[10px] font-black uppercase rounded-full tracking-widest font-mono border border-white/20">
               {lang === 'EN' ? 'Partner With Us' : 'ከእኛ ጋር ይስሩ'}
             </span>
             <h3 className="text-2xl sm:text-4xl font-black text-white font-syne">
@@ -197,7 +197,7 @@ export default function AboutPage() {
                 ? 'Own a Restaurant in Addis Ababa?'
                 : 'በአዲስ አበባ የምግብ ቤት ወይም ካፌ ባለቤት ነዎት?'}
             </h3>
-            <p className="text-[#D1C2BD] text-xs sm:text-sm leading-relaxed font-medium">
+            <p className="text-zinc-200 text-xs sm:text-sm leading-relaxed font-medium">
               {lang === 'EN'
                 ? 'Request editorial reviews, festival event coverage (e.g., Kitfo Fest), or custom video media production.'
                 : 'የምግብ ቤትዎን ግምገማ፣ የሁነቶች ዝግጅት ወይም ፕሮሞሽን በጥራት ለማቅረብ ያነጋግሩን።'}
@@ -214,7 +214,7 @@ export default function AboutPage() {
             </a>
             <Link
               href="/collaborate"
-              className="px-6 py-4 bg-white/10 hover:bg-white/20 text-[#FF8C00] border border-white/20 font-black text-xs uppercase rounded-xl transition-all flex items-center justify-center gap-2 min-h-[48px] font-mono cursor-pointer backdrop-blur-md"
+              className="px-6 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-black text-xs uppercase rounded-xl transition-all flex items-center justify-center gap-2 min-h-[48px] font-mono cursor-pointer backdrop-blur-md"
             >
               <span>{lang === 'EN' ? 'Work With Us' : 'አብረውን ይስሩ'}</span>
               <ArrowRight className="w-4 h-4" />

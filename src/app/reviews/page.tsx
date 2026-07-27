@@ -53,22 +53,22 @@ export default function ReviewsPage() {
   }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAFAFA] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#FAF8F5] text-zinc-900 transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
       {/* Page Header */}
-      <section className="w-full bg-white dark:bg-[#1A100C] border-b border-zinc-200 dark:border-zinc-800 py-10 sm:py-14 transition-colors">
+      <section className="w-full bg-white border-b border-stone-200 py-10 sm:py-14 transition-colors">
         <div className="site-container flex flex-col gap-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E53935]/15 border border-[#E53935]/30 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#FF8C00]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#E53935]">
             <Tag className="w-3.5 h-3.5" />
             <span>Curated Review Archive</span>
           </div>
 
-          <h1 className="font-syne font-black text-3xl sm:text-5xl text-zinc-950 dark:text-[#FFF8F6]">
+          <h1 className="font-syne font-black text-3xl sm:text-5xl text-zinc-950">
             Foodie Reviews & Itemized Price Audits
           </h1>
 
-          <p className="text-sm text-zinc-600 dark:text-[#D1C2BD] font-medium max-w-2xl">
+          <p className="text-sm text-zinc-600 font-medium max-w-2xl">
             Explore verified restaurant reviews, street food gems, and price breakdowns across Bole, Kazanchis, Piassa, and Sarbet.
           </p>
         </div>
@@ -99,10 +99,10 @@ export default function ReviewsPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-[#1A100C] border border-zinc-800 p-12 rounded-3xl text-center flex flex-col items-center gap-4 my-8">
+          <div className="bg-white border border-stone-200 p-12 rounded-3xl text-center flex flex-col items-center gap-4 my-8 shadow-xs">
             <Sparkles className="w-10 h-10 text-[#FF8C00]" />
-            <h3 className="font-syne font-bold text-xl text-white">No reviews found matching your search</h3>
-            <p className="text-xs text-[#D1C2BD]">Try clearing filters or searching for different food items</p>
+            <h3 className="font-syne font-bold text-xl text-zinc-900">No reviews found matching your search</h3>
+            <p className="text-xs text-zinc-600">Try clearing filters or searching for different food items</p>
             <button
               onClick={() => {
                 setSearchQuery('');

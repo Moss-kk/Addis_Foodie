@@ -1,12 +1,12 @@
-# ADDIS FOODIES DESIGN SYSTEM (v4.0 - Flame & Simplicity)
+# ADDIS FOODIES DESIGN SYSTEM (v5.0 - Broken White & Flame Canvas)
 
-## 1. Color System (Flame Aesthetic)
-- `--bg-primary`: `#120907` (Deep Flame Fade Charcoal with warm red undertones)
-- `--bg-surface`: `#1A100C` (Warm Dark Card Surface with subtle ember border `rgba(229, 57, 53, 0.15)`)
-- `--accent-red`: `#E53935` (Vibrant Flame Ember Red)
-- `--accent-amber`: `#FF8C00` (Culinary Flame Gold / Fire Glow)
-- `--text-primary`: `#FFF8F6` (Warm Off-White)
-- `--text-secondary`: `#D1C2BD` (Muted Warm Clay)
+## 1. Color System (Broken White & Flame Aesthetic)
+- `--bg-primary`: `#FAF8F5` / `#FAFAFA` (Soft Warm Broken White Canvas)
+- `--bg-surface`: `#FFFFFF` (Pure Soft White Card Surface with subtle warm border `rgba(229, 57, 53, 0.12)`)
+- `--accent-red`: `#E53935` / `#A81D1D` (Vibrant Flame Ember Red / Primary Crimson; Hover: `#8B1717`)
+- `--accent-amber`: `#FF8C00` / `#F59E0B` (Culinary Flame Gold / Fire Glow)
+- `--text-primary`: `#111827` (Deep Warm Charcoal)
+- `--text-secondary`: `#57534E` (Muted Warm Clay / Stone)
 - `--accent-emerald`: `#10B981` (Live Status Green)
 
 ## 2. Typography Rules

@@ -18,7 +18,7 @@ export default function AiCravingFinder({ onSelectPrompt }: AiCravingFinderProps
   ];
 
   return (
-    <div className="w-full bg-white dark:bg-[#1A100C] backdrop-blur-md p-6 sm:p-7 rounded-3xl border border-zinc-200 dark:border-red-500/20 shadow-xl flex flex-col gap-4 relative overflow-hidden group transition-colors">
+    <div className="w-full bg-white backdrop-blur-md p-6 sm:p-7 rounded-3xl border border-stone-200 shadow-md flex flex-col gap-4 relative overflow-hidden group transition-colors">
       {/* Subtle Ambient Glow */}
       <div className="absolute top-0 right-0 -mr-12 -mt-12 w-40 h-40 bg-[#FF8C00]/10 rounded-full blur-2xl pointer-events-none group-hover:bg-[#FF8C00]/20 transition-all" />
 
@@ -28,10 +28,10 @@ export default function AiCravingFinder({ onSelectPrompt }: AiCravingFinderProps
             <Sparkles className="w-4 h-4 text-[#FF8C00]" />
           </div>
           <div>
-            <h3 className="font-syne font-black text-base sm:text-lg text-zinc-950 dark:text-[#FFF8F6] flex items-center gap-2">
+            <h3 className="font-syne font-black text-base sm:text-lg text-zinc-950 flex items-center gap-2">
               <span>What are you craving?</span>
             </h3>
-            <p className="text-xs text-zinc-600 dark:text-[#D1C2BD] font-medium">
+            <p className="text-xs text-zinc-600 font-medium">
               Tap any craving pill below for instant smart recommendations across Addis Ababa.
             </p>
           </div>
@@ -50,9 +50,9 @@ export default function AiCravingFinder({ onSelectPrompt }: AiCravingFinderProps
             <button
               key={idx}
               onClick={() => onSelectPrompt(item.query, item.category, item.location, item.priceRange)}
-              className="touch-target px-4 py-2.5 rounded-full bg-zinc-100 dark:bg-[#120907] hover:bg-[#FF8C00] hover:text-zinc-950 text-zinc-800 dark:text-[#D1C2BD] text-xs font-semibold border border-zinc-200 dark:border-zinc-800 hover:border-[#FF8C00] transition-all duration-200 cursor-pointer flex items-center gap-2 shadow-xs hover:scale-102"
+              className="touch-target px-4 py-2.5 rounded-full bg-stone-100 hover:bg-[#FF8C00] hover:text-white text-zinc-800 text-xs font-semibold border border-stone-200 hover:border-[#FF8C00] transition-all duration-200 cursor-pointer flex items-center gap-2 shadow-xs hover:scale-102"
             >
-              <IconComponent className="w-3.5 h-3.5 text-[#FF8C00] group-hover:text-zinc-950" />
+              <IconComponent className="w-3.5 h-3.5 text-[#FF8C00] group-hover:text-white" />
               <span>{item.label}</span>
             </button>
           );

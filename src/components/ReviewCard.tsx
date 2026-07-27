@@ -35,7 +35,7 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
       <motion.div
         whileHover={{ y: -4 }}
         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="bg-white dark:bg-[#1A100C] rounded-3xl overflow-hidden border border-zinc-200 dark:border-red-500/20 shadow-sm hover:shadow-xl dark:hover:border-amber-500/40 transition-all duration-300 flex flex-col justify-between group text-zinc-900 dark:text-[#FFF8F6]"
+        className="bg-white rounded-3xl overflow-hidden border border-stone-200 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group text-zinc-900"
       >
         <div className="flex flex-col">
           
@@ -108,24 +108,24 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
             {/* LEVEL 2: RESTAURANT NAME */}
             <h3
               onClick={onClick}
-              className="font-syne font-black text-lg sm:text-xl text-[#111827] dark:text-[#FFF8F6] group-hover:text-[#E53935] transition-colors line-clamp-1 cursor-pointer"
+              className="font-syne font-black text-lg sm:text-xl text-[#111827] group-hover:text-[#E53935] transition-colors line-clamp-1 cursor-pointer"
             >
               {post.restaurantName}
             </h3>
 
             {/* LEVEL 3: LOCATION & CATEGORY */}
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-[#120907] text-zinc-800 dark:text-[#D1C2BD] text-[11px] font-bold border border-zinc-200 dark:border-zinc-800">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-stone-100 text-zinc-800 text-[11px] font-bold border border-stone-200">
                 <MapPin className="w-3 h-3 text-[#E53935]" />
                 <span>{post.location}</span>
               </span>
-              <span className="px-2.5 py-1 rounded-full bg-zinc-100 dark:bg-[#120907] text-[#111827] dark:text-[#FF8C00] text-[10px] font-black uppercase tracking-wider border border-zinc-200 dark:border-zinc-800">
+              <span className="px-2.5 py-1 rounded-full bg-amber-50 text-[#B71C1C] text-[10px] font-black uppercase tracking-wider border border-amber-200">
                 {post.category}
               </span>
             </div>
 
             {/* LEVEL 5: CAPTION */}
-            <p className="text-xs text-zinc-600 dark:text-[#D1C2BD] font-medium leading-relaxed line-clamp-2 pt-1">
+            <p className="text-xs text-zinc-600 font-medium leading-relaxed line-clamp-2 pt-1">
               {renderCaption(post.caption)}
             </p>
           </div>

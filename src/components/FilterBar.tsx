@@ -53,7 +53,7 @@ export default function FilterBar({
   };
 
   return (
-    <div className="sticky top-14 z-30 bg-[#FAFAFA]/95 dark:bg-[#120907]/95 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 py-2.5 px-4 sm:px-6 shadow-sm transition-colors">
+    <div className="sticky top-14 z-30 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-stone-200 py-2.5 px-4 sm:px-6 shadow-xs transition-colors">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
         {/* Scrollable Chip Row */}
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-1 pb-1 md:pb-0">
@@ -63,14 +63,14 @@ export default function FilterBar({
             className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer ${
               isAllActive
                 ? 'bg-[#E53935] text-white border-[#E53935] shadow-xs scale-102 font-black'
-                : 'bg-white dark:bg-[#1A100C] text-zinc-700 dark:text-[#D1C2BD] border-zinc-200 dark:border-zinc-800 hover:border-[#FF8C00]'
+                : 'bg-white text-zinc-700 border-stone-200 hover:border-[#FF8C00]'
             }`}
           >
             All
           </button>
 
           {/* Vertical Divider */}
-          <div className="h-5 w-px bg-zinc-200 dark:bg-zinc-800 flex-shrink-0 mx-1"></div>
+          <div className="h-5 w-px bg-stone-200 flex-shrink-0 mx-1"></div>
 
           {/* Location Chips */}
           <div className="flex items-center gap-2">
@@ -84,7 +84,7 @@ export default function FilterBar({
                   className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5 ${
                     isActive
                       ? 'bg-[#E53935] text-white border-[#E53935] shadow-xs scale-102 font-black'
-                      : 'bg-white dark:bg-[#1A100C] text-zinc-700 dark:text-[#D1C2BD] border-zinc-200 dark:border-zinc-800 hover:border-[#FF8C00]'
+                      : 'bg-white text-zinc-700 border-stone-200 hover:border-[#FF8C00]'
                   }`}
                 >
                   <IconComp className="w-3 h-3 text-[#E53935]" />
@@ -95,7 +95,7 @@ export default function FilterBar({
           </div>
 
           {/* Vertical Divider */}
-          <div className="h-5 w-px bg-zinc-200 dark:bg-zinc-800 flex-shrink-0 mx-1"></div>
+          <div className="h-5 w-px bg-stone-200 flex-shrink-0 mx-1"></div>
 
           {/* Category Chips */}
           <div className="flex items-center gap-2">
@@ -109,7 +109,7 @@ export default function FilterBar({
                   className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5 ${
                     isActive
                       ? 'bg-[#E53935] text-white border-[#E53935] shadow-xs scale-102 font-black'
-                      : 'bg-white dark:bg-[#1A100C] text-zinc-700 dark:text-[#D1C2BD] border-zinc-200 dark:border-zinc-800 hover:border-[#FF8C00]'
+                      : 'bg-white text-zinc-700 border-stone-200 hover:border-[#FF8C00]'
                   }`}
                 >
                   <IconComp className="w-3 h-3 text-[#FF8C00]" />
@@ -120,7 +120,7 @@ export default function FilterBar({
           </div>
 
           {/* Vertical Divider */}
-          <div className="h-5 w-px bg-zinc-200 dark:bg-zinc-800 flex-shrink-0 mx-1"></div>
+          <div className="h-5 w-px bg-stone-200 flex-shrink-0 mx-1"></div>
 
           {/* Price Range Chips */}
           <div className="flex items-center gap-2">
@@ -134,7 +134,7 @@ export default function FilterBar({
                   className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5 ${
                     isActive
                       ? 'bg-[#E53935] text-white border-[#E53935] shadow-xs scale-102 font-black'
-                      : 'bg-white dark:bg-[#1A100C] text-zinc-700 dark:text-[#D1C2BD] border-zinc-200 dark:border-zinc-800 hover:border-[#FF8C00]'
+                      : 'bg-white text-zinc-700 border-stone-200 hover:border-[#FF8C00]'
                   }`}
                 >
                   <IconComp className="w-3 h-3 text-[#10B981]" />
@@ -147,14 +147,14 @@ export default function FilterBar({
 
         {/* Sort Dropdown */}
         <div className="flex items-center gap-2 flex-shrink-0 self-end md:self-auto">
-          <label htmlFor="sort-select" className="text-xs font-mono font-bold text-zinc-400 whitespace-nowrap">
+          <label htmlFor="sort-select" className="text-xs font-mono font-bold text-zinc-500 whitespace-nowrap">
             Sort:
           </label>
           <select
             id="sort-select"
             value={selectedSort}
             onChange={(e) => onSortChange(e.target.value)}
-            className="bg-white dark:bg-[#1A100C] text-zinc-700 dark:text-[#FFF8F6] text-xs font-bold py-1.5 px-3 rounded-full border border-zinc-200 dark:border-zinc-800 focus:outline-none focus:border-[#E53935] shadow-xs cursor-pointer"
+            className="bg-white text-zinc-700 text-xs font-bold py-1.5 px-3 rounded-full border border-stone-200 focus:outline-none focus:border-[#E53935] shadow-xs cursor-pointer"
           >
             <option value="newest">Newest</option>
             <option value="price-asc">Price: Low to High</option>
