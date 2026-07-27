@@ -132,31 +132,31 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
 
         </div>
 
-        {/* LEVEL 6: ACTIONS BAR */}
-        <div className="px-4 sm:px-6 pb-5 pt-3 border-t border-zinc-100 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
-          {/* Quick Call Action */}
+        {/* LEVEL 6: ACTIONS BAR (Primary Crimson CTA + Muted Secondary Utility Actions) */}
+        <div className="px-5 pb-5 pt-3 border-t border-zinc-100 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
+          {/* Muted Quick Call Action */}
           <a
             href="tel:+251911000000"
-            className="touch-target px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-[#855300] text-xs font-bold border border-amber-200 transition-colors flex items-center gap-1.5 focus-ring"
+            className="touch-target px-3 py-2 rounded-xl bg-zinc-50 hover:bg-zinc-100 text-zinc-700 text-xs font-medium border border-zinc-200 transition-colors flex items-center gap-1.5 focus-ring"
             title="Call Restaurant Directly"
           >
-            <Phone className="w-3.5 h-3.5" />
+            <Phone className="w-3.5 h-3.5 text-zinc-500" />
             <span>Call</span>
           </a>
 
-          {/* Receipt Trigger */}
+          {/* Muted Receipt Action */}
           <button
             onClick={() => setShowReceipt(true)}
-            className="touch-target px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-mono font-bold transition-all cursor-pointer border border-zinc-200 flex items-center gap-1.5 focus-ring"
+            className="touch-target px-3 py-2 rounded-xl bg-zinc-50 hover:bg-zinc-100 text-zinc-700 text-xs font-mono font-medium transition-all cursor-pointer border border-zinc-200 flex items-center gap-1.5 focus-ring"
           >
-            <Receipt className="w-3.5 h-3.5 text-zinc-600" />
+            <Receipt className="w-3.5 h-3.5 text-zinc-500" />
             <span>Receipt</span>
           </button>
 
-          {/* Read Full Review */}
+          {/* Unified Primary Conversion CTA */}
           <button
             onClick={onClick}
-            className="touch-target px-3.5 py-2 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-black transition-all shadow-xs hover:shadow-md cursor-pointer focus-ring flex items-center gap-1"
+            className="touch-target px-4 py-2 rounded-xl bg-[#A81D1D] hover:bg-[#8B1717] text-white text-xs font-bold transition-all shadow-xs hover:shadow-md cursor-pointer focus-ring flex items-center gap-1"
           >
             <span>Review</span>
             <ArrowUpRight className="w-3.5 h-3.5" />

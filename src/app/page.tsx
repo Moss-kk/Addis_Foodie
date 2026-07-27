@@ -180,11 +180,11 @@ function HomeContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-wrap items-center gap-3 pt-1"
+                className="flex flex-wrap items-center gap-3 pt-2"
               >
                 <button
                   onClick={scrollToGrid}
-                  className="touch-target bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 font-black text-xs sm:text-sm py-3 px-6 sm:px-7 rounded-xl shadow-xl transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring"
+                  className="touch-target bg-[#A81D1D] hover:bg-[#8B1717] text-white font-bold text-xs sm:text-sm py-3.5 px-7 rounded-xl shadow-xl transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring"
                 >
                   <Search className="w-4 h-4" />
                   <span>{t('exploreReviews')}</span>
@@ -192,7 +192,7 @@ function HomeContent() {
 
                 <Link
                   href="/collaborate"
-                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm py-3 px-6 sm:px-7 rounded-xl border border-white/20 transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring backdrop-blur-md"
+                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm py-3.5 px-7 rounded-xl border border-white/20 transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring backdrop-blur-md"
                 >
                   <Handshake className="w-4 h-4 text-[#F59E0B]" />
                   <span>{t('workWithAddisFoodies')}</span>
@@ -200,37 +200,33 @@ function HomeContent() {
               </motion.div>
             </div>
 
-            {/* Floating Food Badges Showcase */}
-            <div className="hidden lg:grid grid-cols-2 gap-4 flex-shrink-0 w-80">
-              <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform hover:scale-105 transition-transform shadow-xl">
-                <Utensils className="w-6 h-6 text-[#F59E0B]" />
-                <span className="font-syne font-bold text-sm text-white">Special Kitfo Platter</span>
-                <span className="text-[11px] font-mono text-[#F59E0B] font-black">850 Br • Bole</span>
+            {/* 2 Key Floating Highlight Cards (Decluttered from 4 down to 2) */}
+            <div className="hidden lg:flex flex-col gap-4 flex-shrink-0 w-72">
+              <div className="bg-black/60 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex items-center gap-3.5 shadow-xl hover:border-white/30 transition-all">
+                <div className="w-10 h-10 rounded-xl bg-[#A81D1D]/20 border border-[#A81D1D]/40 flex items-center justify-center flex-shrink-0">
+                  <Utensils className="w-5 h-5 text-[#F59E0B]" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-syne font-bold text-xs text-white">Special Kitfo Platter</span>
+                  <span className="text-[11px] font-mono text-[#F59E0B] font-bold">850 Br • Bole</span>
+                </div>
               </div>
 
-              <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform shadow-xl">
-                <Coffee className="w-6 h-6 text-[#F59E0B]" />
-                <span className="font-syne font-bold text-sm text-white">Double Macchiato</span>
-                <span className="text-[11px] font-mono text-[#F59E0B] font-black">150 Br • Sarbet</span>
-              </div>
-
-              <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform hover:scale-105 transition-transform shadow-xl">
-                <Flame className="w-6 h-6 text-[#F59E0B]" />
-                <span className="font-syne font-bold text-sm text-white">Flame Gourmet Burger</span>
-                <span className="text-[11px] font-mono text-[#F59E0B] font-black">680 Br • Bole</span>
-              </div>
-
-              <div className="bg-black/50 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex flex-col gap-2 transform translate-y-4 hover:scale-105 transition-transform shadow-xl">
-                <Leaf className="w-6 h-6 text-[#10B981]" />
-                <span className="font-syne font-bold text-sm text-white">Special Beyaynetu</span>
-                <span className="text-[11px] font-mono text-[#F59E0B] font-black">420 Br • Kazanchis</span>
+              <div className="bg-black/60 backdrop-blur-md p-4 rounded-2xl border border-white/15 flex items-center gap-3.5 shadow-xl hover:border-white/30 transition-all">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center flex-shrink-0">
+                  <Coffee className="w-5 h-5 text-[#F59E0B]" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-syne font-bold text-xs text-white">Double Macchiato</span>
+                  <span className="text-[11px] font-mono text-[#F59E0B] font-bold">150 Br • Sarbet</span>
+                </div>
               </div>
             </div>
 
           </div>
 
           {/* Prominent Search Bar */}
-          <div className="relative w-full max-w-3xl shadow-2xl rounded-2xl overflow-hidden border border-white/30 bg-white">
+          <div className="relative w-full max-w-3xl shadow-2xl rounded-2xl overflow-hidden border border-white/20 bg-white">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <Search className="h-5 w-5 text-zinc-400" />
             </div>
@@ -240,7 +236,7 @@ function HomeContent() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('searchPlaceholder')}
-              className="block w-full pl-11 sm:pl-12 pr-10 sm:pr-12 py-3.5 sm:py-4.5 border-0 bg-transparent text-zinc-950 placeholder-zinc-400 text-xs sm:text-base font-semibold focus:outline-none"
+              className="block w-full pl-12 pr-12 py-4 border-0 bg-transparent text-zinc-950 placeholder-zinc-400 text-xs sm:text-base font-semibold focus:outline-none"
             />
 
             {searchQuery && (
@@ -256,12 +252,12 @@ function HomeContent() {
 
           {/* Trending Craving Chips */}
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth pb-1">
-            <span className="text-xs font-mono font-black uppercase text-zinc-300 tracking-wider flex-shrink-0">{t('trending')}:</span>
+            <span className="text-xs font-mono font-bold uppercase text-zinc-400 tracking-wider flex-shrink-0">{t('trending')}:</span>
             {quickTags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => setSearchQuery(tag)}
-                className="touch-target px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/10 hover:bg-white text-white hover:text-zinc-950 border border-white/20 transition-all cursor-pointer flex-shrink-0 focus-ring"
+                className="touch-target px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white text-white hover:text-zinc-950 border border-white/15 transition-all cursor-pointer flex-shrink-0 focus-ring"
               >
                 #{tag}
               </button>
@@ -269,7 +265,7 @@ function HomeContent() {
           </div>
 
           {/* Micro-Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] sm:text-xs font-mono font-black uppercase tracking-widest text-zinc-300 border-t border-white/15 pt-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] sm:text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 border-t border-white/10 pt-4">
             <div className="flex items-center gap-1.5">
               <Flame className="w-4 h-4 text-[#F59E0B]" />
               <span>{t('monthlyFoodies')}</span>
