@@ -75,9 +75,30 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
             </div>
 
             {/* Location Overlay Pill */}
-            <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#111827] flex items-center gap-1 shadow-sm border border-white/40">
+            <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-[#111827] flex items-center gap-1 shadow-sm border border-white/40 z-10">
               <MapPin className="w-3.5 h-3.5 text-[#A81D1D]" />
               <span>{post.location}</span>
+            </div>
+
+            {/* Authentic ADDIS FOODIE Watermark Overlay (Reference Style) */}
+            <div className="absolute bottom-3 right-3 bg-black/80 backdrop-blur-md border border-white/20 px-2 py-1 rounded flex flex-col items-center justify-center font-sans tracking-tight z-10 shadow-lg group-hover:border-[#F59E0B]/60 transition-colors">
+              <div className="bg-white text-black px-1.5 py-0.5 rounded-xs text-[9px] font-black uppercase tracking-wider leading-none">
+                ADDIS
+              </div>
+              <div className="w-full h-[1.5px] bg-[#A81D1D] my-0.5" />
+              <div className="text-white text-[8px] font-black uppercase tracking-widest leading-none">
+                FOODIE
+              </div>
+            </div>
+
+            {/* Sky Blue Hashtag Badge Overlay on Hover */}
+            <div className="absolute inset-x-0 bottom-12 px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center gap-1.5 z-10">
+              <span className="bg-sky-500/90 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur-xs">
+                #addisfoodie
+              </span>
+              <span className="bg-sky-500/90 text-white font-mono text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur-xs">
+                #{post.location.toLowerCase().replace(/\s+/g, '')}
+              </span>
             </div>
           </div>
 

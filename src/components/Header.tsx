@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Menu, X, Globe, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import AddisFoodieLogo from './ui/AddisFoodieLogo';
 
 interface HeaderProps {
   searchQuery?: string;
@@ -37,32 +38,11 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-black/95 backdrop-blur-md border-b border-zinc-800 shadow-xl max-w-full overflow-hidden">
+    <header className="sticky top-0 z-40 w-full bg-zinc-950/85 backdrop-blur-lg border-b border-zinc-800/80 shadow-xl max-w-full overflow-hidden">
       <div className="site-container py-2.5 flex items-center justify-between gap-2 max-w-full">
         
         {/* Brand Logo Rectangular Block */}
-        <Link href="/" className="group focus-ring rounded-xl flex-shrink-0">
-          <div className="bg-[#111827] border border-[#A81D1D]/40 hover:border-[#A81D1D] rounded-xl px-2 sm:px-3 py-1.5 shadow-md flex items-center gap-2 transition-all duration-300 group-hover:scale-[1.02]">
-            <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border-2 border-[#A81D1D] flex-shrink-0 bg-black">
-              <Image
-                src="/images/logo.png"
-                alt="Addis Foodies Logo"
-                fill
-                className="object-cover"
-              />
-            </div>
-            
-            <div className="flex flex-col -space-y-0.5">
-              <div className="flex items-baseline gap-1">
-                <span className="font-syne font-black text-xs sm:text-base tracking-tight text-white">Addis</span>
-                <span className="font-syne font-black text-xs sm:text-base tracking-tight text-[#A81D1D]">Foodies</span>
-              </div>
-              <span className="text-[8px] sm:text-[9px] font-bold text-zinc-400 tracking-wider uppercase font-sans">
-                Discovering Foods
-              </span>
-            </div>
-          </div>
-        </Link>
+        <AddisFoodieLogo diluted={true} />
 
         {/* Desktop Search Bar (Hidden on Mobile to Prevent Overflow) */}
         <form onSubmit={handleSearchSubmit} className="hidden md:flex flex-1 max-w-md mx-4">

@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Flame } from 'lucide-react';
+import AddisFoodieLogo from './ui/AddisFoodieLogo';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -25,27 +27,15 @@ export default function Footer() {
           
           {/* Column 1: Brand Positioning */}
           <div className="flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="relative w-9 h-9 rounded-full overflow-hidden border-2 border-[#F59E0B] shadow-xs flex-shrink-0 bg-black">
-                <Image
-                  src="/images/logo.png"
-                  alt="Addis Foodies Logo"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="font-syne font-black text-xl tracking-tight text-white">Addis</span>
-                <span className="font-syne font-black text-xl tracking-tight text-[#F59E0B]">Foodies</span>
-              </div>
-            </Link>
+            <AddisFoodieLogo diluted={false} />
 
             <p className="text-xs text-zinc-400 font-medium leading-relaxed">
               The Official Digital Home of Addis Foodies. Curated restaurant reviews, hidden food gems, and culinary festival coverage across Bole, Kazanchis, Piassa, and Sarbet.
             </p>
 
-            <div className="flex items-center gap-3 text-xs font-mono font-extrabold text-[#F59E0B] pt-1">
-              <span>🔥 150,000+ Monthly Foodies</span>
+            <div className="flex items-center gap-2 text-xs font-mono font-extrabold text-[#F59E0B] pt-1">
+              <Flame className="w-4 h-4 text-[#F59E0B]" />
+              <span>150,000+ Monthly Foodies</span>
             </div>
           </div>
 
