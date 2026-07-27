@@ -53,7 +53,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#120907] text-[#FFF8F6] selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       {/* HEADER NAVIGATION WITH LOGO & PRIMARY CTA */}
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
@@ -235,13 +235,13 @@ export default function HomePage() {
 
         {/* SECTION 3: TOP 4 CURATED SPOTS THIS WEEK */}
         <section id="featured-spots" className="flex flex-col gap-6 pt-2">
-          <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+          <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
             <div>
-              <h2 className="font-syne font-black text-xl sm:text-3xl text-[#FFF8F6] flex items-center gap-2">
+              <h2 className="font-syne font-black text-xl sm:text-3xl text-zinc-900 dark:text-[#FFF8F6] flex items-center gap-2">
                 <Star className="w-6 h-6 text-[#FF8C00]" />
                 <span>Top Curated Spots This Week</span>
               </h2>
-              <p className="text-xs text-[#D1C2BD] font-medium pt-1">
+              <p className="text-xs text-zinc-600 dark:text-[#D1C2BD] font-medium pt-1">
                 Hand-picked culinary highlights across Addis Ababa
               </p>
             </div>

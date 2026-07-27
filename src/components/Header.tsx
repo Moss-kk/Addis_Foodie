@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Menu, X, Globe, ArrowUpRight } from 'lucide-react';
+import { Search, Menu, X, Globe, ArrowUpRight, Sun, Moon } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import AddisFoodieLogo from './ui/AddisFoodieLogo';
 
 interface HeaderProps {
@@ -15,6 +16,7 @@ interface HeaderProps {
 
 export default function Header({ searchQuery = '', onSearchChange }: HeaderProps) {
   const { lang, toggleLang, t } = useLanguage();
+  const { theme, toggleTheme, isDark } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [localSearch, setLocalSearch] = useState(searchQuery);
@@ -38,7 +40,7 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-zinc-950/85 backdrop-blur-lg border-b border-zinc-800/80 shadow-xl max-w-full overflow-hidden">
+    <header className="sticky top-0 z-40 w-full bg-white/90 dark:bg-[#181110]/95 backdrop-blur-lg border-b border-zinc-200 dark:border-[#3D2622]/80 shadow-xl max-w-full overflow-hidden transition-colors duration-300">
       <div className="site-container py-2.5 flex items-center justify-between gap-2 max-w-full">
         
         {/* Brand Logo Rectangular Block */}
@@ -67,6 +69,20 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
             aria-label="Toggle Search"
           >
             <Search className="w-4 h-4 text-zinc-300" />
+          </button>
+
+          {/* Day & Night Mood Switcher Button */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 transition-colors focus-ring cursor-pointer flex items-center justify-center"
+            title={isDark ? 'Switch to Day Light Mode' : 'Switch to Night Flame Mode'}
+            aria-label="Toggle theme mode"
+          >
+            {isDark ? (
+              <Sun className="w-4 h-4 text-[#FF8C00] animate-pulse" />
+            ) : (
+              <Moon className="w-4 h-4 text-amber-500" />
+            )}
           </button>
 
           {/* Language Switcher Button */}

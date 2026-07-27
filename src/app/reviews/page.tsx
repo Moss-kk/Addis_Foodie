@@ -53,22 +53,22 @@ export default function ReviewsPage() {
   }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#120907] text-[#FFF8F6] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
       {/* Page Header */}
-      <section className="w-full bg-[#1A100C] border-b border-zinc-800 py-10 sm:py-14">
+      <section className="w-full bg-white dark:bg-[#1A100C] border-b border-zinc-200 dark:border-zinc-800 py-10 sm:py-14 transition-colors">
         <div className="site-container flex flex-col gap-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E53935]/15 border border-[#E53935]/30 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#FF8C00]">
             <Tag className="w-3.5 h-3.5" />
             <span>Curated Review Archive</span>
           </div>
 
-          <h1 className="font-syne font-black text-3xl sm:text-5xl text-[#FFF8F6]">
+          <h1 className="font-syne font-black text-3xl sm:text-5xl text-zinc-950 dark:text-[#FFF8F6]">
             Foodie Reviews & Itemized Price Audits
           </h1>
 
-          <p className="text-sm text-[#D1C2BD] font-medium max-w-2xl">
+          <p className="text-sm text-zinc-600 dark:text-[#D1C2BD] font-medium max-w-2xl">
             Explore verified restaurant reviews, street food gems, and price breakdowns across Bole, Kazanchis, Piassa, and Sarbet.
           </p>
         </div>

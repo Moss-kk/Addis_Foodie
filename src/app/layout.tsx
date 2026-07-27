@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Syne, JetBrains_Mono } from "next/font/google";
 import { LanguageProvider } from "../context/LanguageContext";
+import { ThemeProvider } from "../context/ThemeContext";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -34,12 +35,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${syne.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${outfit.variable} ${syne.variable} ${jetbrainsMono.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-brand-bg text-brand-dark font-sans selection:bg-[#A81D1D]/10 selection:text-[#A81D1D]">
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+      <body className="min-h-full flex flex-col font-sans transition-colors duration-300">
+        <ThemeProvider>
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
