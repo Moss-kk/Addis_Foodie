@@ -121,21 +121,22 @@ function HomeContent() {
       {/* HEADER NAVIGATION WITH TOP SEARCH */}
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-      {/* SECTION 1: IMMERSIVE HERO WITH AUTHENTIC HABESHA CULINARY OVERLAY */}
-      <section className="w-full relative min-h-[520px] sm:min-h-[640px] flex items-center py-10 sm:py-20 text-white overflow-hidden border-b border-zinc-800">
+      {/* SECTION 1: IMMERSIVE HERO WITH TRANSPARENT HABESHA FOOD BACKGROUND */}
+      <section className="w-full relative min-h-[520px] sm:min-h-[640px] flex items-center py-10 sm:py-20 text-white overflow-hidden border-b border-zinc-800 bg-zinc-950">
         
-        {/* Authentic Habesha Food Spread & Coffee Ceremony Background */}
-        <div className="absolute inset-0 z-0">
+        {/* Semi-Transparent Authentic Habesha Food Post Background Image */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
-            src="https://images.unsplash.com/photo-1541518763669-27fef04b14e8?auto=format&fit=crop&w=2000&q=90"
-            alt="Authentic Habesha Ethiopian Food Feast & Gourmet Spices"
+            src="https://images.unsplash.com/photo-1585937421612-70a0f261c0b7?auto=format&fit=crop&w=2000&q=90"
+            alt="Authentic Ethiopian Habesha Food Spread & Coffee Ceremony"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center brightness-[0.5] scale-105 transition-transform duration-1000"
+            className="object-cover object-center opacity-35 scale-105 transition-all duration-1000"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-950/85 to-black/60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-90" />
+          {/* Subtle Dark Vignette Blending Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/90 via-zinc-950/70 to-zinc-950/80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950/60" />
         </div>
 
         <div className="site-container relative z-10 flex flex-col gap-6">
