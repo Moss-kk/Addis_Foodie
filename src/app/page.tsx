@@ -16,6 +16,9 @@ import {
   Utensils, 
   Coffee, 
   ArrowRight,
+  Camera,
+  Send,
+  Phone,
   X 
 } from 'lucide-react';
 import Header from '../components/Header';
@@ -53,20 +56,31 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF8F5] text-zinc-900 transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#FAF8F5] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       {/* HEADER NAVIGATION WITH LOGO & PRIMARY CTA */}
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-      {/* SECTION 1: IMMERSIVE LIGHT RESPONSIVE HERO WITH HABESHA CULINARY ART */}
-      <section className="w-full relative min-h-[500px] sm:min-h-[580px] flex items-center py-10 sm:py-16 overflow-hidden border-b border-stone-200/80 bg-gradient-to-br from-red-50/80 via-[#FAF8F5] to-amber-50/60 transition-colors duration-300">
+      {/* SECTION 1: HERO WITH AUTHENTIC TRADITIONAL KITFO / HABESHA FOOD BACKGROUND */}
+      <section className="w-full relative min-h-[540px] sm:min-h-[620px] flex items-center py-12 sm:py-20 text-white overflow-hidden border-b border-zinc-800/80 bg-[#120907]">
         
-        {/* Subtle Background Glows */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-[#E53935]/10 dark:bg-[#E53935]/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-amber-500/10 dark:bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
+        {/* Authentic Kitfo / Habesha Food Photography Background */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <Image
+            src="https://images.unsplash.com/photo-1541518763669-27fef04b14e8?auto=format&fit=crop&w=2000&q=90"
+            alt="Authentic Habesha Traditional Kitfo Feast - Addis Foodies"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center brightness-[0.65] contrast-[1.15] scale-105 transition-all duration-1000"
+          />
+          {/* Flame Gradient Overlay for High Contrast Legibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#120907]/95 via-[#120907]/80 to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#120907] via-transparent to-black/50" />
+        </div>
 
         <div className="site-container relative z-10 flex flex-col gap-6">
           
-          {/* Main Hero Header Content */}
+          {/* Hero Content Header */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
             
             <div className="flex flex-col gap-4 max-w-3xl">
@@ -74,20 +88,20 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-red-500/20 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#E53935] backdrop-blur-md shadow-sm"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A100C]/90 border border-[#E53935]/30 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#FF8C00] backdrop-blur-md shadow-lg"
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>{t('tagline')}</span>
+                <span>The Official Digital Home of Addis Foodies</span>
               </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.15] text-zinc-950"
+                className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.15] text-[#FFF8F6]"
               >
                 Discover Addis Ababa <br className="hidden sm:inline" />
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#E53935] via-amber-500 to-[#E53935]">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF8C00] via-amber-300 to-[#E53935]">
                   One Bite at a Time
                 </span>
               </motion.h1>
@@ -96,10 +110,46 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-zinc-600 font-medium text-xs sm:text-base leading-relaxed max-w-2xl"
+                className="text-[#D1C2BD] font-medium text-xs sm:text-base leading-relaxed max-w-2xl"
               >
-                {t('heroSubtext')}
+                Trusted Habesha restaurant reviews, hidden food gems, real ETB menu prices, and live culinary festival coverage published direct from <strong className="text-white">@addisfoodiess</strong>.
               </motion.p>
+
+              {/* Social Channels & Contact Bar */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="flex flex-wrap items-center gap-3 pt-1 text-xs font-mono font-bold text-zinc-300"
+              >
+                <a
+                  href="https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-pink-600/30 text-white border border-white/20 transition-all hover:scale-102"
+                >
+                  <Camera className="w-3.5 h-3.5 text-pink-400" />
+                  <span>@addisfoodiess Instagram Post ↗</span>
+                </a>
+
+                <a
+                  href="https://t.me/addisfoodies"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-sky-600/30 text-white border border-white/20 transition-all hover:scale-102"
+                >
+                  <Send className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Telegram Feed ↗</span>
+                </a>
+
+                <a
+                  href="tel:0966550000"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 text-[#FF8C00] border border-amber-500/40 hover:bg-amber-500/30 transition-all"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#FF8C00]" />
+                  <span>0966-55-00-00</span>
+                </a>
+              </motion.div>
 
               {/* Action Buttons */}
               <motion.div
@@ -110,7 +160,7 @@ export default function HomePage() {
               >
                 <button
                   onClick={scrollToGrid}
-                  className="touch-target bg-[#E53935] hover:bg-[#B71C1C] text-white font-bold text-xs sm:text-sm py-3.5 px-7 rounded-xl shadow-md transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring"
+                  className="touch-target bg-[#E53935] hover:bg-[#B71C1C] text-white font-bold text-xs sm:text-sm py-3.5 px-7 rounded-xl shadow-xl transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring"
                 >
                   <Search className="w-4 h-4" />
                   <span>{t('exploreReviews')}</span>
@@ -118,9 +168,9 @@ export default function HomePage() {
 
                 <Link
                   href="/collaborate"
-                  className="touch-target bg-white hover:bg-stone-100 text-zinc-900 font-semibold text-xs sm:text-sm py-3.5 px-7 rounded-xl border border-stone-200 shadow-sm transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring backdrop-blur-md"
+                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm py-3.5 px-7 rounded-xl border border-white/20 transition-all cursor-pointer hover:scale-102 flex items-center gap-2 focus-ring backdrop-blur-md"
                 >
-                  <Handshake className="w-4 h-4 text-[#E53935]" />
+                  <Handshake className="w-4 h-4 text-[#FF8C00]" />
                   <span>{t('workWithAddisFoodies')}</span>
                 </Link>
               </motion.div>
@@ -128,23 +178,23 @@ export default function HomePage() {
 
             {/* 2 Key Floating Highlight Cards */}
             <div className="hidden lg:flex flex-col gap-4 flex-shrink-0 w-72">
-              <div className="bg-white p-4 rounded-2xl border border-stone-200/80 flex items-center gap-3.5 shadow-sm hover:border-[#E53935]/40 transition-all">
-                <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center flex-shrink-0">
-                  <Utensils className="w-5 h-5 text-[#E53935]" />
+              <div className="bg-[#1A100C]/80 backdrop-blur-md p-4 rounded-2xl border border-red-500/20 flex items-center gap-3.5 shadow-xl hover:border-amber-500/30 transition-all">
+                <div className="w-10 h-10 rounded-xl bg-[#E53935]/20 border border-[#E53935]/40 flex items-center justify-center flex-shrink-0">
+                  <Utensils className="w-5 h-5 text-[#FF8C00]" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-syne font-bold text-xs text-zinc-900">Special Kitfo Platter</span>
-                  <span className="text-[11px] font-mono text-[#E53935] font-bold">850 Br • Bole</span>
+                  <span className="font-syne font-bold text-xs text-white">Special Kitfo Platter</span>
+                  <span className="text-[11px] font-mono text-[#FF8C00] font-bold">850 Br • Bole</span>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-2xl border border-stone-200/80 flex items-center gap-3.5 shadow-sm hover:border-amber-500/40 transition-all">
-                <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center flex-shrink-0">
+              <div className="bg-[#1A100C]/80 backdrop-blur-md p-4 rounded-2xl border border-red-500/20 flex items-center gap-3.5 shadow-xl hover:border-amber-500/30 transition-all">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center flex-shrink-0">
                   <Coffee className="w-5 h-5 text-[#FF8C00]" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-syne font-bold text-xs text-zinc-900">Double Macchiato</span>
-                  <span className="text-[11px] font-mono text-[#E53935] font-bold">150 Br • Sarbet</span>
+                  <span className="font-syne font-bold text-xs text-white">Double Macchiato</span>
+                  <span className="text-[11px] font-mono text-[#FF8C00] font-bold">150 Br • Sarbet</span>
                 </div>
               </div>
             </div>
@@ -152,7 +202,7 @@ export default function HomePage() {
           </div>
 
           {/* Prominent Search Bar */}
-          <div className="relative w-full max-w-3xl shadow-md rounded-2xl overflow-hidden border border-stone-200 bg-white">
+          <div className="relative w-full max-w-3xl shadow-2xl rounded-2xl overflow-hidden border border-white/20 bg-white">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <Search className="h-5 w-5 text-zinc-400" />
             </div>
@@ -178,12 +228,12 @@ export default function HomePage() {
 
           {/* Trending Craving Chips */}
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth pb-1">
-            <span className="text-xs font-mono font-bold uppercase text-zinc-500 tracking-wider flex-shrink-0">{t('trending')}:</span>
+            <span className="text-xs font-mono font-bold uppercase text-[#D1C2BD] tracking-wider flex-shrink-0">{t('trending')}:</span>
             {quickTags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => setSearchQuery(tag)}
-                className="touch-target px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white hover:bg-[#E53935] hover:text-white text-zinc-800 border border-stone-200 shadow-xs transition-all cursor-pointer flex-shrink-0 focus-ring"
+                className="touch-target px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white text-white hover:text-zinc-950 border border-white/15 transition-all cursor-pointer flex-shrink-0 focus-ring"
               >
                 #{tag}
               </button>
@@ -191,7 +241,7 @@ export default function HomePage() {
           </div>
 
           {/* Micro-Stats Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] sm:text-xs font-mono font-semibold uppercase tracking-wider text-zinc-600 border-t border-stone-200 pt-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] sm:text-xs font-mono font-semibold uppercase tracking-wider text-[#D1C2BD] border-t border-white/10 pt-4">
             <div className="flex items-center gap-1.5">
               <Flame className="w-4 h-4 text-[#FF8C00]" />
               <span>{t('monthlyFoodies')}</span>
@@ -201,7 +251,7 @@ export default function HomePage() {
               <span>{t('curatedSpots')}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Building2 className="w-4 h-4 text-sky-500" />
+              <Building2 className="w-4 h-4 text-sky-400" />
               <span>{t('neighborhoodHubs')}</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -224,13 +274,13 @@ export default function HomePage() {
 
         {/* SECTION 3: TOP 4 CURATED SPOTS THIS WEEK */}
         <section id="featured-spots" className="flex flex-col gap-6 pt-2">
-          <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+          <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
             <div>
-              <h2 className="font-syne font-black text-xl sm:text-3xl text-zinc-900 flex items-center gap-2">
+              <h2 className="font-syne font-black text-xl sm:text-3xl text-zinc-900 dark:text-[#FFF8F6] flex items-center gap-2">
                 <Star className="w-6 h-6 text-[#FF8C00]" />
                 <span>Top Curated Spots This Week</span>
               </h2>
-              <p className="text-xs text-zinc-600 font-medium pt-1">
+              <p className="text-xs text-zinc-600 dark:text-[#D1C2BD] font-medium pt-1">
                 Hand-picked culinary highlights across Addis Ababa
               </p>
             </div>
