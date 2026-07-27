@@ -24,7 +24,7 @@
   --text-muted: #4B5563;
 }
 
-/* Dark Flame Night Mode Variables */
+/* Dark Flame Night Mode Variables (#120907 Deep Flame Charcoal Base) */
 .dark {
   --background: #120907;
   --foreground: #FFF8F6;
@@ -111,7 +111,7 @@ body {
   -webkit-backdrop-filter: blur(16px);
 }
 
-/* Flame Card Border Glow */
+/* Flame Card Surface Glow */
 .flame-card {
   background-color: var(--card-bg);
   border: 1px solid var(--card-border);

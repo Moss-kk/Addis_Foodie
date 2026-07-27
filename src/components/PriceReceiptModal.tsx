@@ -24,7 +24,7 @@ export default function PriceReceiptModal({ post, onClose }: PriceReceiptModalPr
       />
 
       {/* Receipt Container */}
-      <div className="relative w-full max-w-sm bg-zinc-900 text-zinc-100 rounded-3xl p-6 sm:p-7 shadow-2xl z-10 border-2 border-zinc-800 font-mono flex flex-col gap-4 animate-slide-up select-none">
+      <div className="relative w-full max-w-sm bg-[#1A100C] text-[#FFF8F6] rounded-3xl p-6 sm:p-7 shadow-2xl z-10 border-2 border-red-500/20 font-mono flex flex-col gap-4 animate-slide-up select-none">
         
         {/* Jagged Receipt Top Header */}
         <div className="text-center border-b-2 border-dashed border-zinc-800 pb-4 flex flex-col items-center gap-1">

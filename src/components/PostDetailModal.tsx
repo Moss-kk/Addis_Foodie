@@ -69,9 +69,9 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
       />
 
       {/* Main Modal Surface */}
-      <div className="relative w-full max-w-2xl max-h-[90vh] bg-zinc-900 text-zinc-100 rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col animate-slide-up border border-zinc-800">
+      <div className="relative w-full max-w-2xl max-h-[90vh] bg-[#1A100C] text-[#FFF8F6] rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col animate-slide-up border border-red-500/20">
         {/* Sticky Modal Top Header */}
-        <div className="sticky top-0 z-20 bg-zinc-950/95 backdrop-blur-md border-b border-zinc-800 px-6 py-4 flex items-center justify-between gap-3">
+        <div className="sticky top-0 z-20 bg-[#120907]/95 backdrop-blur-md border-b border-zinc-800 px-6 py-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 flex-wrap">
             <span className="bg-[#F59E0B] text-zinc-950 text-xs sm:text-sm font-mono font-black py-1 px-3.5 rounded-full shadow-2xs">
               {post.priceFormatted}
