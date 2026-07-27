@@ -121,22 +121,22 @@ function HomeContent() {
       {/* HEADER NAVIGATION WITH TOP SEARCH */}
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-      {/* SECTION 1: IMMERSIVE HERO WITH CLEAR HABESHA FOOD BACKGROUND */}
-      <section className="w-full relative min-h-[520px] sm:min-h-[640px] flex items-center py-10 sm:py-20 text-white overflow-hidden border-b border-zinc-800 bg-black">
+      {/* SECTION 1: IMMERSIVE STITCH HERO WITH CINEMATIC HABESHA DINNER TABLE */}
+      <section className="w-full relative min-h-[560px] sm:min-h-[660px] flex items-center py-12 sm:py-24 text-white overflow-hidden border-b border-zinc-800 bg-[#111827]">
         
-        {/* Clearly Visible Authentic Habesha Food Spread Background Image */}
+        {/* Stitch Cinematic Overhead Habesha Dinner Table Background */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <Image
-            src="https://images.unsplash.com/photo-1585937421612-70a0f261c0b7?auto=format&fit=crop&w=2000&q=90"
-            alt="Authentic Ethiopian Habesha Food Spread & Coffee Ceremony"
+            src="https://images.unsplash.com/photo-1541518763669-27fef04b14e8?auto=format&fit=crop&w=2000&q=90"
+            alt="Cinematic Overhead Habesha Feast Dinner Table"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center opacity-85 brightness-[0.7] contrast-[1.1] scale-105 transition-all duration-1000"
+            className="object-cover object-center brightness-[0.75] contrast-[1.1] scale-105 transition-all duration-1000"
           />
-          {/* Lightweight Gradient Overlay for Text Legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+          {/* Stitch Gradient Blending Overlay: From Deep Charcoal to Translucent */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/95 via-[#111827]/80 to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-transparent to-black/40" />
         </div>
 
         <div className="site-container relative z-10 flex flex-col gap-6">
