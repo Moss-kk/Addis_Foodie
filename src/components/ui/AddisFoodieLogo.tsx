@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface AddisFoodieLogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -16,13 +17,23 @@ export default function AddisFoodieLogo({ size = 'md', diluted = true }: AddisFo
   return (
     <Link href="/" className="group focus-ring rounded-xl flex-shrink-0 inline-block">
       <div className={`${containerClasses} flex items-center gap-2.5`}>
+        {/* Preserved Original Circle Logo */}
+        <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden border-2 border-[#A81D1D] flex-shrink-0 bg-black shadow-sm">
+          <Image
+            src="/images/logo.png"
+            alt="Addis Foodies Logo"
+            fill
+            className="object-cover"
+          />
+        </div>
+
         {/* Signature Boxed Brand Mark */}
         <div className="flex flex-col items-center justify-center font-sans tracking-tight">
-          <div className="bg-black text-white px-2 py-0.5 rounded-xs text-[11px] sm:text-xs font-black uppercase tracking-wider border border-zinc-800 leading-none">
+          <div className="bg-black text-white px-2 py-0.5 rounded-xs text-[10px] sm:text-[11px] font-black uppercase tracking-wider border border-zinc-800 leading-none">
             ADDIS
           </div>
-          <div className="w-full h-[2px] bg-[#A81D1D] my-0.5" />
-          <div className="text-white text-[10px] sm:text-[11px] font-black uppercase tracking-widest leading-none">
+          <div className="w-full h-[1.5px] bg-[#A81D1D] my-0.5" />
+          <div className="text-white text-[9px] sm:text-[10px] font-black uppercase tracking-widest leading-none">
             FOODIES
           </div>
         </div>
@@ -40,3 +51,4 @@ export default function AddisFoodieLogo({ size = 'md', diluted = true }: AddisFo
     </Link>
   );
 }
+
