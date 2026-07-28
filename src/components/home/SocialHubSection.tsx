@@ -1,12 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube } from 'react-icons/fa';
 
-const socialPosts = [
+interface LiveIgPost {
+  id: string;
+  caption: string;
+  media_type: string;
+  media_url: string;
+  thumbnail_url?: string;
+  permalink: string;
+  timestamp: string;
+  like_count?: number;
+  comments_count?: number;
+}
+
+const fallbackSocialPosts = [
   {
     id: '1',
     platform: 'Instagram',
@@ -54,6 +66,38 @@ const socialPosts = [
 ];
 
 export default function SocialHubSection() {
+  const [liveIgPost, setLiveIgPost] = useState<LiveIgPost | null>(null);
+
+  useEffect(() => {
+    async function loadLiveFeed() {
+      try {
+        const res = await fetch('/api/instagram/feed?limit=1');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.posts && data.posts.length > 0) {
+            setLiveIgPost(data.posts[0]);
+          }
+        }
+      } catch (e) {
+        console.log('Instagram live feed fetch skipped/failed, using curated fallback.', e);
+      }
+    }
+    loadLiveFeed();
+  }, []);
+
+  const displayPosts = fallbackSocialPosts.map((item) => {
+    if (item.platform === 'Instagram' && liveIgPost) {
+      return {
+        ...item,
+        image: liveIgPost.media_type === 'VIDEO' && liveIgPost.thumbnail_url ? liveIgPost.thumbnail_url : liveIgPost.media_url,
+        title: liveIgPost.caption || item.title,
+        url: liveIgPost.permalink || item.url,
+        engagement: `${liveIgPost.like_count ?? 14200} Likes • ${liveIgPost.comments_count ?? 280} Comments`,
+      };
+    }
+    return item;
+  });
+
   return (
     <section className="w-full py-12 px-6 sm:px-8 rounded-3xl bg-white border border-stone-200/80 shadow-xs">
       
@@ -68,7 +112,7 @@ export default function SocialHubSection() {
             Connect with @addisfoodiess
           </h2>
           <p className="text-xs sm:text-sm text-stone-600 font-medium pt-1">
-            Follow our live daily updates across Instagram, Telegram, TikTok & YouTube.
+            Follow our live daily updates across Instagram, Telegram, TikTok &amp; YouTube.
           </p>
         </div>
 
@@ -88,7 +132,7 @@ export default function SocialHubSection() {
 
       {/* Grid of 4 Social Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {socialPosts.map((item, idx) => {
+        {displayPosts.map((item, idx) => {
           const Icon = item.icon;
           return (
             <motion.a
