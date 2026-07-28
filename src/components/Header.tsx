@@ -44,17 +44,8 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#FAF8F5]/90 dark:bg-[#120907]/90 backdrop-blur-xl border-b border-stone-200/80 dark:border-stone-800/80 shadow-xs transition-colors duration-300">
+    <header className="sticky top-0 z-50 w-full bg-[#FAF8F5]/95 dark:bg-[#111827]/95 backdrop-blur-xl border-b border-stone-200/80 dark:border-stone-800/80 shadow-xs transition-colors duration-300">
       
-      {/* Top Announcement Bar */}
-      <div className="bg-gradient-to-r from-[#B71C1C] via-[#E53935] to-[#FF8C00] text-white py-1 px-4 text-center text-[11px] font-mono font-bold tracking-wide flex items-center justify-center gap-2">
-        <Flame className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-        <span>Official Food Media Headquarters & Discovery Platform • @addisfoodiess</span>
-        <span className="hidden sm:inline-block bg-white/20 px-2 py-0.5 rounded text-[10px] uppercase font-black">
-          Addis Ababa
-        </span>
-      </div>
-
       <div className="site-container py-3 flex items-center justify-between gap-3 max-w-full">
         
         {/* Brand Logo Block */}

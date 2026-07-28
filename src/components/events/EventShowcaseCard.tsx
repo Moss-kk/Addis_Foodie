@@ -31,7 +31,7 @@ export interface EventData {
 
 const defaultEvent: EventData = {
   title: 'KITFO FEST #5',
-  tagline: '🚨 TODAY!! TODAY!! TODAY!! 🚨',
+  tagline: 'TODAY!! FEATURED FOOD FESTIVAL & PROMOTION',
   venue: 'MONARCH HOTEL (ROOF TOP)',
   locationDetails: 'Piassa, Around Tewdros Square, Infront of Friendship park @monarchparkview',
   dateStr: 'Sat & Sun Meskerem 19 and 20 | Sep 30 and Oct 01',
@@ -67,8 +67,8 @@ export function EventShowcaseCard({ event = defaultEvent }: { event?: EventData 
             {event.title}
           </h2>
           <div className="flex items-center gap-2 text-rose-400 font-black text-lg md:text-xl mt-2">
-            <MapPin className="w-6 h-6 shrink-0" />
-            <span>📍 {event.venue}</span>
+            <MapPin className="w-6 h-6 shrink-0 text-[#E53935]" />
+            <span>{event.venue}</span>
           </div>
           <p className="text-xs md:text-sm text-zinc-300 mt-1 pl-8 font-medium">{event.locationDetails}</p>
         </div>
@@ -102,9 +102,10 @@ export function EventShowcaseCard({ event = defaultEvent }: { event?: EventData 
               {event.menuHighlights.map((item, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 bg-[#120907] text-[#D1C2BD] text-xs font-bold rounded-lg border border-zinc-800"
+                  className="px-3 py-1 bg-[#120907] text-[#D1C2BD] text-xs font-bold rounded-lg border border-zinc-800 flex items-center gap-1.5"
                 >
-                  🐂 {item}
+                  <UtensilsCrossed className="w-3 h-3 text-[#E53935]" />
+                  <span>{item}</span>
                 </span>
               ))}
             </div>
@@ -119,9 +120,10 @@ export function EventShowcaseCard({ event = defaultEvent }: { event?: EventData 
               {event.entertainment.map((item, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 bg-rose-950/60 text-rose-200 text-xs font-bold rounded-lg border border-rose-900/50"
+                  className="px-3 py-1 bg-rose-950/60 text-rose-200 text-xs font-bold rounded-lg border border-rose-900/50 flex items-center gap-1.5"
                 >
-                  💃 {item}
+                  <Music className="w-3 h-3 text-amber-300" />
+                  <span>{item}</span>
                 </span>
               ))}
             </div>

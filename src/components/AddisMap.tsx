@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { MapPin as MapPinIcon, Building2, Navigation, Coffee, Leaf, X } from 'lucide-react';
 
 interface MapPin {
   id: string;
@@ -32,8 +33,8 @@ export default function AddisMap({ onSelectDistrict }: AddisMapProps) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-[#F59E0B]/20 text-[#F59E0B] border border-[#F59E0B]/40 flex items-center justify-center font-black text-xl">
-            📍
+          <div className="w-10 h-10 rounded-2xl bg-[#E53935]/20 text-[#E53935] border border-[#E53935]/40 flex items-center justify-center font-black text-xl">
+            <MapPinIcon className="w-5 h-5 text-[#E53935]" />
           </div>
           <div>
             <h3 className="font-syne font-black text-xl text-white">
@@ -50,7 +51,7 @@ export default function AddisMap({ onSelectDistrict }: AddisMapProps) {
             <button
               key={d}
               onClick={() => onSelectDistrict(d)}
-              className="px-3 py-1 rounded-full text-xs font-extrabold bg-zinc-900 hover:bg-[#F59E0B] hover:text-[#111827] text-white border border-zinc-800 transition-all cursor-pointer"
+              className="px-3 py-1 rounded-full text-xs font-extrabold bg-zinc-900 hover:bg-[#E53935] hover:text-white text-white border border-zinc-800 transition-all cursor-pointer"
             >
               {d}
             </button>
@@ -65,17 +66,21 @@ export default function AddisMap({ onSelectDistrict }: AddisMapProps) {
         <div className="absolute inset-0 bg-[radial-gradient(#374151_1px,transparent_1px)] [background-size:24px_24px] opacity-40" />
 
         {/* District Labels Overlay */}
-        <div className="absolute top-6 left-8 text-xs font-mono font-black text-zinc-600 uppercase tracking-widest pointer-events-none">
-          🏛️ Piassa District
+        <div className="absolute top-6 left-8 text-xs font-mono font-black text-zinc-500 uppercase tracking-widest pointer-events-none flex items-center gap-1.5">
+          <Building2 className="w-3.5 h-3.5 text-[#E53935]" />
+          <span>Piassa District</span>
         </div>
-        <div className="absolute top-12 right-12 text-xs font-mono font-black text-zinc-600 uppercase tracking-widest pointer-events-none">
-          ✈️ Bole Hub
+        <div className="absolute top-12 right-12 text-xs font-mono font-black text-zinc-500 uppercase tracking-widest pointer-events-none flex items-center gap-1.5">
+          <Navigation className="w-3.5 h-3.5 text-[#FF8C00]" />
+          <span>Bole Hub</span>
         </div>
-        <div className="absolute bottom-16 right-24 text-xs font-mono font-black text-zinc-600 uppercase tracking-widest pointer-events-none">
-          ☕ Kazanchis
+        <div className="absolute bottom-16 right-24 text-xs font-mono font-black text-zinc-500 uppercase tracking-widest pointer-events-none flex items-center gap-1.5">
+          <Coffee className="w-3.5 h-3.5 text-amber-400" />
+          <span>Kazanchis</span>
         </div>
-        <div className="absolute bottom-8 left-12 text-xs font-mono font-black text-zinc-600 uppercase tracking-widest pointer-events-none">
-          🌱 Sarbet Hub
+        <div className="absolute bottom-8 left-12 text-xs font-mono font-black text-zinc-500 uppercase tracking-widest pointer-events-none flex items-center gap-1.5">
+          <Leaf className="w-3.5 h-3.5 text-emerald-400" />
+          <span>Sarbet Hub</span>
         </div>
 
         {/* Map Pins */}
@@ -93,12 +98,12 @@ export default function AddisMap({ onSelectDistrict }: AddisMapProps) {
               className="relative group cursor-pointer"
             >
               {/* Pulse Ring */}
-              <span className="absolute -inset-2 rounded-full bg-[#F59E0B]/40 animate-ping" />
+              <span className="absolute -inset-2 rounded-full bg-[#E53935]/40 animate-ping" />
 
               {/* Pin Icon */}
-              <div className="relative px-3 py-1.5 rounded-full bg-[#F59E0B] hover:bg-amber-400 text-zinc-950 font-mono font-black text-xs border border-white/40 shadow-lg transition-all duration-200 flex items-center gap-1">
-                <span>📍</span>
-                <span>{pin.priceETB} Br</span>
+              <div className="relative px-3 py-1.5 rounded-full bg-[#E53935] hover:bg-[#B71C1C] text-white font-mono font-black text-xs border border-white/40 shadow-lg transition-all duration-200 flex items-center gap-1">
+                <MapPinIcon className="w-3 h-3 text-amber-200" />
+                <span>{pin.priceETB} ETB</span>
               </div>
             </button>
           </div>
@@ -106,9 +111,9 @@ export default function AddisMap({ onSelectDistrict }: AddisMapProps) {
 
         {/* Active Pin Tooltip Overlay */}
         {activePin && (
-          <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 z-30 bg-[#111827] border-2 border-[#F59E0B] rounded-2xl p-4 shadow-2xl flex items-center justify-between gap-4 max-w-sm animate-slide-up">
+          <div className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 z-30 bg-[#111827] border-2 border-[#E53935] rounded-2xl p-4 shadow-2xl flex items-center justify-between gap-4 max-w-sm animate-slide-up">
             <div className="flex flex-col gap-0.5">
-              <span className="text-[10px] font-mono font-black text-[#F59E0B] uppercase tracking-wider">
+              <span className="text-[10px] font-mono font-black text-[#FF8C00] uppercase tracking-wider">
                 {activePin.district} District Spot
               </span>
               <h4 className="font-syne font-black text-sm text-white">
@@ -123,7 +128,7 @@ export default function AddisMap({ onSelectDistrict }: AddisMapProps) {
               onClick={() => setActivePin(null)}
               className="p-1 rounded-full text-zinc-400 hover:text-white"
             >
-              ✕
+              <X className="w-4 h-4" />
             </button>
           </div>
         )}

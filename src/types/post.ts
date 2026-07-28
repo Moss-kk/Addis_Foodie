@@ -3,6 +3,21 @@ export interface MenuItem {
   price: number;
 }
 
+export interface ReviewerInfo {
+  name: string;
+  handle: string;
+  avatar: string;
+  role: string;
+  verified: boolean;
+}
+
+export interface RatingBreakdown {
+  taste: number;
+  ambiance: number;
+  service: number;
+  value: number;
+}
+
 export interface FoodPost {
   id: string;
   restaurantName: string;
@@ -23,6 +38,9 @@ export interface FoodPost {
   reelPlatform?: 'instagram_reel' | 'tiktok_video';
   viewsCount?: string; // e.g. "48.5K views"
   rating?: string; // e.g. "4.8"
+  reviewer?: ReviewerInfo;
+  ratings?: RatingBreakdown;
+  reviewerNotes?: string;
 }
 
 export type EventStatus = 'UPCOMING' | 'LIVE_TODAY' | 'COMPLETED';

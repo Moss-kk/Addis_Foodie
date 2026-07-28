@@ -88,11 +88,18 @@ export default function MagazineFeatured({
           {/* Lead Review Content Body */}
           <div className="p-6 sm:p-8 flex flex-col justify-between flex-1 gap-4">
             <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-xs font-mono text-[#FF8C00] font-bold">
-                <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                <span>VERIFIED INSPECTION REPORT</span>
-                <span className="text-stone-300">•</span>
-                <span className="text-stone-500">{leadPost.category}</span>
+              <div className="flex items-center justify-between gap-2 text-xs font-mono text-[#FF8C00] font-bold">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  <span>VERIFIED INSPECTION REPORT</span>
+                  <span className="text-stone-300">•</span>
+                  <span className="text-stone-500">{leadPost.category}</span>
+                </div>
+                {leadPost.reviewer && (
+                  <div className="flex items-center gap-1.5 text-stone-600 bg-stone-100 px-2.5 py-1 rounded-full text-[11px]">
+                    <span className="font-bold text-zinc-900">{leadPost.reviewer.name}</span>
+                  </div>
+                )}
               </div>
 
               <h3 className="font-display font-black text-[24px] leading-tight text-zinc-900 group-hover:text-[#E53935] transition-colors">

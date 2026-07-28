@@ -75,6 +75,27 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
           {/* CARD CONTENT BODY WITH ENHANCED TYPOGRAPHY HIERARCHY */}
           <div className="p-6 flex flex-col gap-3">
             
+            {/* Reviewer Tag */}
+            {post.reviewer && (
+              <div className="flex items-center gap-2 border-b border-stone-100 pb-2.5">
+                <div className="relative w-6 h-6 rounded-full overflow-hidden border border-stone-200 flex-shrink-0">
+                  <Image
+                    src={post.reviewer.avatar}
+                    alt={post.reviewer.name}
+                    fill
+                    sizes="24px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex items-center gap-1.5 overflow-hidden">
+                  <span className="text-xs font-bold text-zinc-800 truncate">{post.reviewer.name}</span>
+                  <span className="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-1.5 py-0.2 rounded-full uppercase tracking-wider flex-shrink-0">
+                    Verified
+                  </span>
+                </div>
+              </div>
+            )}
+
             {/* LEVEL 1: RESTAURANT NAME (24px) */}
             <h3
               onClick={onClick}
@@ -96,8 +117,15 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
             </div>
 
             {/* LEVEL 3: PRICE RANGE (18px ETB) */}
-            <div className="text-[17px] font-mono font-black text-emerald-600">
-              {post.priceFormatted}
+            <div className="flex items-center justify-between">
+              <div className="text-[17px] font-mono font-black text-emerald-600">
+                {post.priceFormatted}
+              </div>
+              {post.ratings && (
+                <div className="text-[11px] font-mono font-semibold text-stone-500 bg-stone-100 px-2 py-0.5 rounded-md">
+                  Taste: <span className="font-bold text-zinc-900">{post.ratings.taste}/5</span>
+                </div>
+              )}
             </div>
 
             {/* LEVEL 4: REVIEW SNIPPET (15px) */}

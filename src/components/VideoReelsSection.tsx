@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { Video, Flame, Eye, Film } from 'lucide-react';
 import { FoodPost } from '../types/post';
 import VideoReelModal from './VideoReelModal';
 
@@ -22,10 +23,13 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
       {/* Header Title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800 pb-5 relative z-10">
         <div className="flex items-center gap-3">
-          <span className="text-3xl">🎬</span>
+          <div className="w-10 h-10 rounded-2xl bg-[#E53935]/20 text-[#E53935] flex items-center justify-center">
+            <Video className="w-6 h-6" />
+          </div>
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#F59E0B]/15 text-[#F59E0B] text-[10px] font-black uppercase tracking-widest border border-[#F59E0B]/30 mb-1">
-              🔥 Trending Short-Form Reviews
+              <Flame className="w-3 h-3 text-[#E53935]" />
+              <span>Trending Short-Form Reviews</span>
             </div>
             <h2 className="font-syne font-black text-2xl sm:text-3xl text-white">
               TikTok & Instagram Video Reels Spotlight
@@ -33,8 +37,9 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
           </div>
         </div>
 
-        <span className="text-xs font-mono font-bold text-zinc-400 bg-white/5 px-3.5 py-1.5 rounded-full border border-white/10 self-start sm:self-auto">
-          🎥 100% Author-Verified Video Coverage
+        <span className="text-xs font-mono font-bold text-zinc-400 bg-white/5 px-3.5 py-1.5 rounded-full border border-white/10 self-start sm:self-auto flex items-center gap-1.5">
+          <Film className="w-3.5 h-3.5 text-amber-400" />
+          <span>100% Author-Verified Video Coverage</span>
         </span>
       </div>
 
@@ -61,11 +66,13 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
             {/* Top Badges */}
             <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
               <span className="bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-black uppercase text-amber-400 border border-amber-400/30 flex items-center gap-1">
-                {post.reelPlatform === 'tiktok_video' ? '🎵 TikTok' : '📸 Reel'}
+                <Video className="w-3 h-3 text-[#E53935]" />
+                <span>{post.reelPlatform === 'tiktok_video' ? 'TikTok' : 'Reel'}</span>
               </span>
 
-              <span className="bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-mono font-bold text-white border border-white/20">
-                👁️ {post.viewsCount || '45K views'}
+              <span className="bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-mono font-bold text-white border border-white/20 flex items-center gap-1">
+                <Eye className="w-3 h-3 text-stone-300" />
+                <span>{post.viewsCount || '45K views'}</span>
               </span>
             </div>
 

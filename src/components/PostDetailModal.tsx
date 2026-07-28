@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { MapPin, Phone, Receipt, Navigation, Star, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { FoodPost } from '../types/post';
 import { slugify } from '../lib/restaurants';
 import PriceReceiptModal from './PriceReceiptModal';
@@ -79,13 +80,15 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
               href="tel:+251911000000"
               className="bg-[#E53935] hover:bg-[#B71C1C] text-white text-xs font-extrabold py-1 px-3 rounded-full transition-colors cursor-pointer flex items-center gap-1 shadow-xs"
             >
-              📞 Call Restaurant
+              <Phone className="w-3 h-3 text-amber-200" />
+              <span>Call Restaurant</span>
             </a>
             <button
               onClick={() => setShowReceipt(true)}
-              className="bg-stone-100 hover:bg-stone-200 text-zinc-800 text-xs font-mono font-bold py-1 px-3 rounded-full transition-colors cursor-pointer border border-stone-200"
+              className="bg-stone-100 hover:bg-stone-200 text-zinc-800 text-xs font-mono font-bold py-1 px-3 rounded-full transition-colors cursor-pointer border border-stone-200 flex items-center gap-1"
             >
-              🧾 Price Breakdown
+              <Receipt className="w-3 h-3 text-[#E53935]" />
+              <span>Price Breakdown</span>
             </button>
           </div>
 
@@ -149,6 +152,34 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
           {/* Details & Information */}
           <div className="px-6 pt-5 flex flex-col gap-5">
             
+            {/* Reviewer Header Card */}
+            {post.reviewer && (
+              <div className="bg-stone-50 border border-stone-200/80 rounded-2xl p-3.5 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#E53935]/30">
+                    <Image
+                      src={post.reviewer.avatar}
+                      alt={post.reviewer.name}
+                      fill
+                      sizes="40px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-bold text-sm text-zinc-950">{post.reviewer.name}</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 fill-emerald-100" />
+                    </div>
+                    <span className="text-[11px] font-mono text-stone-500">{post.reviewer.role} • {post.reviewer.handle}</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 bg-amber-400/20 text-[#FF8C00] border border-amber-400/40 px-2.5 py-1 rounded-full text-xs font-mono font-bold">
+                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                  <span>{post.rating ? `${post.rating} Score` : '4.9 Score'}</span>
+                </div>
+              </div>
+            )}
+
             {/* Title, Neighborhood and Map action */}
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div className="flex flex-col gap-1.5">
@@ -165,7 +196,8 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
                 {/* Location Badge (Bole, Kazanchis, etc.) */}
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center gap-1 text-[11px] font-bold text-zinc-800 bg-stone-100 px-3 py-1 rounded-full border border-stone-200">
-                    📍 {post.location}
+                    <MapPin className="w-3 h-3 text-[#E53935]" />
+                    <span>{post.location}</span>
                   </span>
                   <span className="inline-flex items-center text-[10px] text-[#B71C1C] font-extrabold bg-amber-50 px-3 py-1 rounded-full uppercase tracking-wider border border-amber-200">
                     {post.category}
@@ -179,12 +211,46 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
                   href={post.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1 px-4 py-2 rounded-xl text-xs font-black bg-[#E53935] hover:bg-[#B71C1C] text-white transition-all shadow-xs w-fit self-start cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-black bg-[#E53935] hover:bg-[#B71C1C] text-white transition-all shadow-xs w-fit self-start cursor-pointer"
                 >
-                  Open in Maps 📍
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Open in Maps</span>
                 </a>
               )}
             </div>
+
+            {/* Ratings Breakdown Grid */}
+            {post.ratings && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-amber-500/5 p-3 rounded-2xl border border-amber-500/20">
+                <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-stone-100 shadow-2xs">
+                  <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider">Taste</span>
+                  <span className="text-sm font-mono font-black text-[#E53935]">{post.ratings.taste}/5.0</span>
+                </div>
+                <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-stone-100 shadow-2xs">
+                  <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider">Ambiance</span>
+                  <span className="text-sm font-mono font-black text-amber-600">{post.ratings.ambiance}/5.0</span>
+                </div>
+                <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-stone-100 shadow-2xs">
+                  <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider">Service</span>
+                  <span className="text-sm font-mono font-black text-emerald-600">{post.ratings.service}/5.0</span>
+                </div>
+                <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-stone-100 shadow-2xs">
+                  <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider">Value</span>
+                  <span className="text-sm font-mono font-black text-purple-600">{post.ratings.value}/5.0</span>
+                </div>
+              </div>
+            )}
+
+            {/* Inspector Pro Tip */}
+            {post.reviewerNotes && (
+              <div className="bg-emerald-50 border border-emerald-200 p-3.5 rounded-2xl flex items-start gap-2.5">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-0.5 text-xs">
+                  <span className="font-bold text-emerald-950 uppercase tracking-wider text-[10px]">Inspector Tip</span>
+                  <p className="text-emerald-800 font-medium leading-normal">{post.reviewerNotes}</p>
+                </div>
+              </div>
+            )}
 
             {/* Menu Breakdown Table */}
             {post.menuItems && post.menuItems.length > 0 && (

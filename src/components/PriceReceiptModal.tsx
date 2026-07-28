@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Receipt, MapPin } from 'lucide-react';
 import { FoodPost } from '../types/post';
 
 interface PriceReceiptModalProps {
@@ -28,12 +29,15 @@ export default function PriceReceiptModal({ post, onClose }: PriceReceiptModalPr
         
         {/* Jagged Receipt Top Header */}
         <div className="text-center border-b-2 border-dashed border-zinc-800 pb-4 flex flex-col items-center gap-1">
-          <span className="text-2xl">🧾</span>
+          <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-[#F59E0B] flex items-center justify-center mb-1">
+            <Receipt className="w-5 h-5" />
+          </div>
           <h3 className="font-black text-base uppercase tracking-wider text-zinc-100">
             {post.restaurantName}
           </h3>
-          <p className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">
-            📍 {post.location} • ADDIS ABABA
+          <p className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest flex items-center justify-center gap-1">
+            <MapPin className="w-3 h-3 text-[#E53935]" />
+            <span>{post.location} • ADDIS ABABA</span>
           </p>
           <span className="text-[10px] text-[#F59E0B] font-extrabold uppercase bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-md mt-1">
             VERIFIED ITEMIZATION BY ADDIS FOODIES
