@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Phone, ArrowUpRight, MapPin, Clock, Smartphone } from 'lucide-react';
-import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube, FaFacebookF, FaGooglePlay, FaApple } from 'react-icons/fa';
+import { Phone, ArrowUpRight, MapPin, Clock } from 'lucide-react';
+import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube, FaFacebookF } from 'react-icons/fa';
 import AddisFoodieLogo from './ui/AddisFoodieLogo';
 
 export default function Footer() {
@@ -20,72 +20,25 @@ export default function Footer() {
 
   return (
     <footer
-      className="w-full mt-16 select-none transition-colors duration-300 border-t"
+      className="w-full mt-16 select-none border-t text-[#F7F5F2]"
       style={{
-        backgroundColor: 'var(--bg-app)',
-        color: 'var(--text-primary)',
-        borderColor: 'var(--border-subtle)',
+        backgroundColor: '#1A1C1E',
+        color: '#F7F5F2',
+        borderColor: '#2A2E33',
       }}
     >
       <div className="site-container py-12 sm:py-16 flex flex-col gap-12">
-
-        {/* Play Store & App Store Delivery Banner Bar in Footer */}
-        <div 
-          className="w-full p-6 sm:p-8 rounded-lg border shadow-xs flex flex-col md:flex-row items-center justify-between gap-6"
-          style={{ backgroundColor: '#1A1C1E', borderColor: 'var(--border-subtle)', color: '#FFFFFF' }}
-        >
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-md bg-[#B8422E] text-white flex items-center justify-center font-label font-bold text-xl shadow-xs shrink-0">
-              <Smartphone className="w-6 h-6" />
-            </div>
-            <div className="flex flex-col text-left">
-              <div className="flex items-center gap-2">
-                <span className="font-display font-medium text-xl text-white">addisfoodie</span>
-                <span className="px-2 py-0.5 rounded-sm bg-white/10 text-slate-300 font-label text-[10px] uppercase">Delivery App</span>
-              </div>
-              <p className="text-xs font-body text-slate-300 pt-0.5">
-                Download the official delivery app for Bole, Kazanchis, Piassa, and Sarbet food orders.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <a
-              href="https://play.google.com"
-              target="_blank"
-              rel="noreferrer"
-              className="touch-target px-5 py-2.5 rounded-md bg-white text-[#1A1C1E] font-label font-bold text-xs transition-all flex items-center gap-2 hover:bg-slate-100 cursor-pointer shadow-xs"
-            >
-              <FaGooglePlay className="w-4 h-4 text-[#1A1C1E]" />
-              <div className="flex flex-col text-left leading-none">
-                <span className="text-[8px] font-label uppercase text-slate-600">GET IT ON</span>
-                <span className="text-xs font-label">Google Play</span>
-              </div>
-            </a>
-
-            <a
-              href="https://apple.com"
-              target="_blank"
-              rel="noreferrer"
-              className="touch-target px-5 py-2.5 rounded-md bg-white/10 hover:bg-white/20 text-white font-label font-bold text-xs border border-white/20 transition-all flex items-center gap-2 cursor-pointer backdrop-blur-md"
-            >
-              <FaApple className="w-4 h-4 text-white" />
-              <div className="flex flex-col text-left leading-none">
-                <span className="text-[8px] font-label uppercase text-slate-400">Download on the</span>
-                <span className="text-xs font-label">App Store</span>
-              </div>
-            </a>
-          </div>
-        </div>
 
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
 
           {/* Column 1: Brand & Social Hub */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <AddisFoodieLogo diluted={false} />
+            <div className="brightness-125">
+              <AddisFoodieLogo diluted={false} />
+            </div>
 
-            <p className="text-xs sm:text-sm font-body leading-relaxed max-w-md" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-xs sm:text-sm font-body leading-relaxed max-w-md text-[#9DA3A8]">
               Architectural minimalism meets journalistic gravitas. The premier digital food platform for Addis Ababa. Discover curated dining, verified ETB price audits, and authentic food culture across Bole, Kazanchis, Piassa, and Sarbet.
             </p>
 
@@ -94,10 +47,10 @@ export default function Footer() {
               <a
                 href="https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-md bg-white/10 hover:bg-pink-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-md bg-white/10 hover:bg-[#B8422E] text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="Instagram @addis.foodie"
               >
-                <FaInstagram size={16} className="text-pink-400" />
+                <FaInstagram size={16} className="text-white" />
               </a>
               <a
                 href="https://t.me/addisfoodies"
@@ -134,16 +87,13 @@ export default function Footer() {
             </div>
 
             {/* Hotline & Hours */}
-            <div
-              className="flex flex-col gap-2 pt-2 text-xs font-label font-bold border-t"
-              style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-secondary)' }}
-            >
-              <div className="flex items-center gap-2" style={{ color: 'var(--accent-tertiary)' }}>
+            <div className="flex flex-col gap-2 pt-2 text-xs font-label font-bold border-t border-[#2A2E33] text-[#9DA3A8]">
+              <div className="flex items-center gap-2 text-[#B8422E]">
                 <Phone className="w-4 h-4" />
                 <span>Hotline: 0966-55-00-00</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-emerald-600" />
+                <Clock className="w-4 h-4 text-emerald-400" />
                 <span>Mon – Sat (8:30 AM – 6:30 PM EAT)</span>
               </div>
             </div>
@@ -151,13 +101,10 @@ export default function Footer() {
 
           {/* Column 2: Navigation Sitemap */}
           <div className="flex flex-col gap-3">
-            <h4
-              className="font-label font-bold text-xs uppercase tracking-widest"
-              style={{ color: 'var(--accent-tertiary)' }}
-            >
+            <h4 className="font-label font-bold text-xs uppercase tracking-widest text-[#B8422E]">
               Navigation
             </h4>
-            <div className="flex flex-col gap-2.5 text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
+            <div className="flex flex-col gap-2.5 text-xs font-semibold text-[#9DA3A8]">
               {[
                 { href: '/', label: 'Explore Feed' },
                 { href: '/reviews', label: 'Food Reviews & Reels' },
@@ -169,10 +116,10 @@ export default function Footer() {
                 <Link
                   key={href}
                   href={href}
-                  className="hover:text-[var(--text-primary)] transition-colors flex items-center justify-between"
+                  className="hover:text-white transition-colors flex items-center justify-between"
                 >
                   <span>{label}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" style={{ color: 'var(--accent-tertiary)' }} />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#B8422E]" />
                 </Link>
               ))}
             </div>
@@ -180,21 +127,15 @@ export default function Footer() {
 
           {/* Column 3: Location */}
           <div className="flex flex-col gap-3">
-            <h4
-              className="font-label font-bold text-xs uppercase tracking-widest"
-              style={{ color: 'var(--accent-tertiary)' }}
-            >
+            <h4 className="font-label font-bold text-xs uppercase tracking-widest text-[#B8422E]">
               Addis Ababa HQ
             </h4>
-            <div
-              className="p-3.5 rounded-md flex flex-col gap-2 border"
-              style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
-            >
-              <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color: 'var(--text-primary)' }}>
-                <MapPin className="w-4 h-4" style={{ color: 'var(--accent-tertiary)' }} />
+            <div className="p-3.5 rounded-md flex flex-col gap-2 border bg-white/5 border-[#2A2E33]">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[#F7F5F2]">
+                <MapPin className="w-4 h-4 text-[#B8422E]" />
                 <span>Bole Medhaniallem, Addis Ababa</span>
               </div>
-              <p className="text-[11px] leading-snug" style={{ color: 'var(--text-secondary)' }}>
+              <p className="text-[11px] leading-snug text-[#9DA3A8]">
                 Bole Atlas Commercial Area
               </p>
               <a
@@ -210,18 +151,15 @@ export default function Footer() {
 
           {/* Column 4: Newsletter */}
           <div className="flex flex-col gap-3">
-            <h4
-              className="font-label font-bold text-xs uppercase tracking-widest"
-              style={{ color: 'var(--accent-tertiary)' }}
-            >
+            <h4 className="font-label font-bold text-xs uppercase tracking-widest text-[#B8422E]">
               Weekly Digest
             </h4>
-            <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-xs font-body leading-relaxed text-[#9DA3A8]">
               Get food alerts, ETB price updates, and event tickets.
             </p>
 
             {subscribed ? (
-              <div className="p-3 rounded-md text-xs font-bold border bg-emerald-500/15 border-emerald-500 text-emerald-700">
+              <div className="p-3 rounded-md text-xs font-bold border bg-emerald-500/15 border-emerald-500 text-emerald-300">
                 ✓ Subscribed! Welcome.
               </div>
             ) : (
@@ -232,7 +170,7 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email..."
-                  className="w-full px-3.5 py-3 text-xs rounded-md bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-slate-400 focus:outline-none transition-colors"
+                  className="w-full px-3.5 py-3 text-xs rounded-md bg-white/10 border border-[#3A3E42] text-[#F7F5F2] placeholder-slate-400 focus:outline-none transition-colors"
                 />
                 <button
                   type="submit"
@@ -246,15 +184,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom Credits */}
-        <div
-          className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold border-t"
-          style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-secondary)' }}
-        >
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold border-t border-[#2A2E33] text-[#9DA3A8]">
           <p>Addis Foodies © 2026 • Official Digital Food Guide (@addis.foodie &amp; @addis.foodie.delivery)</p>
           <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-[var(--text-primary)] transition-colors">Privacy Policy</Link>
-            <Link href="/about" className="hover:text-[var(--text-primary)] transition-colors">Terms of Service</Link>
-            <Link href="/collaborate" className="hover:text-[var(--text-primary)] transition-colors">Work With Us</Link>
+            <Link href="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/about" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/collaborate" className="hover:text-white transition-colors">Work With Us</Link>
           </div>
         </div>
       </div>

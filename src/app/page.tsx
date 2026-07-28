@@ -16,7 +16,6 @@ import {
 import Header from '../components/Header';
 import HeroSection from '../components/home/HeroSection';
 import EventBanner from '../components/EventBanner';
-import DeliveryTeaserCard from '../components/home/DeliveryTeaserCard';
 import ReviewCard from '../components/ReviewCard';
 import PostDetailModal from '../components/PostDetailModal';
 import PriceReceiptModal from '../components/PriceReceiptModal';
@@ -231,16 +230,13 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* 6. ADDIS FOODIE DELIVERY TEASER CARD */}
-          <DeliveryTeaserCard />
-
         </main>
 
-        {/* 7. FOOTER & NAVIGATION */}
+        {/* 6. FOOTER & NAVIGATION */}
         <Footer />
         <MobileBottomNav />
 
-        {/* 8. INTERACTIVE AI FOODIE BOT */}
+        {/* 7. INTERACTIVE AI FOODIE BOT */}
         <AiFoodieBotModal />
 
         {/* MODALS */}
