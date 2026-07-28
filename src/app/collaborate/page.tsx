@@ -5,74 +5,30 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
   Handshake, 
-  Camera, 
-  Video, 
-  Utensils, 
-  Sparkles, 
+  Phone, 
+  Mail, 
+  MapPin, 
   CheckCircle,
-  Megaphone,
-  Ticket,
-  ArrowRight
+  ArrowRight,
+  Send,
+  MessageSquare
 } from 'lucide-react';
+import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube, FaFacebookF } from 'react-icons/fa';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import MobileBottomNav from '../../components/layout/MobileBottomNav';
 
-const commercialServices = [
-  {
-    id: 'reviews',
-    icon: Utensils,
-    title: 'Restaurant Reviews',
-    description: 'Comprehensive inspection, high-res photo gallery, itemized ETB price breakdown, and publication to @addisfoodiess.',
-    tag: 'Core Offering',
-  },
-  {
-    id: 'photography',
-    icon: Camera,
-    title: 'Food Photography',
-    description: 'High-definition culinary photography for menus, social media campaigns, and billboard promotion across Addis Ababa.',
-    tag: 'High Impact',
-  },
-  {
-    id: 'videography',
-    icon: Video,
-    title: 'Reels & TikTok Production',
-    description: 'Short-form video production optimized for viral reach on Instagram Reels, TikTok, and YouTube Shorts.',
-    tag: 'Trending',
-  },
-  {
-    id: 'campaigns',
-    icon: Megaphone,
-    title: 'Brand Campaigns',
-    description: 'Promotional campaigns for beverage launches, food brands, restaurant openings, and special festive menus.',
-    tag: 'Strategic',
-  },
-  {
-    id: 'events',
-    icon: Ticket,
-    title: 'Event Coverage',
-    description: 'Official festival hosting, vendor booth management, and live event coverage for Kitfo Fest, Burger Battle, and Food Expos.',
-    tag: 'Live Event',
-  },
-  {
-    id: 'consultation',
-    icon: Sparkles,
-    title: 'Menu Consultation',
-    description: 'Feedback on menu pricing (ETB benchmarks), dish presentation, customer experience, and restaurant branding.',
-    tag: 'Advisory',
-  },
-];
-
 export default function CollaboratePage() {
   const [businessName, setBusinessName] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
   const [contactPhone, setContactPhone] = useState('');
-  const [promoType, setPromoType] = useState('Restaurant Reviews');
+  const [inquiryType, setInquiryType] = useState('Restaurant Food Review');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (businessName && contactPhone) {
+    if (businessName && (contactPhone || emailAddress)) {
       setSubmitted(true);
     }
   };
@@ -90,208 +46,248 @@ export default function CollaboratePage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-500 hover:text-amber-500 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-label uppercase text-[var(--text-secondary)] hover:text-[#B8422E] transition-colors"
           >
-            <ArrowRight className="w-4 h-4 rotate-180" style={{ color: 'var(--accent-gold)' }} />
+            <ArrowRight className="w-4 h-4 rotate-180 text-[#B8422E]" />
             <span>Back to Discovery Feed</span>
           </Link>
         </div>
 
-        {/* Hero Section (Cleaned up, no corporate PDF buttons) */}
-        <div className="bg-slate-950 text-white p-8 sm:p-14 rounded-[40px] flex flex-col items-center text-center gap-4 shadow-2xl border border-slate-800">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-mono font-bold uppercase tracking-widest text-amber-400">
-            <Handshake className="w-4 h-4" />
-            <span>Partner &amp; Collaborate</span>
+        {/* Contact Us Hero Banner */}
+        <section className="bg-[#1A1C1E] text-white p-8 sm:p-12 rounded-lg flex flex-col items-center text-center gap-4 shadow-xs border border-[var(--border-subtle)]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-white/10 border border-white/20 text-xs font-label uppercase tracking-widest text-[#B8422E]">
+            <Handshake className="w-4 h-4 text-[#B8422E]" />
+            <span>Work With Us &amp; Contact</span>
           </div>
-          <h1 className="font-display font-normal text-3xl sm:text-5xl tracking-tight leading-tight text-white">
-            Work With <span className="text-amber-400">Addis Foodies</span>
+          <h1 className="font-display font-medium text-3xl sm:text-5xl tracking-tight text-white">
+            Contact <span className="text-[#B8422E]">Addis Foodies</span>
           </h1>
           <p className="text-slate-300 font-body text-sm sm:text-base leading-relaxed max-w-xl">
-            Promote your restaurant, launch a new menu feature, or sponsor a major food festival with @addisfoodiess.
+            Have a restaurant review request, festival collaboration, or commercial media inquiry? Get in touch directly with our team in Addis Ababa.
           </p>
-        </div>
+        </section>
 
-        {/* 6 Professional Commercial Cards */}
-        <section className="flex flex-col gap-6">
-          <div className="border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
-            <h2 className="font-display font-normal text-2xl sm:text-3xl" style={{ color: 'var(--text-primary)' }}>
-              Promotional Packages
-            </h2>
-            <p className="text-xs sm:text-sm font-body pt-1" style={{ color: 'var(--text-secondary)' }}>
-              Marketing and content production solutions for restaurants, cafes, and food brands
+        {/* 1. PROFESSIONAL CONTACT CHANNELS & SOCIAL MEDIA ICONS */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Phone Card */}
+          <div className="heritage-card flex flex-col gap-3">
+            <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
+              <Phone className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-xs font-label uppercase tracking-wider text-slate-500">Direct Hotline</span>
+              <a href="tel:0966550000" className="block text-lg font-label font-bold text-[#1A1C1E] hover:text-[#B8422E] transition-colors">
+                0966-55-00-00
+              </a>
+            </div>
+            <p className="text-xs font-body text-slate-500">
+              Mon – Sat (8:30 AM – 6:30 PM EAT)
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {commercialServices.map((service, idx) => {
-              const Icon = service.icon;
-              return (
-                <motion.div
-                  key={service.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className="border rounded-3xl p-6 shadow-card hover:shadow-floating transition-all duration-300 flex flex-col justify-between"
-                  style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
-                >
-                  <div className="flex flex-col gap-3">
-                    <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-500">
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 font-mono font-bold text-[10px] uppercase border border-amber-500/30">
-                        {service.tag}
-                      </span>
-                    </div>
-
-                    <h3 className="font-display font-bold text-xl" style={{ color: 'var(--text-primary)' }}>
-                      {service.title}
-                    </h3>
-
-                    <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      {service.description}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t mt-4 flex items-center justify-between" style={{ borderColor: 'var(--border-subtle)' }}>
-                    <span className="text-xs font-mono font-bold" style={{ color: 'var(--accent-gold)' }}>Available</span>
-                    <button
-                      onClick={() => setPromoType(service.title)}
-                      className="text-xs font-bold transition-colors cursor-pointer hover:underline"
-                      style={{ color: 'var(--text-primary)' }}
-                    >
-                      Select →
-                    </button>
-                  </div>
-                </motion.div>
-              );
-            })}
+          {/* Email Card */}
+          <div className="heritage-card flex flex-col gap-3">
+            <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
+              <Mail className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-xs font-label uppercase tracking-wider text-slate-500">Official Email</span>
+              <a href="mailto:contact@addisfoodie.com" className="block text-base font-label font-bold text-[#1A1C1E] hover:text-[#B8422E] transition-colors truncate">
+                contact@addisfoodie.com
+              </a>
+            </div>
+            <p className="text-xs font-body text-slate-500">
+              Media, Partnerships &amp; General Inquiries
+            </p>
           </div>
+
+          {/* Location Card */}
+          <div className="heritage-card flex flex-col gap-3">
+            <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
+              <MapPin className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-xs font-label uppercase tracking-wider text-slate-500">Addis Ababa HQ</span>
+              <span className="block text-sm font-label font-bold text-[#1A1C1E]">
+                Bole Medhaniallem
+              </span>
+            </div>
+            <p className="text-xs font-body text-slate-500">
+              Bole Atlas Commercial Area, Addis Ababa
+            </p>
+          </div>
+
         </section>
 
-        {/* Partnership Form & Direct Contacts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 pt-4">
-          
-          {/* Form */}
-          <div
-            className="lg:col-span-2 p-8 sm:p-12 rounded-3xl border shadow-card flex flex-col gap-6"
-            style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
-          >
-            <h2 className="font-display font-normal text-2xl" style={{ color: 'var(--text-primary)' }}>
-              Submit Inquiry
-            </h2>
-
-            {submitted ? (
-              <div className="p-8 bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 rounded-2xl text-center flex flex-col gap-3">
-                <CheckCircle className="w-10 h-10 text-emerald-400 mx-auto" />
-                <h3 className="font-display font-bold text-xl text-white">Inquiry Received!</h3>
-                <p className="text-xs font-medium text-emerald-200">
-                  Our team will reach out to phone ({contactPhone}) within 24 hours.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider" style={{ color: 'var(--accent-gold)' }}>
-                    Restaurant / Brand Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={businessName}
-                    onChange={(e) => setBusinessName(e.target.value)}
-                    placeholder="e.g. Kategna Traditional Restaurant"
-                    className="w-full border rounded-xl px-4 py-3.5 text-xs sm:text-sm font-medium focus:outline-none"
-                    style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)', borderColor: 'var(--border-subtle)' }}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider" style={{ color: 'var(--accent-gold)' }}>
-                    Contact Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    value={contactPhone}
-                    onChange={(e) => setContactPhone(e.target.value)}
-                    placeholder="e.g. 0911-00-00-00"
-                    className="w-full border rounded-xl px-4 py-3.5 text-xs sm:text-sm font-medium focus:outline-none"
-                    style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)', borderColor: 'var(--border-subtle)' }}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider" style={{ color: 'var(--accent-gold)' }}>
-                    Package Selection
-                  </label>
-                  <select
-                    value={promoType}
-                    onChange={(e) => setPromoType(e.target.value)}
-                    className="w-full border rounded-xl px-4 py-3.5 text-xs sm:text-sm font-medium focus:outline-none"
-                    style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)', borderColor: 'var(--border-subtle)' }}
-                  >
-                    {commercialServices.map(s => (
-                      <option key={s.id} value={s.title}>{s.title}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label className="text-xs font-mono font-bold uppercase tracking-wider" style={{ color: 'var(--accent-gold)' }}>
-                    Details
-                  </label>
-                  <textarea
-                    rows={4}
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Tell us about your restaurant location (Bole, Kazanchis, Piassa) and campaign goals."
-                    className="w-full border rounded-xl px-4 py-3.5 text-xs sm:text-sm font-medium focus:outline-none"
-                    style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)', borderColor: 'var(--border-subtle)' }}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="touch-target w-full py-4 text-slate-950 font-extrabold text-xs uppercase tracking-wider rounded-full transition-all shadow-md cursor-pointer flex items-center justify-center gap-2 hover:scale-105"
-                  style={{ backgroundColor: 'var(--accent-gold)' }}
-                >
-                  <span>Submit Inquiry</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </form>
-            )}
-          </div>
-
-          {/* Direct Contacts */}
-          <div
-            className="p-8 rounded-3xl border shadow-card flex flex-col gap-6 self-start"
-            style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
-          >
-            <h3 className="font-display font-bold text-xl" style={{ color: 'var(--text-primary)' }}>
-              Direct Contacts
-            </h3>
-            
-            <div className="flex flex-col gap-4 text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
-              <div>
-                <span className="block text-[11px] font-mono font-bold uppercase tracking-wider" style={{ color: 'var(--accent-gold)' }}>Direct Hotline</span>
-                <a href="tel:0966550000" className="text-base font-bold font-mono hover:underline" style={{ color: 'var(--text-primary)' }}>0966-55-00-00</a>
-              </div>
-
-              <div>
-                <span className="block text-[11px] font-mono font-bold uppercase tracking-wider" style={{ color: 'var(--accent-gold)' }}>Official Telegram</span>
-                <a href="https://t.me/addisfoodies" target="_blank" rel="noreferrer" className="text-sm font-bold text-sky-500 hover:underline">t.me/addisfoodies</a>
-              </div>
-
-              <div>
-                <span className="block text-[11px] font-mono font-bold uppercase tracking-wider" style={{ color: 'var(--accent-gold)' }}>Location</span>
-                <span className="text-xs" style={{ color: 'var(--text-muted)' }}>Bole Medhaniallem, Addis Ababa</span>
-              </div>
+        {/* 2. OFFICIAL SOCIAL MEDIA CHANNELS BAR */}
+        <section className="p-6 rounded-lg border bg-[#1A1C1E] text-white flex flex-col md:flex-row items-center justify-between gap-6 border-white/10">
+          <div className="flex items-center gap-3">
+            <MessageSquare className="w-6 h-6 text-[#B8422E]" />
+            <div className="flex flex-col">
+              <h3 className="font-display font-medium text-lg text-white">Connect Across Social Channels</h3>
+              <p className="text-xs font-body text-slate-300">Join 150,000+ food lovers following @addis.foodie</p>
             </div>
           </div>
 
-        </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8"
+              target="_blank" rel="noreferrer"
+              className="px-4 py-2 rounded-md bg-white/10 hover:bg-[#B8422E] border border-white/20 text-xs font-label flex items-center gap-2 transition-all"
+            >
+              <FaInstagram className="w-4 h-4 text-pink-400" />
+              <span>Instagram</span>
+            </a>
+
+            <a
+              href="https://t.me/addisfoodies"
+              target="_blank" rel="noreferrer"
+              className="px-4 py-2 rounded-md bg-white/10 hover:bg-sky-500 border border-white/20 text-xs font-label flex items-center gap-2 transition-all"
+            >
+              <FaTelegramPlane className="w-4 h-4 text-sky-400" />
+              <span>Telegram</span>
+            </a>
+
+            <a
+              href="https://www.tiktok.com"
+              target="_blank" rel="noreferrer"
+              className="px-4 py-2 rounded-md bg-white/10 hover:bg-black border border-white/20 text-xs font-label flex items-center gap-2 transition-all"
+            >
+              <FaTiktok className="w-4 h-4 text-white" />
+              <span>TikTok</span>
+            </a>
+
+            <a
+              href="https://www.youtube.com"
+              target="_blank" rel="noreferrer"
+              className="px-4 py-2 rounded-md bg-white/10 hover:bg-red-600 border border-white/20 text-xs font-label flex items-center gap-2 transition-all"
+            >
+              <FaYoutube className="w-4 h-4 text-red-400" />
+              <span>YouTube</span>
+            </a>
+
+            <a
+              href="https://facebook.com"
+              target="_blank" rel="noreferrer"
+              className="px-4 py-2 rounded-md bg-white/10 hover:bg-blue-600 border border-white/20 text-xs font-label flex items-center gap-2 transition-all"
+            >
+              <FaFacebookF className="w-4 h-4 text-blue-400" />
+              <span>Facebook</span>
+            </a>
+          </div>
+        </section>
+
+        {/* 3. SUBMIT COMMERCIAL / GENERAL INQUIRY FORM */}
+        <section
+          className="p-8 sm:p-10 rounded-lg border shadow-xs flex flex-col gap-6"
+          style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+        >
+          <div className="flex items-center gap-2 border-b pb-4" style={{ borderColor: 'var(--border-subtle)' }}>
+            <Send className="w-5 h-5 text-[#B8422E]" />
+            <h3 className="font-display font-medium text-2xl" style={{ color: 'var(--text-primary)' }}>
+              Submit Contact &amp; Business Inquiry
+            </h3>
+          </div>
+
+          {submitted ? (
+            <div className="p-6 rounded-md bg-emerald-500/10 border border-emerald-500/40 text-emerald-800 text-center flex flex-col gap-2">
+              <CheckCircle className="w-8 h-8 text-emerald-600 mx-auto" />
+              <h4 className="font-display font-medium text-lg">Inquiry Received!</h4>
+              <p className="text-xs font-body text-emerald-700">
+                Thank you for reaching out. Our team will contact you within 24 hours.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-label uppercase tracking-wider text-[#B8422E]">
+                  Your Name / Business Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={businessName}
+                  onChange={(e) => setBusinessName(e.target.value)}
+                  placeholder="e.g. Kategna Restaurant / Abel Tesfaye"
+                  className="w-full border rounded-md px-4 py-3 text-xs sm:text-sm font-medium focus:outline-none"
+                  style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)', borderColor: 'var(--border-subtle)' }}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-label uppercase tracking-wider text-[#B8422E]">
+                  Contact Phone Number
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={contactPhone}
+                  onChange={(e) => setContactPhone(e.target.value)}
+                  placeholder="e.g. 0911-00-00-00"
+                  className="w-full border rounded-md px-4 py-3 text-xs sm:text-sm font-medium focus:outline-none"
+                  style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)', borderColor: 'var(--border-subtle)' }}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-label uppercase tracking-wider text-[#B8422E]">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  value={emailAddress}
+                  onChange={(e) => setEmailAddress(e.target.value)}
+                  placeholder="e.g. name@example.com"
+                  className="w-full border rounded-md px-4 py-3 text-xs sm:text-sm font-medium focus:outline-none"
+                  style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)', borderColor: 'var(--border-subtle)' }}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-label uppercase tracking-wider text-[#B8422E]">
+                  Inquiry Topic
+                </label>
+                <select
+                  value={inquiryType}
+                  onChange={(e) => setInquiryType(e.target.value)}
+                  className="w-full border rounded-md px-4 py-3 text-xs sm:text-sm font-medium focus:outline-none"
+                  style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)', borderColor: 'var(--border-subtle)' }}
+                >
+                  <option value="Restaurant Food Review">Restaurant Food Review Inspection</option>
+                  <option value="Festival Collaboration">Festival &amp; Event Collaboration</option>
+                  <option value="Delivery Onboarding">@addis.foodie.delivery Courier Listing</option>
+                  <option value="Catering Service">Event Catering &amp; Banquet Services</option>
+                  <option value="General Inquiry">General Question / Feedback</option>
+                </select>
+              </div>
+
+              <div className="sm:col-span-2 flex flex-col gap-2">
+                <label className="text-xs font-label uppercase tracking-wider text-[#B8422E]">
+                  Message Details
+                </label>
+                <textarea
+                  rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Tell us about your restaurant location (Bole, Kazanchis, Piassa) or project details."
+                  className="w-full border rounded-md px-4 py-3 text-xs sm:text-sm font-medium focus:outline-none"
+                  style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)', borderColor: 'var(--border-subtle)' }}
+                />
+              </div>
+
+              <div className="sm:col-span-2 pt-2">
+                <button
+                  type="submit"
+                  className="button-primary w-full py-3.5 text-xs uppercase tracking-wider rounded-md shadow-xs cursor-pointer flex items-center justify-center gap-2 hover:scale-[1.01]"
+                >
+                  <span>Submit Inquiry</span>
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </button>
+              </div>
+            </form>
+          )}
+        </section>
 
       </main>
 

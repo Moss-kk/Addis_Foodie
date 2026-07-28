@@ -4,13 +4,14 @@ import React from 'react';
 import Image from 'next/image';
 import { 
   Sparkles, 
-  MapPin, 
   ArrowRight,
-  ShieldCheck,
   Star,
   CheckCircle2,
   TrendingUp,
-  Receipt
+  Receipt,
+  Award,
+  Flame,
+  ShieldCheck
 } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -48,7 +49,7 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
           <div 
             className="absolute inset-0 backdrop-blur-[1px]" 
             style={{
-              backgroundColor: 'rgba(26, 28, 30, 0.65)',
+              backgroundColor: 'rgba(26, 28, 30, 0.68)',
             }}
           />
         </div>
@@ -100,7 +101,6 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
 
             {/* Actions: Single Tertiary Accent Rule */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
-              {/* Single Load-bearing Tertiary Accent Action per Screen Rule */}
               <button
                 onClick={onExploreClick}
                 className="button-primary cursor-pointer hover:scale-[1.02] flex items-center gap-2"
@@ -108,47 +108,59 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
                 <span>EXPLORE VERIFIED REVIEWS</span>
                 <ArrowRight className="w-4 h-4 text-white" />
               </button>
-
-              <button
-                onClick={onSearch}
-                className="touch-target bg-white/10 hover:bg-white/20 text-white font-label text-xs uppercase px-5 py-3 rounded-md border border-white/20 transition-all flex items-center gap-2 cursor-pointer focus-ring"
-              >
-                <MapPin className="w-4 h-4 text-slate-200" />
-                <span>VIEW FOOD MAP</span>
-              </button>
             </div>
 
           </div>
 
-          {/* Right Column: High-contrast Featured Portrait Showcase */}
+          {/* Right Column: CREATIVE ADDIS FOODIES BRAND MARK SHOWCASE */}
           <div className="relative flex items-center justify-center shrink-0">
             <div 
-              className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-lg overflow-hidden border-2 shadow-xl"
-              style={{ borderColor: 'var(--border-subtle)' }}
+              className="relative w-72 h-72 sm:w-80 sm:h-80 rounded-lg p-6 flex flex-col items-center justify-center text-center gap-4 border-2 shadow-2xl backdrop-blur-md overflow-hidden"
+              style={{ 
+                backgroundColor: 'rgba(26, 28, 30, 0.92)',
+                borderColor: 'var(--border-subtle)',
+              }}
             >
-              <Image
-                src="/images/ethiopian_kitfo_hero.png"
-                alt="Spotlight Kitfo Gourmet"
-                fill
-                sizes="(max-width: 640px) 256px, 320px"
-                className="object-cover hover:scale-105 transition-transform duration-700"
-              />
-              
-              {/* Top Floating Badge */}
-              <div 
-                className="absolute top-3 left-3 bg-[#1A1C1E]/90 text-white px-3 py-1 rounded-sm text-[11px] font-label shadow-md flex items-center gap-1.5 backdrop-blur-md border border-white/10"
-              >
-                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                <span>4.9 ★ SPOTLIGHT GOURMET</span>
+              {/* Outer Glowing Orbital Ring */}
+              <div className="absolute inset-2 rounded-md border border-[#B8422E]/30 pointer-events-none" />
+
+              {/* Creative Brand Circle Logo Showcase */}
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-[#B8422E] shadow-2xl flex-shrink-0 bg-[#1A1C1E] animate-pulse">
+                <Image
+                  src="/images/logo.png"
+                  alt="Addis Foodies Master Brand Mark"
+                  fill
+                  priority
+                  className="object-cover scale-105"
+                />
               </div>
 
-              {/* Bottom Floating Price Badge */}
-              <div 
-                className="absolute bottom-3 right-3 bg-[#1A1C1E]/95 text-white px-3.5 py-1.5 rounded-sm text-xs font-label shadow-lg flex items-center gap-2 backdrop-blur-md border border-white/10"
-              >
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Yado Kitfo Special • 850 Br</span>
+              {/* Signature Heritage Brand Name Badge */}
+              <div className="flex flex-col items-center gap-1 z-10">
+                <div className="bg-[#1A1C1E] border border-[#B8422E]/60 text-white px-3 py-1 rounded-sm text-xs font-label font-bold uppercase tracking-widest shadow-md">
+                  ADDIS FOODIES
+                </div>
+                <div className="h-[2px] w-20 bg-[#B8422E] my-0.5" />
+                <span className="text-[10px] font-label text-slate-300 uppercase tracking-widest">
+                  ETHIOPIAN CULINARY BRAND
+                </span>
               </div>
+
+              {/* Live Media Stats Badge */}
+              <div className="flex items-center gap-2 text-[11px] font-label text-white bg-white/10 px-3 py-1.5 rounded-sm border border-white/15">
+                <Flame className="w-3.5 h-3.5 text-[#B8422E]" />
+                <span>150K+ Monthly Reach</span>
+                <span className="text-slate-400">•</span>
+                <Award className="w-3.5 h-3.5 text-amber-400" />
+                <span>#1 Food Guide</span>
+              </div>
+
+              {/* Floating Bottom Quality Seal Badge */}
+              <div className="absolute bottom-2 left-2 right-2 bg-[#1A1C1E]/95 border border-white/15 py-1.5 px-3 rounded-sm text-[10px] font-label text-slate-200 flex items-center justify-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>OFFICIAL VERIFIED REVIEWS &amp; FESTIVALS</span>
+              </div>
+
             </div>
           </div>
 
@@ -162,7 +174,7 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
           </div>
           <div>
             <span className="block font-display font-medium text-xl sm:text-2xl text-white">120+</span>
-            <span className="text-[10px] sm:text-xs font-label text-slate-300">Restaurants Mapped</span>
+            <span className="text-[10px] sm:text-xs font-label text-slate-300">Restaurants Audited</span>
           </div>
           <div>
             <span className="block font-display font-medium text-xl sm:text-2xl text-white">100%</span>
