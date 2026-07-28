@@ -9,8 +9,6 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
-  fallback: ["system-ui", "-apple-system", "sans-serif"],
-  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 // Design.md: "Bricolage Grotesque for massive magazine headlines"
@@ -18,8 +16,6 @@ const bricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-display-face",
   subsets: ["latin"],
   display: "swap",
-  fallback: ["system-ui", "sans-serif"],
-  weight: ["400", "500", "600", "700", "800"],
 });
 
 // Design.md: "JetBrains Mono for pricing, ratings, and location metadata"
@@ -27,8 +23,6 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono-face",
   subsets: ["latin"],
   display: "swap",
-  fallback: ["monospace"],
-  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -50,7 +44,7 @@ export default function RootLayout({
       <body
         className="min-h-full flex flex-col transition-colors duration-300"
         style={{
-          backgroundColor: "var(--bg-canvas)",
+          backgroundColor: "var(--bg-app)",
           color: "var(--text-primary)",
           fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
         }}
