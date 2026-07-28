@@ -9,32 +9,35 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        vodafone: {
-          primary: "#0D0D0D",
-          secondary: "#6D6D6D",
-          tertiary: "#E60000",
-          neutral: "#F4F4F4",
+        heritage: {
+          primary: "#1A1C1E",
+          secondary: "#6C7278",
+          tertiary: "#B8422E",
+          neutral: "#F7F5F2",
           surface: "#FFFFFF",
           "on-primary": "#FFFFFF",
         },
         brand: {
-          primary: "#0D0D0D",
-          secondary: "#6D6D6D",
-          tertiary: "#E60000",
-          accent: "#E60000",
-          bg: "#F4F4F4",
-          dark: "#0D0D0D",
+          primary: "#1A1C1E",
+          secondary: "#6C7278",
+          tertiary: "#B8422E",
+          accent: "#B8422E",
+          bg: "#F7F5F2",
+          dark: "#1A1C1E",
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "Inter", "system-ui", "-apple-system", "sans-serif"],
-        display: ["var(--font-display-face)", "Archivo Black", "sans-serif"],
+        display: ["var(--font-fraunces)", "Fraunces", "serif"],
+        h1: ["var(--font-fraunces)", "Fraunces", "serif"],
+        body: ["var(--font-public-sans)", "Public Sans", "sans-serif"],
+        sans: ["var(--font-public-sans)", "Public Sans", "sans-serif"],
+        label: ["var(--font-space-grotesk)", "Space Grotesk", "sans-serif"],
         mono: ["var(--font-mono-face)", "JetBrains Mono", "monospace"],
       },
       borderRadius: {
         sm: "2px",
         md: "4px",
-        lg: "6px",
+        lg: "8px",
       },
       spacing: {
         sm: "8px",
@@ -44,7 +47,7 @@ const config: Config = {
       keyframes: {
         kenburns: {
           "0%": { transform: "scale(1)" },
-          "100%": { transform: "scale(1.12)" },
+          "100%": { transform: "scale(1.08)" },
         },
       },
       animation: {

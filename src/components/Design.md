@@ -1,37 +1,36 @@
 ---
 version: alpha
-name: Vodafone
-description: Monumental uppercase display. Vodafone-red chapter bands. Works for both Black & White moods.
+name: Heritage
+description: Architectural minimalism meets journalistic gravitas.
 colors:
-  primary: "#0D0D0D"
-  secondary: "#6D6D6D"
-  tertiary: "#E60000"
-  neutral: "#F4F4F4"
+  primary: "#1A1C1E"
+  secondary: "#6C7278"
+  tertiary: "#B8422E"
+  neutral: "#F7F5F2"
   surface: "#FFFFFF"
   on-primary: "#FFFFFF"
 typography:
   display:
-    fontFamily: Archivo Black
-    fontSize: 6rem
-    fontWeight: 900
-    letterSpacing: "-0.025em"
+    fontFamily: Fraunces
+    fontSize: 4rem
+    fontWeight: 500
+    letterSpacing: "-0.02em"
   h1:
-    fontFamily: Archivo Black
-    fontSize: 2.8rem
-    fontWeight: 900
+    fontFamily: Fraunces
+    fontSize: 2.5rem
+    fontWeight: 500
   body:
-    fontFamily: Inter
+    fontFamily: Public Sans
     fontSize: 1rem
     lineHeight: 1.6
   label:
-    fontFamily: Inter
-    fontSize: 0.74rem
-    fontWeight: 700
-    letterSpacing: "0.1em"
+    fontFamily: Space Grotesk
+    fontSize: 0.75rem
+    letterSpacing: "0.08em"
 rounded:
   sm: 2px
   md: 4px
-  lg: 6px
+  lg: 8px
 spacing:
   sm: 8px
   md: 16px
@@ -50,54 +49,27 @@ components:
 ---
 ## Overview
 
-Vodafone: monumental all-caps display, saturated red chapter bands on white or black canvas, uncompromising sans. Built to support both **White Mood** (Light Mode) and **Black Mood** (Dark Mode) seamlessly.
+A warm, high-contrast palette rooted in broadsheet newspapers and matte galleries. Deep ink on warm limestone, one single accent for action.
 
 ## Colors
 
-The palette is built around high-contrast neutrals and a single accent (`#E60000`) that drives interaction.
+The palette is built around high-contrast neutrals and a single accent that drives interaction.
 
-### White Mood (Light Mode)
-- **Primary (`#0D0D0D`):** Headlines and core text.
-- **Secondary (`#6D6D6D`):** Borders, captions, and metadata.
-- **Tertiary (`#E60000`):** The sole driver for interaction. Reserve it.
-- **Neutral (`#F4F4F4`):** The light page foundation canvas.
-- **Surface (`#FFFFFF`):** High-contrast white card surfaces.
-- **On-Primary (`#FFFFFF`):** Text on primary CTAs.
-
-### Black Mood (Dark Mode)
-- **Primary (`#FFFFFF`):** Headlines and core text.
-- **Secondary (`#A3A3A3`):** Subtitles, captions, and metadata.
-- **Tertiary (`#E60000`):** The sole driver for interaction. Reserve it.
-- **Neutral (`#0D0D0D`):** The dark page foundation canvas.
-- **Surface (`#171717`):** High-contrast elevated dark slate card surfaces.
-- **On-Primary (`#FFFFFF`):** Text on primary CTAs.
+- **Primary (`#1A1C1E`):** Headlines and core text.
+- **Secondary (`#6C7278`):** Borders, captions, and metadata.
+- **Tertiary (`#B8422E`):** The sole driver for interaction. Reserve it.
+- **Neutral (`#F7F5F2`):** The page foundation.
 
 ## Typography
 
-- **display:** Archivo Black 6rem (Weight 900, -0.025em letter spacing, uppercase)
-- **h1:** Archivo Black 2.8rem (Weight 900, uppercase)
-- **body:** Inter 1rem (Line height 1.6)
-- **label:** Inter 0.74rem (Weight 700, Letter spacing 0.1em, uppercase)
-
-## Radii & Spacing System
-
-- **rounded-sm:** 2px
-- **rounded-md:** 4px
-- **rounded-lg:** 6px
-- **spacing-sm:** 8px
-- **spacing-md:** 16px
-- **spacing-lg:** 32px
-
-## Components
-
-- **button-primary:** `bg: #E60000`, `text: #FFFFFF`, `rounded: 4px`, `padding: 12px 20px`
-- **card:** `bg: {surface}`, `text: {primary}`, `rounded: 6px`, `padding: 24px`
-- **chapter-band:** Solid 4px saturated Vodafone-red (`#E60000`) accent border on display sections.
+- **display:** Fraunces 4rem
+- **h1:** Fraunces 2.5rem
+- **body:** Public Sans 1rem
+- **label:** Space Grotesk 0.75rem
 
 ## Do's and Don'ts
 
-- **Do** use Tertiary (`#E60000`) for exactly one action per screen context.
+- **Do** use Tertiary for exactly one action per screen.
 - **Do** let Neutral carry the composition — negative space is a feature.
-- **Do** ensure contrast and crisp presentation across both White Mood and Black Mood.
 - **Don't** introduce gradients. This system is flat on purpose.
 - **Don't** mix Tertiary with alternate accents; the single-accent rule is load-bearing.

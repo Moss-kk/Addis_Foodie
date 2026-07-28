@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   Compass, 
   ArrowRight,
@@ -42,117 +43,128 @@ export default function HomePage() {
 
   return (
     <div
-      className="flex flex-col min-h-screen transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden"
+      className="relative flex flex-col min-h-screen transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden"
       style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)' }}
     >
-      
-      {/* 1. FLOATING PILL HEADER NAVIGATION */}
-      <Header />
+      {/* Subtle Visible Homepage Ambient Background Image */}
+      <div className="absolute top-0 left-0 right-0 h-[600px] pointer-events-none overflow-hidden z-0 opacity-10">
+        <Image
+          src="/images/ethiopian_feast_hero.png"
+          alt="Ambient Background Pattern"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-top filter grayscale contrast-125 mix-blend-multiply"
+        />
+      </div>
 
-      {/* 2. STADIUM HERO SECTION WITH MASTERCARD GEOMETRY */}
-      <HeroSection
-        onSearch={handleHeroSearch}
-        onExploreClick={scrollToFeed}
-      />
+      <div className="relative z-10 flex flex-col flex-1">
+        {/* 1. FLOATING HEADER NAVIGATION */}
+        <Header />
 
-      {/* MAIN HOMEPAGE CONTENT */}
-      <main className="site-container py-8 flex flex-col gap-12">
-        
-        {/* 3. HIGH-CONTRAST EVENT SPOTLIGHT BANNER (KITFO FEST, TASTE OF ADDIS, CHRISTMAS EXPO) */}
-        <section className="flex flex-col gap-4">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider" style={{ color: 'var(--accent-gold)' }}>
-            <Sparkles className="w-4 h-4" />
-            <span>EVENT SPOTLIGHT — MAJOR FESTIVAL CALENDAR</span>
-          </div>
-          <EventBanner />
-        </section>
+        {/* 2. HERITAGE HERO SECTION WITH VISIBLE BACKGROUND IMAGE */}
+        <HeroSection
+          onSearch={handleHeroSearch}
+          onExploreClick={scrollToFeed}
+        />
 
-        {/* 4. ADDIS FOODIE DELIVERY TEASER CARD (@addis.foodie.delivery) */}
-        <DeliveryTeaserCard />
-
-        {/* 5. LATEST OFFICIAL REVIEWS SECTION (STRICTLY LATEST 6 REVIEWS) */}
-        <section id="latest-reviews-section" className="flex flex-col gap-6 pt-4">
+        {/* MAIN HOMEPAGE CONTENT */}
+        <main className="site-container py-8 flex flex-col gap-12">
           
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
-            <div>
-              <div
-                className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider mb-2 border"
-                style={{
-                  backgroundColor: 'var(--accent-gold-glow)',
-                  borderColor: 'var(--border-subtle)',
-                  color: 'var(--accent-gold)',
-                }}
-              >
-                <Compass className="w-4 h-4" />
-                <span>Official Addis Foodies Curation</span>
+          {/* 3. EVENT SPOTLIGHT BANNER */}
+          <section className="flex flex-col gap-4">
+            <div className="flex items-center gap-2 text-xs font-label uppercase tracking-wider" style={{ color: 'var(--accent-tertiary)' }}>
+              <Sparkles className="w-4 h-4 text-[#B8422E]" />
+              <span>EVENT SPOTLIGHT — MAJOR FESTIVAL CALENDAR</span>
+            </div>
+            <EventBanner />
+          </section>
+
+          {/* 4. ADDIS FOODIE DELIVERY TEASER CARD */}
+          <DeliveryTeaserCard />
+
+          {/* 5. LATEST OFFICIAL REVIEWS SECTION */}
+          <section id="latest-reviews-section" className="flex flex-col gap-6 pt-4">
+            
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
+              <div>
+                <div
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-xs font-label uppercase tracking-wider mb-2 border"
+                  style={{
+                    backgroundColor: 'var(--bg-surface)',
+                    borderColor: 'var(--border-subtle)',
+                    color: 'var(--accent-tertiary)',
+                  }}
+                >
+                  <Compass className="w-4 h-4 text-[#B8422E]" />
+                  <span>Official Addis Foodies Curation</span>
+                </div>
+                <h2 className="font-display font-medium text-2xl sm:text-4xl" style={{ color: 'var(--text-primary)' }}>
+                  Latest Official Reviews
+                </h2>
+                <p className="text-xs sm:text-sm font-body pt-1" style={{ color: 'var(--text-secondary)' }}>
+                  Fresh food inspections and itemized ETB price audits published by @addis.foodie.
+                </p>
               </div>
-              <h2 className="font-display font-normal text-2xl sm:text-4xl" style={{ color: 'var(--text-primary)' }}>
-                Latest Official Reviews
-              </h2>
-              <p className="text-xs sm:text-sm font-body pt-1" style={{ color: 'var(--text-secondary)' }}>
-                Fresh food inspections and itemized ETB price audits published by @addis.foodie.
-              </p>
+
+              <Link
+                href="/reviews"
+                className="button-primary px-5 py-2.5 rounded-md text-white font-label text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 w-fit hover:scale-105"
+              >
+                <span>Explore All Reviews &amp; Reels Feed</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
-            <Link
-              href="/reviews"
-              className="touch-target px-6 py-3 rounded-full text-slate-950 font-extrabold text-xs transition-all shadow-md flex items-center gap-1.5 w-fit hover:scale-105"
-              style={{ backgroundColor: 'var(--accent-gold)' }}
-            >
-              <span>Explore All Reviews &amp; Reels Feed</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
+            {/* Grid of Latest Official Reviews (6 Items) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {latestOfficialReviews.map((post) => (
+                <ReviewCard
+                  key={post.id}
+                  post={post}
+                  onClick={() => setActivePost(post)}
+                />
+              ))}
+            </div>
 
-          {/* Grid of Latest Official Reviews (6 Items) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestOfficialReviews.map((post) => (
-              <ReviewCard
-                key={post.id}
-                post={post}
-                onClick={() => setActivePost(post)}
-              />
-            ))}
-          </div>
+            {/* View All Reviews Button Banner */}
+            <div className="flex justify-center pt-4">
+              <Link
+                href="/reviews"
+                className="button-primary px-8 py-3.5 rounded-md text-white font-label text-xs uppercase tracking-wider transition-all flex items-center gap-2 hover:scale-[1.02]"
+              >
+                <Utensils className="w-4 h-4" />
+                <span>View Full Reviews &amp; Video Reels Feed</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
 
-          {/* View All Reviews Button Banner */}
-          <div className="flex justify-center pt-4">
-            <Link
-              href="/reviews"
-              className="touch-target px-8 py-4 rounded-full text-slate-950 font-bold text-xs uppercase tracking-wider shadow-xl transition-all flex items-center gap-2 hover:scale-105"
-              style={{ backgroundColor: 'var(--accent-gold)' }}
-            >
-              <Utensils className="w-4 h-4" />
-              <span>View Full Reviews &amp; Video Reels Feed</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
+          </section>
 
-        </section>
+        </main>
 
-      </main>
+        {/* 6. FOOTER & NAVIGATION */}
+        <Footer />
+        <MobileBottomNav />
 
-      {/* 6. FOOTER & NAVIGATION */}
-      <Footer />
-      <MobileBottomNav />
+        {/* 7. INTERACTIVE AI FOODIE BOT */}
+        <AiFoodieBotModal />
 
-      {/* 7. INTERACTIVE AI FOODIE BOT */}
-      <AiFoodieBotModal />
+        {/* MODALS */}
+        {activePost && (
+          <PostDetailModal
+            post={activePost}
+            onClose={() => setActivePost(null)}
+          />
+        )}
 
-      {/* MODALS */}
-      {activePost && (
-        <PostDetailModal
-          post={activePost}
-          onClose={() => setActivePost(null)}
-        />
-      )}
-
-      {activeReceiptPost && (
-        <PriceReceiptModal
-          post={activeReceiptPost}
-          onClose={() => setActiveReceiptPost(null)}
-        />
-      )}
+        {activeReceiptPost && (
+          <PriceReceiptModal
+            post={activeReceiptPost}
+            onClose={() => setActiveReceiptPost(null)}
+          />
+        )}
+      </div>
     </div>
   );
 }
