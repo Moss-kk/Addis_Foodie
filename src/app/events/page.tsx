@@ -14,7 +14,6 @@ import {
   Sparkles, 
   ArrowRight,
   ChevronDown,
-  Award,
   Users,
   CheckCircle,
   HelpCircle,
@@ -111,13 +110,14 @@ const festivalsLineup = [
   },
 ];
 
+// Minimalist voting category link matrix
 const awardCategories = [
-  { id: 'fine-dining',    label: 'Best Fine Dining',      icon: '🍽️',  nominees: ['Yod Abyssinia', 'Monarch Rooftop', 'Habesha 2000'] },
-  { id: 'street-food',   label: 'Best Street Food',      icon: '🌮',  nominees: ['Piassa Tibs Corner', 'Merkato Sambusa', 'Shiro Mado Stall'] },
-  { id: 'coffee',        label: 'Best Coffee & Café',     icon: '☕',  nominees: ['Tomoca Coffee', 'Galani Café', 'Kaldi\'s Coffee'] },
-  { id: 'traditional',   label: 'Best Traditional Spot',  icon: '🍲',  nominees: ['Kategna Restaurant', 'Fin Fine Cultural', 'Yod Abyssinia'] },
-  { id: 'burgers',       label: 'Best Burger Joint',      icon: '🍔',  nominees: ['Titich Gourmet', 'RoadRunner Burger', 'Slam Burger'] },
-  { id: 'pastry',        label: 'Best Pastry & Sweets',   icon: '🧁',  nominees: ['Keremet Pastry', 'Enrico Pastry', 'Fornaio Café'] },
+  { id: 'best-kitfo',       label: 'Best Kitfo in Addis',       icon: '🥩', nominees: ['Yado Kitfo Special', 'Kakur Traditional', 'Kategna Restaurant'] },
+  { id: 'best-burger',      label: 'Best Gourmet Burger',       icon: '🍔', nominees: ['Titich Gourmet Burger', 'Roadrunner Burger', 'Slam Burger'] },
+  { id: 'best-cafe',        label: 'Best Coffee & Café',        icon: '☕', nominees: ['Tomoca Coffee', 'Galani Café', 'Kaldi\'s Coffee'] },
+  { id: 'best-traditional', label: 'Best Traditional Spot',     icon: '🍲', nominees: ['Yod Abyssinia', 'Fin Fine Cultural', 'Habesha 2000'] },
+  { id: 'best-street-food', label: 'Best Street Food',         icon: '🌮', nominees: ['Piassa Tibs Corner', 'Merkato Sambusa', 'Shiro Mado'] },
+  { id: 'best-pastry',      label: 'Best Pastry & Sweets',      icon: '🧁', nominees: ['Enrico Pastry', 'Keremet Pastry', 'Fornaio Café'] },
 ];
 
 export default function EventsPage() {
@@ -277,7 +277,108 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {/* 2. FAQ ACCORDION */}
+        {/* 2. MINIMALIST VOTING LINK MATRIX — ADDIS FOODIES AWARDS 2026 */}
+        <section
+          id="awards"
+          ref={awardsRef}
+          className="relative rounded-[32px] overflow-hidden text-white shadow-2xl border border-amber-500/30"
+          style={{ background: 'linear-gradient(145deg, #0B0F17, #161E2E, #0B0F17)' }}
+        >
+          <div className="p-6 sm:p-10 flex flex-col gap-6">
+            
+            {/* Clean Header Matrix Title */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-400">
+                  <Trophy className="w-6 h-6" />
+                </div>
+                <div>
+                  <h2 className="font-display font-normal text-2xl sm:text-4xl text-white">
+                    AddisFoodie <span className="text-amber-400">Awards</span> 2026
+                  </h2>
+                  <p className="text-xs text-slate-400 font-mono pt-0.5">
+                    Cast your vote • {voteCount.toLocaleString()} votes cast • Closes Sept 28
+                  </p>
+                </div>
+              </div>
+
+              <div className="px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-300 font-mono font-bold text-xs border border-amber-500/30 w-fit">
+                ⚡ LIVE VOTING LINK MATRIX
+              </div>
+            </div>
+
+            {/* Voting Category Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {awardCategories.map((cat) => {
+                const hasVoted = !!votedCategory[cat.id];
+                return (
+                  <div
+                    key={cat.id}
+                    className="rounded-2xl p-5 flex flex-col justify-between gap-4 transition-all border"
+                    style={{
+                      backgroundColor: 'rgba(255,255,255,0.03)',
+                      borderColor: hasVoted ? 'var(--accent-gold)' : 'rgba(255,255,255,0.1)',
+                    }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-2xl">{cat.icon}</span>
+                        <h3 className="font-display font-bold text-base text-white">{cat.label}</h3>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      {cat.nominees.map((nominee) => {
+                        const isSelected = votedCategory[cat.id] === nominee;
+                        return (
+                          <button
+                            key={nominee}
+                            onClick={() => {
+                              if (!hasVoted) {
+                                setVotedCategory((prev) => ({ ...prev, [cat.id]: nominee }));
+                                setVoteCount((c) => c + 1);
+                              }
+                            }}
+                            disabled={hasVoted && !isSelected}
+                            className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between gap-2 cursor-pointer"
+                            style={{
+                              backgroundColor: isSelected
+                                ? 'rgba(245,158,11,0.25)'
+                                : 'rgba(255,255,255,0.06)',
+                              border: isSelected
+                                ? '1px solid var(--accent-gold)'
+                                : '1px solid rgba(255,255,255,0.08)',
+                              color: isSelected ? '#F59E0B' : '#F8FAFC',
+                              opacity: hasVoted && !isSelected ? 0.4 : 1,
+                              cursor: hasVoted && !isSelected ? 'not-allowed' : 'pointer',
+                            }}
+                          >
+                            <span>{nominee}</span>
+                            {isSelected ? (
+                              <Star className="w-4 h-4 fill-current text-amber-400 shrink-0" />
+                            ) : !hasVoted ? (
+                              <span className="text-[11px] font-mono text-amber-400 hover:underline">Vote Now →</span>
+                            ) : null}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {hasVoted && (
+                      <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/15 text-amber-300">
+                        <CheckCircle className="w-3.5 h-3.5" />
+                        <span>Voted: {votedCategory[cat.id]}</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+          </div>
+        </section>
+
+        {/* 3. FAQ ACCORDION */}
         <section
           className="flex flex-col gap-6 p-8 rounded-3xl border shadow-card"
           style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
@@ -308,113 +409,6 @@ export default function EventsPage() {
                 )}
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* 3. VOTING CHALLENGE */}
-        <section
-          id="awards"
-          ref={awardsRef}
-          className="relative rounded-[32px] overflow-hidden text-white shadow-2xl"
-          style={{ background: 'linear-gradient(145deg, #0B0F17, #161E2E, #0B0F17)' }}
-        >
-          <div className="p-6 sm:p-10 flex flex-col gap-8">
-            <div className="flex flex-col items-center text-center gap-3">
-              <div
-                className="w-20 h-20 rounded-full flex items-center justify-center shadow-2xl border-4"
-                style={{ background: 'linear-gradient(145deg, #D97706, #F59E0B, #D97706)', borderColor: '#F59E0B' }}
-              >
-                <div className="w-14 h-14 rounded-full flex flex-col items-center justify-center bg-slate-950">
-                  <Trophy className="w-7 h-7 text-amber-400" />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <span className="text-[10px] font-mono font-black px-3 py-1 rounded-full uppercase tracking-widest bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                    🏆 LIVE VOTING OPEN
-                  </span>
-                </div>
-                <h2 className="font-display font-normal text-3xl sm:text-5xl text-white">
-                  AddisFoodie <span className="text-amber-400">Awards</span> 2026
-                </h2>
-                <p className="text-slate-400 font-body text-sm sm:text-base mt-2 max-w-lg mx-auto">
-                  Vote for your favorite restaurants in Addis Ababa and help recognize the best in the industry. Voting closes <strong className="text-white">Sept 28, 2026</strong>.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 px-5 py-2.5 rounded-full font-mono font-black text-sm border bg-amber-500/10 border-amber-500/30 text-amber-300">
-                <Users className="w-4 h-4" />
-                <span>{voteCount.toLocaleString()} votes cast</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {awardCategories.map((cat) => {
-                const hasVoted = !!votedCategory[cat.id];
-                return (
-                  <div
-                    key={cat.id}
-                    className="rounded-2xl p-5 flex flex-col gap-4 transition-all"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.04)',
-                      border: hasVoted ? '1px solid rgba(245,158,11,0.6)' : '1px solid rgba(255,255,255,0.08)',
-                    }}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">{cat.icon}</span>
-                      <h4 className="font-display font-bold text-sm text-white">{cat.label}</h4>
-                    </div>
-
-                    <div className="flex flex-col gap-2">
-                      {cat.nominees.map((nominee) => {
-                        const isSelected = votedCategory[cat.id] === nominee;
-                        return (
-                          <button
-                            key={nominee}
-                            onClick={() => {
-                              if (!hasVoted) {
-                                setVotedCategory((prev) => ({ ...prev, [cat.id]: nominee }));
-                                setVoteCount((c) => c + 1);
-                              }
-                            }}
-                            disabled={hasVoted && !isSelected}
-                            className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between gap-2 cursor-pointer"
-                            style={{
-                              backgroundColor: isSelected
-                                ? 'rgba(245,158,11,0.25)'
-                                : hasVoted
-                                ? 'rgba(255,255,255,0.03)'
-                                : 'rgba(255,255,255,0.06)',
-                              border: isSelected
-                                ? '1px solid rgba(245,158,11,0.7)'
-                                : '1px solid rgba(255,255,255,0.08)',
-                              color: isSelected ? '#F59E0B' : '#D4D1C9',
-                              opacity: hasVoted && !isSelected ? 0.45 : 1,
-                              cursor: hasVoted && !isSelected ? 'not-allowed' : 'pointer',
-                            }}
-                          >
-                            <span>{nominee}</span>
-                            {isSelected ? (
-                              <Star className="w-3.5 h-3.5 fill-current shrink-0 text-amber-400" />
-                            ) : !hasVoted ? (
-                              <ThumbsUp className="w-3.5 h-3.5 shrink-0 opacity-50" />
-                            ) : null}
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {hasVoted && (
-                      <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold px-2 py-1.5 rounded-lg bg-amber-500/15 text-amber-300">
-                        <CheckCircle className="w-3.5 h-3.5" />
-                        <span>Vote recorded for {votedCategory[cat.id]}</span>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </section>
 
