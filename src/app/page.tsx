@@ -40,12 +40,12 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF8F5] text-zinc-900 transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#0B0F17] text-[#F8FAFC] transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       
       {/* 1. HEADER NAVIGATION */}
       <Header />
 
-      {/* 2. STREAMLINED HERO SECTION WITH AUTHENTIC KITFO BACKDROP & CIRCULAR LOGO */}
+      {/* 2. STREAMLINED HERO SECTION WITH AUTHENTIC FOOD BACKDROP */}
       <HeroSection
         onSearch={handleHeroSearch}
         onExploreClick={scrollToFeed}
@@ -57,30 +57,30 @@ export default function HomePage() {
         {/* 3. LATEST FOOD REVIEWS SECTION */}
         <section id="latest-reviews-section" className="flex flex-col gap-6 pt-4">
           
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-stone-200 pb-4 gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[#1F293D] pb-4 gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E53935]/10 border border-[#E53935]/20 text-xs font-mono font-bold text-[#E53935] uppercase tracking-wider mb-2">
-                <Compass className="w-4 h-4 text-[#E53935]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#161E2E] border border-[#F59E0B]/30 text-xs font-mono font-bold text-[#F59E0B] uppercase tracking-wider mb-2">
+                <Compass className="w-4 h-4 text-[#F59E0B]" />
                 <span>Verified Culinary Reviews</span>
               </div>
-              <h2 className="font-display font-black text-2xl sm:text-4xl text-zinc-950">
+              <h2 className="font-display font-black text-2xl sm:text-4xl text-[#F8FAFC]">
                 Latest Food Reviews
               </h2>
-              <p className="text-xs sm:text-sm text-stone-600 font-medium pt-1">
+              <p className="text-xs sm:text-sm text-[#94A3B8] font-medium pt-1">
                 Fresh reviews from our community. Real food. Real experiences across Addis Ababa.
               </p>
             </div>
 
             <Link
               href="/reviews"
-              className="touch-target px-5 py-2.5 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white font-extrabold text-xs transition-all shadow-md flex items-center gap-1.5 w-fit"
+              className="touch-target px-5 py-2.5 rounded-xl bg-[#EF4444] hover:bg-[#DC2626] text-white font-extrabold text-xs transition-all shadow-md flex items-center gap-1.5 w-fit"
             >
               <span>View All Reviews</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          {/* Grid of Latest Food Reviews (Kitfo Special, Macchiato, Tibs, Burger) */}
+          {/* Grid of Latest Food Reviews */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {latestReviews.map((post) => (
               <ReviewCard
@@ -95,21 +95,21 @@ export default function HomePage() {
           <div className="flex justify-center pt-2">
             <Link
               href="/reviews"
-              className="touch-target px-8 py-3.5 rounded-2xl bg-[#111827] hover:bg-[#E53935] text-white font-black text-xs uppercase tracking-wider shadow-xl transition-all flex items-center gap-2"
+              className="touch-target px-8 py-3.5 rounded-2xl bg-[#161E2E] hover:bg-[#EF4444] border border-[#1F293D] hover:border-[#EF4444] text-white font-black text-xs uppercase tracking-wider shadow-xl transition-all flex items-center gap-2"
             >
-              <Utensils className="w-4 h-4 text-amber-300" />
-              <span>Explore All Verified Reviews & Prices</span>
+              <Utensils className="w-4 h-4 text-[#F59E0B]" />
+              <span>Explore All Verified Reviews &amp; Prices</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
         </section>
 
-        {/* 4. 1 UPCOMING EVENT PROMOTION (KITFO FEST #5) */}
+        {/* 4. UPCOMING EVENT PROMOTION (KITFO FEST #5) */}
         <section className="flex flex-col gap-4">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#E53935]">
-            <Sparkles className="w-4 h-4 text-[#FF8C00]" />
-            <span>Featured Food Event & Promotion</span>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#F59E0B]">
+            <Sparkles className="w-4 h-4 text-[#F59E0B]" />
+            <span>Featured Food Event &amp; Promotion</span>
           </div>
           <EventBanner />
         </section>

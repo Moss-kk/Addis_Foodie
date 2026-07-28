@@ -19,13 +19,12 @@ export default function Footer() {
   };
 
   return (
-    /* Footer keeps a dark editorial canvas per Design.md "Night Mode" surface */
     <footer
       className="w-full mt-16 select-none transition-colors duration-300"
       style={{
-        backgroundColor: '#121212',         /* Design.md --bg-canvas dark */
-        color: '#F9F7F3',                   /* Design.md --text-primary dark */
-        borderTop: '1px solid #2E2E2E',     /* Design.md --border-hairline dark */
+        backgroundColor: '#0B0F17',
+        color: '#F8FAFC',
+        borderTop: '1px solid #1F293D',
       }}
     >
       <div className="site-container py-12 sm:py-16 flex flex-col gap-12">
@@ -37,7 +36,7 @@ export default function Footer() {
           <div className="lg:col-span-2 flex flex-col gap-4">
             <AddisFoodieLogo diluted={false} />
 
-            <p className="text-xs sm:text-sm font-medium leading-relaxed max-w-md" style={{ color: '#A09E98' }}>
+            <p className="text-xs sm:text-sm font-medium leading-relaxed max-w-md" style={{ color: '#94A3B8' }}>
               The official digital headquarters of Addis Foodies. Ethiopia&apos;s premier food media brand, culinary magazine, and live festival organizer.
             </p>
 
@@ -46,7 +45,7 @@ export default function Footer() {
               <a
                 href="https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-gradient-to-br hover:from-pink-500 hover:to-orange-400 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-xl bg-[#161E2E] hover:bg-[#F59E0B] text-white hover:text-[#0B0F17] transition-all border border-[#1F293D] flex items-center justify-center hover:scale-105"
                 title="Instagram @addisfoodiess"
               >
                 <FaInstagram size={16} className="text-pink-400" />
@@ -54,7 +53,7 @@ export default function Footer() {
               <a
                 href="https://t.me/addisfoodies"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-sky-500 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-xl bg-[#161E2E] hover:bg-sky-500 text-white transition-all border border-[#1F293D] flex items-center justify-center hover:scale-105"
                 title="Telegram t.me/addisfoodies"
               >
                 <FaTelegramPlane size={16} className="text-sky-400" />
@@ -62,7 +61,7 @@ export default function Footer() {
               <a
                 href="https://www.tiktok.com"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-black text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-xl bg-[#161E2E] hover:bg-black text-white transition-all border border-[#1F293D] flex items-center justify-center hover:scale-105"
                 title="TikTok @addisfoodies"
               >
                 <FaTiktok size={16} className="text-white" />
@@ -70,7 +69,7 @@ export default function Footer() {
               <a
                 href="https://www.youtube.com"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-red-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-xl bg-[#161E2E] hover:bg-red-600 text-white transition-all border border-[#1F293D] flex items-center justify-center hover:scale-105"
                 title="YouTube Addis Foodies Official"
               >
                 <FaYoutube size={16} className="text-red-400" />
@@ -78,7 +77,7 @@ export default function Footer() {
               <a
                 href="https://facebook.com"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-blue-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-xl bg-[#161E2E] hover:bg-blue-600 text-white transition-all border border-[#1F293D] flex items-center justify-center hover:scale-105"
                 title="Facebook"
               >
                 <FaFacebookF size={16} className="text-blue-400" />
@@ -88,14 +87,14 @@ export default function Footer() {
             {/* Hotline & Hours */}
             <div
               className="flex flex-col gap-2 pt-2 text-xs font-mono font-bold"
-              style={{ borderTop: '1px solid #2E2E2E', color: '#A09E98' }}
+              style={{ borderTop: '1px solid #1F293D', color: '#94A3B8' }}
             >
-              <div className="flex items-center gap-2" style={{ color: '#F4A261' }}>
+              <div className="flex items-center gap-2" style={{ color: '#F59E0B' }}>
                 <Phone className="w-4 h-4" />
                 <span>Hotline: 0966-55-00-00</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4" style={{ color: '#2A9D8F' }} />
+                <Clock className="w-4 h-4" style={{ color: '#10B981' }} />
                 <span>Editorial HQ: Mon – Sat (8:30 AM – 6:30 PM EAT)</span>
               </div>
             </div>
@@ -105,11 +104,11 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <h4
               className="font-display font-extrabold text-xs uppercase tracking-widest"
-              style={{ color: '#F4A261' }}
+              style={{ color: '#F59E0B' }}
             >
               Navigation
             </h4>
-            <div className="flex flex-col gap-2.5 text-xs font-semibold" style={{ color: '#A09E98' }}>
+            <div className="flex flex-col gap-2.5 text-xs font-semibold" style={{ color: '#94A3B8' }}>
               {[
                 { href: '/', label: 'Digital HQ' },
                 { href: '/reviews', label: 'Reviews Feed' },
@@ -121,10 +120,10 @@ export default function Footer() {
                 <Link
                   key={href}
                   href={href}
-                  className="hover:text-white transition-colors flex items-center justify-between"
+                  className="hover:text-[#F59E0B] transition-colors flex items-center justify-between"
                 >
                   <span>{label}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" style={{ color: '#E63946' }} />
+                  <ArrowUpRight className="w-3.5 h-3.5" style={{ color: '#EF4444' }} />
                 </Link>
               ))}
             </div>
@@ -134,19 +133,19 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <h4
               className="font-display font-extrabold text-xs uppercase tracking-widest"
-              style={{ color: '#F4A261' }}
+              style={{ color: '#F59E0B' }}
             >
               Addis Ababa HQ
             </h4>
             <div
               className="p-3.5 rounded-2xl flex flex-col gap-2 shadow-inner"
-              style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid #2E2E2E' }}
+              style={{ backgroundColor: '#161E2E', border: '1px solid #1F293D' }}
             >
               <div className="flex items-center gap-1.5 text-xs font-bold text-white">
-                <MapPin className="w-4 h-4" style={{ color: '#E63946' }} />
+                <MapPin className="w-4 h-4" style={{ color: '#EF4444' }} />
                 <span>Bole Medhaniallem, Addis Ababa</span>
               </div>
-              <p className="text-[11px] leading-snug" style={{ color: '#A09E98' }}>
+              <p className="text-[11px] leading-snug" style={{ color: '#94A3B8' }}>
                 Edna Mall Commercial Tower, 4th Floor
               </p>
               <a
@@ -154,9 +153,9 @@ export default function Footer() {
                 target="_blank" rel="noopener noreferrer"
                 className="mt-1 px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold flex items-center justify-between border transition-colors"
                 style={{
-                  backgroundColor: 'rgba(230,57,70,0.15)',
-                  color: '#E63946',
-                  borderColor: 'rgba(230,57,70,0.35)',
+                  backgroundColor: 'rgba(245,158,11,0.15)',
+                  color: '#F59E0B',
+                  borderColor: 'rgba(245,158,11,0.35)',
                 }}
               >
                 <span>View Google Maps</span>
@@ -169,18 +168,18 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <h4
               className="font-display font-extrabold text-xs uppercase tracking-widest"
-              style={{ color: '#F4A261' }}
+              style={{ color: '#F59E0B' }}
             >
               Weekly Digest
             </h4>
-            <p className="text-xs font-medium leading-relaxed" style={{ color: '#A09E98' }}>
+            <p className="text-xs font-medium leading-relaxed" style={{ color: '#94A3B8' }}>
               Get secret food spot alerts, ETB price updates, and event tickets.
             </p>
 
             {subscribed ? (
               <div
                 className="p-3 rounded-xl text-xs font-bold border"
-                style={{ backgroundColor: 'rgba(42,157,143,0.15)', borderColor: '#2A9D8F', color: '#2A9D8F' }}
+                style={{ backgroundColor: 'rgba(16,185,129,0.15)', borderColor: '#10B981', color: '#10B981' }}
               >
                 ✓ Subscribed! Welcome to the Digest.
               </div>
@@ -192,15 +191,12 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email..."
-                  className="w-full px-3.5 py-3 text-xs rounded-xl bg-white/10 border border-white/15 text-white placeholder-stone-400 focus:outline-none transition-colors"
-                  style={{ '--tw-ring-color': '#F4A261' } as React.CSSProperties}
+                  className="w-full px-3.5 py-3 text-xs rounded-xl bg-[#161E2E] border border-[#1F293D] text-white placeholder-slate-400 focus:outline-none focus:border-[#F59E0B] transition-colors"
                 />
                 <button
                   type="submit"
-                  className="touch-target w-full text-white font-extrabold text-xs py-3 rounded-xl transition-all shadow-md cursor-pointer hover:scale-105 focus-ring"
-                  style={{ backgroundColor: '#E63946' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#C02532')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#E63946')}
+                  className="touch-target w-full text-white font-extrabold text-xs py-3 rounded-xl transition-all shadow-md cursor-pointer hover:bg-[#DC2626] focus-ring"
+                  style={{ backgroundColor: '#EF4444' }}
                 >
                   Subscribe Free
                 </button>
@@ -212,7 +208,7 @@ export default function Footer() {
         {/* Bottom Credits */}
         <div
           className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold"
-          style={{ borderTop: '1px solid #2E2E2E', color: '#A09E98' }}
+          style={{ borderTop: '1px solid #1F293D', color: '#94A3B8' }}
         >
           <p>Addis Foodies © 2026 • Official Food Media Headquarters (@addisfoodiess)</p>
           <div className="flex items-center gap-6">

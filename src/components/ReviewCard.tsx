@@ -19,23 +19,21 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
   return (
     <>
       <motion.div
-        whileHover={{ y: -6 }}
-        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        className="food-card rounded-2xl overflow-hidden flex flex-col justify-between group cursor-pointer"
         style={{
           backgroundColor: 'var(--bg-surface)',
-          border: '1px solid var(--border-hairline)',
+          borderColor: 'var(--border-subtle)',
           color: 'var(--text-primary)',
         }}
       >
         <div className="flex flex-col">
 
-          {/* LEVEL 1: DOMINANT HIGH-IMPACT PHOTOGRAPHY (4:3) */}
-          {/* Design.md: "images sit inside clean card wrappers with 100% opacity,
-              completely free of dark gradient overlays or obscure masks." */}
+          {/* MEDIA THUMBNAIL (4:3) — Clean 100% Opacity Image */}
           <div
             onClick={onClick}
-            className="relative w-full aspect-[4/3] bg-stone-900 overflow-hidden cursor-pointer"
+            className="relative w-full aspect-[4/3] bg-slate-900 overflow-hidden cursor-pointer"
           >
             <Image
               src={post.image}
@@ -46,8 +44,8 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
               loading="lazy"
             />
 
-            {/* Source Platform Badge — real brand icons */}
-            <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase text-white tracking-wider border border-white/20 flex items-center gap-1.5 shadow-md">
+            {/* Platform Tag (Top-Left) */}
+            <div className="absolute top-3 left-3 bg-[#0B0F17]/85 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-mono font-bold uppercase text-white tracking-wider border border-white/10 flex items-center gap-1.5 shadow-md">
               {post.sourcePlatform === 'telegram' ? (
                 <>
                   <FaTelegramPlane size={12} className="text-sky-400" />
@@ -61,49 +59,44 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
               )}
             </div>
 
-            {/* Rating Pill */}
+            {/* SINGLE Rating Pill Badge (Top-Right) — Warm Gold (#F59E0B) */}
             <div
-              className="absolute top-3 right-3 bg-black/80 backdrop-blur-md border px-3 py-1 rounded-full font-mono font-black text-xs flex items-center gap-1 shadow-md"
-              style={{ borderColor: 'color-mix(in srgb, var(--accent-amber) 40%, transparent)', color: 'var(--accent-amber)' }}
+              className="absolute top-3 right-3 bg-[#0B0F17]/90 backdrop-blur-md border border-[#F59E0B]/40 px-2.5 py-1 rounded-full font-mono font-black text-xs flex items-center gap-1 shadow-md"
+              style={{ color: '#F59E0B' }}
             >
-              <Star className="w-3.5 h-3.5 fill-current" />
+              <Star className="w-3.5 h-3.5 fill-current text-[#F59E0B]" />
               <span>{post.rating ? `${post.rating}/5.0` : '4.8/5.0'}</span>
             </div>
 
-            {/* Addis Foodies Watermark */}
-            <div className="absolute bottom-3 right-3 bg-black/85 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded flex flex-col items-center justify-center font-sans tracking-tight z-10 shadow-lg group-hover:border-[color:var(--accent-amber)]/60 transition-colors">
-              <div className="bg-white text-black px-1.5 py-0.5 rounded-sm text-[9px] font-black uppercase tracking-wider leading-none">
-                ADDIS
-              </div>
-              <div className="w-full h-[1.5px] my-0.5" style={{ backgroundColor: 'var(--accent-brand)' }} />
-              <div className="text-white text-[8px] font-black uppercase tracking-widest leading-none">
-                FOODIES
-              </div>
+            {/* SINGLE Price/Location Pill Badge (Bottom-Left) */}
+            <div className="absolute bottom-3 left-3 bg-[#0B0F17]/90 backdrop-blur-md border border-white/15 px-3 py-1 rounded-full text-xs font-mono font-bold text-white shadow-md flex items-center gap-1.5">
+              <span className="text-[#F59E0B] font-black">{post.priceFormatted}</span>
+              <span className="text-white/40">•</span>
+              <span className="text-slate-300 font-semibold">{post.neighborhood || post.location.split(',')[0]}</span>
             </div>
           </div>
 
           {/* CARD CONTENT BODY */}
-          <div className="p-6 flex flex-col gap-3">
+          <div className="p-5 flex flex-col gap-2.5">
 
-            {/* Reviewer Tag */}
+            {/* Reviewer Meta */}
             {post.reviewer && (
-              <div className="flex items-center gap-2 pb-2.5" style={{ borderBottom: '1px solid var(--border-hairline)' }}>
-                <div className="relative w-6 h-6 rounded-full overflow-hidden flex-shrink-0" style={{ border: '1px solid var(--border-hairline)' }}>
+              <div className="flex items-center gap-2 pb-2 border-b border-[#1F293D]">
+                <div className="relative w-5 h-5 rounded-full overflow-hidden flex-shrink-0 border border-[#1F293D]">
                   <Image
                     src={post.reviewer.avatar}
                     alt={post.reviewer.name}
                     fill
-                    sizes="24px"
+                    sizes="20px"
                     className="object-cover"
                   />
                 </div>
                 <div className="flex items-center gap-1.5 overflow-hidden">
-                  <span className="text-xs font-bold truncate" style={{ color: 'var(--text-primary)' }}>
+                  <span className="text-xs font-semibold text-slate-300 truncate">
                     {post.reviewer.name}
                   </span>
-                  {/* Design.md: verified badge uses --accent-verified (#2A9D8F) */}
                   <span
-                    className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full uppercase tracking-wider flex-shrink-0 text-white"
+                    className="text-[9px] font-black px-1.5 py-0.2 rounded-full uppercase tracking-wider text-white"
                     style={{ backgroundColor: 'var(--accent-verified)' }}
                   >
                     Verified
@@ -112,72 +105,38 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
               </div>
             )}
 
-            {/* LEVEL 1: RESTAURANT NAME */}
+            {/* RESTAURANT NAME — Clean Flex Layout, line-clamp-2 (no truncation bugs) */}
             <h3
               onClick={onClick}
-              className="font-display font-black text-[22px] leading-snug line-clamp-1 cursor-pointer transition-colors"
-              style={{ color: 'var(--text-primary)' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-brand)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+              className="font-display font-bold text-lg sm:text-xl leading-snug line-clamp-2 cursor-pointer transition-colors text-[#F8FAFC] group-hover:text-[#F59E0B]"
             >
               {post.restaurantName}
             </h3>
 
-            {/* LEVEL 2: LOCATION & NEIGHBORHOOD */}
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--accent-brand)' }} />
-              <span className="text-[15px] font-semibold" style={{ color: 'var(--accent-amber)' }}>
-                {post.location}
-              </span>
-              <span className="text-xs" style={{ color: 'var(--border-hairline)' }}>•</span>
-              <span className="text-xs font-mono font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
-                {post.category}
-              </span>
+            {/* LOCATION & CATEGORY */}
+            <div className="flex items-center gap-2 text-xs text-[#94A3B8]">
+              <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-[#F59E0B]" />
+              <span className="font-medium truncate">{post.location}</span>
+              <span>•</span>
+              <span className="font-mono font-semibold text-[#64748B] uppercase">{post.category}</span>
             </div>
 
-            {/* LEVEL 3: PRICE RANGE */}
-            <div className="flex items-center justify-between">
-              {/* Design.md: JetBrains Mono for pricing */}
-              <div className="text-[17px] font-mono font-black" style={{ color: 'var(--accent-verified)' }}>
-                {post.priceFormatted}
-              </div>
-              {post.ratings && (
-                <div
-                  className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-md"
-                  style={{ backgroundColor: 'var(--bg-inset)', color: 'var(--text-muted)' }}
-                >
-                  Taste: <span className="font-bold" style={{ color: 'var(--text-primary)' }}>{post.ratings.taste}/5</span>
-                </div>
-              )}
-            </div>
-
-            {/* LEVEL 4: REVIEW SNIPPET */}
-            <p
-              className="text-[14px] font-medium leading-relaxed line-clamp-2 pt-1"
-              style={{ color: 'var(--text-body)' }}
-            >
+            {/* REVIEW CAPTION */}
+            <p className="text-xs font-normal leading-relaxed text-[#94A3B8] line-clamp-2 pt-0.5">
               {post.caption}
             </p>
           </div>
         </div>
 
-        {/* LEVEL 5: ACTIONS BAR */}
-        <div
-          className="px-6 pb-5 pt-3 flex items-center justify-between gap-2"
-          style={{ borderTop: '1px solid var(--border-hairline)' }}
-        >
+        {/* ACTIONS FOOTER */}
+        <div className="px-5 pb-4 pt-2 flex items-center justify-between gap-2 border-t border-[#1F293D]">
           {post.menuItems && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setShowReceipt(true);
               }}
-              className="touch-target px-3 py-1.5 rounded-xl text-xs font-bold font-mono transition-all flex items-center gap-1.5 border cursor-pointer"
-              style={{
-                backgroundColor: 'color-mix(in srgb, var(--accent-amber) 10%, transparent)',
-                borderColor: 'color-mix(in srgb, var(--accent-amber) 30%, transparent)',
-                color: 'var(--accent-amber)',
-              }}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition-all flex items-center gap-1.5 border border-[#F59E0B]/30 text-[#F59E0B] bg-[#F59E0B]/10 hover:bg-[#F59E0B]/20 cursor-pointer"
             >
               <Receipt className="w-3.5 h-3.5" />
               <span>Receipt</span>
@@ -186,10 +145,7 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
 
           <button
             onClick={onClick}
-            className="touch-target px-5 py-2.5 rounded-xl text-white text-xs font-extrabold transition-all shadow-md cursor-pointer focus-ring flex items-center gap-1.5 ml-auto group-hover:scale-105"
-            style={{ backgroundColor: 'var(--accent-brand)' }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand-hover)')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand)')}
+            className="px-4 py-2 rounded-xl text-white text-xs font-extrabold transition-all shadow-md cursor-pointer flex items-center gap-1.5 ml-auto bg-[#EF4444] hover:bg-[#DC2626] focus-ring"
           >
             <span>Read Review</span>
             <ArrowUpRight className="w-4 h-4" />

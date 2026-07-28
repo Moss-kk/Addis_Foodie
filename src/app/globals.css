@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* ADDIS FOODIES — Design.md v1.0 Canonical Tokens */
-  --color-accent-brand:       #E63946;   /* Berbere Red */
-  --color-accent-brand-hover: #C02532;   /* Deep Berbere */
-  --color-accent-amber:       #F4A261;   /* Warm Gold */
-  --color-accent-verified:    #2A9D8F;   /* Muted Teal */
+  /* ADDIS FOODIES — Deep Charcoal Slate Token System */
+  --color-accent-brand:       #EF4444;   /* Brand Crimson */
+  --color-accent-brand-hover: #DC2626;   /* Deep Crimson */
+  --color-accent-gold:        #F59E0B;   /* Warm Ethiopian Honey Gold */
+  --color-accent-amber:       #F59E0B;   /* Star Ratings & Badges */
+  --color-accent-verified:    #10B981;   /* Emerald Verified Teal */
 
   /* Typography Stack */
   --font-sans:    var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
@@ -14,49 +15,71 @@
 }
 
 /* ============================================================
-   Design.md CSS Variable Tokens — Light Mode (Day / Warm Zine)
+   Design System Tokens — Deep Charcoal Slate (#0B0F17)
    ============================================================ */
 :root {
-  /* Brand Accents */
-  --accent-brand:       #E63946;
-  --accent-brand-hover: #C02532;
-  --accent-amber:       #F4A261;
-  --accent-verified:    #2A9D8F;
+  --bg-app:           #0B0F17;   /* Deep Charcoal Slate Floor */
+  --bg-canvas:        #0B0F17;   /* Unified Page Floor */
+  --bg-surface:       #161E2E;   /* Card & Modal Container Background */
+  --bg-surface-hover: #1E293B;   /* Interactive Surface Hover */
+  --bg-inset:         #1F293D;   /* Inset Chips & Filter Bars */
 
-  /* Day Mode — Warm Zine Canvas */
-  --bg-canvas:       #F9F7F3;   /* Warm Cream Page Floor */
-  --bg-surface:      #FFFFFF;   /* Food Cards & Search Surface */
-  --bg-inset:        #F2EFE9;   /* Filters, Chips, Inset Areas */
-  --text-primary:    #1A1A1A;   /* Dark Ink — Titles & Headlines */
-  --text-body:       #383838;   /* Charcoal — Review Prose */
-  --text-muted:      #6E6D6A;   /* Slate — Meta, Distances */
-  --border-hairline: #E0DDD5;   /* Subtle Cream Divider */
-  --shadow-elevation: rgba(0, 0, 0, 0.06);
+  --border-subtle:    #1F293D;   /* Card & Divider Borders */
+  --border-hairline:  #1F293D;   /* Alignment Dividers */
+  --border-active:    #374151;   /* Focused Component Borders */
+
+  --text-primary:     #F8FAFC;   /* Off-White Headings & Main Titles */
+  --text-secondary:   #94A3B8;   /* Soft Slate Subtitles & Prose */
+  --text-muted:       #64748B;   /* Metadata, Distances & Timestamps */
+
+  --accent-gold:      #F59E0B;   /* Warm Ethiopian Honey Gold */
+  --accent-amber:     #F59E0B;   /* Star Ratings & Badges */
+  --accent-gold-glow: rgba(245, 158, 11, 0.12);
+  --accent-brand:     #EF4444;   /* Brand Crimson */
+  --accent-brand-hover: #DC2626;
+  --accent-verified:  #10B981;   /* Emerald Verified Badge */
+
+  --radius-card:      12px;
+  --radius-pill:      9999px;
+  --shadow-elevation: rgba(0, 0, 0, 0.5);
 }
 
-/* ============================================================
-   Night Mode — both .dark (Tailwind) and [data-theme="dark"]
-   ============================================================ */
 .dark,
 [data-theme="dark"] {
-  --bg-canvas:       #121212;
-  --bg-surface:      #1E1E1E;
-  --bg-inset:        #2A2A2A;
-  --text-primary:    #F9F7F3;
-  --text-body:       #D4D1C9;
-  --text-muted:      #A09E98;
-  --border-hairline: #2E2E2E;
-  --accent-brand:    #FF4D5A;   /* Boosted Berbere for dark contrast */
-  --shadow-elevation: rgba(0, 0, 0, 0.4);
+  --bg-app:           #0B0F17;
+  --bg-canvas:        #0B0F17;
+  --bg-surface:       #161E2E;
+  --bg-surface-hover: #1E293B;
+  --bg-inset:         #1F293D;
+
+  --border-subtle:    #1F293D;
+  --border-hairline:  #1F293D;
+  --border-active:    #374151;
+
+  --text-primary:     #F8FAFC;
+  --text-secondary:   #94A3B8;
+  --text-muted:       #64748B;
+
+  --accent-gold:      #F59E0B;
+  --accent-amber:     #F59E0B;
+  --accent-brand:     #EF4444;
+  --accent-brand-hover: #DC2626;
+  --accent-verified:  #10B981;
 }
 
 /* ============================================================
-   Global Base
+   Global Base & Reset
    ============================================================ */
+html {
+  background-color: #0B0F17;
+  color-scheme: dark;
+}
+
 body {
-  background-color: var(--bg-canvas);
+  background-color: var(--bg-app);
   color: var(--text-primary);
   font-family: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -66,15 +89,6 @@ body {
 /* ============================================================
    Layout Utilities
    ============================================================ */
-.full-bleed {
-  width: 100%;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-}
-
 .site-container {
   width: 100%;
   max-width: 1440px;
@@ -98,19 +112,12 @@ body {
   }
 }
 
-@media (min-width: 1440px) {
-  .site-container {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-}
-
 /* ============================================================
-   Accessibility
+   Accessibility & Interactive Classes
    ============================================================ */
 .touch-target {
-  min-height: 48px;
-  min-width: 48px;
+  min-height: 44px;
+  min-width: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -120,70 +127,29 @@ body {
   outline: none;
 }
 .focus-ring:focus-visible {
-  outline: 2px solid var(--accent-amber);
+  outline: 2px solid var(--accent-gold);
   outline-offset: 2px;
 }
 
 /* ============================================================
-   Surface & Card Helpers
+   Card Component Styles
    ============================================================ */
-.glass-panel {
-  background-color: var(--bg-surface);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-/* Design.md: "Food photography sits inside clean card wrappers with 100% opacity" */
 .food-card {
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-hairline);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
   box-shadow: 0 4px 20px -6px var(--shadow-elevation);
-  transition: all 0.3s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .food-card:hover {
-  border-color: color-mix(in srgb, var(--accent-brand) 30%, transparent);
-  box-shadow: 0 12px 32px -8px color-mix(in srgb, var(--accent-brand) 15%, transparent);
-  transform: translateY(-4px);
+  background-color: var(--bg-surface-hover);
+  border-color: var(--border-active);
+  transform: translateY(-3px);
 }
 
-/* Legacy alias — keep for existing components */
-.flame-card {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-hairline);
-  box-shadow: 0 10px 30px -10px var(--shadow-elevation);
-  transition: all 0.3s ease;
-}
-
-.flame-card:hover {
-  border-color: color-mix(in srgb, var(--accent-brand) 30%, transparent);
-  box-shadow: 0 15px 35px -10px color-mix(in srgb, var(--accent-brand) 15%, transparent);
-}
-
-/* ============================================================
-   Scrollbar
-   ============================================================ */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* ============================================================
-   Animations
-   ============================================================ */
-@keyframes kenburns {
-  0%   { transform: scale(1); }
-  100% { transform: scale(1.12); }
-}
-.animate-kenburns {
-  animation: kenburns 24s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
-}
-
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-.animate-spin-slow {
-  animation: spin-slow 18s linear infinite;
 }

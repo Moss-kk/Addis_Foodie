@@ -53,22 +53,22 @@ export default function ReviewsPage() {
   }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF8F5] text-zinc-900 transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#0B0F17] text-[#F8FAFC] transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
       {/* Page Header */}
-      <section className="w-full bg-white border-b border-stone-200 py-10 sm:py-14 transition-colors">
+      <section className="w-full bg-[#0B0F17] border-b border-[#1F293D] py-10 sm:py-14 transition-colors">
         <div className="site-container flex flex-col gap-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-200 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#E53935]">
-            <Tag className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#161E2E] border border-[#F59E0B]/30 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B]">
+            <Tag className="w-3.5 h-3.5 text-[#F59E0B]" />
             <span>Curated Review Archive</span>
           </div>
 
-          <h1 className="font-display font-black text-3xl sm:text-5xl text-zinc-950">
-            Foodie Reviews & Itemized Price Audits
+          <h1 className="font-display font-black text-3xl sm:text-5xl text-[#F8FAFC]">
+            Foodie Reviews &amp; Itemized Price Audits
           </h1>
 
-          <p className="text-sm text-stone-600 font-medium max-w-2xl">
+          <p className="text-sm text-[#94A3B8] font-medium max-w-2xl">
             Explore verified restaurant reviews, street food gems, and price breakdowns across Bole, Kazanchis, Piassa, and Sarbet.
           </p>
         </div>
@@ -99,10 +99,10 @@ export default function ReviewsPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-white border border-stone-200 p-12 rounded-3xl text-center flex flex-col items-center gap-4 my-8 shadow-xs">
-            <Sparkles className="w-10 h-10 text-[#FF8C00]" />
-            <h3 className="font-display font-black text-xl text-zinc-900">No reviews found matching your search</h3>
-            <p className="text-xs text-zinc-600">Try clearing filters or searching for different food items</p>
+          <div className="bg-[#161E2E] border border-[#1F293D] p-12 rounded-3xl text-center flex flex-col items-center gap-4 my-8 shadow-xs">
+            <Sparkles className="w-10 h-10 text-[#F59E0B]" />
+            <h3 className="font-display font-black text-xl text-[#F8FAFC]">No reviews found matching your search</h3>
+            <p className="text-xs text-[#94A3B8]">Try clearing filters or searching for different food items</p>
             <button
               onClick={() => {
                 setSearchQuery('');
@@ -110,7 +110,7 @@ export default function ReviewsPage() {
                 setSelectedCategory(null);
                 setSelectedPriceRange(null);
               }}
-              className="px-5 py-2.5 rounded-xl bg-[#E53935] text-white text-xs font-bold shadow-md hover:bg-[#B71C1C]"
+              className="px-5 py-2.5 rounded-xl bg-[#EF4444] text-white text-xs font-bold shadow-md hover:bg-[#DC2626]"
             >
               Reset All Filters
             </button>
