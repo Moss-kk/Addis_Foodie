@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Phone, ArrowUpRight, MapPin, Clock } from 'lucide-react';
-import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube, FaFacebookF } from 'react-icons/fa';
+import { Phone, ArrowUpRight, MapPin, Clock, Smartphone } from 'lucide-react';
+import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube, FaFacebookF, FaGooglePlay, FaApple } from 'react-icons/fa';
 import AddisFoodieLogo from './ui/AddisFoodieLogo';
 
 export default function Footer() {
@@ -183,7 +183,52 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Credits */}
+        {/* APP DOWNLOAD SECTION AT THE VERY BOTTOM OF THE FOOTER (BELOW ALL COLUMNS) */}
+        <div className="pt-8 border-t border-[#2A2E33] flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-sm bg-[#B8422E] text-white flex items-center justify-center font-label font-bold text-lg shadow-xs">
+              <Smartphone className="w-5 h-5 text-white" />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="font-label font-bold text-xs uppercase tracking-wider text-[#F7F5F2]">
+                @addis.foodie.delivery App
+              </span>
+              <span className="text-[11px] font-body text-[#9DA3A8]">
+                Download our official food delivery app for Bole, Kazanchis, Piassa &amp; Sarbet.
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="https://play.google.com"
+              target="_blank"
+              rel="noreferrer"
+              className="touch-target px-4 py-2.5 rounded-sm bg-white text-[#1A1C1E] font-label font-bold text-xs transition-all flex items-center gap-2 hover:bg-slate-100 cursor-pointer shadow-xs"
+            >
+              <FaGooglePlay className="w-4 h-4 text-[#1A1C1E]" />
+              <div className="flex flex-col text-left leading-none">
+                <span className="text-[8px] font-label uppercase text-slate-600">GET IT ON</span>
+                <span className="text-xs font-label">Google Play</span>
+              </div>
+            </a>
+
+            <a
+              href="https://apple.com"
+              target="_blank"
+              rel="noreferrer"
+              className="touch-target px-4 py-2.5 rounded-sm bg-white/10 hover:bg-white/20 text-white font-label font-bold text-xs border border-white/20 transition-all flex items-center gap-2 cursor-pointer backdrop-blur-md"
+            >
+              <FaApple className="w-4 h-4 text-white" />
+              <div className="flex flex-col text-left leading-none">
+                <span className="text-[8px] font-label uppercase text-slate-400">Download on the</span>
+                <span className="text-xs font-label">App Store</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom Copyright & Legal Links */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold border-t border-[#2A2E33] text-[#9DA3A8]">
           <p>Addis Foodies © 2026 • Official Digital Food Guide (@addis.foodie &amp; @addis.foodie.delivery)</p>
           <div className="flex items-center gap-6">
