@@ -63,7 +63,10 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF8F5] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div
+      className="flex flex-col min-h-screen transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden"
+      style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)' }}
+    >
       <Header />
 
       <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-12">
@@ -72,24 +75,25 @@ export default function ServicesPage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 dark:text-stone-300 hover:text-[#E53935] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold hover:text-amber-500 transition-colors cursor-pointer"
+            style={{ color: 'var(--text-muted)' }}
           >
-            <svg className="w-4 h-4 text-[#E53935]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+            <svg className="w-4 h-4" style={{ color: 'var(--accent-gold)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             <span>Back to Discovery Feed</span>
           </Link>
         </div>
 
-        {/* Hero Section */}
-        <div className="bg-[#111827] text-white py-14 px-8 sm:px-14 rounded-3xl flex flex-col gap-4 shadow-xl border border-white/10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-[#FF8C00]">
+        {/* Hero Section (Stadium Geometry 40px) */}
+        <div className="bg-[#161E2E] text-white py-14 px-8 sm:px-14 rounded-[40px] flex flex-col gap-4 shadow-2xl border border-slate-700/80">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 w-fit text-[11px] font-mono font-bold uppercase tracking-widest text-amber-400">
             💼 B2B Commercial Services &amp; Media Rates
           </div>
-          <h1 className="font-display font-black text-3xl sm:text-5xl text-white tracking-tight leading-tight">
+          <h1 className="font-display font-normal text-3xl sm:text-5xl text-white tracking-tight leading-tight">
             Partner With Ethiopia’s Top Food Review Brand
           </h1>
-          <p className="text-stone-200 font-medium text-sm sm:text-lg max-w-3xl">
+          <p className="text-slate-300 font-body text-sm sm:text-lg max-w-3xl">
             Amplify your restaurant launch, menu feature, or food festival to over 150,000 active foodies across Addis Ababa.
           </p>
         </div>
@@ -97,13 +101,13 @@ export default function ServicesPage() {
         {/* Promotional Rate Packages */}
         <section className="flex flex-col gap-6">
           <div className="text-center flex flex-col items-center gap-2 max-w-2xl mx-auto">
-            <span className="text-xs font-mono font-black text-[#E53935] uppercase tracking-widest">
+            <span className="text-xs font-mono font-black uppercase tracking-widest" style={{ color: 'var(--accent-gold)' }}>
               Standard Rate Cards
             </span>
-            <h2 className="font-display font-black text-2xl sm:text-4xl text-zinc-950 dark:text-white">
+            <h2 className="font-display font-normal text-2xl sm:text-4xl" style={{ color: 'var(--text-primary)' }}>
               Choose Your Media Campaign
             </h2>
-            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-medium">
+            <p className="text-xs sm:text-sm font-body" style={{ color: 'var(--text-secondary)' }}>
               Transparent rate pricing in Ethiopian Birr (ETB) with clear deliverable guarantees.
             </p>
           </div>
@@ -112,37 +116,37 @@ export default function ServicesPage() {
             {packages.map((pkg, idx) => (
               <div
                 key={idx}
-                className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between gap-6 transition-all duration-300 ${
-                  pkg.featured
-                    ? 'bg-[#111827] text-white border-2 border-[#E53935] shadow-xl scale-[1.02]'
-                    : 'bg-white dark:bg-[#161E2E] text-zinc-900 dark:text-white border border-stone-200 dark:border-stone-800 shadow-xs hover:shadow-lg'
-                }`}
+                className="rounded-3xl p-6 sm:p-8 flex flex-col justify-between gap-6 transition-all duration-300 border shadow-card"
+                style={{
+                  backgroundColor: pkg.featured ? '#161E2E' : 'var(--bg-surface)',
+                  color: pkg.featured ? '#ffffff' : 'var(--text-primary)',
+                  borderColor: pkg.featured ? 'var(--accent-gold)' : 'var(--border-subtle)',
+                }}
               >
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-between">
                     <span
-                      className={`text-[10px] font-mono font-black px-3 py-1 rounded-full ${
-                        pkg.featured ? 'bg-[#E53935] text-white' : 'bg-amber-50 dark:bg-amber-950/50 text-[#B71C1C] dark:text-amber-300 border border-amber-200 dark:border-amber-800'
-                      }`}
+                      className="text-[10px] font-mono font-black px-3.5 py-1 rounded-full text-slate-950"
+                      style={{ backgroundColor: 'var(--accent-gold)' }}
                     >
                       {pkg.badge}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="font-display font-black text-xl">{pkg.name}</h3>
-                    <p className="text-xs opacity-75 font-medium pt-1">{pkg.description}</p>
+                    <h3 className="font-display font-bold text-xl">{pkg.name}</h3>
+                    <p className="text-xs opacity-80 font-body pt-1">{pkg.description}</p>
                   </div>
 
-                  <div className="py-2 border-y border-stone-200 dark:border-stone-800">
-                    <span className="font-mono font-black text-2xl text-[#E53935]">{pkg.price}</span>
+                  <div className="py-2 border-y" style={{ borderColor: 'var(--border-subtle)' }}>
+                    <span className="font-mono font-black text-2xl" style={{ color: 'var(--accent-gold)' }}>{pkg.price}</span>
                     <span className="text-xs block opacity-60 font-mono">{pkg.duration}</span>
                   </div>
 
                   <ul className="flex flex-col gap-2 pt-2 text-xs font-semibold">
                     {pkg.features.map((feat, fIdx) => (
                       <li key={fIdx} className="flex items-start gap-2">
-                        <span className="text-[#E53935]">✓</span>
+                        <span style={{ color: 'var(--accent-gold)' }}>✓</span>
                         <span className="opacity-90">{feat}</span>
                       </li>
                     ))}
@@ -151,7 +155,8 @@ export default function ServicesPage() {
 
                 <Link
                   href="/collaborate"
-                  className="touch-target w-full py-3 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white text-xs font-black uppercase tracking-wider text-center shadow-md transition-colors"
+                  className="touch-target w-full py-3.5 rounded-full text-slate-950 font-extrabold text-xs uppercase tracking-wider text-center shadow-md transition-all cursor-pointer hover:scale-105"
+                  style={{ backgroundColor: 'var(--accent-gold)' }}
                 >
                   {pkg.ctaText}
                 </Link>

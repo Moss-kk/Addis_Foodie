@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { 
   Calendar, 
   Clock, 
@@ -59,12 +58,12 @@ function CountdownTimer() {
       ].map((item, i) => (
         <div
           key={i}
-          className="bg-[#1A100C]/90 backdrop-blur-md border border-[#E53935]/40 rounded-2xl p-2.5 sm:p-3 text-center flex flex-col items-center justify-center shadow-lg"
+          className="bg-slate-950/90 backdrop-blur-md border border-amber-500/40 rounded-2xl p-2.5 sm:p-3 text-center flex flex-col items-center justify-center shadow-lg"
         >
-          <span className="font-display font-black text-2xl sm:text-4xl text-amber-300 font-mono">
+          <span className="font-display font-bold text-2xl sm:text-4xl text-amber-400 font-mono">
             {String(item.value).padStart(2, '0')}
           </span>
-          <span className="text-[9px] sm:text-[10px] font-mono font-bold text-zinc-400 tracking-wider">
+          <span className="text-[9px] sm:text-[10px] font-mono font-bold text-slate-400 tracking-wider">
             {item.label}
           </span>
         </div>
@@ -73,7 +72,6 @@ function CountdownTimer() {
   );
 }
 
-// Additional Festivals Roster using Telegram imported images
 const festivalsLineup = [
   {
     id: 'kitfo-fest-2026',
@@ -113,7 +111,6 @@ const festivalsLineup = [
   },
 ];
 
-// Award categories for voting
 const awardCategories = [
   { id: 'fine-dining',    label: 'Best Fine Dining',      icon: '🍽️',  nominees: ['Yod Abyssinia', 'Monarch Rooftop', 'Habesha 2000'] },
   { id: 'street-food',   label: 'Best Street Food',      icon: '🌮',  nominees: ['Piassa Tibs Corner', 'Merkato Sambusa', 'Shiro Mado Stall'] },
@@ -138,7 +135,10 @@ export default function EventsPage() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF8F5] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div
+      className="flex flex-col min-h-screen transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden"
+      style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)' }}
+    >
       <Header />
 
       <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-12">
@@ -147,51 +147,53 @@ export default function EventsPage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-500 hover:text-[#E53935] transition-colors"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-500 hover:text-amber-500 transition-colors"
           >
-            <ArrowRight className="w-4 h-4 rotate-180 text-[#E53935]" />
-            <span>Back to Digital Headquarters</span>
+            <ArrowRight className="w-4 h-4 rotate-180" style={{ color: 'var(--accent-gold)' }} />
+            <span>Back to Discovery Feed</span>
           </Link>
         </div>
 
-        {/* 1. KITFO FEST 2026 MEGA HERO HUB */}
-        <section className="relative w-full rounded-3xl overflow-hidden bg-[#111827] border-2 border-[#E53935] text-white shadow-2xl p-6 sm:p-12 flex flex-col gap-8">
+        {/* 1. KITFO FEST 2026 MEGA HERO HUB (Mastercard Stadium 40px Geometry) */}
+        <section className="relative w-full rounded-[40px] overflow-hidden bg-slate-950 border-2 border-amber-500/40 text-white shadow-2xl p-6 sm:p-12 flex flex-col gap-8">
           
-          {/* Background Photography & Overlay */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <Image
               src="/telegram-imports/Yado kitfo.jpg"
               alt="Kitfo Fest 2026 Showcase"
               fill
-              className="object-cover opacity-25 brightness-50"
+              className="object-cover opacity-30 brightness-75"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#111827] via-[#111827]/90 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent" />
           </div>
 
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
             
             <div className="flex flex-col gap-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E53935] text-white font-mono font-black text-xs uppercase tracking-widest w-fit shadow-md">
-                <Ticket className="w-4 h-4 text-amber-300 animate-bounce" />
+              <div
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-mono font-bold text-xs uppercase tracking-widest w-fit shadow-md text-slate-950"
+                style={{ backgroundColor: 'var(--accent-gold)' }}
+              >
+                <Ticket className="w-4 h-4 text-slate-950 animate-bounce" />
                 <span>OFFICIAL FLAGSHIP FESTIVAL 2026</span>
               </div>
 
-              <h1 className="font-display font-black text-4xl sm:text-6xl tracking-tight leading-none text-white">
+              <h1 className="font-display font-normal text-4xl sm:text-6xl tracking-tight leading-none text-white">
                 KITFO FEST 2026
               </h1>
 
-              <div className="flex items-center gap-2 text-[#FF8C00] font-display font-bold text-lg">
-                <MapPin className="w-5 h-5 text-[#E53935]" />
+              <div className="flex items-center gap-2 text-amber-400 font-display font-bold text-lg">
+                <MapPin className="w-5 h-5 text-amber-500" />
                 <span>Monarch Hotel Rooftop • Piassa, Tewdros Square</span>
               </div>
 
-              <p className="text-stone-300 font-medium text-sm sm:text-base leading-relaxed">
+              <p className="text-slate-300 font-body text-sm sm:text-base leading-relaxed">
                 Join 10,000+ food lovers for Ethiopia's largest celebration of Kitfo, authentic Habesha spices, craft Areke, and live cultural entertainment.
               </p>
 
               {/* Countdown Timer */}
               <div className="pt-2">
-                <span className="text-xs font-mono font-bold text-[#FF8C00] uppercase tracking-wider block mb-1">
+                <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider block mb-1">
                   ⏳ EVENT COUNTDOWN TIMER:
                 </span>
                 <CountdownTimer />
@@ -201,17 +203,18 @@ export default function EventsPage() {
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <button
                   onClick={() => setReserved(true)}
-                  className="touch-target bg-[#E53935] hover:bg-[#B71C1C] text-white font-extrabold text-sm py-4 px-8 rounded-xl shadow-xl transition-all hover:scale-105 flex items-center gap-2 focus-ring cursor-pointer"
+                  className="touch-target text-slate-950 font-extrabold text-xs uppercase tracking-wider py-4 px-8 rounded-full shadow-xl transition-all hover:scale-105 flex items-center gap-2 cursor-pointer"
+                  style={{ backgroundColor: 'var(--accent-gold)' }}
                 >
-                  <Ticket className="w-4 h-4 text-amber-200" />
+                  <Ticket className="w-4 h-4 text-slate-950" />
                   <span>Reserve Free Pass</span>
                 </button>
 
                 <a
                   href="tel:0966550000"
-                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-bold text-sm py-4 px-6 rounded-xl border border-white/20 transition-all flex items-center gap-2"
+                  className="touch-target bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider py-4 px-6 rounded-full border border-white/20 transition-all flex items-center gap-2 backdrop-blur-md"
                 >
-                  <Phone className="w-4 h-4 text-[#FF8C00]" />
+                  <Phone className="w-4 h-4 text-amber-400" />
                   <span>Hotline: 0966-55-00-00</span>
                 </a>
               </div>
@@ -227,13 +230,13 @@ export default function EventsPage() {
             {/* Event Key Details Card */}
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 flex flex-col gap-4 max-w-md w-full shadow-2xl">
               <h3 className="font-display font-bold text-lg text-white border-b border-white/10 pb-2 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#FF8C00]" />
+                <Sparkles className="w-4 h-4 text-amber-400" />
                 <span>Festival Schedule & Details</span>
               </h3>
 
-              <div className="flex flex-col gap-3 text-xs font-medium text-stone-300">
+              <div className="flex flex-col gap-3 text-xs font-medium text-slate-300">
                 <div className="flex items-start gap-2.5">
-                  <Calendar className="w-4 h-4 text-[#FF8C00] shrink-0 mt-0.5" />
+                  <Calendar className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold text-white block">Dates & Season:</span>
                     <span>Meskerem 19 & 20 | Sep 30 & Oct 01</span>
@@ -241,7 +244,7 @@ export default function EventsPage() {
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <Clock className="w-4 h-4 text-[#FF8C00] shrink-0 mt-0.5" />
+                  <Clock className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold text-white block">Operating Hours:</span>
                     <span>11:00 AM till 11:00 PM Daily</span>
@@ -249,7 +252,7 @@ export default function EventsPage() {
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <UtensilsCrossed className="w-4 h-4 text-[#FF8C00] shrink-0 mt-0.5" />
+                  <UtensilsCrossed className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold text-white block">Featured Vendors:</span>
                     <span>Kategna, Yod Abyssinia, Monarch Rooftop, Fin Fine</span>
@@ -257,7 +260,7 @@ export default function EventsPage() {
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <Music className="w-4 h-4 text-[#FF8C00] shrink-0 mt-0.5" />
+                  <Music className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold text-white block">Live Entertainment:</span>
                     <span>Gurage Cultural Dancers, Masinko Solo, DJ Lineup</span>
@@ -265,7 +268,7 @@ export default function EventsPage() {
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs font-mono font-bold text-[#FF8C00]">
+              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs font-mono font-bold text-amber-400">
                 <span>Entrance: FREE</span>
                 <span>Organized by @addisfoodiess</span>
               </div>
@@ -274,11 +277,14 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {/* 2. FAQ ACCORDION FOR KITFO FEST */}
-        <section className="flex flex-col gap-6 bg-white dark:bg-[#1E1E1E] p-8 rounded-3xl border border-stone-200/80 dark:border-stone-800 shadow-xs">
+        {/* 2. FAQ ACCORDION */}
+        <section
+          className="flex flex-col gap-6 p-8 rounded-3xl border shadow-card"
+          style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+        >
           <div className="flex items-center gap-2">
-            <HelpCircle className="w-5 h-5 text-[#E53935]" />
-            <h2 className="font-display font-black text-2xl text-zinc-900 dark:text-[#FFF8F6]">
+            <HelpCircle className="w-5 h-5" style={{ color: 'var(--accent-gold)' }} />
+            <h2 className="font-display font-normal text-2xl" style={{ color: 'var(--text-primary)' }}>
               Kitfo Fest 2026 FAQ
             </h2>
           </div>
@@ -288,14 +294,15 @@ export default function EventsPage() {
               <div
                 key={idx}
                 onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                className="cursor-pointer border border-stone-200/80 dark:border-stone-800 rounded-2xl p-4 transition-all hover:border-[#E53935]/40"
+                className="cursor-pointer border rounded-2xl p-4 transition-all hover:border-amber-500/40"
+                style={{ borderColor: 'var(--border-subtle)' }}
               >
-                <div className="flex items-center justify-between font-display font-bold text-sm text-zinc-900 dark:text-[#FFF8F6]">
+                <div className="flex items-center justify-between font-display font-bold text-sm" style={{ color: 'var(--text-primary)' }}>
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-4 h-4 text-[#FF8C00] transition-transform ${activeFaq === idx ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-amber-500 transition-transform ${activeFaq === idx ? 'rotate-180' : ''}`} />
                 </div>
                 {activeFaq === idx && (
-                  <p className="text-xs text-stone-600 dark:text-[#D4D1C9] leading-relaxed pt-2 font-medium">
+                  <p className="text-xs font-body pt-2" style={{ color: 'var(--text-secondary)' }}>
                     {faq.a}
                   </p>
                 )}
@@ -304,67 +311,44 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {/* 3. ADDISFOODIE AWARDS — VOTING CHALLENGE */}
+        {/* 3. VOTING CHALLENGE */}
         <section
           id="awards"
           ref={awardsRef}
-          className="relative rounded-3xl overflow-hidden text-white shadow-2xl"
-          style={{ background: 'linear-gradient(145deg, #0d0d0d, #1a0a00, #0d0d0d)' }}
+          className="relative rounded-[32px] overflow-hidden text-white shadow-2xl"
+          style={{ background: 'linear-gradient(145deg, #0B0F17, #161E2E, #0B0F17)' }}
         >
-          {/* Gold shimmer top border */}
-          <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: 'linear-gradient(90deg, transparent, #C9A84C, #F5D78A, #C9A84C, transparent)' }} />
-
           <div className="p-6 sm:p-10 flex flex-col gap-8">
-
-            {/* Header */}
             <div className="flex flex-col items-center text-center gap-3">
-              {/* Medal icon matching the awards image */}
               <div
                 className="w-20 h-20 rounded-full flex items-center justify-center shadow-2xl border-4"
-                style={{ background: 'linear-gradient(145deg, #8B6914, #C9A84C, #F5D78A, #C9A84C, #8B6914)', borderColor: '#C9A84C' }}
+                style={{ background: 'linear-gradient(145deg, #D97706, #F59E0B, #D97706)', borderColor: '#F59E0B' }}
               >
-                <div
-                  className="w-14 h-14 rounded-full flex flex-col items-center justify-center"
-                  style={{ backgroundColor: '#0d0d0d' }}
-                >
-                  <Trophy className="w-7 h-7" style={{ color: '#F5D78A' }} />
+                <div className="w-14 h-14 rounded-full flex flex-col items-center justify-center bg-slate-950">
+                  <Trophy className="w-7 h-7 text-amber-400" />
                 </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-center gap-2 mb-2">
-                  <span
-                    className="text-[10px] font-mono font-black px-3 py-1 rounded-full uppercase tracking-widest"
-                    style={{ backgroundColor: 'rgba(201,168,76,0.2)', color: '#F5D78A', border: '1px solid rgba(201,168,76,0.4)' }}
-                  >
+                  <span className="text-[10px] font-mono font-black px-3 py-1 rounded-full uppercase tracking-widest bg-amber-500/20 text-amber-300 border border-amber-500/40">
                     🏆 LIVE VOTING OPEN
                   </span>
                 </div>
-                <h2 className="font-display font-black text-3xl sm:text-5xl tracking-tight text-white">
-                  AddisFoodie <span style={{ color: '#F5D78A' }}>Awards</span> 2026
+                <h2 className="font-display font-normal text-3xl sm:text-5xl text-white">
+                  AddisFoodie <span className="text-amber-400">Awards</span> 2026
                 </h2>
-                <p className="text-stone-400 font-medium text-sm sm:text-base mt-2 max-w-lg mx-auto">
+                <p className="text-slate-400 font-body text-sm sm:text-base mt-2 max-w-lg mx-auto">
                   Vote for your favorite restaurants in Addis Ababa and help recognize the best in the industry. Voting closes <strong className="text-white">Sept 28, 2026</strong>.
                 </p>
               </div>
 
-              {/* Live vote counter */}
-              <div
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full font-mono font-black text-sm border"
-                style={{ backgroundColor: 'rgba(201,168,76,0.12)', borderColor: 'rgba(201,168,76,0.35)', color: '#F5D78A' }}
-              >
+              <div className="flex items-center gap-2 px-5 py-2.5 rounded-full font-mono font-black text-sm border bg-amber-500/10 border-amber-500/30 text-amber-300">
                 <Users className="w-4 h-4" />
                 <span>{voteCount.toLocaleString()} votes cast</span>
               </div>
             </div>
 
-            {/* Category label */}
-            <div className="text-center">
-              <h3 className="font-display font-bold text-lg text-white mb-1">Categories</h3>
-              <p className="text-xs text-stone-400">Vote across multiple categories including Fine Dining, Cafés, and Street Food.</p>
-            </div>
-
-            {/* Voting Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {awardCategories.map((cat) => {
                 const hasVoted = !!votedCategory[cat.id];
@@ -374,12 +358,12 @@ export default function EventsPage() {
                     className="rounded-2xl p-5 flex flex-col gap-4 transition-all"
                     style={{
                       backgroundColor: 'rgba(255,255,255,0.04)',
-                      border: hasVoted ? '1px solid rgba(201,168,76,0.6)' : '1px solid rgba(255,255,255,0.08)',
+                      border: hasVoted ? '1px solid rgba(245,158,11,0.6)' : '1px solid rgba(255,255,255,0.08)',
                     }}
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">{cat.icon}</span>
-                      <h4 className="font-display font-black text-sm text-white">{cat.label}</h4>
+                      <h4 className="font-display font-bold text-sm text-white">{cat.label}</h4>
                     </div>
 
                     <div className="flex flex-col gap-2">
@@ -398,21 +382,21 @@ export default function EventsPage() {
                             className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between gap-2 cursor-pointer"
                             style={{
                               backgroundColor: isSelected
-                                ? 'rgba(201,168,76,0.25)'
+                                ? 'rgba(245,158,11,0.25)'
                                 : hasVoted
                                 ? 'rgba(255,255,255,0.03)'
                                 : 'rgba(255,255,255,0.06)',
                               border: isSelected
-                                ? '1px solid rgba(201,168,76,0.7)'
+                                ? '1px solid rgba(245,158,11,0.7)'
                                 : '1px solid rgba(255,255,255,0.08)',
-                              color: isSelected ? '#F5D78A' : '#D4D1C9',
+                              color: isSelected ? '#F59E0B' : '#D4D1C9',
                               opacity: hasVoted && !isSelected ? 0.45 : 1,
                               cursor: hasVoted && !isSelected ? 'not-allowed' : 'pointer',
                             }}
                           >
                             <span>{nominee}</span>
                             {isSelected ? (
-                              <Star className="w-3.5 h-3.5 fill-current shrink-0" style={{ color: '#F5D78A' }} />
+                              <Star className="w-3.5 h-3.5 fill-current shrink-0 text-amber-400" />
                             ) : !hasVoted ? (
                               <ThumbsUp className="w-3.5 h-3.5 shrink-0 opacity-50" />
                             ) : null}
@@ -422,10 +406,7 @@ export default function EventsPage() {
                     </div>
 
                     {hasVoted && (
-                      <div
-                        className="flex items-center gap-1.5 text-[11px] font-mono font-bold px-2 py-1.5 rounded-lg"
-                        style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#F5D78A' }}
-                      >
+                      <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold px-2 py-1.5 rounded-lg bg-amber-500/15 text-amber-300">
                         <CheckCircle className="w-3.5 h-3.5" />
                         <span>Vote recorded for {votedCategory[cat.id]}</span>
                       </div>
@@ -434,33 +415,17 @@ export default function EventsPage() {
                 );
               })}
             </div>
-
-            {/* CTA */}
-            <div className="text-center flex flex-col items-center gap-3">
-              <p className="text-xs text-stone-400 font-mono">
-                Winners announced at Kitfo Fest 2026 — Monarch Hotel Rooftop
-              </p>
-              <Link
-                href="/collaborate"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-extrabold text-sm transition-all hover:scale-105 shadow-xl"
-                style={{ background: 'linear-gradient(90deg, #8B6914, #C9A84C)', color: '#0d0d0d' }}
-              >
-                <Award className="w-4 h-4" />
-                <span>Nominate a Restaurant</span>
-              </Link>
-            </div>
-
           </div>
         </section>
 
         {/* 4. UPCOMING FOOD FESTIVALS ROSTER */}
         <section className="flex flex-col gap-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-200 dark:border-stone-800 pb-3 gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-3 gap-2" style={{ borderColor: 'var(--border-subtle)' }}>
             <div>
-              <h2 className="font-display font-black text-2xl sm:text-3xl text-zinc-900 dark:text-[#FFF8F6]">
+              <h2 className="font-display font-normal text-2xl sm:text-3xl" style={{ color: 'var(--text-primary)' }}>
                 2026 - 2027 Food Festival Calendar
               </h2>
-              <p className="text-xs text-stone-600 dark:text-stone-300 font-medium pt-1">
+              <p className="text-xs font-body pt-1" style={{ color: 'var(--text-secondary)' }}>
                 Annual gastronomic gatherings organized by Addis Foodies Media Hub
               </p>
             </div>
@@ -470,9 +435,10 @@ export default function EventsPage() {
             {festivalsLineup.map((item) => (
               <div
                 key={item.id}
-                className="group bg-white dark:bg-[#1E1E1E] border border-stone-200/80 dark:border-stone-800 rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className="group border rounded-3xl overflow-hidden shadow-card transition-all duration-300 flex flex-col justify-between"
+                style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
               >
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-stone-900">
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-900">
                   <Image
                     src={item.image}
                     alt={item.title}
@@ -480,29 +446,30 @@ export default function EventsPage() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-[0.95]"
                   />
-                  <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/80 text-[#FF8C00] font-mono font-bold text-[10px] uppercase border border-amber-500/30">
+                  <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-slate-950/80 text-amber-400 font-mono font-bold text-[10px] uppercase border border-amber-500/30">
                     {item.status}
                   </span>
                 </div>
 
                 <div className="p-6 flex flex-col gap-3 flex-1 justify-between">
                   <div>
-                    <h3 className="font-display font-black text-xl text-zinc-900 dark:text-[#FFF8F6] group-hover:text-[#E53935] transition-colors">
+                    <h3 className="font-display font-bold text-xl transition-colors group-hover:text-amber-500" style={{ color: 'var(--text-primary)' }}>
                       {item.title}
                     </h3>
-                    <p className="text-xs text-[#FF8C00] font-mono font-bold pt-1">
+                    <p className="text-xs font-mono font-bold pt-1" style={{ color: 'var(--accent-gold)' }}>
                       {item.dates} • {item.location}
                     </p>
-                    <p className="text-xs text-stone-600 dark:text-[#D4D1C9] leading-relaxed pt-2 font-medium">
+                    <p className="text-xs font-body leading-relaxed pt-2" style={{ color: 'var(--text-secondary)' }}>
                       {item.description}
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between">
-                    <span className="text-xs font-mono text-stone-400">Addis Foodies Official</span>
+                  <div className="pt-4 border-t flex items-center justify-between" style={{ borderColor: 'var(--border-subtle)' }}>
+                    <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>Addis Foodies Official</span>
                     <Link
                       href="/collaborate"
-                      className="touch-target px-4 py-2 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1"
+                      className="touch-target px-4 py-2 rounded-full text-slate-950 text-xs font-bold transition-all shadow-xs flex items-center gap-1 cursor-pointer"
+                      style={{ backgroundColor: 'var(--accent-gold)' }}
                     >
                       <span>Sponsor Event</span>
                       <ArrowRight className="w-3.5 h-3.5" />

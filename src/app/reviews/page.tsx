@@ -53,22 +53,35 @@ export default function ReviewsPage() {
   }, [searchQuery, selectedLocation, selectedCategory, selectedPriceRange, selectedSort]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF8F5] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div
+      className="flex flex-col min-h-screen transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden"
+      style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)' }}
+    >
       <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
       {/* Page Header */}
-      <section className="w-full bg-white dark:bg-[#161E2E] border-b border-stone-200 dark:border-stone-800 py-10 sm:py-14 transition-colors">
+      <section
+        className="w-full border-b py-10 sm:py-14 transition-colors"
+        style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+      >
         <div className="site-container flex flex-col gap-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 w-fit text-xs font-mono font-bold uppercase tracking-widest text-[#E53935]">
-            <Tag className="w-3.5 h-3.5 text-[#E53935]" />
+          <div
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border w-fit text-xs font-mono font-bold uppercase tracking-widest"
+            style={{
+              backgroundColor: 'var(--accent-gold-glow)',
+              borderColor: 'var(--border-subtle)',
+              color: 'var(--accent-gold)',
+            }}
+          >
+            <Tag className="w-3.5 h-3.5" />
             <span>Curated Review Archive</span>
           </div>
 
-          <h1 className="font-display font-black text-3xl sm:text-5xl text-zinc-950 dark:text-white">
+          <h1 className="font-display font-normal text-3xl sm:text-5xl" style={{ color: 'var(--text-primary)' }}>
             Foodie Reviews &amp; Itemized Price Audits
           </h1>
 
-          <p className="text-sm text-stone-600 dark:text-stone-300 font-medium max-w-2xl">
+          <p className="text-sm font-body max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
             Explore verified restaurant reviews, street food gems, and price breakdowns across Bole, Kazanchis, Piassa, and Sarbet.
           </p>
         </div>
@@ -99,10 +112,13 @@ export default function ReviewsPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-white dark:bg-[#161E2E] border border-stone-200 dark:border-stone-800 p-12 rounded-3xl text-center flex flex-col items-center gap-4 my-8 shadow-xs">
-            <Sparkles className="w-10 h-10 text-[#FF8C00]" />
-            <h3 className="font-display font-black text-xl text-zinc-900 dark:text-white">No reviews found matching your search</h3>
-            <p className="text-xs text-stone-600 dark:text-stone-300">Try clearing filters or searching for different food items</p>
+          <div
+            className="border p-12 rounded-3xl text-center flex flex-col items-center gap-4 my-8 shadow-card"
+            style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+          >
+            <Sparkles className="w-10 h-10" style={{ color: 'var(--accent-gold)' }} />
+            <h3 className="font-display font-bold text-xl" style={{ color: 'var(--text-primary)' }}>No reviews found matching your search</h3>
+            <p className="text-xs font-body" style={{ color: 'var(--text-secondary)' }}>Try clearing filters or searching for different food items</p>
             <button
               onClick={() => {
                 setSearchQuery('');
@@ -110,7 +126,8 @@ export default function ReviewsPage() {
                 setSelectedCategory(null);
                 setSelectedPriceRange(null);
               }}
-              className="px-5 py-2.5 rounded-xl bg-[#E53935] text-white text-xs font-bold shadow-md hover:bg-[#B71C1C]"
+              className="px-6 py-3 rounded-full text-white text-xs font-bold shadow-md cursor-pointer"
+              style={{ backgroundColor: 'var(--accent-gold)' }}
             >
               Reset All Filters
             </button>

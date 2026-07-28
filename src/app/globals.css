@@ -2,69 +2,81 @@
 
 @theme {
   /* ADDIS FOODIES — Design.md Canonical Tokens */
-  --color-accent-brand:       #E63946;   /* Berbere Red */
-  --color-accent-brand-hover: #C02532;   /* Deep Berbere */
-  --color-accent-amber:       #F4A261;   /* Warm Gold */
-  --color-accent-verified:    #2A9D8F;   /* Muted Teal */
+  --color-accent-gold:        var(--accent-gold);
+  --color-accent-gold-hover:  var(--accent-gold-hover);
+  --color-accent-red:         var(--accent-red);
 
   /* Typography Stack */
   --font-sans:    var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-display-face), "Bricolage Grotesque", system-ui, sans-serif;
+  --font-display: var(--font-display-face), "Bricolage Grotesque", "Georgia", serif;
   --font-mono:    var(--font-mono-face), "JetBrains Mono", monospace;
 }
 
-/* ============================================================
-   Design.md CSS Variable Tokens — Light Mode (Day / Warm Zine)
-   ============================================================ */
+/* ==========================================================================
+   DAY MODE TOKENS (Warm Slate / Cream Editorial)
+   ========================================================================== */
 :root {
-  /* Brand Accents */
-  --accent-brand:       #E63946;
-  --accent-brand-hover: #C02532;
-  --accent-amber:       #F4A261;
-  --accent-verified:    #2A9D8F;
+  --bg-app: #F8FAFC;                 /* Soft Warm Cream Slate */
+  --bg-surface: #FFFFFF;             /* Pure White Elevated Cards */
+  --bg-surface-hover: #F1F5F9;       /* Hover Surface State */
+  --bg-surface-elevated: #EDE8E1;    /* Special Highlighted Sections */
+  
+  --border-subtle: #E2E8F0;          /* Card & Input Outlines */
+  --border-active: #CBD5E1;          /* Active Element Outlines */
+  
+  --text-primary: #0F172A;           /* Deep Charcoal Headings */
+  --text-secondary: #475569;         /* Body Copy & Descriptions */
+  --text-muted: #64748B;             /* Meta, Timestamps, Subtitles */
+  
+  --accent-gold: #D97706;            /* Rich Ethiopian Honey Amber */
+  --accent-gold-hover: #B45309;      /* Darker Gold Pressed State */
+  --accent-gold-glow: rgba(217, 119, 6, 0.12);
+  --accent-red: #EF4444;             /* Urgent Notices / Flash Alerts */
 
-  /* Day Mode — Warm Zine Canvas */
-  --bg-app:          #FAF8F5;
-  --bg-canvas:       #FAF8F5;   /* Warm Cream Page Floor */
-  --bg-surface:      #FFFFFF;   /* Food Cards & Search Surface */
-  --bg-inset:        #F2EFE9;   /* Filters, Chips, Inset Areas */
-  --text-primary:    #1A1A1A;   /* Dark Ink — Titles & Headlines */
-  --text-body:       #383838;   /* Charcoal — Review Prose */
-  --text-muted:      #6E6D6A;   /* Slate — Meta, Distances */
-  --border-hairline: #E0DDD5;   /* Subtle Cream Divider */
-  --border-subtle:   #E0DDD5;
-  --border-active:   #C02532;
-  --shadow-elevation: rgba(0, 0, 0, 0.06);
+  --shadow-card: 0px 4px 20px rgba(15, 23, 42, 0.05);
+  --shadow-floating: 0px 12px 32px rgba(15, 23, 42, 0.10);
+
+  /* Common Layout Radii Tokens */
+  --radius-sm: 6px;                  /* Small Inline Buttons & Chips */
+  --radius-md: 10px;                 /* Form Inputs & Small Modals */
+  --radius-lg: 16px;                 /* Standard Food Cards */
+  --radius-stadium: 40px;            /* Hero Banners & Large Featured Containers */
+  --radius-pill: 9999px;             /* Rating Badges, Navigation Bar & Primary CTAs */
 }
 
-/* ============================================================
-   Night Mode — both .dark (Tailwind) and [data-theme="dark"]
-   ============================================================ */
+/* ==========================================================================
+   NIGHT MODE TOKENS (Deep Slate / Luxury Midnight Canvas)
+   ========================================================================== */
 .dark,
 [data-theme="dark"] {
-  --bg-app:          #121212;
-  --bg-canvas:       #121212;   /* Deep Charcoal Base */
-  --bg-surface:      #1E1E1E;   /* Elevated Dark Surface for Cards */
-  --bg-inset:        #2A2A2A;   /* Dark Inset for Filters & Chips */
-  --text-primary:    #F9F7F3;   /* Off-White Cream for Titles */
-  --text-body:       #D4D1C9;   /* Muted Soft White for Review Copy */
-  --text-muted:      #A09E98;   /* Warm Gray for Secondary Meta */
-  --border-hairline: #2E2E2E;   /* Dark Hairline Divider */
-  --border-subtle:   #2E2E2E;
-  --border-active:   #FF4D5A;
-  --accent-brand:    #FF4D5A;   /* Boosted Berbere Red for High Contrast */
-  --accent-amber:    #F4A261;
-  --accent-verified: #2A9D8F;
-  --shadow-elevation: rgba(0, 0, 0, 0.4);
+  --bg-app: #0B0F17;                 /* Deep Charcoal Slate Floor */
+  --bg-surface: #161E2E;             /* Elevated Slate Cards */
+  --bg-surface-hover: #1E293B;       /* Interactive Surface Hover */
+  --bg-surface-elevated: #252D3E;    /* Highlighted / Featured Cards */
+  
+  --border-subtle: #1F293D;          /* Card Dividers & Borders */
+  --border-active: #374151;          /* Focused Element Outlines */
+  
+  --text-primary: #F8FAFC;           /* Crisp Headings */
+  --text-secondary: #94A3B8;         /* Subtitles & Descriptions */
+  --text-muted: #64748B;             /* Metadata & Timestamps */
+  
+  --accent-gold: #F59E0B;            /* Vibrant Ethiopian Honey Gold */
+  --accent-gold-hover: #D97706;      /* Pressed Gold State */
+  --accent-gold-glow: rgba(245, 158, 11, 0.15);
+  --accent-red: #EF4444;             /* Urgent Notices / Flash Alerts */
+
+  --shadow-card: 0px 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-floating: 0px 16px 48px rgba(0, 0, 0, 0.50);
 }
 
 /* ============================================================
    Global Base
    ============================================================ */
 body {
-  background-color: var(--bg-canvas);
+  background-color: var(--bg-app);
   color: var(--text-primary);
-  font-family: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-inter), "Inter", -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -72,18 +84,38 @@ body {
 }
 
 /* ============================================================
+   Typography Classes (Claude Editorial Hierarchy)
+   ============================================================ */
+.font-display {
+  font-family: var(--font-display-face), "Bricolage Grotesque", "Georgia", serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.font-body {
+  font-family: var(--font-inter), "Inter", -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.font-body-bold {
+  font-family: var(--font-inter), "Inter", -apple-system, sans-serif;
+  font-weight: 500;
+}
+
+/* ============================================================
    Layout Utilities
    ============================================================ */
 .site-container {
   width: 100%;
-  max-width: 1440px;
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .site-container {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -101,8 +133,8 @@ body {
    Accessibility
    ============================================================ */
 .touch-target {
-  min-height: 44px;
-  min-width: 44px;
+  min-height: 48px;
+  min-width: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -112,23 +144,26 @@ body {
   outline: none;
 }
 .focus-ring:focus-visible {
-  outline: 2px solid var(--accent-amber);
+  outline: 2px solid var(--accent-gold);
   outline-offset: 2px;
 }
 
 /* ============================================================
-   Surface & Card Helpers
+   Card Architecture Rules (Mastercard Pill Style)
    ============================================================ */
 .food-card {
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-hairline);
-  box-shadow: 0 4px 20px -6px var(--shadow-elevation);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .food-card:hover {
-  border-color: color-mix(in srgb, var(--accent-brand) 30%, transparent);
-  box-shadow: 0 12px 32px -8px color-mix(in srgb, var(--accent-brand) 15%, transparent);
+  background-color: var(--bg-surface-hover);
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-floating);
   transform: translateY(-4px);
 }
 
