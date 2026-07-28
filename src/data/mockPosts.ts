@@ -11,7 +11,7 @@ export const mockPosts: FoodPost[] = [
       '/telegram-imports/Queen Burger.jpg',
       '/telegram-imports/fasting burger.jpg',
     ],
-    caption: 'Dropped by Titich in Bole Atlas after hearing everyone talk about their new burger menu. Ordered the Titich Double Cheese Kitfo Burger (580 Br) with Loaded Chili Garlic Wedges (240 Br). First impression: the beef patty is thick, properly seasoned with fresh mitmita, layered with melted ayeb cheese, grilled onions, and house chili aioli on a toasted brioche bun. The flavor combo actually works incredibly well! Portions are solid, service took about 12 minutes, and the outdoor terrace has great vibe for evening hangouts. Definitely worth a visit if you are around Atlas. #BoleAtlas #Titich #AddisFoodies #BurgerReview #AddisAbabaEats',
+    caption: 'Dropped by Titich in Bole Atlas after hearing everyone talk about their new burger menu. Ordered the Titich Double Cheese Kitfo Burger (580 Br) with Loaded Chili Garlic Wedges (240 Br). First impression: the beef patty is thick, properly seasoned with fresh mitmita, layered with melted ayeb cheese, grilled onions, and house chili aioli on a toasted brioche bun. Solid portions and outdoor terrace vibe! #BoleAtlas #Titich #AddisFoodies #BurgerReview',
     price: 580,
     priceFormatted: '580 Br',
     sourcePlatform: 'instagram',
@@ -44,7 +44,7 @@ export const mockPosts: FoodPost[] = [
     mapUrl: 'https://maps.google.com/?q=Titich+Bole+Atlas+Addis+Ababa'
   },
   {
-    id: '1',
+    id: 'roadrunner-1',
     restaurantName: 'Roadrunner Burger',
     location: 'Bole, around Edna Mall',
     neighborhood: 'Bole',
@@ -85,7 +85,7 @@ export const mockPosts: FoodPost[] = [
     mapUrl: 'https://maps.google.com/?q=Roadrunner+Burger+Bole+Addis+Ababa'
   },
   {
-    id: '2',
+    id: 'kakur-1',
     restaurantName: 'Kakur Traditional Restaurant',
     location: 'Kazanchis, near Intercontinental',
     neighborhood: 'Kazanchis',
@@ -126,7 +126,7 @@ export const mockPosts: FoodPost[] = [
     mapUrl: 'https://maps.google.com/?q=Kakur+Traditional+Restaurant+Kazanchis'
   },
   {
-    id: '3',
+    id: 'tomoca-1',
     restaurantName: 'Tomoca Coffee',
     location: 'Sarbet, opposite Embassy',
     neighborhood: 'Sarbet',
@@ -166,7 +166,7 @@ export const mockPosts: FoodPost[] = [
     mapUrl: 'https://maps.google.com/?q=Tomoca+Coffee+Sarbet'
   },
   {
-    id: '4',
+    id: 'skylight-1',
     restaurantName: 'Skylight Seafood & Lounge',
     location: 'Bole, Skylight Hotel',
     neighborhood: 'Bole',
@@ -206,7 +206,7 @@ export const mockPosts: FoodPost[] = [
     mapUrl: 'https://maps.google.com/?q=Skylight+Hotel+Bole+Addis+Ababa'
   },
   {
-    id: '5',
+    id: 'yod-1',
     restaurantName: 'Yod Abyssinia Cultural Restaurant',
     location: 'Bole, near Friendship Center',
     neighborhood: 'Bole',
@@ -245,5 +245,85 @@ export const mockPosts: FoodPost[] = [
       { name: 'Traditional Tej Carafe', price: 400 }
     ],
     mapUrl: 'https://maps.google.com/?q=Yod+Abyssinia+Bole'
+  },
+  {
+    id: 'habesha-2000-1',
+    restaurantName: 'Habesha 2000 Cultural Restaurant',
+    location: 'Bole, Bole Road near Edna Mall',
+    neighborhood: 'Bole',
+    image: '/images/ethiopian_feast_hero.png',
+    images: [
+      '/images/ethiopian_feast_hero.png',
+      '/telegram-imports/Yado kitfo.jpg'
+    ],
+    caption: 'Habesha 2000 Special Kitfo & Tibs Feast. Lean minced beef with spiced kibbeh, served alongside sizzling lamb tibs and fresh house ayeb. Iconic Bole location for family gatherings. #Bole #Habesha2000 #Kitfo',
+    price: 780,
+    priceFormatted: '780 Br',
+    sourcePlatform: 'telegram',
+    category: 'Traditional',
+    timestamp: '2026-07-20T18:00:00Z',
+    originalPostUrl: 'https://t.me/addisfoodies/201',
+    reelPlatform: 'tiktok_video',
+    viewsCount: '78.3K views',
+    rating: '4.8',
+    reviewer: {
+      name: 'Yonas Teshager',
+      handle: '@yonas_foodlog',
+      avatar: '/images/ethiopian_feast_hero.png',
+      role: 'Addis Foodies Senior Inspector',
+      verified: true,
+    },
+    ratings: {
+      taste: 4.9,
+      ambiance: 4.8,
+      service: 4.6,
+      value: 4.7,
+    },
+    reviewerNotes: 'Live cultural music starts at 7:30 PM. Outstanding Kitfo texture!',
+    menuItems: [
+      { name: 'Habesha Special Kitfo', price: 780 },
+      { name: 'Shekla Tibs', price: 720 },
+      { name: 'Honey Tej Bottle', price: 350 }
+    ],
+    mapUrl: 'https://maps.google.com/?q=Habesha+2000+Bole'
+  },
+  {
+    id: 'finfine-1',
+    restaurantName: 'Fin Fine Cultural Restaurant',
+    location: 'Kazanchis, Filwoha area',
+    neighborhood: 'Kazanchis',
+    image: '/telegram-imports/fasting burger.jpg',
+    images: [
+      '/telegram-imports/fasting burger.jpg',
+    ],
+    caption: 'Historic Fin Fine Cultural Restaurant in Kazanchis. Famous for authentic Fasting Beyaynetu and Shiro Tegabino served in traditional clay pots with fresh garlic. #Kazanchis #FinFine #Fasting',
+    price: 390,
+    priceFormatted: '390 Br',
+    sourcePlatform: 'instagram',
+    category: 'Fasting',
+    timestamp: '2026-07-19T11:30:00Z',
+    originalPostUrl: 'https://instagram.com/p/addisfoodies_finfine',
+    reelPlatform: 'instagram_reel',
+    viewsCount: '41.2K views',
+    rating: '4.7',
+    reviewer: {
+      name: 'Dawit Alemu',
+      handle: '@dawit_addisfood',
+      avatar: '/telegram-imports/fasting burger.jpg',
+      role: 'Addis Foodies Cultural Lead',
+      verified: true,
+    },
+    ratings: {
+      taste: 4.8,
+      ambiance: 4.7,
+      service: 4.5,
+      value: 4.8,
+    },
+    reviewerNotes: 'Try the house spiced ginger tea after your meal.',
+    menuItems: [
+      { name: 'Fin Fine Fasting Platter', price: 390 },
+      { name: 'Shiro Tegabino', price: 240 },
+    ],
+    mapUrl: 'https://maps.google.com/?q=Fin+Fine+Cultural+Kazanchis'
   }
 ];
