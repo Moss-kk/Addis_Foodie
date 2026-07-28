@@ -48,7 +48,7 @@ export default function EventBanner() {
     <div
       className="relative w-full rounded-[32px] overflow-hidden text-white shadow-2xl transition-all duration-300 border-2"
       style={{
-        backgroundColor: '#0B0F17',
+        backgroundColor: '#000000',
         borderColor: 'var(--accent-gold)',
         boxShadow: '0 12px 40px rgba(245, 158, 11, 0.15)',
       }}
@@ -61,7 +61,7 @@ export default function EventBanner() {
           fill
           className="object-cover opacity-25 brightness-75 scale-105 transition-all duration-700"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F17] via-[#0B0F17]/90 to-[#0B0F17]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#000000] via-[#000000]/90 to-[#000000]/70" />
       </div>
 
       <div className="relative z-10 p-6 sm:p-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">

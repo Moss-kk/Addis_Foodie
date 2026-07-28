@@ -1,74 +1,103 @@
-# DESIGN SYSTEM & ARCHITECTURE (design.md) — Addis Foodies & Delivery
-
-## 1. Brand Identity & Visual Philosophy
-Addis Foodies unifies editorial food discovery (`@addis.foodie`) with high-contrast food delivery (`@addis.foodie.delivery`). Inspired by Uber's delivery geometry, Vercel's hairline precision, and Cursor's editorial typography:
-
-- **Canvas Floor:** Void Black (`#000000`) in Dark Mode / Soft Cream Slate (`#F8FAFC`) in Light Mode.
-- **Card Surfaces:** High-Contrast Dark Slate (`#111111`) with 1px subtle hairline borders (`#222222`).
-- **Accent Restraint:** Warm Ethiopian Honey Gold (`#F59E0B`) is strictly reserved for active category tabs, star ratings, and event spotlight borders.
-- **Brand Authority:** All reviews are published strictly under "Official Addis Foodies Curation".
-- **Delivery Integration:** High-contrast Black & White cards featuring QR codes, store buttons (App Store / Google Play), and direct order CTAs.
-
 ---
-
-## 2. Global CSS Token System (`globals.css`)
-
-```css
-:root {
-  /* Day / Light Mode (Soft Cream Canvas) */
-  --bg-app: #F8FAFC;
-  --bg-surface: #FFFFFF;
-  --bg-card-monochrome: #000000;
-  --text-card-monochrome: #FFFFFF;
-  
-  --border-subtle: #E2E8F0;
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --accent-gold: #D97706;
-}
-
-[data-theme="dark"] {
-  /* Night / Dark Mode (Stark Void Black Canvas - Uber/Vercel Style) */
-  --bg-app: #000000;
-  --bg-surface: #111111;
-  --bg-surface-elevated: #1A1A1A;
-  
-  --border-subtle: #222222;
-  --border-active: #333333;
-  
-  --text-primary: #FFFFFF;
-  --text-secondary: #A3A3A3;
-  --accent-gold: #F59E0B;
-}
-
-/* Radius System (Uber & Vercel Hybrid) */
-:root, [data-theme="dark"] {
-  --radius-sm: 6px;                  /* Nav buttons & small inputs */
-  --radius-md: 10px;                 /* Form inputs & modal containers */
-  --radius-lg: 16px;                 /* Food Cards & Delivery Panels */
-  --radius-stadium: 40px;            /* Hero Banners */
-  --radius-pill: 9999px;             /* Rating Badges, Category Filters & CTAs */
-}
-```
-
+version: alpha
+name: Vodafone
+description: Monumental uppercase display. Vodafone-red chapter bands. Works for both Black & White moods.
+colors:
+  primary: "#0D0D0D"
+  secondary: "#6D6D6D"
+  tertiary: "#E60000"
+  neutral: "#F4F4F4"
+  surface: "#FFFFFF"
+  on-primary: "#FFFFFF"
+typography:
+  display:
+    fontFamily: Archivo Black
+    fontSize: 6rem
+    fontWeight: 900
+    letterSpacing: "-0.025em"
+  h1:
+    fontFamily: Archivo Black
+    fontSize: 2.8rem
+    fontWeight: 900
+  body:
+    fontFamily: Inter
+    fontSize: 1rem
+    lineHeight: 1.6
+  label:
+    fontFamily: Inter
+    fontSize: 0.74rem
+    fontWeight: 700
+    letterSpacing: "0.1em"
+rounded:
+  sm: 2px
+  md: 4px
+  lg: 6px
+spacing:
+  sm: 8px
+  md: 16px
+  lg: 32px
+components:
+  button-primary:
+    backgroundColor: "{colors.tertiary}"
+    textColor: "{colors.on-primary}"
+    rounded: "{rounded.md}"
+    padding: 12px 20px
+  card:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.primary}"
+    rounded: "{rounded.lg}"
+    padding: 24px
 ---
+## Overview
 
-## 3. Structural Layout & Page Rules
+Vodafone: monumental all-caps display, saturated red chapter bands on white or black canvas, uncompromising sans. Built to support both **White Mood** (Light Mode) and **Black Mood** (Dark Mode) seamlessly.
 
-### A. Homepage (`/`)
-- **Hero Banner:** Bold title (*"Discover & Order Food in Addis"*) with quick CTAs (*Explore Reviews*, *Download Delivery App*, *Kitfo Fest*).
-- **Event Spotlight Banner:** A high-contrast black card with a 1px Gold (`#F59E0B`) border highlighting major events (**Kitfo Fest**, **Taste of Addis**, **Christmas Expo**).
-- **Latest Official Reviews:** Display strictly the top 6 fresh reviews under "Official Addis Foodies Curation".
-- **Delivery Teaser Card:** Uber-style black card introducing `@addis.foodie.delivery` with App Store / Google Play store links.
+## Colors
 
-### B. Combined Reviews & Reels Feed (`/reviews`)
-- **Unified Feed:** Merges written reviews and video Reels into one page.
-- **Category Search Bar:** Sheger Gebeta style filter pills (*Burgers*, *Kitfo*, *Traditional*, *Cafes*, *Fasting*).
-- **Inline Map Toggle:** A `Grid View` | `Map View` toggle button that reveals an interactive dark map with category pins directly on the page.
+The palette is built around high-contrast neutrals and a single accent (`#E60000`) that drives interaction.
 
-### C. Services & Delivery Hub (`/services`)
-- **Addis Foodie Delivery Section:** Full showcase for the mobile delivery app with phone contact (`0966550000`), download links, and order options.
-- **Catering Services:** Dedicated section for Addis Foodies event catering and promotional hosting.
+### White Mood (Light Mode)
+- **Primary (`#0D0D0D`):** Headlines and core text.
+- **Secondary (`#6D6D6D`):** Borders, captions, and metadata.
+- **Tertiary (`#E60000`):** The sole driver for interaction. Reserve it.
+- **Neutral (`#F4F4F4`):** The light page foundation canvas.
+- **Surface (`#FFFFFF`):** High-contrast white card surfaces.
+- **On-Primary (`#FFFFFF`):** Text on primary CTAs.
 
-### D. Simplified Awards Page (`/events#awards`)
-- **Minimalist Matrix:** Direct category voting pills (*Best Kitfo*, *Best Burger*, *Best Traditional*) with quick action links (*"Vote Now →"*).
+### Black Mood (Dark Mode)
+- **Primary (`#FFFFFF`):** Headlines and core text.
+- **Secondary (`#A3A3A3`):** Subtitles, captions, and metadata.
+- **Tertiary (`#E60000`):** The sole driver for interaction. Reserve it.
+- **Neutral (`#0D0D0D`):** The dark page foundation canvas.
+- **Surface (`#171717`):** High-contrast elevated dark slate card surfaces.
+- **On-Primary (`#FFFFFF`):** Text on primary CTAs.
+
+## Typography
+
+- **display:** Archivo Black 6rem (Weight 900, -0.025em letter spacing, uppercase)
+- **h1:** Archivo Black 2.8rem (Weight 900, uppercase)
+- **body:** Inter 1rem (Line height 1.6)
+- **label:** Inter 0.74rem (Weight 700, Letter spacing 0.1em, uppercase)
+
+## Radii & Spacing System
+
+- **rounded-sm:** 2px
+- **rounded-md:** 4px
+- **rounded-lg:** 6px
+- **spacing-sm:** 8px
+- **spacing-md:** 16px
+- **spacing-lg:** 32px
+
+## Components
+
+- **button-primary:** `bg: #E60000`, `text: #FFFFFF`, `rounded: 4px`, `padding: 12px 20px`
+- **card:** `bg: {surface}`, `text: {primary}`, `rounded: 6px`, `padding: 24px`
+- **chapter-band:** Solid 4px saturated Vodafone-red (`#E60000`) accent border on display sections.
+
+## Do's and Don'ts
+
+- **Do** use Tertiary (`#E60000`) for exactly one action per screen context.
+- **Do** let Neutral carry the composition — negative space is a feature.
+- **Do** ensure contrast and crisp presentation across both White Mood and Black Mood.
+- **Don't** introduce gradients. This system is flat on purpose.
+- **Don't** mix Tertiary with alternate accents; the single-accent rule is load-bearing.

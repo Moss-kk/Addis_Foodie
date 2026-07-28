@@ -1,56 +1,52 @@
 /**
- * Design Token Validation & Synchronization Script for Addis Foodies
- * Ensures tailwind.config.ts and globals.css adhere to Design.md (v5.0)
+ * Design Token Validation & Synchronization Script for Vodafone Design System
+ * Ensures tailwind.config.ts and globals.css adhere to design.md (v-alpha)
  */
 
 const fs = require('fs');
 const path = require('path');
 
-console.log('🔄 Auditing & Syncing Design System Tokens for Addis Foodies (v6.0)...');
+console.log('🔄 Auditing & Syncing Vodafone Design System Tokens...');
 
 const rootDir = path.resolve(__dirname, '..');
-let designMdPath = path.join(rootDir, 'docs', 'DESIGN.md');
+let designMdPath = path.join(rootDir, 'design.md');
 if (!fs.existsSync(designMdPath)) {
   designMdPath = path.join(rootDir, 'Design.md');
 }
-const tailwindConfigPath = path.join(rootDir, 'tailwind.config.ts');
-const globalsCssPath = path.join(rootDir, 'src', 'app', 'globals.css');
 
 if (!fs.existsSync(designMdPath)) {
-  console.error('❌ DESIGN.md missing!');
+  console.error('❌ design.md missing!');
   process.exit(1);
 }
 
 const designMdContent = fs.readFileSync(designMdPath, 'utf8');
 
-// Key tokens to enforce
+// Key Vodafone tokens to enforce
 const requiredTokens = [
-  '#A81D1D', // Primary Crimson
-  '#8B1717', // Dark Crimson
-  '#F59E0B', // Warm Amber
-  '#111827', // Deep Charcoal
-  '#FAFAFA', // Soft Cream
-  '#10B981', // Emerald Green
+  '#0D0D0D', // Primary
+  '#6D6D6D', // Secondary
+  '#E60000', // Tertiary (Vodafone Red)
+  '#F4F4F4', // Neutral
+  '#FFFFFF', // Surface / On-primary
 ];
 
 let allValid = true;
 
 requiredTokens.forEach((token) => {
   if (!designMdContent.includes(token)) {
-    console.warn(`⚠️ Warning: Token ${token} missing from Design.md`);
+    console.warn(`⚠️ Warning: Vodafone Token ${token} missing from design.md`);
     allValid = false;
   }
 });
 
 if (allValid) {
-  console.log('✅ All 6 Master Color Tokens verified in Design.md:');
-  console.log('  - Primary Crimson (#A81D1D)');
-  console.log('  - Dark Crimson (#8B1717)');
-  console.log('  - Warm Amber (#F59E0B)');
-  console.log('  - Deep Charcoal (#111827)');
-  console.log('  - Soft Cream (#FAFAFA)');
-  console.log('  - Emerald Green (#10B981)');
-  console.log('✨ Design System Tokens synchronized successfully!');
+  console.log('✅ All Master Vodafone Color Tokens verified in design.md:');
+  console.log('  - Primary (#0D0D0D)');
+  console.log('  - Secondary (#6D6D6D)');
+  console.log('  - Tertiary / Vodafone Red (#E60000)');
+  console.log('  - Neutral (#F4F4F4)');
+  console.log('  - Surface / On-Primary (#FFFFFF)');
+  console.log('✨ Vodafone Design System Tokens synchronized successfully!');
 } else {
   console.log('⚠️ Token verification finished with warnings.');
 }

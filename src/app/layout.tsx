@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
-import { Inter, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
+import { Inter, Archivo_Black, JetBrains_Mono } from "next/font/google";
 import { LanguageProvider } from "../context/LanguageContext";
 import { ThemeProvider } from "../context/ThemeContext";
 import "./globals.css";
 
-// Design.md: "Inter for clean UI controls"
+// Vodafone Design.md: "Inter for body copy & labels"
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
 
-// Design.md: "Bricolage Grotesque for massive magazine headlines"
-const bricolageGrotesque = Bricolage_Grotesque({
+// Vodafone Design.md: "Archivo Black for monumental display headlines"
+const archivoBlack = Archivo_Black({
+  weight: "400",
   variable: "--font-display-face",
   subsets: ["latin"],
   display: "swap",
 });
 
-// Design.md: "JetBrains Mono for pricing, ratings, and location metadata"
+// JetBrains Mono for pricing and codes
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono-face",
   subsets: ["latin"],
@@ -39,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${bricolageGrotesque.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${archivoBlack.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body
         className="min-h-full flex flex-col transition-colors duration-300"

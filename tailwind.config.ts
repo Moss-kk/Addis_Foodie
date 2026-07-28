@@ -9,19 +9,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        vodafone: {
+          primary: "#0D0D0D",
+          secondary: "#6D6D6D",
+          tertiary: "#E60000",
+          neutral: "#F4F4F4",
+          surface: "#FFFFFF",
+          "on-primary": "#FFFFFF",
+        },
         brand: {
-          primary: "#A81D1D",      // Primary Crimson
-          darkCrimson: "#8B1717",  // Dark Crimson
-          accent: "#F59E0B",       // Warm Amber
-          bg: "#FAFAFA",           // Soft Cream
-          dark: "#111827",         // Deep Charcoal
-          emerald: "#10B981",      // Emerald Green
+          primary: "#0D0D0D",
+          secondary: "#6D6D6D",
+          tertiary: "#E60000",
+          accent: "#E60000",
+          bg: "#F4F4F4",
+          dark: "#0D0D0D",
         },
       },
       fontFamily: {
-        sans: ["var(--font-primary)", "Inter", "system-ui", "-apple-system", "sans-serif"],
-        display: ["var(--font-display)", "Plus Jakarta Sans", "system-ui", "sans-serif"],
-        mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
+        sans: ["var(--font-inter)", "Inter", "system-ui", "-apple-system", "sans-serif"],
+        display: ["var(--font-display-face)", "Archivo Black", "sans-serif"],
+        mono: ["var(--font-mono-face)", "JetBrains Mono", "monospace"],
+      },
+      borderRadius: {
+        sm: "2px",
+        md: "4px",
+        lg: "6px",
+      },
+      spacing: {
+        sm: "8px",
+        md: "16px",
+        lg: "32px",
       },
       keyframes: {
         kenburns: {
@@ -38,4 +56,3 @@ const config: Config = {
 };
 
 export default config;
-

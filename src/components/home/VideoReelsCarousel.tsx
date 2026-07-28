@@ -54,20 +54,21 @@ export default function VideoReelsCarousel() {
   return (
     <section className="w-full flex flex-col gap-6 py-4">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#1F293D] pb-4 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-4 gap-3" style={{ borderColor: 'var(--border-subtle)' }}>
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#161E2E] border border-[#F59E0B]/30 text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B] w-fit mb-1">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B] w-fit mb-1" style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}>
             <Film className="w-3.5 h-3.5" />
             <span>Short Video Reviews &amp; Reels</span>
           </div>
-          <h2 className="font-display font-black text-2xl sm:text-4xl text-[#F8FAFC]">
+          <h2 className="font-display font-normal text-2xl sm:text-4xl" style={{ color: 'var(--text-primary)' }}>
             Latest Short Video Reels
           </h2>
         </div>
 
         <Link
           href="/videos"
-          className="touch-target px-4 py-2 rounded-xl bg-[#161E2E] border border-[#1F293D] text-xs font-bold text-[#F8FAFC] hover:text-[#F59E0B] transition-colors flex items-center gap-1 shadow-xs"
+          className="touch-target px-4 py-2 rounded-full border text-xs font-bold transition-colors flex items-center gap-1 shadow-xs"
+          style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)', color: 'var(--text-primary)' }}
         >
           <span>View All Reels</span>
           <ArrowRight className="w-4 h-4 text-[#F59E0B]" />
@@ -80,7 +81,8 @@ export default function VideoReelsCarousel() {
           <div
             key={reel.id}
             onClick={() => setActiveVideo(reel)}
-            className="group relative aspect-[9/16] w-full rounded-3xl overflow-hidden bg-[#161E2E] border border-[#1F293D] shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-1"
+            className="group relative aspect-[9/16] w-full rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-1 border"
+            style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
           >
             <Image
               src={reel.thumbnail}
@@ -130,7 +132,7 @@ export default function VideoReelsCarousel() {
       {/* Video Modal Lightbox */}
       {activeVideo && (
         <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="relative w-full max-w-md bg-[#161E2E] rounded-3xl border border-[#1F293D] overflow-hidden shadow-2xl flex flex-col">
+          <div className="relative w-full max-w-md rounded-3xl border overflow-hidden shadow-2xl flex flex-col" style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}>
             <button
               onClick={() => setActiveVideo(null)}
               className="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-[#EF4444] transition-colors cursor-pointer"
@@ -147,14 +149,14 @@ export default function VideoReelsCarousel() {
               />
             </div>
 
-            <div className="p-4 bg-[#161E2E] text-white flex flex-col gap-2">
+            <div className="p-4 flex flex-col gap-2" style={{ backgroundColor: 'var(--bg-surface)' }}>
               <span className="text-[10px] font-mono font-bold text-[#F59E0B] uppercase">
                 {activeVideo.badge} • {activeVideo.restaurant}
               </span>
-              <h4 className="font-display font-black text-base text-[#F8FAFC]">{activeVideo.title}</h4>
+              <h4 className="font-display font-bold text-base" style={{ color: 'var(--text-primary)' }}>{activeVideo.title}</h4>
               <Link
                 href="/reviews"
-                className="touch-target mt-2 py-2.5 rounded-xl bg-[#EF4444] hover:bg-[#DC2626] text-white text-xs font-bold text-center transition-colors flex items-center justify-center gap-1"
+                className="touch-target mt-2 py-2.5 rounded-full bg-[#EF4444] hover:bg-[#DC2626] text-white text-xs font-bold text-center transition-colors flex items-center justify-center gap-1"
               >
                 <span>Read Full Verified Review</span>
                 <ArrowRight className="w-3.5 h-3.5" />

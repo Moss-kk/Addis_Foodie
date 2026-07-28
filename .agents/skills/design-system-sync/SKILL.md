@@ -1,26 +1,23 @@
 ---
 name: design-system-sync
-description: Audits, validates, and synchronizes Design.md master tokens (colors, typography, 8px grid, i18n, receipts) with Tailwind CSS and Next.js React components.
+description: Audits, validates, and synchronizes Design.md master tokens (colors, typography, 2px/4px/6px grid, dual mood black & white) with Tailwind CSS and Next.js React components.
 ---
 
-# Design System Synchronization Skill
+# Design System Synchronization Skill — Vodafone Specification
 
-Use this skill whenever creating or editing UI components in **Addis Foodies** to enforce strict compliance with `Design.md` (v5.0 Official Master Design System Specification).
+Use this skill whenever creating or editing UI components in **Addis Foodies** to enforce strict compliance with `design.md` (Vodafone Master Specification).
 
 ## Color Tokens Checklist
-- [ ] **Sticky Header Glass (`bg-black/95 backdrop-blur-md border-zinc-800`)**: Full-width black header.
-- [ ] **Soft Cream Canvas (`#FAFAFA`)**: Main page canvas background surface across all routes.
-- [ ] **Primary Crimson (`#A81D1D`)**: Brand logo ring, primary CTAs, active navigation underlines.
-- [ ] **Dark Crimson (`#8B1717`)**: Hero gradient overlay & CTA hover press states.
-- [ ] **Warm Amber (`#F59E0B`)**: Price badges in ETB, rating star chips, tagline text, AI highlights.
-- [ ] **Deep Charcoal (`#111827`)**: Footer canvas, dark feature containers, body headers.
-- [ ] **Emerald Green (`#10B981`)**: Real-time live status badges (`🚨 TODAY!! LIVE NOW`).
+- [ ] **Primary (`#0D0D0D` / `#FFFFFF`)**: Headlines and core text in White & Black moods.
+- [ ] **Secondary (`#6D6D6D` / `#A3A3A3`)**: Borders, captions, and metadata.
+- [ ] **Tertiary (`#E60000`)**: Vodafone Red — sole driver for interaction. Reserve it!
+- [ ] **Neutral (`#F4F4F4` / `#0D0D0D`)**: Canvas foundation for White Mood and Black Mood.
+- [ ] **Surface (`#FFFFFF` / `#171717`)**: Card surface background across light and dark modes.
 
 ## Typography Stack Checklist
-- [ ] **Primary Body & UI**: `Outfit` (`font-sans font-medium text-zinc-900`).
-- [ ] **Display Headings**: `Syne` (`font-syne font-black tracking-tight`).
-- [ ] **Prices & Numbers**: `JetBrains Mono` (`font-mono font-black text-[#F59E0B]`).
-- [ ] **Amharic Fallback**: Ensure Ethiopic line-height multiplier (`1.15x`).
+- [ ] **Primary Body & Labels**: `Inter` (`font-sans font-body text-base`).
+- [ ] **Display Headings**: `Archivo Black` (`font-display font-black text-6rem uppercase tracking-tight`).
+- [ ] **Chapter Bands**: Solid 4px saturated Vodafone-red (`#E60000`) accent border on display sections.
 
 ## Audit Command
 Run token verification script:

@@ -1,129 +1,252 @@
-import { notFound } from 'next/navigation';
+'use client';
+
+import React, { useState, use } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import { 
+  Star, 
+  MapPin, 
+  Receipt, 
+  Phone, 
+  Clock, 
+  CheckCircle, 
+  ExternalLink,
+  Utensils,
+  Share2,
+  ArrowRight,
+  ShieldCheck,
+  Tag
+} from 'lucide-react';
+
 import Header from '../../../components/Header';
-import RestaurantReviewGrid from '../../../components/RestaurantReviewGrid';
 import Footer from '../../../components/Footer';
 import MobileBottomNav from '../../../components/layout/MobileBottomNav';
-import { getRestaurantBySlug, getAllRestaurantSlugs } from '../../../lib/restaurants';
-import { ReviewJsonLd } from '../../../components/JsonLd';
-
-export async function generateStaticParams() {
-  return getAllRestaurantSlugs();
-}
+import PriceReceiptModal from '../../../components/PriceReceiptModal';
+import { mockPosts } from '../../../data/mockPosts';
 
 interface PageProps {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ slug: string }>;
 }
 
-export default async function RestaurantPage({ params }: PageProps) {
-  const { slug } = await params;
-  const restaurant = getRestaurantBySlug(slug);
+export default function RestaurantDetailPage({ params }: PageProps) {
+  const resolvedParams = use(params);
+  const [showReceipt, setShowReceipt] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  if (!restaurant) {
+  // Find matching restaurant by slug
+  const post = mockPosts.find(p => {
+    const slugName = p.restaurantName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    return slugName === resolvedParams.slug || p.id === resolvedParams.slug;
+  }) || mockPosts[0];
+
+  if (!post) {
     notFound();
   }
 
-  const primaryPost = restaurant.posts[0];
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: post.restaurantName,
+        text: `Check out ${post.restaurantName} review on Addis Foodies`,
+        url: window.location.href,
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FAF8F5] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 selection:bg-[#E53935]/20 selection:text-[#E53935] pb-16 sm:pb-0 max-w-full overflow-x-hidden">
-      {/* Schema.org JSON-LD Structured Data */}
-      {primaryPost && <ReviewJsonLd post={primaryPost} />}
-
-      {/* Sticky Header */}
+    <div
+      className="flex flex-col min-h-screen transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden"
+      style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)' }}
+    >
       <Header />
 
-      {/* Main Container */}
-      <main className="site-container py-6 sm:py-10 flex flex-col gap-8">
+      <main className="flex-1 site-container py-6 sm:py-10 flex flex-col gap-8">
         
-        {/* Navigation Breadcrumb */}
-        <div>
+        {/* Breadcrumb Navigation */}
+        <div className="flex items-center justify-between">
           <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zinc-600 dark:text-stone-300 hover:text-[#E53935] transition-colors cursor-pointer"
+            href="/reviews"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-500 hover:text-amber-500 transition-colors"
           >
-            <svg className="w-4 h-4 text-[#E53935]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-            </svg>
-            <span>Back to Discovery Feed</span>
+            <ArrowRight className="w-4 h-4 rotate-180" style={{ color: 'var(--accent-gold)' }} />
+            <span>Back to Reviews &amp; Reels</span>
           </Link>
+
+          <button
+            onClick={handleShare}
+            className="touch-target px-4 py-2 rounded-full border text-xs font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+            style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)', color: 'var(--text-primary)' }}
+          >
+            <Share2 className="w-3.5 h-3.5" style={{ color: 'var(--accent-gold)' }} />
+            <span>{copied ? 'Link Copied!' : 'Share Review'}</span>
+          </button>
         </div>
 
-        {/* Restaurant Hero Block */}
-        <div className="bg-gradient-to-r from-[#E53935] via-[#B71C1C] to-[#E53935] text-white py-10 px-8 sm:px-12 rounded-3xl flex flex-col gap-5 shadow-xl relative overflow-hidden border border-red-400/30">
-          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-          
-          <div className="flex flex-col gap-2 z-10">
-            <h1 className="font-syne font-black text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
-              {restaurant.name}
+        {/* 1. HERO COVER & GALLERY */}
+        <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-3xl overflow-hidden shadow-2xl border" style={{ borderColor: 'var(--border-subtle)' }}>
+          <Image
+            src={post.image}
+            alt={post.restaurantName}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover brightness-90"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+          {/* Floating Pill Badges */}
+          <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+            <span className="px-3.5 py-1.5 rounded-full bg-slate-950/80 border border-amber-500/40 text-amber-400 font-mono font-bold text-xs uppercase shadow-md">
+              {post.category}
+            </span>
+            <span className="px-3.5 py-1.5 rounded-full bg-amber-500 text-slate-950 font-mono font-bold text-xs shadow-md">
+              {post.rating} ★ Rating
+            </span>
+          </div>
+
+          {/* Title Overlay */}
+          <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col gap-1 text-white">
+            <h1 className="font-display font-normal text-3xl sm:text-5xl text-white">
+              {post.restaurantName}
             </h1>
-            <p className="text-white/90 font-medium text-xs sm:text-sm max-w-2xl">
-              Discover authentic reviews and aggregated menu pricing for {restaurant.name} in {restaurant.neighborhood}.
+            <p className="text-xs sm:text-sm font-mono text-slate-300 flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-amber-400" />
+              <span>{post.location}</span>
             </p>
           </div>
-
-          {/* Badges Row */}
-          <div className="flex flex-wrap items-center gap-3 z-10 pt-2">
-            <span className="inline-flex items-center gap-1.5 text-xs font-black text-zinc-950 bg-white px-3.5 py-1.5 rounded-full shadow-xs">
-              📍 {restaurant.neighborhood}
-            </span>
-            <span className="inline-flex items-center gap-1.5 text-xs font-black text-zinc-950 bg-amber-400 px-3.5 py-1.5 rounded-full shadow-xs">
-              Avg ~{restaurant.avgPrice} Br
-            </span>
-            <span className="inline-flex items-center gap-1.5 text-xs font-black text-white bg-white/20 border border-white/30 px-3.5 py-1.5 rounded-full">
-              ⭐ {restaurant.reviewCount} {restaurant.reviewCount === 1 ? 'Review' : 'Reviews'}
-            </span>
-          </div>
         </div>
 
-        {/* Compiled Menu Section */}
-        {restaurant.menu.length > 0 && (
-          <section className="bg-white dark:bg-[#161E2E] p-6 sm:p-8 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-xs flex flex-col gap-4">
-            <div className="flex items-center justify-between border-b border-stone-200 dark:border-stone-800 pb-4">
-              <div className="flex items-center gap-2">
-                <span className="text-xl">📋</span>
-                <h2 className="font-syne font-black text-base sm:text-lg text-zinc-900 dark:text-white">
-                  Compiled Menu &amp; Prices (ETB)
+        {/* 2. KEY METRICS & RATING BREAKDOWN */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          {/* Main Inspection Notes */}
+          <div className="lg:col-span-8 flex flex-col gap-8">
+            
+            <section
+              className="p-6 sm:p-8 rounded-3xl border shadow-card flex flex-col gap-4"
+              style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+            >
+              <div className="flex items-center gap-2 border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
+                <Tag className="w-5 h-5" style={{ color: 'var(--accent-gold)' }} />
+                <h2 className="font-display font-bold text-xl" style={{ color: 'var(--text-primary)' }}>
+                  Verified Field Inspection Summary
                 </h2>
               </div>
-              <span className="text-xs font-mono font-bold text-[#E53935] bg-red-50 dark:bg-red-950/50 px-3 py-1 rounded-full border border-red-200 dark:border-red-800">
-                {restaurant.menu.length} {restaurant.menu.length === 1 ? 'item' : 'items'}
-              </span>
-            </div>
-            
-            <div className="divide-y divide-stone-100 dark:divide-stone-800">
-              {restaurant.menu.map((item, idx) => (
-                <div key={idx} className="flex justify-between items-center py-3 text-xs sm:text-sm font-semibold hover:bg-stone-50 dark:hover:bg-stone-900 px-2 rounded-lg transition-colors">
-                  <span className="text-zinc-800 dark:text-stone-200">{item.name}</span>
-                  <span className="text-[#E53935] font-black font-mono text-sm">{item.price} ETB</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
 
-        {/* Reviews Grid Section */}
-        <section className="flex flex-col gap-5 pt-2">
-          <div className="flex items-center justify-between border-b border-stone-200 dark:border-stone-800 pb-3">
-            <h2 className="font-syne font-black text-lg sm:text-xl text-zinc-900 dark:text-white flex items-center gap-2">
-              <span>💬</span>
-              <span>Reviews for {restaurant.name}</span>
-            </h2>
-            <span className="text-xs font-bold text-zinc-600 dark:text-stone-400">
-              Showing all {restaurant.posts.length} {restaurant.posts.length === 1 ? 'post' : 'posts'}
-            </span>
+              <p className="text-sm font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                {post.caption}
+              </p>
+
+              {post.reviewerNotes && (
+                <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs font-mono font-semibold text-amber-400 flex items-start gap-2">
+                  <ShieldCheck className="w-5 h-5 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold block uppercase text-amber-300">Curator Inspector Note:</span>
+                    <span>{post.reviewerNotes}</span>
+                  </div>
+                </div>
+              )}
+            </section>
+
+            {/* Menu & Itemized ETB Prices */}
+            {post.menuItems && post.menuItems.length > 0 && (
+              <section
+                className="p-6 sm:p-8 rounded-3xl border shadow-card flex flex-col gap-4"
+                style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+              >
+                <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
+                  <div className="flex items-center gap-2">
+                    <Receipt className="w-5 h-5" style={{ color: 'var(--accent-gold)' }} />
+                    <h3 className="font-display font-bold text-xl" style={{ color: 'var(--text-primary)' }}>
+                      Itemized ETB Menu Pricing
+                    </h3>
+                  </div>
+                  
+                  <button
+                    onClick={() => setShowReceipt(true)}
+                    className="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-amber-500/15 border border-amber-500/40 text-amber-400 hover:bg-amber-500/25 transition-colors cursor-pointer"
+                  >
+                    View Official Receipt →
+                  </button>
+                </div>
+
+                <div className="flex flex-col gap-2.5">
+                  {post.menuItems.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="p-3.5 rounded-2xl border flex items-center justify-between text-xs sm:text-sm font-medium"
+                      style={{ backgroundColor: 'var(--bg-app)', borderColor: 'var(--border-subtle)' }}
+                    >
+                      <span style={{ color: 'var(--text-primary)' }}>{item.name}</span>
+                      <span className="font-mono font-bold" style={{ color: 'var(--accent-gold)' }}>{item.price} Br</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
           </div>
 
-          <RestaurantReviewGrid posts={restaurant.posts} />
-        </section>
+          {/* Sidebar Metadata */}
+          <div className="lg:col-span-4 flex flex-col gap-6">
+            <div
+              className="p-6 rounded-3xl border shadow-card flex flex-col gap-4"
+              style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+            >
+              <h3 className="font-display font-bold text-lg border-b pb-2" style={{ color: 'var(--text-primary)' }}>
+                Restaurant Quick Overview
+              </h3>
+
+              <div className="flex flex-col gap-3 text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
+                <div>
+                  <span className="block text-[10px] font-mono uppercase text-slate-400">Neighborhood</span>
+                  <span className="font-bold text-sm" style={{ color: 'var(--text-primary)' }}>{post.neighborhood}</span>
+                </div>
+
+                <div>
+                  <span className="block text-[10px] font-mono uppercase text-slate-400">Average Cost</span>
+                  <span className="font-mono font-bold text-base" style={{ color: 'var(--accent-gold)' }}>{post.priceFormatted}</span>
+                </div>
+
+                <div>
+                  <span className="block text-[10px] font-mono uppercase text-slate-400">Inspector Rating</span>
+                  <span className="font-mono font-bold text-sm text-emerald-400">{post.rating} / 5.0 ★</span>
+                </div>
+              </div>
+
+              {post.mapUrl && (
+                <a
+                  href={post.mapUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="touch-target w-full mt-2 py-3 rounded-full text-slate-950 font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer hover:scale-105"
+                  style={{ backgroundColor: 'var(--accent-gold)' }}
+                >
+                  <MapPin className="w-4 h-4 text-slate-950" />
+                  <span>Open in Google Maps</span>
+                </a>
+              )}
+            </div>
+          </div>
+
+        </div>
 
       </main>
 
-      {/* Footer & Mobile Nav */}
       <Footer />
       <MobileBottomNav />
+
+      {showReceipt && (
+        <PriceReceiptModal
+          post={post}
+          onClose={() => setShowReceipt(false)}
+        />
+      )}
     </div>
   );
 }
