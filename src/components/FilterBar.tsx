@@ -54,24 +54,24 @@ export default function FilterBar({
 
   /* Chip style helpers */
   const activeChipStyle: React.CSSProperties = {
-    backgroundColor: '#F59E0B',
-    color: '#0B0F17',
-    borderColor: '#F59E0B',
+    backgroundColor: 'var(--accent-brand)',
+    color: '#ffffff',
+    borderColor: 'var(--accent-brand)',
     fontWeight: '900',
     transform: 'scale(1.03)',
   };
   const idleChipStyle: React.CSSProperties = {
-    backgroundColor: '#161E2E',
-    color: '#94A3B8',
-    borderColor: '#1F293D',
+    backgroundColor: 'var(--bg-surface)',
+    color: 'var(--text-body)',
+    borderColor: 'var(--border-hairline)',
   };
 
   return (
     <div
       className="sticky top-14 z-30 backdrop-blur-md border-b py-2.5 px-4 sm:px-6 shadow-xs transition-colors"
       style={{
-        backgroundColor: 'rgba(11, 15, 23, 0.95)',
-        borderColor: '#1F293D',
+        backgroundColor: 'color-mix(in srgb, var(--bg-canvas) 95%, transparent)',
+        borderColor: 'var(--border-hairline)',
       }}
     >
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
@@ -85,16 +85,16 @@ export default function FilterBar({
             className="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer"
             style={isAllActive ? activeChipStyle : idleChipStyle}
             onMouseEnter={(e) => {
-              if (!isAllActive) e.currentTarget.style.borderColor = '#F59E0B';
+              if (!isAllActive) e.currentTarget.style.borderColor = 'var(--accent-amber)';
             }}
             onMouseLeave={(e) => {
-              if (!isAllActive) e.currentTarget.style.borderColor = '#1F293D';
+              if (!isAllActive) e.currentTarget.style.borderColor = 'var(--border-hairline)';
             }}
           >
             All
           </button>
 
-          <div className="h-5 w-px flex-shrink-0 mx-1 bg-[#1F293D]" />
+          <div className="h-5 w-px flex-shrink-0 mx-1" style={{ backgroundColor: 'var(--border-hairline)' }} />
 
           {/* Location Chips */}
           <div className="flex items-center gap-2">
@@ -108,20 +108,20 @@ export default function FilterBar({
                   className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5"
                   style={isActive ? activeChipStyle : idleChipStyle}
                   onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = '#F59E0B';
+                    if (!isActive) e.currentTarget.style.borderColor = 'var(--accent-amber)';
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = '#1F293D';
+                    if (!isActive) e.currentTarget.style.borderColor = 'var(--border-hairline)';
                   }}
                 >
-                  <IconComp className="w-3 h-3" style={{ color: isActive ? '#0B0F17' : '#F59E0B' }} />
+                  <IconComp className="w-3 h-3" style={{ color: isActive ? '#fff' : 'var(--accent-brand)' }} />
                   <span>{loc.label}</span>
                 </button>
               );
             })}
           </div>
 
-          <div className="h-5 w-px flex-shrink-0 mx-1 bg-[#1F293D]" />
+          <div className="h-5 w-px flex-shrink-0 mx-1" style={{ backgroundColor: 'var(--border-hairline)' }} />
 
           {/* Category Chips */}
           <div className="flex items-center gap-2">
@@ -135,20 +135,20 @@ export default function FilterBar({
                   className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5"
                   style={isActive ? activeChipStyle : idleChipStyle}
                   onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = '#F59E0B';
+                    if (!isActive) e.currentTarget.style.borderColor = 'var(--accent-amber)';
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = '#1F293D';
+                    if (!isActive) e.currentTarget.style.borderColor = 'var(--border-hairline)';
                   }}
                 >
-                  <IconComp className="w-3 h-3" style={{ color: isActive ? '#0B0F17' : '#F59E0B' }} />
+                  <IconComp className="w-3 h-3" style={{ color: isActive ? '#fff' : 'var(--accent-amber)' }} />
                   <span>{cat.label}</span>
                 </button>
               );
             })}
           </div>
 
-          <div className="h-5 w-px flex-shrink-0 mx-1 bg-[#1F293D]" />
+          <div className="h-5 w-px flex-shrink-0 mx-1" style={{ backgroundColor: 'var(--border-hairline)' }} />
 
           {/* Price Range Chips */}
           <div className="flex items-center gap-2">
@@ -162,13 +162,13 @@ export default function FilterBar({
                   className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5"
                   style={isActive ? activeChipStyle : idleChipStyle}
                   onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = '#F59E0B';
+                    if (!isActive) e.currentTarget.style.borderColor = 'var(--accent-amber)';
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = '#1F293D';
+                    if (!isActive) e.currentTarget.style.borderColor = 'var(--border-hairline)';
                   }}
                 >
-                  <IconComp className="w-3 h-3" style={{ color: isActive ? '#0B0F17' : '#10B981' }} />
+                  <IconComp className="w-3 h-3" style={{ color: isActive ? '#fff' : 'var(--accent-verified)' }} />
                   <span>{price.label}</span>
                 </button>
               );
@@ -180,7 +180,8 @@ export default function FilterBar({
         <div className="flex items-center gap-2 flex-shrink-0 self-end md:self-auto">
           <label
             htmlFor="sort-select"
-            className="text-xs font-mono font-bold whitespace-nowrap text-[#64748B]"
+            className="text-xs font-mono font-bold whitespace-nowrap"
+            style={{ color: 'var(--text-muted)' }}
           >
             Sort:
           </label>
@@ -190,9 +191,9 @@ export default function FilterBar({
             onChange={(e) => onSortChange(e.target.value)}
             className="text-xs font-bold py-1.5 px-3 rounded-full border shadow-xs cursor-pointer focus:outline-none transition-colors"
             style={{
-              backgroundColor: '#161E2E',
-              color: '#F8FAFC',
-              borderColor: '#1F293D',
+              backgroundColor: 'var(--bg-surface)',
+              color: 'var(--text-body)',
+              borderColor: 'var(--border-hairline)',
             }}
           >
             <option value="newest">Newest</option>

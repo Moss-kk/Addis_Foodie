@@ -1,50 +1,49 @@
-# DESIGN SYSTEM & ARCHITECTURE (design.md) — Addis Foodies
+# Addis Foodies Design System (DESIGN.md)
 
-## 1. Visual Identity & Brand Philosophy
-Addis Foodies is the premiere culinary guide for Addis Ababa. The visual design feels editorial, restrained, and authentic—like a luxury food journal rather than a chaotic review app.
+## Overview
 
-- **Theme Base:** Dark-first, slate-toned palette (`#0B0F17`) with warm Ethiopian Honey Gold accents (`#F59E0B`).
-- **No Pure White Containers:** Pure white background (`#FFFFFF`) is BANNED for page containers across all routes. All page wrappers inherit `#0B0F17`.
-- **Image Treatment:** 100% authentic local Ethiopian culinary photography harvested from `@addisfoodiess` and local Telegram imports (`/telegram-imports/` and `/images/`). No generic stock photos.
+Addis Foodies is an editorial culinary marketplace for discovering, reviewing, and experiencing authentic local food across Addis Ababa. The visual design bridges the gap between a high-end food magazine zine and a modern consumer marketplace.
 
-## 2. Global Color Palette & Token System
+The base palette relies on a warm Cream Canvas (`var(--bg-canvas)`) for Day Mode and a rich Charcoal Surface for Night Mode, paired with Berbere Red (`var(--accent-brand)`) as the signature accent. Food photography is treated as the hero content: images sit inside clean card wrappers with 100% opacity, completely free of dark gradient overlays or obscure masks.
+
+The typography stack pairs an expressive high-contrast display font (Bricolage Grotesque) for massive magazine headlines with Inter for clean UI controls and JetBrains Mono for pricing, ratings, and location metadata.
+
+---
+
+## Theme & Color Tokens
+
+The system uses semantic CSS variables to provide native support for both Day Mode (Warm Zine) and Night Mode (Dark Walkthrough).
+
 ```css
 :root {
-  /* Dark Slate Default Tokens */
-  --bg-app: #0B0F17;           /* Deep Charcoal Slate Page Floor */
-  --bg-canvas: #0B0F17;        /* Unified Page Floor */
-  --bg-surface: #161E2E;       /* Card & Modal Container Background */
-  --bg-surface-hover: #1E293B; /* Interactive Surface Hover */
-  --bg-inset: #1F293D;         /* Inset Chips & Filter Bars */
+  /* Brand Accents */
+  --accent-brand: #E63946;         /* Berbere Red - Primary CTAs & Active States */
+  --accent-brand-hover: #C02532;   /* Deep Berbere - Press/Hover State */
+  --accent-amber: #F4A261;         /* Warm Gold - Star Ratings & Trending Badges */
+  --accent-verified: #2A9D8F;      /* Muted Teal - Verified Badges */
 
-  --border-subtle: #1F293D;    /* Card & Divider Borders */
-  --border-hairline: #1F293D;  /* Alignment Dividers */
-  --border-active: #374151;    /* Focused Component Borders */
+  /* Day Mode (Default Warm Zine Canvas) */
+  --bg-canvas: #FAF8F5;            /* Warm Cream Page Floor */
+  --bg-surface: #FFFFFF;           /* Crisp White for Food Cards & Search Surface */
+  --bg-inset: #F2EFE9;             /* Soft Bone for Category Filters & Inset Chips */
+  --text-primary: #1A1A1A;         /* Dark Ink for Titles & Headlines */
+  --text-body: #383838;            /* Dark Charcoal for Running Reviews & Prose */
+  --text-muted: #6E6D6A;           /* Neutral Slate for Locations & Distance Tokens */
+  --border-hairline: #E0DDD5;      /* Subtle 1px Cream Divider */
+  --shadow-elevation: rgba(0, 0, 0, 0.06);
+}
 
-  --text-primary: #F8FAFC;     /* Off-White Headings & Main Titles */
-  --text-secondary: #94A3B8;   /* Soft Slate Subtitles & Descriptions */
-  --text-muted: #64748B;       /* Metadata, Distances & Timestamps */
-
-  --accent-gold: #F59E0B;      /* Warm Ethiopian Honey Gold */
-  --accent-amber: #F59E0B;     /* Ratings & Badges */
-  --accent-gold-glow: rgba(245, 158, 11, 0.12);
-  --accent-brand: #EF4444;     /* Urgent Alerts / Brand Red */
-  --accent-brand-hover: #DC2626;
-  --accent-verified: #10B981;  /* Emerald Verified Badge */
-
-  --radius-card: 12px;
-  --radius-pill: 9999px;
-  --shadow-elevation: rgba(0, 0, 0, 0.5);
+.dark,
+[data-theme="dark"] {
+  /* Night Mode (Dark Walkthrough Surface) */
+  --bg-canvas: #121212;            /* Deep Charcoal Base */
+  --bg-surface: #1E1E1E;           /* Elevated Dark Surface for Cards */
+  --bg-inset: #2A2A2A;             /* Dark Inset for Filters & Chips */
+  --text-primary: #F9F7F3;         /* Off-White Cream for Titles */
+  --text-body: #D4D1C9;            /* Muted Soft White for Review Copy */
+  --text-muted: #A09E98;           /* Warm Gray for Secondary Meta */
+  --border-hairline: #2E2E2E;      /* Dark Hairline Divider */
+  --accent-brand: #FF4D5A;         /* Boosted Berbere Red for High Contrast */
+  --shadow-elevation: rgba(0, 0, 0, 0.4);
 }
 ```
-
-## 3. Page Layout & Background Consistency Rules
-- **Universal Page Floor:** Every page wrapper MUST inherit `bg-app` (`#0B0F17`).
-- **No White Overrides:** Subpages (`/map`, `/events`, `/reviews`, `/services`, `/about`, `/collaborate`, `/videos`) CANNOT override the root background with `bg-white` or light grays.
-- **Theme Variables:** Theme toggle modifies CSS variables at `:root` level only.
-
-## 4. Component Rules & Badges
-- **Review Cards:** Clean 100% opacity photos. Single rating pill badge (top-right, `#F59E0B` warm gold) and single price/location pill badge (bottom-left). Overlapping watermarks and cluttered badges are BANNED.
-- **Map View:** Interactive map renders with dark-styled tiles matching `#0B0F17`.
-- **Typography:** Editorial sans/display font combination with tight tracking (`-0.02em`).
-- **Header Navigation:** Streamlined to 5 primary links on desktop with secondary items moved into clean drawer actions.

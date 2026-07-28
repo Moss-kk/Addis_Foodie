@@ -54,7 +54,7 @@ const partners = [
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#0B0F17] text-[#F8FAFC] transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#FAF8F5] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6] transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden">
       <Header />
 
       <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-16 relative z-10">
@@ -63,26 +63,26 @@ export default function AboutPage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#94A3B8] hover:text-[#F59E0B] transition-colors"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-500 hover:text-[#E53935] transition-colors"
           >
-            <ArrowRight className="w-4 h-4 rotate-180 text-[#F59E0B]" />
+            <ArrowRight className="w-4 h-4 rotate-180 text-[#E53935]" />
             <span>Back to Digital Headquarters</span>
           </Link>
         </div>
 
         {/* HERO SECTION */}
-        <section className="bg-[#161E2E] text-white p-8 sm:p-14 rounded-3xl flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl border border-[#1F293D]">
+        <section className="bg-[#111827] text-white p-8 sm:p-14 rounded-3xl flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl border border-white/10">
           <div className="flex flex-col gap-4 max-w-2xl text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0B0F17] border border-[#F59E0B]/30 text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B] w-fit">
-              <Sparkles className="w-4 h-4 text-[#F59E0B]" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E53935]/20 border border-[#E53935]/40 text-xs font-mono font-bold uppercase tracking-widest text-[#FF8C00] w-fit">
+              <Sparkles className="w-4 h-4 text-[#FF8C00]" />
               <span>Brand Story &amp; Editorial Heritage</span>
             </div>
 
-            <h1 className="font-display font-black text-3xl sm:text-5xl lg:text-6xl text-[#F8FAFC] tracking-tight leading-none">
-              Welcome to <span className="text-[#F59E0B]">Addis Foodies</span>
+            <h1 className="font-display font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-none">
+              Welcome to <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF8C00] via-amber-300 to-[#E53935]">Addis Foodies</span>
             </h1>
 
-            <p className="text-[#94A3B8] font-medium text-sm sm:text-lg leading-relaxed">
+            <p className="text-stone-300 font-medium text-sm sm:text-lg leading-relaxed">
               The official digital media headquarters, culinary magazine, and event hub celebrating the vibrant flavors and culture of Addis Ababa, Ethiopia.
             </p>
           </div>
@@ -95,7 +95,7 @@ export default function AboutPage() {
                 e.preventDefault();
                 alert('Downloading Addis Foodies 2026 Media Kit (PDF)...');
               }}
-              className="touch-target px-6 py-3.5 rounded-xl bg-[#EF4444] hover:bg-[#DC2626] text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-105 cursor-pointer"
+              className="touch-target px-6 py-3.5 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-105 cursor-pointer"
             >
               <Download className="w-4 h-4 text-amber-200" />
               <span>Download Media Kit (PDF)</span>
@@ -112,15 +112,15 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="bg-[#161E2E] p-6 rounded-3xl border border-[#1F293D] shadow-xs text-center flex flex-col gap-2 hover:border-[#F59E0B]/40 transition-colors"
+              className="bg-white dark:bg-[#161E2E] p-6 rounded-3xl border border-stone-200/80 dark:border-stone-800 shadow-xs text-center flex flex-col gap-2 hover:border-[#E53935]/40 transition-colors"
             >
-              <span className="font-display font-black text-3xl sm:text-4xl text-[#F59E0B]">
+              <span className="font-display font-black text-3xl sm:text-4xl text-[#E53935]">
                 {item.metric}
               </span>
-              <span className="font-display font-bold text-xs sm:text-sm text-[#F8FAFC]">
+              <span className="font-display font-bold text-xs sm:text-sm text-zinc-900 dark:text-white">
                 {item.label}
               </span>
-              <span className="text-[11px] font-mono text-[#64748B]">
+              <span className="text-[11px] font-mono text-stone-500 dark:text-stone-400">
                 {item.sub}
               </span>
             </motion.div>
@@ -128,12 +128,12 @@ export default function AboutPage() {
         </section>
 
         {/* 2. BRAND TIMELINE */}
-        <section className="flex flex-col gap-8 bg-[#161E2E] p-8 sm:p-12 rounded-3xl border border-[#1F293D] shadow-xs">
+        <section className="flex flex-col gap-8 bg-white dark:bg-[#161E2E] p-8 sm:p-12 rounded-3xl border border-stone-200/80 dark:border-stone-800 shadow-xs">
           <div>
-            <span className="text-xs font-mono font-bold text-[#F59E0B] uppercase tracking-wider">
+            <span className="text-xs font-mono font-bold text-[#FF8C00] uppercase tracking-wider">
               Chronological Journey
             </span>
-            <h2 className="font-display font-black text-2xl sm:text-4xl text-[#F8FAFC]">
+            <h2 className="font-display font-black text-2xl sm:text-4xl text-zinc-900 dark:text-white">
               Addis Foodies Timeline
             </h2>
           </div>
@@ -142,15 +142,15 @@ export default function AboutPage() {
             {timelineEvents.map((ev, idx) => (
               <div
                 key={idx}
-                className="bg-[#0B0F17] p-6 rounded-2xl border border-[#1F293D] flex flex-col gap-3 relative"
+                className="bg-stone-50 dark:bg-stone-900 p-6 rounded-2xl border border-stone-200/80 dark:border-stone-800 flex flex-col gap-3 relative"
               >
-                <span className="font-mono font-black text-3xl text-[#F59E0B]">
+                <span className="font-mono font-black text-3xl text-[#E53935]">
                   {ev.year}
                 </span>
-                <h3 className="font-display font-bold text-base text-[#F8FAFC]">
+                <h3 className="font-display font-bold text-base text-zinc-900 dark:text-white">
                   {ev.title}
                 </h3>
-                <p className="text-xs text-[#94A3B8] leading-relaxed font-medium">
+                <p className="text-xs text-stone-600 dark:text-stone-300 leading-relaxed font-medium">
                   {ev.description}
                 </p>
               </div>
@@ -159,12 +159,12 @@ export default function AboutPage() {
         </section>
 
         {/* 3. EDITORIAL METHODOLOGY */}
-        <section className="flex flex-col gap-8 bg-[#161E2E] text-white p-8 sm:p-12 rounded-3xl border border-[#1F293D] shadow-xl">
+        <section className="flex flex-col gap-8 bg-[#111827] text-white p-8 sm:p-12 rounded-3xl border border-white/10 shadow-xl">
           <div>
-            <span className="text-xs font-mono font-bold text-[#F59E0B] uppercase tracking-wider">
+            <span className="text-xs font-mono font-bold text-[#FF8C00] uppercase tracking-wider">
               Verification Standards
             </span>
-            <h2 className="font-display font-black text-2xl sm:text-4xl text-[#F8FAFC]">
+            <h2 className="font-display font-black text-2xl sm:text-4xl text-white">
               4-Step Review Inspection Methodology
             </h2>
           </div>
@@ -176,10 +176,10 @@ export default function AboutPage() {
               { num: '03', title: 'Cinematic Visuals', desc: 'Capturing sizzling Kitfo, coffee roasting, and real dining atmosphere.' },
               { num: '04', title: 'Independent Verdict', desc: 'Final ratings published directly by Addis Foodies editorial staff—no paid fake reviews.' },
             ].map((step, i) => (
-              <div key={i} className="bg-[#0B0F17] p-6 rounded-2xl border border-[#1F293D] flex flex-col gap-2">
-                <span className="font-mono font-black text-2xl text-[#F59E0B]">{step.num}</span>
-                <h4 className="font-display font-bold text-sm text-[#F8FAFC]">{step.title}</h4>
-                <p className="text-xs text-[#94A3B8] leading-relaxed font-medium">{step.desc}</p>
+              <div key={i} className="bg-white/5 p-6 rounded-2xl border border-white/10 flex flex-col gap-2">
+                <span className="font-mono font-black text-2xl text-[#E53935]">{step.num}</span>
+                <h4 className="font-display font-bold text-sm text-white">{step.title}</h4>
+                <p className="text-xs text-stone-300 leading-relaxed font-medium">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -187,11 +187,11 @@ export default function AboutPage() {
 
         {/* 4. PARTNERS & COMMUNITY */}
         <section className="flex flex-col gap-6">
-          <div className="border-b border-[#1F293D] pb-3">
-            <h2 className="font-display font-black text-2xl sm:text-3xl text-[#F8FAFC]">
+          <div className="border-b border-stone-200 dark:border-stone-800 pb-3">
+            <h2 className="font-display font-black text-2xl sm:text-3xl text-zinc-900 dark:text-white">
               Featured Restaurant Partners
             </h2>
-            <p className="text-xs sm:text-sm text-[#94A3B8] font-medium pt-1">
+            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-medium pt-1">
               A continuous network of landmark culinary spots across Addis Ababa
             </p>
           </div>
@@ -200,30 +200,30 @@ export default function AboutPage() {
             {partners.map((p, idx) => (
               <div
                 key={idx}
-                className="bg-[#161E2E] border border-[#1F293D] p-4 rounded-2xl text-center flex flex-col justify-center items-center gap-1 shadow-xs hover:border-[#F59E0B]/40 transition-colors"
+                className="bg-white dark:bg-[#161E2E] border border-stone-200/80 dark:border-stone-800 p-4 rounded-2xl text-center flex flex-col justify-center items-center gap-1 shadow-xs hover:border-[#FF8C00]/40 transition-colors"
               >
-                <Building2 className="w-5 h-5 text-[#F59E0B] mb-1" />
-                <span className="font-display font-bold text-xs text-[#F8FAFC]">{p.name}</span>
-                <span className="text-[10px] font-mono text-[#64748B]">{p.location}</span>
+                <Building2 className="w-5 h-5 text-[#FF8C00] mb-1" />
+                <span className="font-display font-bold text-xs text-zinc-900 dark:text-white">{p.name}</span>
+                <span className="text-[10px] font-mono text-stone-500 dark:text-stone-400">{p.location}</span>
               </div>
             ))}
           </div>
         </section>
 
         {/* CALL TO ACTION */}
-        <section className="bg-[#161E2E] border border-[#1F293D] text-white p-8 sm:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+        <section className="bg-gradient-to-r from-[#E53935] to-[#FF8C00] text-white p-8 sm:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
           <div>
-            <h3 className="font-display font-black text-2xl sm:text-4xl text-[#F8FAFC]">Ready to Collaborate?</h3>
-            <p className="text-xs sm:text-sm font-medium text-[#94A3B8] pt-1">
+            <h3 className="font-display font-black text-2xl sm:text-4xl">Ready to Collaborate?</h3>
+            <p className="text-xs sm:text-sm font-medium text-amber-100 pt-1">
               Join 100+ partner restaurants featured on Addis Foodies.
             </p>
           </div>
           <Link
             href="/collaborate"
-            className="touch-target px-8 py-4 bg-[#EF4444] hover:bg-[#DC2626] text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-xl transition-all hover:scale-105 flex items-center gap-2"
+            className="touch-target px-8 py-4 bg-[#111827] hover:bg-black text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-xl transition-all hover:scale-105 flex items-center gap-2"
           >
             <span>Work With Us</span>
-            <ArrowRight className="w-4 h-4 text-amber-200" />
+            <ArrowRight className="w-4 h-4 text-[#FF8C00]" />
           </Link>
         </section>
 
