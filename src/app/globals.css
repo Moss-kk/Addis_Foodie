@@ -1,51 +1,71 @@
 @import "tailwindcss";
 
 @theme {
-  /* ADDIS FOODIES MASTER DESIGN TOKENS (v6.0 Premium Editorial Aesthetic) */
-  --color-brand-primary: #E53935;      /* Ember Flame Red */
-  --color-brand-dark-crimson: #B71C1C; /* Dark Flame Crimson */
-  --color-brand-accent: #FF8C00;       /* Culinary Flame Gold */
-  --color-brand-emerald: #10B981;      /* Live Status Green */
+  /* ADDIS FOODIES — Design.md v1.0 Canonical Tokens */
+  --color-accent-brand:       #E63946;   /* Berbere Red */
+  --color-accent-brand-hover: #C02532;   /* Deep Berbere */
+  --color-accent-amber:       #F4A261;   /* Warm Gold */
+  --color-accent-verified:    #2A9D8F;   /* Muted Teal */
 
   /* Typography Stack */
-  --font-sans: var(--font-primary), "Inter", system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-display), "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-mono: var(--font-mono), "JetBrains Mono", monospace;
+  --font-sans:    var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-display-face), "Bricolage Grotesque", system-ui, sans-serif;
+  --font-mono:    var(--font-mono-face), "JetBrains Mono", monospace;
 }
 
-/* Light Day / Broken White Canvas Mode Default Variables */
+/* ============================================================
+   Design.md CSS Variable Tokens — Light Mode (Day / Warm Zine)
+   ============================================================ */
 :root {
-  --background: #FAF8F5;
-  --foreground: #111827;
-  --card-bg: #FFFFFF;
-  --card-border: #E5E7EB;
-  --brand-primary: #E53935;
-  --brand-amber: #FF8C00;
-  --text-muted: #57534E;
+  /* Brand Accents */
+  --accent-brand:       #E63946;
+  --accent-brand-hover: #C02532;
+  --accent-amber:       #F4A261;
+  --accent-verified:    #2A9D8F;
+
+  /* Day Mode — Warm Zine Canvas */
+  --bg-canvas:       #F9F7F3;   /* Warm Cream Page Floor */
+  --bg-surface:      #FFFFFF;   /* Food Cards & Search Surface */
+  --bg-inset:        #F2EFE9;   /* Filters, Chips, Inset Areas */
+  --text-primary:    #1A1A1A;   /* Dark Ink — Titles & Headlines */
+  --text-body:       #383838;   /* Charcoal — Review Prose */
+  --text-muted:      #6E6D6A;   /* Slate — Meta, Distances */
+  --border-hairline: #E0DDD5;   /* Subtle Cream Divider */
+  --shadow-elevation: rgba(0, 0, 0, 0.06);
 }
 
-/* Dark Flame Night Mode Variables */
-.dark {
-  --background: #120907;
-  --foreground: #FFF8F6;
-  --card-bg: #1A100C;
-  --card-border: rgba(229, 57, 53, 0.18);
-  --brand-primary: #E53935;
-  --brand-amber: #FF8C00;
-  --text-muted: #D1C2BD;
+/* ============================================================
+   Night Mode — both .dark (Tailwind) and [data-theme="dark"]
+   ============================================================ */
+.dark,
+[data-theme="dark"] {
+  --bg-canvas:       #121212;
+  --bg-surface:      #1E1E1E;
+  --bg-inset:        #2A2A2A;
+  --text-primary:    #F9F7F3;
+  --text-body:       #D4D1C9;
+  --text-muted:      #A09E98;
+  --border-hairline: #2E2E2E;
+  --accent-brand:    #FF4D5A;   /* Boosted Berbere for dark contrast */
+  --shadow-elevation: rgba(0, 0, 0, 0.4);
 }
 
+/* ============================================================
+   Global Base
+   ============================================================ */
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-primary), "Inter", system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Full-Bleed 100% Viewport Background Utilities */
+/* ============================================================
+   Layout Utilities
+   ============================================================ */
 .full-bleed {
   width: 100%;
   position: relative;
@@ -55,7 +75,6 @@ body {
   margin-right: -50vw;
 }
 
-/* Standardized Responsive 1440px Global Container */
 .site-container {
   width: 100%;
   max-width: 1440px;
@@ -86,7 +105,9 @@ body {
   }
 }
 
-/* Touch Accessibility Requirement (Min 48px target height & width) */
+/* ============================================================
+   Accessibility
+   ============================================================ */
 .touch-target {
   min-height: 48px;
   min-width: 48px;
@@ -95,54 +116,74 @@ body {
   justify-content: center;
 }
 
-/* Accessible Focus Indicators */
 .focus-ring {
   outline: none;
 }
 .focus-ring:focus-visible {
-  outline: 2px solid #FF8C00;
+  outline: 2px solid var(--accent-amber);
   outline-offset: 2px;
 }
 
-/* Glassmorphism helpers */
+/* ============================================================
+   Surface & Card Helpers
+   ============================================================ */
 .glass-panel {
-  background-color: var(--card-bg);
+  background-color: var(--bg-surface);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
 
-/* Flame Card Surface Glow */
+/* Design.md: "Food photography sits inside clean card wrappers with 100% opacity" */
+.food-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  box-shadow: 0 4px 20px -6px var(--shadow-elevation);
+  transition: all 0.3s ease;
+}
+
+.food-card:hover {
+  border-color: color-mix(in srgb, var(--accent-brand) 30%, transparent);
+  box-shadow: 0 12px 32px -8px color-mix(in srgb, var(--accent-brand) 15%, transparent);
+  transform: translateY(-4px);
+}
+
+/* Legacy alias — keep for existing components */
 .flame-card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  box-shadow: 0 10px 30px -10px var(--shadow-elevation);
   transition: all 0.3s ease;
 }
 
 .flame-card:hover {
-  border-color: rgba(229, 57, 53, 0.3);
-  box-shadow: 0 15px 35px -10px rgba(229, 57, 53, 0.15);
+  border-color: color-mix(in srgb, var(--accent-brand) 30%, transparent);
+  box-shadow: 0 15px 35px -10px color-mix(in srgb, var(--accent-brand) 15%, transparent);
 }
 
-/* Hide scrollbars for horizontal filter bar but allow scrolling */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+/* ============================================================
+   Scrollbar
+   ============================================================ */
+.no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-/* Ken Burns Slow Cinematic Zoom Animation */
+/* ============================================================
+   Animations
+   ============================================================ */
 @keyframes kenburns {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.12);
-  }
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.12); }
 }
-
 .animate-kenburns {
   animation: kenburns 24s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 18s linear infinite;
 }

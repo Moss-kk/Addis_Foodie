@@ -76,7 +76,10 @@ export default function SocialHubSection() {
           href="https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8"
           target="_blank"
           rel="noopener noreferrer"
-          className="touch-target px-5 py-2.5 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white font-extrabold text-xs transition-all shadow-md flex items-center justify-center gap-2 w-fit"
+          className="touch-target px-5 py-2.5 rounded-xl text-white font-extrabold text-xs transition-all shadow-md flex items-center justify-center gap-2 w-fit"
+          style={{ backgroundColor: 'var(--accent-brand)' }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand-hover)')}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand)')}
         >
           <span>Follow Instagram</span>
           <ArrowUpRight className="w-4 h-4" />
@@ -97,7 +100,10 @@ export default function SocialHubSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="group bg-white border border-stone-200/80 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:border-[#E53935]/40"
+              className="group bg-white border rounded-2xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              style={{ borderColor: 'var(--border-hairline)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--accent-brand) 40%, transparent)')}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border-hairline)')}
             >
               {/* Media Container */}
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-900">

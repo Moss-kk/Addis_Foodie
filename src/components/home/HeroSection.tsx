@@ -76,7 +76,7 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
           >
             <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.08] text-white">
               Discover Ethiopia <br />
-              <span className="text-[#E53935]">
+              <span style={{ color: 'var(--accent-brand)' }}>
                 One Bite at a Time
               </span>
             </h1>
@@ -95,7 +95,10 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
           >
             <Link
               href="/reviews"
-              className="touch-target bg-[#E53935] hover:bg-[#B71C1C] text-white font-extrabold text-sm py-3.5 px-7 rounded-xl shadow-xl transition-all cursor-pointer flex items-center gap-2 focus-ring hover:scale-102"
+              className="touch-target text-white font-extrabold text-sm py-3.5 px-7 rounded-xl shadow-xl transition-all cursor-pointer flex items-center gap-2 focus-ring hover:scale-105"
+              style={{ backgroundColor: 'var(--accent-brand)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand-hover)')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand)')}
             >
               <span>Explore Reviews</span>
               <ArrowRight className="w-4 h-4" />
@@ -131,7 +134,10 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
 
               <button
                 type="submit"
-                className="bg-[#E53935] hover:bg-[#B71C1C] text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-1 shrink-0"
+                className="text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-1 shrink-0"
+                style={{ backgroundColor: 'var(--accent-brand)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand-hover)')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand)')}
               >
                 <span>Search</span>
               </button>
@@ -139,15 +145,17 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
 
             {/* Trending tags */}
             <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-2.5 pb-1 border-t border-white/10 mt-2 px-1">
-              <span className="text-[11px] font-mono font-bold text-[#FF8C00] uppercase tracking-wider flex items-center gap-1 shrink-0">
-                <Flame className="w-3.5 h-3.5 text-[#E53935]" /> Trending:
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider flex items-center gap-1 shrink-0" style={{ color: 'var(--accent-amber)' }}>
+                <Flame className="w-3.5 h-3.5" style={{ color: 'var(--accent-brand)' }} /> Trending:
               </span>
               {trendingTags.map((tag) => (
                 <button
                   key={tag}
                   type="button"
                   onClick={() => handleTagClick(tag)}
-                  className="touch-target text-[11px] font-semibold px-2.5 py-1 rounded-full bg-white/10 hover:bg-[#E53935] text-stone-200 hover:text-white transition-all shrink-0 border border-white/10"
+                  className="touch-target text-[11px] font-semibold px-2.5 py-1 rounded-full bg-white/10 text-stone-200 hover:text-white transition-all shrink-0 border border-white/10"
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)')}
                 >
                   {tag}
                 </button>
@@ -166,10 +174,10 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
             className="relative flex items-center justify-center"
           >
             {/* Outer Radial Glow */}
-            <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-[#E53935]/40 to-[#FF8C00]/30 blur-2xl animate-pulse pointer-events-none" />
+            <div className="absolute w-72 h-72 rounded-full blur-2xl animate-pulse pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(230,57,70,0.35), rgba(244,162,97,0.25))' }} />
 
             {/* Circular Logo Badge Frame */}
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full border-4 border-[#E53935]/60 bg-[#111827]/90 p-4 shadow-2xl backdrop-blur-md flex items-center justify-center group hover:scale-105 transition-transform duration-500">
+            <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full border-4 bg-[#121212]/90 p-4 shadow-2xl backdrop-blur-md flex items-center justify-center group hover:scale-105 transition-transform duration-500" style={{ borderColor: 'rgba(230,57,70,0.6)' }}>
               
               {/* Circular Text Border */}
               <div className="absolute inset-2 rounded-full border border-amber-400/30 flex items-center justify-center">
@@ -188,15 +196,21 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
               </div>
 
               {/* Center Emblem Visual */}
-              <div className="w-36 h-36 sm:w-40 sm:h-40 rounded-full bg-gradient-to-tr from-[#8B1717] to-[#E53935] flex flex-col items-center justify-center p-3 text-center border-2 border-amber-300/40 shadow-inner z-10">
-                <Utensils className="w-8 h-8 text-amber-200 mb-1" />
+              <div
+                className="w-36 h-36 sm:w-40 sm:h-40 rounded-full flex flex-col items-center justify-center p-3 text-center shadow-inner z-10"
+                style={{
+                  background: 'linear-gradient(135deg, #8B0000, var(--accent-brand))',
+                  border: '2px solid rgba(244,162,97,0.4)',
+                }}
+              >
+                <Utensils className="w-8 h-8 mb-1" style={{ color: '#F4A261' }} />
                 <span className="font-display font-black text-lg text-white tracking-tighter leading-none">
                   ADDIS
                 </span>
-                <span className="font-display font-bold text-xs text-amber-200 tracking-widest">
+                <span className="font-display font-bold text-xs tracking-widest" style={{ color: '#F4A261' }}>
                   FOODIES
                 </span>
-                <div className="h-0.5 w-8 bg-amber-300/60 my-1 rounded-full" />
+                <div className="h-0.5 w-8 my-1 rounded-full" style={{ backgroundColor: 'rgba(244,162,97,0.6)' }} />
                 <span className="text-[9px] font-mono font-bold text-stone-200 uppercase">
                   EST. 2026
                 </span>

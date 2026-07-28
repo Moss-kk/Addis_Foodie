@@ -1,27 +1,30 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Inter, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { LanguageProvider } from "../context/LanguageContext";
 import { ThemeProvider } from "../context/ThemeContext";
 import "./globals.css";
 
+// Design.md: "Inter for clean UI controls"
 const inter = Inter({
-  variable: "--font-primary",
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
   fallback: ["system-ui", "-apple-system", "sans-serif"],
   weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-display",
+// Design.md: "Bricolage Grotesque for massive magazine headlines"
+const bricolageGrotesque = Bricolage_Grotesque({
+  variable: "--font-display-face",
   subsets: ["latin"],
   display: "swap",
   fallback: ["system-ui", "sans-serif"],
   weight: ["400", "500", "600", "700", "800"],
 });
 
+// Design.md: "JetBrains Mono for pricing, ratings, and location metadata"
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
+  variable: "--font-mono-face",
   subsets: ["latin"],
   display: "swap",
   fallback: ["monospace"],
@@ -30,7 +33,8 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Addis Foodies — The Official Digital Home of Ethiopian Food Culture",
-  description: "The premier editorial media brand and food review destination in Addis Ababa. Discover curated dining, street food gems, and price audits across Bole, Kazanchis, Piassa, and Sarbet.",
+  description:
+    "The premier editorial media brand and food review destination in Addis Ababa. Discover curated dining, street food gems, and price audits across Bole, Kazanchis, Piassa, and Sarbet.",
 };
 
 export default function RootLayout({
@@ -41,9 +45,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${plusJakartaSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${bricolageGrotesque.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans transition-colors duration-300 bg-[#FAF8F5] dark:bg-[#120907] text-zinc-900 dark:text-[#FFF8F6]">
+      <body
+        className="min-h-full flex flex-col transition-colors duration-300"
+        style={{
+          backgroundColor: "var(--bg-canvas)",
+          color: "var(--text-primary)",
+          fontFamily: "var(--font-inter), Inter, system-ui, sans-serif",
+        }}
+      >
         <ThemeProvider>
           <LanguageProvider>
             {children}

@@ -19,32 +19,34 @@ const ThemeContext = createContext<ThemeContextType>({
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light');
 
-  // Sync theme with localStorage and document class on initial mount
+  // Sync theme with localStorage and document on initial mount
   useEffect(() => {
     const savedTheme = localStorage.getItem('addis_foodies_theme') as Theme | null;
     if (savedTheme === 'light' || savedTheme === 'dark') {
+      applyTheme(savedTheme);
       setTheme(savedTheme);
-      if (savedTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
     } else {
-      // Default to minimal clean light day mode
+      applyTheme('light');
       setTheme('light');
-      document.documentElement.classList.remove('dark');
     }
   }, []);
+
+  const applyTheme = (t: Theme) => {
+    const root = document.documentElement;
+    if (t === 'dark') {
+      root.classList.add('dark');
+      root.setAttribute('data-theme', 'dark');   // Design.md: [data-theme="dark"]
+    } else {
+      root.classList.remove('dark');
+      root.removeAttribute('data-theme');
+    }
+  };
 
   const toggleTheme = () => {
     const newTheme: Theme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     localStorage.setItem('addis_foodies_theme', newTheme);
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    applyTheme(newTheme);
   };
 
   return (
