@@ -9,9 +9,8 @@ import {
   Ticket,
   Music,
   UtensilsCrossed,
-  Send,
-  Camera,
 } from 'lucide-react';
+import { FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 
 export interface EventData {
   title: string;
@@ -154,7 +153,7 @@ export function EventShowcaseCard({ event = defaultEvent }: { event?: EventData 
               rel="noreferrer"
               className="p-2.5 bg-blue-600/20 text-blue-400 rounded-xl hover:bg-blue-600 hover:text-white transition-all border border-blue-500/30 flex items-center gap-1.5 text-xs font-bold"
             >
-              <Send className="w-4 h-4" /> Telegram
+              <FaTelegramPlane size={16} /> Telegram
             </a>
             <a
               href={event.instagramUrl}
@@ -162,7 +161,7 @@ export function EventShowcaseCard({ event = defaultEvent }: { event?: EventData 
               rel="noreferrer"
               className="p-2.5 bg-pink-600/20 text-pink-400 rounded-xl hover:bg-pink-600 hover:text-white transition-all border border-pink-500/30 flex items-center gap-1.5 text-xs font-bold"
             >
-              <Camera className="w-4 h-4" /> Instagram
+              <FaInstagram size={16} /> Instagram
             </a>
           </div>
         </div>

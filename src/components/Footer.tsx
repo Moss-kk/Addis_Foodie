@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Flame, Camera, Send, Phone, ArrowUpRight, MapPin, Clock, Video, Play, Globe } from 'lucide-react';
+import { Flame, Phone, ArrowUpRight, MapPin, Clock } from 'lucide-react';
+import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube, FaFacebookF } from 'react-icons/fa';
 import AddisFoodieLogo from './ui/AddisFoodieLogo';
 
 export default function Footer() {
@@ -38,50 +39,50 @@ export default function Footer() {
                 href="https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-pink-600/40 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-gradient-to-br hover:from-pink-500 hover:to-orange-400 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="Instagram @addisfoodiess"
               >
-                <Camera className="w-4 h-4 text-pink-400" />
+                <FaInstagram className="w-4 h-4 text-pink-400" size={16} />
               </a>
 
               <a
                 href="https://t.me/addisfoodies"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-sky-600/40 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-sky-500 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="Telegram Feed t.me/addisfoodies"
               >
-                <Send className="w-4 h-4 text-sky-400" />
+                <FaTelegramPlane className="w-4 h-4 text-sky-400" size={16} />
               </a>
 
               <a
                 href="https://www.tiktok.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-stone-800 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-black text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="TikTok @addisfoodies"
               >
-                <Play className="w-4 h-4 text-emerald-400" />
+                <FaTiktok className="w-4 h-4 text-white" size={16} />
               </a>
 
               <a
                 href="https://www.youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-red-600/40 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-red-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="YouTube Addis Foodies Official"
               >
-                <Video className="w-4 h-4 text-red-400" />
+                <FaYoutube className="w-4 h-4 text-red-400" size={16} />
               </a>
 
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-blue-600/40 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-xl bg-white/10 hover:bg-blue-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="Facebook"
               >
-                <Globe className="w-4 h-4 text-blue-400" />
+                <FaFacebookF className="w-4 h-4 text-blue-400" size={16} />
               </a>
             </div>
 

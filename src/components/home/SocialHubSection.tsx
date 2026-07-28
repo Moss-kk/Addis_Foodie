@@ -3,7 +3,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Camera, Send, Play, Video, ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube } from 'react-icons/fa';
 
 const socialPosts = [
   {
@@ -14,7 +15,7 @@ const socialPosts = [
     title: 'Top 5 Kitfo Spots in Bole You Must Try',
     engagement: '14.2K Likes • 280 Comments',
     url: 'https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8',
-    icon: Camera,
+    icon: FaInstagram,
     color: 'bg-pink-600/20 text-pink-400 border-pink-500/40',
   },
   {
@@ -25,7 +26,7 @@ const socialPosts = [
     title: 'Weekend Foodie Alert: Special Doro Wat at Yod Abyssinia',
     engagement: '32K Views • Live Channel',
     url: 'https://t.me/addisfoodies',
-    icon: Send,
+    icon: FaTelegramPlane,
     color: 'bg-sky-600/20 text-sky-400 border-sky-500/40',
   },
   {
@@ -36,7 +37,7 @@ const socialPosts = [
     title: 'Trying the Sizzling Shiro Tegabino in Kazanchis',
     engagement: '89K Views • Viral Reel',
     url: 'https://www.tiktok.com',
-    icon: Play,
+    icon: FaTiktok,
     color: 'bg-zinc-800 text-white border-zinc-700',
   },
   {
@@ -47,7 +48,7 @@ const socialPosts = [
     title: 'Kitfo Fest 2026 Documentary — Full Behind The Scenes',
     engagement: '45K Views • 18 Min Documentary',
     url: 'https://www.youtube.com',
-    icon: Video,
+    icon: FaYoutube,
     color: 'bg-red-600/20 text-red-400 border-red-500/40',
   },
 ];
