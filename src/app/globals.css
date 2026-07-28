@@ -34,7 +34,7 @@
   --shadow-card: 0px 4px 20px rgba(15, 23, 42, 0.05);
   --shadow-floating: 0px 12px 32px rgba(15, 23, 42, 0.10);
 
-  /* Common Layout Radii Tokens */
+  /* Common Layout Radii Tokens (Uber & Vercel Hybrid) */
   --radius-sm: 6px;                  /* Small Inline Buttons & Chips */
   --radius-md: 10px;                 /* Form Inputs & Small Modals */
   --radius-lg: 16px;                 /* Standard Food Cards */
@@ -43,29 +43,30 @@
 }
 
 /* ==========================================================================
-   NIGHT MODE TOKENS (Deep Slate Canvas + High-Contrast Delivery Cards)
+   NIGHT MODE TOKENS (Stark Void Black Canvas — Uber / Vercel Hairline Style)
    ========================================================================== */
 .dark,
 [data-theme="dark"] {
-  --bg-app: #0B0F17;                 /* Deep Charcoal Slate Floor */
-  --bg-surface: #161E2E;             /* Elevated Slate Cards */
+  --bg-app: #000000;                 /* Void Black Canvas Floor (Uber Style) */
+  --bg-surface: #111111;             /* High-Contrast Elevated Dark Slate Cards */
+  --bg-surface-elevated: #1A1A1A;    /* Elevated Interactive Surfaces */
   --bg-monochrome-card: #000000;     /* Pure Black Delivery Card */
   --text-monochrome-card: #FFFFFF;
-  --bg-surface-hover: #1E293B;       /* Interactive Surface Hover */
+  --bg-surface-hover: #1A1A1A;       /* Interactive Surface Hover */
   
-  --border-subtle: #1F293D;          /* Card Dividers & Borders */
-  --border-active: #374151;          /* Focused Element Outlines */
+  --border-subtle: #222222;          /* 1px Vercel Hairline Borders */
+  --border-active: #333333;          /* Focused Element Outlines */
   
-  --text-primary: #F8FAFC;           /* Crisp Headings */
-  --text-secondary: #94A3B8;         /* Subtitles & Descriptions */
-  --text-muted: #64748B;             /* Metadata & Timestamps */
+  --text-primary: #FFFFFF;           /* Stark White Headings */
+  --text-secondary: #A3A3A3;         /* Muted Text & Descriptions */
+  --text-muted: #737373;             /* Metadata & Timestamps */
   
-  --accent-gold: #F59E0B;            /* Vibrant Ethiopian Honey Gold */
+  --accent-gold: #F59E0B;            /* Ethiopian Honey Gold Accent */
   --accent-gold-hover: #D97706;      /* Pressed Gold State */
   --accent-gold-glow: rgba(245, 158, 11, 0.15);
 
-  --shadow-card: 0px 8px 24px rgba(0, 0, 0, 0.35);
-  --shadow-floating: 0px 16px 48px rgba(0, 0, 0, 0.50);
+  --shadow-card: 0px 8px 24px rgba(0, 0, 0, 0.60);
+  --shadow-floating: 0px 16px 48px rgba(0, 0, 0, 0.80);
 }
 
 /* ============================================================

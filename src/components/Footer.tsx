@@ -22,9 +22,9 @@ export default function Footer() {
     <footer
       className="w-full mt-16 select-none transition-colors duration-300 border-t"
       style={{
-        backgroundColor: '#0B0F17',
-        color: '#F8FAFC',
-        borderColor: '#1F293D',
+        backgroundColor: 'var(--bg-app)',
+        color: 'var(--text-primary)',
+        borderColor: 'var(--border-subtle)',
       }}
     >
       <div className="site-container py-12 sm:py-16 flex flex-col gap-12">
@@ -36,7 +36,7 @@ export default function Footer() {
           <div className="lg:col-span-2 flex flex-col gap-4">
             <AddisFoodieLogo diluted={false} />
 
-            <p className="text-xs sm:text-sm font-body leading-relaxed max-w-md" style={{ color: '#94A3B8' }}>
+            <p className="text-xs sm:text-sm font-body leading-relaxed max-w-md" style={{ color: 'var(--text-secondary)' }}>
               The premier digital food platform for Addis Ababa. Discover curated dining, verified ETB price audits, and authentic food culture across Bole, Kazanchis, Piassa, and Sarbet.
             </p>
 
@@ -46,7 +46,7 @@ export default function Footer() {
                 href="https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8"
                 target="_blank" rel="noopener noreferrer"
                 className="touch-target p-2.5 rounded-full bg-white/10 hover:bg-pink-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
-                title="Instagram @addisfoodiess"
+                title="Instagram @addis.foodie"
               >
                 <FaInstagram size={16} className="text-pink-400" />
               </a>
@@ -62,7 +62,7 @@ export default function Footer() {
                 href="https://www.tiktok.com"
                 target="_blank" rel="noopener noreferrer"
                 className="touch-target p-2.5 rounded-full bg-white/10 hover:bg-black text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
-                title="TikTok @addisfoodies"
+                title="TikTok @addis.foodie"
               >
                 <FaTiktok size={16} className="text-white" />
               </a>
@@ -87,9 +87,9 @@ export default function Footer() {
             {/* Hotline & Hours */}
             <div
               className="flex flex-col gap-2 pt-2 text-xs font-mono font-bold border-t"
-              style={{ borderColor: '#1F293D', color: '#94A3B8' }}
+              style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-secondary)' }}
             >
-              <div className="flex items-center gap-2" style={{ color: '#F59E0B' }}>
+              <div className="flex items-center gap-2" style={{ color: 'var(--accent-gold)' }}>
                 <Phone className="w-4 h-4" />
                 <span>Hotline: 0966-55-00-00</span>
               </div>
@@ -104,17 +104,17 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <h4
               className="font-display font-bold text-xs uppercase tracking-widest"
-              style={{ color: '#F59E0B' }}
+              style={{ color: 'var(--accent-gold)' }}
             >
               Navigation
             </h4>
-            <div className="flex flex-col gap-2.5 text-xs font-semibold" style={{ color: '#94A3B8' }}>
+            <div className="flex flex-col gap-2.5 text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
               {[
                 { href: '/', label: 'Explore Feed' },
-                { href: '/reviews', label: 'Food Reviews' },
+                { href: '/reviews', label: 'Food Reviews & Reels' },
                 { href: '/map', label: 'Food Map' },
-                { href: '/events', label: 'Kitfo Fest 2026' },
-                { href: '/services', label: 'Services' },
+                { href: '/events', label: 'Taste of Addis & Events' },
+                { href: '/services', label: 'Services & Delivery' },
                 { href: '/collaborate', label: 'Work With Us' },
               ].map(({ href, label }) => (
                 <Link
@@ -123,7 +123,7 @@ export default function Footer() {
                   className="hover:text-white transition-colors flex items-center justify-between"
                 >
                   <span>{label}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" style={{ color: '#F59E0B' }} />
+                  <ArrowUpRight className="w-3.5 h-3.5" style={{ color: 'var(--accent-gold)' }} />
                 </Link>
               ))}
             </div>
@@ -133,19 +133,19 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <h4
               className="font-display font-bold text-xs uppercase tracking-widest"
-              style={{ color: '#F59E0B' }}
+              style={{ color: 'var(--accent-gold)' }}
             >
               Addis Ababa HQ
             </h4>
             <div
               className="p-3.5 rounded-2xl flex flex-col gap-2 border"
-              style={{ backgroundColor: '#161E2E', borderColor: '#1F293D' }}
+              style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
             >
-              <div className="flex items-center gap-1.5 text-xs font-bold text-white">
-                <MapPin className="w-4 h-4" style={{ color: '#F59E0B' }} />
+              <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color: 'var(--text-primary)' }}>
+                <MapPin className="w-4 h-4" style={{ color: 'var(--accent-gold)' }} />
                 <span>Bole Medhaniallem, Addis Ababa</span>
               </div>
-              <p className="text-[11px] leading-snug" style={{ color: '#94A3B8' }}>
+              <p className="text-[11px] leading-snug" style={{ color: 'var(--text-secondary)' }}>
                 Bole Atlas Commercial Area
               </p>
               <a
@@ -163,11 +163,11 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <h4
               className="font-display font-bold text-xs uppercase tracking-widest"
-              style={{ color: '#F59E0B' }}
+              style={{ color: 'var(--accent-gold)' }}
             >
               Weekly Digest
             </h4>
-            <p className="text-xs font-body leading-relaxed" style={{ color: '#94A3B8' }}>
+            <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
               Get food alerts, ETB price updates, and event tickets.
             </p>
 
@@ -188,7 +188,7 @@ export default function Footer() {
                 <button
                   type="submit"
                   className="touch-target w-full text-slate-950 font-extrabold text-xs py-3 rounded-full transition-all shadow-md cursor-pointer hover:scale-105 focus-ring"
-                  style={{ backgroundColor: '#F59E0B' }}
+                  style={{ backgroundColor: 'var(--accent-gold)' }}
                 >
                   Subscribe Free
                 </button>
@@ -200,9 +200,9 @@ export default function Footer() {
         {/* Bottom Credits */}
         <div
           className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold border-t"
-          style={{ borderColor: '#1F293D', color: '#94A3B8' }}
+          style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-secondary)' }}
         >
-          <p>Addis Foodies © 2026 • Official Digital Food Guide (@addisfoodiess)</p>
+          <p>Addis Foodies © 2026 • Official Digital Food Guide (@addis.foodie &amp; @addis.foodie.delivery)</p>
           <div className="flex items-center gap-6">
             <Link href="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/about" className="hover:text-white transition-colors">Terms of Service</Link>

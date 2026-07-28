@@ -1,22 +1,26 @@
-# DESIGN SYSTEM & ARCHITECTURE (design.md) — Addis Foodies
+# DESIGN SYSTEM & ARCHITECTURE (design.md) — Addis Foodies & Delivery
 
-## 1. Brand Identity & Color Palette
-Addis Foodies bridges editorial food blogging (`@addis.foodie`) with high-contrast monochrome delivery (`@addis.foodie.delivery`).
+## 1. Brand Identity & Visual Philosophy
+Addis Foodies unifies editorial food discovery (`@addis.foodie`) with high-contrast food delivery (`@addis.foodie.delivery`). Inspired by Uber's delivery geometry, Vercel's hairline precision, and Cursor's editorial typography:
 
-- **Primary Canvas:** Deep Charcoal Slate (`#0B0F17`) in Dark Mode / Soft Cream Slate (`#F8FAFC`) in Light Mode.
-- **Monochrome Delivery Palette:** Pure Black (`#000000`) and Crisp White (`#FFFFFF`) cards for delivery features matching official app branding.
-- **Accent Color:** Warm Ethiopian Honey Gold (`#F59E0B`) used exclusively for active states, star ratings, and event spotlight borders.
-- **Brand Authority:** All reviews are published strictly under "Official Addis Foodies Curation" (individual reviewer names removed).
+- **Canvas Floor:** Void Black (`#000000`) in Dark Mode / Soft Cream Slate (`#F8FAFC`) in Light Mode.
+- **Card Surfaces:** High-Contrast Dark Slate (`#111111`) with 1px subtle hairline borders (`#222222`).
+- **Accent Restraint:** Warm Ethiopian Honey Gold (`#F59E0B`) is strictly reserved for active category tabs, star ratings, and event spotlight borders.
+- **Brand Authority:** All reviews are published strictly under "Official Addis Foodies Curation".
+- **Delivery Integration:** High-contrast Black & White cards featuring QR codes, store buttons (App Store / Google Play), and direct order CTAs.
+
+---
 
 ## 2. Global CSS Token System (`globals.css`)
 
 ```css
 :root {
-  /* Light / Day Mode Tokens */
+  /* Day / Light Mode (Soft Cream Canvas) */
   --bg-app: #F8FAFC;
   --bg-surface: #FFFFFF;
-  --bg-monochrome-card: #000000;
-  --text-monochrome-card: #FFFFFF;
+  --bg-card-monochrome: #000000;
+  --text-card-monochrome: #FFFFFF;
+  
   --border-subtle: #E2E8F0;
   --text-primary: #0F172A;
   --text-secondary: #475569;
@@ -24,38 +28,47 @@ Addis Foodies bridges editorial food blogging (`@addis.foodie`) with high-contra
 }
 
 [data-theme="dark"] {
-  /* Dark / Night Mode Tokens */
-  --bg-app: #0B0F17;
-  --bg-surface: #161E2E;
-  --bg-monochrome-card: #111111;
-  --text-monochrome-card: #FFFFFF;
-  --border-subtle: #1F293D;
-  --border-active: #374151;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
+  /* Night / Dark Mode (Stark Void Black Canvas - Uber/Vercel Style) */
+  --bg-app: #000000;
+  --bg-surface: #111111;
+  --bg-surface-elevated: #1A1A1A;
+  
+  --border-subtle: #222222;
+  --border-active: #333333;
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #A3A3A3;
   --accent-gold: #F59E0B;
 }
 
-/* Radius Rules */
+/* Radius System (Uber & Vercel Hybrid) */
 :root, [data-theme="dark"] {
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-stadium: 40px;
-  --radius-pill: 9999px;
+  --radius-sm: 6px;                  /* Nav buttons & small inputs */
+  --radius-md: 10px;                 /* Form inputs & modal containers */
+  --radius-lg: 16px;                 /* Food Cards & Delivery Panels */
+  --radius-stadium: 40px;            /* Hero Banners */
+  --radius-pill: 9999px;             /* Rating Badges, Category Filters & CTAs */
 }
 ```
 
-## 3. Structural Page Rules
+---
 
-### A. Homepage (/)
-Display hero section, high-contrast Event Spotlight banner (Kitfo Fest, Taste of Addis), strictly the latest 6 official reviews, and an Addis Foodie Delivery teaser card.
+## 3. Structural Layout & Page Rules
 
-### B. Reviews & Reels Page (/reviews)
-Merge written reviews and video Reels into a unified feed. Category filter bar with an inline Map View Toggle (Sheger Gebeta style pin locations).
+### A. Homepage (`/`)
+- **Hero Banner:** Bold title (*"Discover & Order Food in Addis"*) with quick CTAs (*Explore Reviews*, *Download Delivery App*, *Kitfo Fest*).
+- **Event Spotlight Banner:** A high-contrast black card with a 1px Gold (`#F59E0B`) border highlighting major events (**Kitfo Fest**, **Taste of Addis**, **Christmas Expo**).
+- **Latest Official Reviews:** Display strictly the top 6 fresh reviews under "Official Addis Foodies Curation".
+- **Delivery Teaser Card:** Uber-style black card introducing `@addis.foodie.delivery` with App Store / Google Play store links.
 
-### C. Events & Voting (/events)
-Display real local festival highlights (Taste of Addis, Kitfo Fest, Christmas Food Festival). Awards section simplified to direct category voting links.
+### B. Combined Reviews & Reels Feed (`/reviews`)
+- **Unified Feed:** Merges written reviews and video Reels into one page.
+- **Category Search Bar:** Sheger Gebeta style filter pills (*Burgers*, *Kitfo*, *Traditional*, *Cafes*, *Fasting*).
+- **Inline Map Toggle:** A `Grid View` | `Map View` toggle button that reveals an interactive dark map with category pins directly on the page.
 
-### D. Services & Delivery (/services)
-Showcase Addis Foodies Catering Services and the Addis Foodie Delivery App (`@addis.foodie.delivery`) with store download buttons.
+### C. Services & Delivery Hub (`/services`)
+- **Addis Foodie Delivery Section:** Full showcase for the mobile delivery app with phone contact (`0966550000`), download links, and order options.
+- **Catering Services:** Dedicated section for Addis Foodies event catering and promotional hosting.
+
+### D. Simplified Awards Page (`/events#awards`)
+- **Minimalist Matrix:** Direct category voting pills (*Best Kitfo*, *Best Burger*, *Best Traditional*) with quick action links (*"Vote Now →"*).
