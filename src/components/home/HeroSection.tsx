@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { 
   Sparkles, 
   ArrowRight,
-  Star,
   CheckCircle2,
   TrendingUp,
   Receipt,
@@ -112,20 +111,12 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
 
           </div>
 
-          {/* Right Column: CREATIVE ADDIS FOODIES BRAND MARK SHOWCASE */}
+          {/* Right Column: TRANSPARENT ADDIS FOODIES BRAND MARK SHOWCASE */}
           <div className="relative flex items-center justify-center shrink-0">
-            <div 
-              className="relative w-72 h-72 sm:w-80 sm:h-80 rounded-lg p-6 flex flex-col items-center justify-center text-center gap-4 border-2 shadow-2xl backdrop-blur-md overflow-hidden"
-              style={{ 
-                backgroundColor: 'rgba(26, 28, 30, 0.92)',
-                borderColor: 'var(--border-subtle)',
-              }}
-            >
-              {/* Outer Glowing Orbital Ring */}
-              <div className="absolute inset-2 rounded-md border border-[#B8422E]/30 pointer-events-none" />
-
-              {/* Creative Brand Circle Logo Showcase */}
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-[#B8422E] shadow-2xl flex-shrink-0 bg-[#1A1C1E] animate-pulse">
+            <div className="relative w-64 h-64 sm:w-72 sm:h-72 p-4 flex flex-col items-center justify-center text-center gap-3 bg-transparent overflow-hidden">
+              
+              {/* Creative Transparent Brand Circle Logo Showcase */}
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-[#B8422E] shadow-2xl flex-shrink-0 bg-transparent">
                 <Image
                   src="/images/logo.png"
                   alt="Addis Foodies Master Brand Mark"
@@ -135,30 +126,24 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
                 />
               </div>
 
-              {/* Signature Heritage Brand Name Badge */}
+              {/* Signature Heritage Brand Name Badge (Transparent Background) */}
               <div className="flex flex-col items-center gap-1 z-10">
-                <div className="bg-[#1A1C1E] border border-[#B8422E]/60 text-white px-3 py-1 rounded-sm text-xs font-label font-bold uppercase tracking-widest shadow-md">
+                <span className="font-display font-bold text-lg sm:text-xl text-white tracking-wider drop-shadow-md">
                   ADDIS FOODIES
-                </div>
-                <div className="h-[2px] w-20 bg-[#B8422E] my-0.5" />
-                <span className="text-[10px] font-label text-slate-300 uppercase tracking-widest">
+                </span>
+                <div className="h-[2px] w-16 bg-[#B8422E] my-0.5" />
+                <span className="text-[10px] font-label text-slate-200 uppercase tracking-widest drop-shadow-xs">
                   ETHIOPIAN CULINARY BRAND
                 </span>
               </div>
 
-              {/* Live Media Stats Badge */}
-              <div className="flex items-center gap-2 text-[11px] font-label text-white bg-white/10 px-3 py-1.5 rounded-sm border border-white/15">
+              {/* Live Media Stats Badge (Translucent Pill) */}
+              <div className="flex items-center gap-2 text-[10px] sm:text-[11px] font-label text-white bg-white/10 px-3 py-1 rounded-full border border-white/20 backdrop-blur-md">
                 <Flame className="w-3.5 h-3.5 text-[#B8422E]" />
                 <span>150K+ Monthly Reach</span>
                 <span className="text-slate-400">•</span>
                 <Award className="w-3.5 h-3.5 text-amber-400" />
                 <span>#1 Food Guide</span>
-              </div>
-
-              {/* Floating Bottom Quality Seal Badge */}
-              <div className="absolute bottom-2 left-2 right-2 bg-[#1A1C1E]/95 border border-white/15 py-1.5 px-3 rounded-sm text-[10px] font-label text-slate-200 flex items-center justify-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>OFFICIAL VERIFIED REVIEWS &amp; FESTIVALS</span>
               </div>
 
             </div>

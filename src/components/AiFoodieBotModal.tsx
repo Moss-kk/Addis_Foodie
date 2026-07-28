@@ -1,310 +1,310 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Sparkles,
   X,
   Send,
   MapPin,
-  CheckCircle2,
   Bot,
-  ArrowRight,
-  Star,
+  MessageSquare,
+  User,
+  ShieldCheck,
+  Move
 } from 'lucide-react';
+
+interface ChatMessage {
+  id: string;
+  sender: 'user' | 'bot';
+  text: string;
+  timestamp: string;
+  spots?: { name: string; dish: string; price: string; location: string }[];
+}
 
 export default function AiFoodieBotModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const [inputQuery, setInputQuery] = useState('');
-  const [activeResponse, setActiveResponse] = useState<{
-    text: string;
-    spots: { name: string; dish: string; price: string; location: string; rating: string }[];
-  }>({
-    text: 'እባክዎን ከታች ያሉትን ጥያቄዎች ይጫኑ ወይም የሚፈልጉትን ምግብ ይጻፉ! (Tap any query below or ask about food in Addis Ababa)',
-    spots: [
-      { name: 'Habesha 2000',   dish: 'Kitfo Special & Ayib',       price: '450 ETB', location: 'Bole, near Edna Mall', rating: '4.8' },
-      { name: 'Tomoca Coffee',  dish: 'Ethiopian Macchiato',         price: '120 ETB', location: 'Bole, Atlas',          rating: '4.9' },
-      { name: 'Yod Abyssinia',  dish: 'Tibs Firfir Platter',        price: '380 ETB', location: 'Kazanchis',            rating: '4.7' },
-    ],
-  });
+  const [inputText, setInputText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const promptChips = [
-    { label: 'Where can I eat good Kitfo near Bole?' },
-    { label: 'Best Macchiato under 300 ETB' },
-    { label: 'Vegetarian / Fasting food in Kazanchis' },
-    { label: 'Food events & festivals this weekend' },
-  ];
+  // Live Chat Messages State (Initial Welcome Message)
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: 'welcome-1',
+      sender: 'bot',
+      text: 'Selam! 👋 I am your Addis Foodies AI Assistant. Ask me anything about food recommendations, top Kitfo joints, coffee cafes, or ETB price breakdowns across Bole, Kazanchis, Piassa & Sarbet!',
+      timestamp: 'Just now',
+      spots: [
+        { name: 'Habesha 2000', dish: 'Kitfo Special & Ayib', price: '450 ETB', location: 'Bole' },
+        { name: 'Tomoca Coffee', dish: 'Ethiopian Macchiato', price: '120 ETB', location: 'Atlas & Piassa' },
+      ],
+    },
+  ]);
 
-  const handleQuerySubmit = (e?: React.FormEvent, customQuery?: string) => {
-    if (e) e.preventDefault();
-    const query = customQuery || inputQuery;
-    if (!query.trim()) return;
-    setInputQuery(query);
-    const q = query.toLowerCase();
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
-    if (q.includes('kitfo') || q.includes('bole')) {
-      setActiveResponse({
-        text: 'Top recommendations for Kitfo in Bole & Piassa:',
-        spots: [
-          { name: 'Habesha 2000',      dish: 'Kitfo Special + Gomen & Ayib', price: '450 ETB', location: 'Bole, Edna Mall',    rating: '4.8' },
-          { name: 'Kakur Traditional',  dish: 'Special Gurage Kitfo',          price: '520 ETB', location: 'Piassa, Tewdros Sq', rating: '4.9' },
-          { name: 'Kategna Restaurant', dish: 'Lebleb Kitfo Platter',          price: '490 ETB', location: 'Bole Medhaniallem',  rating: '4.7' },
-        ],
-      });
-    } else if (q.includes('macchiato') || q.includes('coffee') || q.includes('300')) {
-      setActiveResponse({
-        text: 'Best Coffee & Macchiato spots under 300 ETB:',
-        spots: [
-          { name: 'Tomoca Coffee', dish: 'Double Ethiopian Macchiato', price: '120 ETB', location: 'Bole, Atlas & Piassa', rating: '4.9' },
-          { name: 'Galani Coffee', dish: 'Single Origin Pour Over',    price: '180 ETB', location: 'Sarbet Golf Club',     rating: '4.8' },
-        ],
-      });
-    } else if (q.includes('vegetarian') || q.includes('fasting') || q.includes('kazanchis')) {
-      setActiveResponse({
-        text: 'Top Fasting & Veggie Spots in Kazanchis:',
-        spots: [
-          { name: 'Yod Abyssinia',    dish: 'Traditional Beyaynetu Platter', price: '280 ETB', location: 'Kazanchis', rating: '4.8' },
-          { name: 'Fin fine Cultural', dish: 'Special Shiro & Gomen',         price: '220 ETB', location: 'Kazanchis', rating: '4.6' },
-        ],
-      });
-    } else {
-      setActiveResponse({
-        text: `Top verified recommendations for "${query}":`,
-        spots: [
-          { name: 'Yod Abyssinia', dish: 'Special Cultural Feast',     price: '650 ETB', location: 'Bole',   rating: '4.8' },
-          { name: 'Burger House',  dish: 'Classic Flame Beef Burger',  price: '320 ETB', location: 'Piassa', rating: '4.6' },
-        ],
-      });
+  useEffect(() => {
+    if (isOpen) {
+      scrollToBottom();
     }
+  }, [messages, isOpen]);
+
+  const handleSendMessage = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!inputText.trim()) return;
+
+    const userMsgText = inputText.trim();
+    setInputText('');
+
+    const userMessage: ChatMessage = {
+      id: `user-${Date.now()}`,
+      sender: 'user',
+      text: userMsgText,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setIsTyping(true);
+
+    // Simulate AI response logic
+    setTimeout(() => {
+      const query = userMsgText.toLowerCase();
+      let botReplyText = `Here are the top verified recommendations for "${userMsgText}":`;
+      let spots: ChatMessage['spots'] = [
+        { name: 'Yod Abyssinia', dish: 'Special Cultural Feast', price: '650 ETB', location: 'Bole' },
+        { name: 'Titich Gourmet Burger', dish: 'Classic Smash Burger', price: '320 ETB', location: 'Kazanchis' },
+      ];
+
+      if (query.includes('kitfo') || query.includes('bole') || query.includes('raw meat')) {
+        botReplyText = 'Top verified recommendations for authentic Kitfo in Bole & Piassa:';
+        spots = [
+          { name: 'Tiru Kitfo Special', dish: 'Gurage Kitfo + Fresh Ayeb', price: '520 ETB', location: 'Bole Atlas' },
+          { name: 'Habesha 2000', dish: 'Special Lebleb Kitfo', price: '450 ETB', location: 'Bole' },
+          { name: 'Kakur Traditional', dish: 'Piassa Kitfo Platter', price: '490 ETB', location: 'Piassa' },
+        ];
+      } else if (query.includes('coffee') || query.includes('macchiato') || query.includes('cafe')) {
+        botReplyText = 'Best cafes and Ethiopian Macchiato spots under 300 ETB:';
+        spots = [
+          { name: 'Tomoca Coffee', dish: 'Double Ethiopian Macchiato', price: '120 ETB', location: 'Piassa & Atlas' },
+          { name: 'Galani Coffee', dish: 'Single Origin Pour Over', price: '180 ETB', location: 'Sarbet' },
+        ];
+      } else if (query.includes('fasting') || query.includes('veggie') || query.includes('shiro')) {
+        botReplyText = 'Recommended Fasting & Veggie Spots in Kazanchis & Bole:';
+        spots = [
+          { name: 'Fin Fine Cultural', dish: 'Special Shiro & Gomen', price: '220 ETB', location: 'Kazanchis' },
+          { name: 'Yod Abyssinia', dish: 'Traditional Beyaynetu Platter', price: '280 ETB', location: 'Bole' },
+        ];
+      }
+
+      const botMessage: ChatMessage = {
+        id: `bot-${Date.now()}`,
+        sender: 'bot',
+        text: botReplyText,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        spots,
+      };
+
+      setMessages((prev) => [...prev, botMessage]);
+      setIsTyping(false);
+    }, 900);
   };
 
   return (
     <>
-      {/* Floating Trigger Button */}
-      <div className="fixed bottom-5 right-5 z-50">
+      {/* Highly Visible & Draggable Floating Trigger Badge */}
+      <motion.div
+        drag
+        dragMomentum={false}
+        className="fixed bottom-6 right-6 z-50 cursor-grab active:cursor-grabbing"
+      >
         <motion.button
-          whileHover={{ scale: 1.08 }}
+          whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(true)}
-          className="relative flex items-center gap-2.5 px-4 py-3 rounded-full text-white shadow-2xl cursor-pointer group border"
+          className="relative flex items-center gap-2.5 px-4 py-3 rounded-full text-white shadow-2xl transition-all border border-[#B8422E] cursor-pointer group"
           style={{
-            background: 'linear-gradient(90deg, var(--accent-brand), var(--accent-amber))',
-            borderColor: 'rgba(244,162,97,0.4)',
+            backgroundColor: '#1A1C1E',
           }}
-          aria-label="Open AI Foodie Assistant"
+          aria-label="Open AI Foodie Live Chat Assistant"
         >
           <div className="relative">
-            <Bot className="w-5 h-5 text-white" />
-            {/* Design.md --accent-verified teal for live dot */}
-            <span
-              className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full border-2 border-[#121212] animate-pulse"
-              style={{ backgroundColor: 'var(--accent-verified)' }}
-            />
+            <Bot className="w-5 h-5 text-[#B8422E]" />
+            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#1A1C1E] animate-pulse" />
           </div>
-          <span className="text-xs font-extrabold font-display hidden sm:inline-block tracking-wide">
-            AI Foodie Bot
+          <span className="text-xs font-label font-bold tracking-wide text-white">
+            Chat with AI Foodie 💬
           </span>
-          <Sparkles className="w-3.5 h-3.5 text-white/80" />
+          <Move className="w-3 h-3 text-slate-400 opacity-60 group-hover:opacity-100" />
         </motion.button>
-      </div>
+      </motion.div>
 
       {/* Modal Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+              className="w-full max-w-lg rounded-lg shadow-2xl overflow-hidden flex flex-col h-[600px] max-h-[90vh] border"
               style={{
-                backgroundColor: '#1E1E1E',      /* Design.md dark --bg-surface */
-                color: '#F9F7F3',                /* Design.md dark --text-primary */
-                border: '1px solid #2E2E2E',     /* Design.md dark --border-hairline */
+                backgroundColor: '#1A1C1E',
+                color: '#F7F5F2',
+                borderColor: '#2A2E33',
               }}
             >
-              {/* Modal Header */}
+              {/* Chat Window Header */}
               <div
-                className="p-5 sm:p-6 flex items-center justify-between"
+                className="p-4 flex items-center justify-between border-b"
                 style={{
-                  background: 'linear-gradient(90deg, #5a0000, #1E1E1E)',
-                  borderBottom: '1px solid #2E2E2E',
+                  backgroundColor: '#121416',
+                  borderColor: '#2A2E33',
                 }}
               >
                 <div className="flex items-center gap-3">
-                  <div
-                    className="w-10 h-10 rounded-2xl flex items-center justify-center text-white shadow-lg shrink-0"
-                    style={{ backgroundColor: 'var(--accent-brand)' }}
-                  >
-                    <Bot className="w-6 h-6" />
+                  <div className="w-9 h-9 rounded-sm bg-[#B8422E] flex items-center justify-center text-white shadow-xs">
+                    <Bot className="w-5 h-5" />
                   </div>
-                  <div>
+                  <div className="flex flex-col">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-display font-black text-lg sm:text-xl text-white">
+                      <h3 className="font-display font-medium text-base text-white">
                         Addis AI Assistant
                       </h3>
-                      <span
-                        className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full text-white uppercase"
-                        style={{ backgroundColor: 'var(--accent-brand)' }}
-                      >
-                        AI BOT
+                      <span className="text-[9px] font-label font-bold px-2 py-0.5 rounded-sm bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase">
+                        ONLINE
                       </span>
                     </div>
-                    <p className="text-xs font-medium pt-0.5" style={{ color: 'var(--accent-amber)' }}>
-                      Personalized food recommendations &amp; advice across Addis Ababa
-                    </p>
+                    <span className="text-[11px] font-body text-slate-400">
+                      Live food &amp; ETB price recommendation bot
+                    </span>
                   </div>
                 </div>
+
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-xl transition-colors hover:bg-white/10"
-                  style={{ color: '#A09E98' }}
+                  className="p-1.5 rounded-sm hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                  title="Close Assistant"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Modal Body */}
-              <div className="p-5 sm:p-6 flex flex-col gap-6 overflow-y-auto">
-
-                {/* Prompt Chips */}
-                <div className="flex flex-col gap-2">
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider" style={{ color: '#A09E98' }}>
-                    Popular Recommendation Questions:
-                  </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {promptChips.map((chip, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => handleQuerySubmit(undefined, chip.label)}
-                        className="text-left px-3.5 py-2.5 rounded-xl border text-xs font-semibold transition-all flex items-center justify-between group cursor-pointer"
-                        style={{
-                          backgroundColor: 'rgba(255,255,255,0.04)',
-                          borderColor: '#2E2E2E',
-                          color: '#D4D1C9',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'color-mix(in srgb, var(--accent-brand) 18%, transparent)';
-                          e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--accent-brand) 40%, transparent)';
-                          e.currentTarget.style.color = '#F9F7F3';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)';
-                          e.currentTarget.style.borderColor = '#2E2E2E';
-                          e.currentTarget.style.color = '#D4D1C9';
-                        }}
-                      >
-                        <span>{chip.label}</span>
-                        <ArrowRight
-                          className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"
-                          style={{ color: 'var(--accent-amber)' }}
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Input Form */}
-                <form onSubmit={handleQuerySubmit} className="relative">
-                  <input
-                    type="text"
-                    value={inputQuery}
-                    onChange={(e) => setInputQuery(e.target.value)}
-                    placeholder="Ask AI Bot for food advice (e.g. Best Kitfo in Bole, Fasting lunch near Kazanchis)..."
-                    className="w-full rounded-xl pl-4 pr-12 py-3 text-xs sm:text-sm placeholder-stone-500 focus:outline-none font-medium transition-colors"
-                    style={{
-                      backgroundColor: 'rgba(0,0,0,0.4)',
-                      border: '1px solid #2E2E2E',
-                      color: '#F9F7F3',
-                    }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent-brand)')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = '#2E2E2E')}
-                  />
-                  <button
-                    type="submit"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg text-white flex items-center justify-center cursor-pointer transition-colors shadow-md"
-                    style={{ backgroundColor: 'var(--accent-brand)' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand-hover)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand)')}
-                  >
-                    <Send className="w-4 h-4" />
-                  </button>
-                </form>
-
-                {/* AI Result Cards */}
-                <div
-                  className="rounded-2xl p-4 flex flex-col gap-3"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.35)', border: '1px solid #2E2E2E' }}
-                >
+              {/* Live Messaging Feed */}
+              <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-4 bg-[#141618]">
+                {messages.map((msg) => (
                   <div
-                    className="flex items-center gap-2 text-xs font-mono font-bold pb-2"
-                    style={{ borderBottom: '1px solid #2E2E2E', color: 'var(--accent-amber)' }}
+                    key={msg.id}
+                    className={`flex flex-col ${
+                      msg.sender === 'user' ? 'items-end' : 'items-start'
+                    }`}
                   >
-                    {/* Design.md: --accent-verified for confirmed/verified states */}
-                    <CheckCircle2 className="w-4 h-4" style={{ color: 'var(--accent-verified)' }} />
-                    <span>{activeResponse.text}</span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-                    {activeResponse.spots.map((spot, i) => (
+                    <div
+                      className={`flex items-start gap-2.5 max-w-[88%] ${
+                        msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'
+                      }`}
+                    >
+                      {/* Avatar */}
                       <div
-                        key={i}
-                        className="rounded-xl p-3 flex flex-col justify-between gap-2 transition-colors"
-                        style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid #2E2E2E' }}
-                        onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--accent-brand) 50%, transparent)')}
-                        onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#2E2E2E')}
+                        className={`w-7 h-7 rounded-sm flex items-center justify-center text-xs shrink-0 ${
+                          msg.sender === 'user'
+                            ? 'bg-slate-700 text-white'
+                            : 'bg-[#B8422E] text-white'
+                        }`}
                       >
-                        <div>
-                          <div className="flex items-center justify-between">
-                            <h4 className="font-display font-black text-xs sm:text-sm text-white">{spot.name}</h4>
-                            <span
-                              className="text-[10px] font-mono font-bold flex items-center gap-0.5"
-                              style={{ color: 'var(--accent-amber)' }}
-                            >
-                              <Star className="w-3 h-3 fill-current" />
-                              {spot.rating}
-                            </span>
-                          </div>
-                          <p className="text-xs font-medium pt-1" style={{ color: '#D4D1C9' }}>{spot.dish}</p>
-                        </div>
-
-                        <div
-                          className="pt-2 flex items-center justify-between"
-                          style={{ borderTop: '1px solid #2E2E2E' }}
-                        >
-                          <span className="font-mono font-black text-xs" style={{ color: 'var(--accent-brand)' }}>
-                            {spot.price}
-                          </span>
-                          <span className="text-[10px] font-mono flex items-center gap-0.5" style={{ color: '#A09E98' }}>
-                            <MapPin className="w-3 h-3" style={{ color: 'var(--accent-amber)' }} />
-                            <span>{spot.location.split(',')[0]}</span>
-                          </span>
-                        </div>
+                        {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                       </div>
-                    ))}
+
+                      {/* Bubble */}
+                      <div
+                        className={`p-3.5 rounded-md text-xs sm:text-sm font-body leading-relaxed border ${
+                          msg.sender === 'user'
+                            ? 'bg-[#B8422E] text-white border-[#B8422E]'
+                            : 'bg-[#212428] text-[#F7F5F2] border-[#2A2E33]'
+                        }`}
+                      >
+                        <p>{msg.text}</p>
+
+                        {/* Attached Spot Recommendation Cards */}
+                        {msg.spots && msg.spots.length > 0 && (
+                          <div className="mt-3 grid grid-cols-1 gap-2 pt-2 border-t border-white/15">
+                            {msg.spots.map((spot, i) => (
+                              <div
+                                key={i}
+                                className="p-2.5 rounded-sm bg-white/5 border border-white/10 flex items-center justify-between text-xs"
+                              >
+                                <div className="flex flex-col">
+                                  <span className="font-label font-bold text-white">{spot.name}</span>
+                                  <span className="text-[11px] text-slate-300">{spot.dish}</span>
+                                  <span className="text-[10px] text-slate-400 flex items-center gap-1 pt-0.5">
+                                    <MapPin className="w-3 h-3 text-[#B8422E]" />
+                                    <span>{spot.location}</span>
+                                  </span>
+                                </div>
+                                <span className="px-2 py-1 rounded-sm bg-[#B8422E]/20 text-[#B8422E] font-label font-bold text-xs border border-[#B8422E]/40 shrink-0">
+                                  {spot.price}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        <span
+                          className={`block text-[9px] font-label mt-1 ${
+                            msg.sender === 'user' ? 'text-white/70 text-right' : 'text-slate-400'
+                          }`}
+                        >
+                          {msg.timestamp}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
+
+                {/* Live Typing Indicator */}
+                {isTyping && (
+                  <div className="flex items-center gap-2 text-xs font-label text-slate-400 bg-[#212428] p-3 rounded-md w-fit border border-[#2A2E33]">
+                    <Bot className="w-4 h-4 text-[#B8422E] animate-spin" />
+                    <span>AI Foodie Assistant is typing recommendations...</span>
+                  </div>
+                )}
+
+                <div ref={messagesEndRef} />
               </div>
 
-              {/* Modal Footer */}
-              <div
-                className="p-4 text-center text-xs font-mono flex items-center justify-between"
-                style={{
-                  backgroundColor: '#121212',
-                  borderTop: '1px solid #2E2E2E',
-                  color: '#A09E98',
-                }}
+              {/* Chat Input Bar */}
+              <form
+                onSubmit={handleSendMessage}
+                className="p-3 border-t bg-[#121416] flex items-center gap-2"
+                style={{ borderColor: '#2A2E33' }}
               >
-                <span>Verified Addis Foodies Recommendation Engine</span>
+                <input
+                  type="text"
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  placeholder="Type a message (e.g. Best Kitfo in Bole, Macchiato price)..."
+                  className="flex-1 px-3.5 py-2.5 text-xs sm:text-sm rounded-sm bg-[#1A1C1E] border border-[#3A3E42] text-[#F7F5F2] placeholder-slate-400 outline-none focus:border-[#B8422E] transition-colors"
+                />
+
                 <button
-                  onClick={() => setIsOpen(false)}
-                  className="px-4 py-1.5 rounded-lg text-white text-xs font-bold shadow-md transition-colors"
-                  style={{ backgroundColor: 'var(--accent-brand)' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand-hover)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--accent-brand)')}
+                  type="submit"
+                  className="button-primary p-2.5 rounded-sm text-white flex items-center justify-center cursor-pointer shadow-xs"
+                  title="Send Message"
                 >
-                  Close Assistant
+                  <Send className="w-4 h-4" />
                 </button>
+              </form>
+
+              {/* Footer Indicator */}
+              <div className="px-4 py-1.5 bg-[#0D0E10] text-[10px] font-label text-slate-400 flex items-center justify-between border-t border-[#2A2E33]">
+                <div className="flex items-center gap-1 text-emerald-400">
+                  <ShieldCheck className="w-3 h-3" />
+                  <span>100% Itemized ETB Receipt Guarantee</span>
+                </div>
+                <span>Addis Foodies AI</span>
               </div>
             </motion.div>
           </div>

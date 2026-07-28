@@ -7,16 +7,14 @@ import {
   Calendar, 
   MapPin, 
   Ticket, 
-  Sparkles, 
   ArrowRight,
   Trophy,
-  Star,
-  CheckCircle,
   Flame,
   Film,
   Play,
   X,
-  UtensilsCrossed
+  UtensilsCrossed,
+  Sparkles
 } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -67,9 +65,9 @@ const festivalHighlights = [
     status: 'ANNUAL CULINARY POLL',
     organizer: 'Addis Foodies Academy',
     image: '/images/ethiopian_kitfo_hero.png',
-    description: 'The definitive annual public voting awards recognizing Addis Ababa’s best Kitfo, burgers, traditional cafes, pastries, and street food vendors.',
-    btnLabel: 'Vote Now in Awards',
-    actionType: 'vote',
+    description: 'The definitive annual public awards recognizing Addis Ababa’s best Kitfo, burgers, traditional cafes, pastries, and street food vendors.',
+    btnLabel: 'View Event Details',
+    actionType: 'details',
   },
 ];
 
@@ -133,25 +131,13 @@ const eventReels = [
   },
 ];
 
-// Awards Category Links
-const awardCategories = [
-  { id: 'best-kitfo',       label: 'Vote Best Kitfo 2026',       icon: '🥩', nominees: ['Tiru Kitfo Special', 'Yado Kitfo', 'Kakur Traditional'] },
-  { id: 'best-burger',      label: 'Vote Best Burger 2026',      icon: '🍔', nominees: ['Titich Gourmet Burger', 'Roadrunner Burger', 'Slam Burger'] },
-  { id: 'best-cafe',        label: 'Vote Best Cafe 2026',        icon: '☕', nominees: ['Tomoca Coffee', 'Galani Café', 'Kaldi\'s Coffee'] },
-  { id: 'best-traditional', label: 'Vote Best Traditional 2026', icon: '🍲', nominees: ['Yod Abyssinia', 'Fin Fine Cultural', 'Habesha 2000'] },
-  { id: 'best-street-food', label: 'Vote Best Street Food 2026', icon: '🌮', nominees: ['Piassa Tibs Corner', 'Merkato Sambusa', 'Shiro Mado'] },
-  { id: 'best-pastry',      label: 'Vote Best Pastry 2026',      icon: '🧁', nominees: ['Enrico Pastry', 'Keremet Pastry', 'Fornaio Café'] },
-];
-
 export default function EventsPage() {
   const [reservedEvent, setReservedEvent] = useState<string | null>(null);
-  const [votedCategory, setVotedCategory] = useState<Record<string, string>>({});
   const [activeVideo, setActiveVideo] = useState<typeof eventReels[0] | null>(null);
 
   const handleAction = (title: string, actionType: string) => {
-    if (actionType === 'vote') {
-      const el = document.getElementById('awards-voting-matrix');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (actionType === 'details') {
+      window.location.href = '/collaborate';
     } else {
       setReservedEvent(title);
     }
@@ -240,14 +226,14 @@ export default function EventsPage() {
                       onClick={() => handleAction(ev.title, ev.actionType)}
                       className="button-primary w-full py-2.5 rounded-md text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:scale-[1.01]"
                     >
-                      {ev.actionType === 'vote' ? <Star className="w-4 h-4 text-white" /> : <Ticket className="w-4 h-4 text-white" />}
+                      {ev.actionType === 'details' ? <Trophy className="w-4 h-4 text-white" /> : <Ticket className="w-4 h-4 text-white" />}
                       <span>{ev.btnLabel}</span>
                     </button>
 
                     {reservedEvent === ev.title && (
                       <div className="p-2 rounded-md bg-emerald-500/10 border border-emerald-500 text-emerald-800 text-[11px] font-label font-bold flex items-center gap-1.5">
-                        <CheckCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                        <span>Pass Reserved! SMS confirmation sent.</span>
+                        <Sparkles className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <span>Pass Reserved! Confirmation logged.</span>
                       </div>
                     )}
                   </div>
@@ -363,103 +349,6 @@ export default function EventsPage() {
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* 4. ADDIS FOODIES AWARDS VOTING MATRIX */}
-        <section
-          id="awards-voting-matrix"
-          className="relative rounded-lg overflow-hidden text-white shadow-xs border p-6 sm:p-10"
-          style={{ backgroundColor: '#1A1C1E', borderColor: 'var(--border-subtle)' }}
-        >
-          <div className="flex flex-col gap-6">
-            
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-md bg-[#B8422E] flex items-center justify-center text-white">
-                  <Trophy className="w-5 h-5" />
-                </div>
-                <div>
-                  <h2 className="font-display font-medium text-2xl sm:text-4xl text-white">
-                    AddisFoodie <span className="text-[#B8422E]">Awards</span> 2026 Voting
-                  </h2>
-                  <p className="text-xs text-slate-400 font-label pt-0.5">
-                    Direct Public Polls • Official Culinary Voting
-                  </p>
-                </div>
-              </div>
-
-              <div className="px-3.5 py-1.5 rounded-sm bg-white/10 text-white font-label text-xs border border-white/20 w-fit">
-                ⚡ VOTE CATEGORIES
-              </div>
-            </div>
-
-            {/* Voting Category Link Matrix Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {awardCategories.map((cat) => {
-                const hasVoted = !!votedCategory[cat.id];
-                return (
-                  <div
-                    key={cat.id}
-                    className="rounded-md p-5 flex flex-col justify-between gap-4 transition-all border"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.03)',
-                      borderColor: hasVoted ? '#B8422E' : 'rgba(255,255,255,0.1)',
-                    }}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <span className="text-2xl">{cat.icon}</span>
-                      <h3 className="font-display font-medium text-base text-white">{cat.label}</h3>
-                    </div>
-
-                    <div className="flex flex-col gap-2">
-                      {cat.nominees.map((nominee) => {
-                        const isSelected = votedCategory[cat.id] === nominee;
-                        return (
-                          <button
-                            key={nominee}
-                            onClick={() => {
-                              if (!hasVoted) {
-                                setVotedCategory((prev) => ({ ...prev, [cat.id]: nominee }));
-                              }
-                            }}
-                            disabled={hasVoted && !isSelected}
-                            className="w-full text-left px-3 py-2 rounded-sm text-xs font-label transition-all flex items-center justify-between gap-2 cursor-pointer"
-                            style={{
-                              backgroundColor: isSelected
-                                ? '#B8422E'
-                                : 'rgba(255,255,255,0.06)',
-                              border: isSelected
-                                ? '1px solid #B8422E'
-                                : '1px solid rgba(255,255,255,0.08)',
-                              color: '#FFFFFF',
-                              opacity: hasVoted && !isSelected ? 0.4 : 1,
-                              cursor: hasVoted && !isSelected ? 'not-allowed' : 'pointer',
-                            }}
-                          >
-                            <span>{nominee}</span>
-                            {isSelected ? (
-                              <Star className="w-3.5 h-3.5 fill-current text-white shrink-0" />
-                            ) : !hasVoted ? (
-                              <span className="text-[10px] font-label text-slate-300">Vote →</span>
-                            ) : null}
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    {hasVoted && (
-                      <div className="flex items-center gap-1.5 text-[11px] font-label px-2.5 py-1 rounded-sm bg-white/10 text-white">
-                        <Sparkles className="w-3.5 h-3.5 text-[#B8422E]" />
-                        <span>Voted: {votedCategory[cat.id]}</span>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
           </div>
         </section>
 

@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { 
   Compass, 
   ArrowRight,
-  Sparkles,
   Utensils,
   Film,
   Play,
@@ -118,7 +117,7 @@ export default function HomePage() {
         {/* MAIN HOMEPAGE CONTENT */}
         <main className="site-container py-8 flex flex-col gap-12">
 
-          {/* 4. LATEST OFFICIAL REVIEWS SECTION */}
+          {/* 4. LATEST OFFICIAL REVIEWS SECTION (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
           <section id="latest-reviews-section" className="flex flex-col gap-6 pt-2">
             
             <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
@@ -138,7 +137,7 @@ export default function HomePage() {
                   Latest Official Reviews
                 </h2>
                 <p className="text-xs sm:text-sm font-body pt-1" style={{ color: 'var(--text-secondary)' }}>
-                  Fresh food inspections and itemized ETB price audits published by @addis.foodie.
+                  Fresh food inspections and itemized ETB price audits (Swipe horizontally on mobile ↔)
                 </p>
               </div>
 
@@ -151,14 +150,15 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Grid of Latest Official Reviews (6 Items) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Side-Scrollable Horizontal Carousel on Mobile Phones */}
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible scrollbar-none">
               {latestOfficialReviews.map((post) => (
-                <ReviewCard
-                  key={post.id}
-                  post={post}
-                  onClick={() => setActivePost(post)}
-                />
+                <div key={post.id} className="shrink-0 w-[85vw] sm:w-auto snap-center">
+                  <ReviewCard
+                    post={post}
+                    onClick={() => setActivePost(post)}
+                  />
+                </div>
               ))}
             </div>
 
