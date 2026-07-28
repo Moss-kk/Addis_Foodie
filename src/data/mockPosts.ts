@@ -22,10 +22,10 @@ export const mockPosts: FoodPost[] = [
     viewsCount: '94.2K views',
     rating: '4.9',
     reviewer: {
-      name: 'Yonas Teshager',
-      handle: '@yonas_foodlog',
+      name: 'Official Addis Foodies Curation',
+      handle: '@addis.foodie',
       avatar: '/telegram-imports/Queen Burger.jpg',
-      role: 'Addis Foodies Senior Inspector',
+      role: 'Official Culinary Curator',
       verified: true,
     },
     ratings: {
@@ -64,10 +64,10 @@ export const mockPosts: FoodPost[] = [
     viewsCount: '52.4K views',
     rating: '4.7',
     reviewer: {
-      name: 'Selamawit Kebede',
-      handle: '@selam_eats',
+      name: 'Official Addis Foodies Curation',
+      handle: '@addis.foodie',
       avatar: '/telegram-imports/fasting burger.jpg',
-      role: 'Addis Foodies Curator',
+      role: 'Official Culinary Curator',
       verified: true,
     },
     ratings: {
@@ -105,10 +105,10 @@ export const mockPosts: FoodPost[] = [
     viewsCount: '89.1K views',
     rating: '4.8',
     reviewer: {
-      name: 'Dawit Alemu',
-      handle: '@dawit_addisfood',
+      name: 'Official Addis Foodies Curation',
+      handle: '@addis.foodie',
       avatar: '/telegram-imports/Yado kitfo.jpg',
-      role: 'Addis Foodies Cultural Lead',
+      role: 'Official Culinary Curator',
       verified: true,
     },
     ratings: {
@@ -145,10 +145,10 @@ export const mockPosts: FoodPost[] = [
     viewsCount: '34.8K views',
     rating: '4.9',
     reviewer: {
-      name: 'Bethlehem Tadese',
-      handle: '@betty_coffee',
+      name: 'Official Addis Foodies Curation',
+      handle: '@addis.foodie',
       avatar: '/telegram-imports/Vanilla Fasting Iced late.jpg',
-      role: 'Addis Foodies Coffee Specialist',
+      role: 'Official Culinary Curator',
       verified: true,
     },
     ratings: {
@@ -185,10 +185,10 @@ export const mockPosts: FoodPost[] = [
     viewsCount: '112.5K views',
     rating: '4.9',
     reviewer: {
-      name: 'Yonas Teshager',
-      handle: '@yonas_foodlog',
+      name: 'Official Addis Foodies Curation',
+      handle: '@addis.foodie',
       avatar: '/telegram-imports/SHRIMP sky light.jpg',
-      role: 'Addis Foodies Senior Inspector',
+      role: 'Official Culinary Curator',
       verified: true,
     },
     ratings: {
@@ -226,10 +226,10 @@ export const mockPosts: FoodPost[] = [
     viewsCount: '67.9K views',
     rating: '4.8',
     reviewer: {
-      name: 'Dawit Alemu',
-      handle: '@dawit_addisfood',
+      name: 'Official Addis Foodies Curation',
+      handle: '@addis.foodie',
       avatar: '/telegram-imports/IFTAR PACKAGE.jpg',
-      role: 'Addis Foodies Cultural Lead',
+      role: 'Official Culinary Curator',
       verified: true,
     },
     ratings: {
@@ -245,85 +245,5 @@ export const mockPosts: FoodPost[] = [
       { name: 'Traditional Tej Carafe', price: 400 }
     ],
     mapUrl: 'https://maps.google.com/?q=Yod+Abyssinia+Bole'
-  },
-  {
-    id: 'habesha-2000-1',
-    restaurantName: 'Habesha 2000 Cultural Restaurant',
-    location: 'Bole, Bole Road near Edna Mall',
-    neighborhood: 'Bole',
-    image: '/images/ethiopian_feast_hero.png',
-    images: [
-      '/images/ethiopian_feast_hero.png',
-      '/telegram-imports/Yado kitfo.jpg'
-    ],
-    caption: 'Habesha 2000 Special Kitfo & Tibs Feast. Lean minced beef with spiced kibbeh, served alongside sizzling lamb tibs and fresh house ayeb. Iconic Bole location for family gatherings. #Bole #Habesha2000 #Kitfo',
-    price: 780,
-    priceFormatted: '780 Br',
-    sourcePlatform: 'telegram',
-    category: 'Traditional',
-    timestamp: '2026-07-20T18:00:00Z',
-    originalPostUrl: 'https://t.me/addisfoodies/201',
-    reelPlatform: 'tiktok_video',
-    viewsCount: '78.3K views',
-    rating: '4.8',
-    reviewer: {
-      name: 'Yonas Teshager',
-      handle: '@yonas_foodlog',
-      avatar: '/images/ethiopian_feast_hero.png',
-      role: 'Addis Foodies Senior Inspector',
-      verified: true,
-    },
-    ratings: {
-      taste: 4.9,
-      ambiance: 4.8,
-      service: 4.6,
-      value: 4.7,
-    },
-    reviewerNotes: 'Live cultural music starts at 7:30 PM. Outstanding Kitfo texture!',
-    menuItems: [
-      { name: 'Habesha Special Kitfo', price: 780 },
-      { name: 'Shekla Tibs', price: 720 },
-      { name: 'Honey Tej Bottle', price: 350 }
-    ],
-    mapUrl: 'https://maps.google.com/?q=Habesha+2000+Bole'
-  },
-  {
-    id: 'finfine-1',
-    restaurantName: 'Fin Fine Cultural Restaurant',
-    location: 'Kazanchis, Filwoha area',
-    neighborhood: 'Kazanchis',
-    image: '/telegram-imports/fasting burger.jpg',
-    images: [
-      '/telegram-imports/fasting burger.jpg',
-    ],
-    caption: 'Historic Fin Fine Cultural Restaurant in Kazanchis. Famous for authentic Fasting Beyaynetu and Shiro Tegabino served in traditional clay pots with fresh garlic. #Kazanchis #FinFine #Fasting',
-    price: 390,
-    priceFormatted: '390 Br',
-    sourcePlatform: 'instagram',
-    category: 'Fasting',
-    timestamp: '2026-07-19T11:30:00Z',
-    originalPostUrl: 'https://instagram.com/p/addisfoodies_finfine',
-    reelPlatform: 'instagram_reel',
-    viewsCount: '41.2K views',
-    rating: '4.7',
-    reviewer: {
-      name: 'Dawit Alemu',
-      handle: '@dawit_addisfood',
-      avatar: '/telegram-imports/fasting burger.jpg',
-      role: 'Addis Foodies Cultural Lead',
-      verified: true,
-    },
-    ratings: {
-      taste: 4.8,
-      ambiance: 4.7,
-      service: 4.5,
-      value: 4.8,
-    },
-    reviewerNotes: 'Try the house spiced ginger tea after your meal.',
-    menuItems: [
-      { name: 'Fin Fine Fasting Platter', price: 390 },
-      { name: 'Shiro Tegabino', price: 240 },
-    ],
-    mapUrl: 'https://maps.google.com/?q=Fin+Fine+Cultural+Kazanchis'
   }
 ];

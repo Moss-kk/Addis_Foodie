@@ -3,8 +3,6 @@
 @theme {
   /* ADDIS FOODIES — Design.md Canonical Tokens */
   --color-accent-gold:        var(--accent-gold);
-  --color-accent-gold-hover:  var(--accent-gold-hover);
-  --color-accent-red:         var(--accent-red);
 
   /* Typography Stack */
   --font-sans:    var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
@@ -13,13 +11,14 @@
 }
 
 /* ==========================================================================
-   DAY MODE TOKENS (Warm Slate / Cream Editorial)
+   DAY MODE TOKENS (Soft Cream Slate Canvas + Black & White Delivery Cards)
    ========================================================================== */
 :root {
   --bg-app: #F8FAFC;                 /* Soft Warm Cream Slate */
   --bg-surface: #FFFFFF;             /* Pure White Elevated Cards */
+  --bg-monochrome-card: #000000;     /* Pure Black Delivery Card */
+  --text-monochrome-card: #FFFFFF;
   --bg-surface-hover: #F1F5F9;       /* Hover Surface State */
-  --bg-surface-elevated: #EDE8E1;    /* Special Highlighted Sections */
   
   --border-subtle: #E2E8F0;          /* Card & Input Outlines */
   --border-active: #CBD5E1;          /* Active Element Outlines */
@@ -31,7 +30,6 @@
   --accent-gold: #D97706;            /* Rich Ethiopian Honey Amber */
   --accent-gold-hover: #B45309;      /* Darker Gold Pressed State */
   --accent-gold-glow: rgba(217, 119, 6, 0.12);
-  --accent-red: #EF4444;             /* Urgent Notices / Flash Alerts */
 
   --shadow-card: 0px 4px 20px rgba(15, 23, 42, 0.05);
   --shadow-floating: 0px 12px 32px rgba(15, 23, 42, 0.10);
@@ -45,14 +43,15 @@
 }
 
 /* ==========================================================================
-   NIGHT MODE TOKENS (Deep Slate / Luxury Midnight Canvas)
+   NIGHT MODE TOKENS (Deep Slate Canvas + High-Contrast Delivery Cards)
    ========================================================================== */
 .dark,
 [data-theme="dark"] {
   --bg-app: #0B0F17;                 /* Deep Charcoal Slate Floor */
   --bg-surface: #161E2E;             /* Elevated Slate Cards */
+  --bg-monochrome-card: #000000;     /* Pure Black Delivery Card */
+  --text-monochrome-card: #FFFFFF;
   --bg-surface-hover: #1E293B;       /* Interactive Surface Hover */
-  --bg-surface-elevated: #252D3E;    /* Highlighted / Featured Cards */
   
   --border-subtle: #1F293D;          /* Card Dividers & Borders */
   --border-active: #374151;          /* Focused Element Outlines */
@@ -64,7 +63,6 @@
   --accent-gold: #F59E0B;            /* Vibrant Ethiopian Honey Gold */
   --accent-gold-hover: #D97706;      /* Pressed Gold State */
   --accent-gold-glow: rgba(245, 158, 11, 0.15);
-  --accent-red: #EF4444;             /* Urgent Notices / Flash Alerts */
 
   --shadow-card: 0px 8px 24px rgba(0, 0, 0, 0.35);
   --shadow-floating: 0px 16px 48px rgba(0, 0, 0, 0.50);
@@ -83,9 +81,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ============================================================
-   Typography Classes (Claude Editorial Hierarchy)
-   ============================================================ */
 .font-display {
   font-family: var(--font-display-face), "Bricolage Grotesque", "Georgia", serif;
   font-weight: 400;
@@ -98,14 +93,6 @@ body {
   line-height: 1.55;
 }
 
-.font-body-bold {
-  font-family: var(--font-inter), "Inter", -apple-system, sans-serif;
-  font-weight: 500;
-}
-
-/* ============================================================
-   Layout Utilities
-   ============================================================ */
 .site-container {
   width: 100%;
   max-width: 1280px;
@@ -129,9 +116,6 @@ body {
   }
 }
 
-/* ============================================================
-   Accessibility
-   ============================================================ */
 .touch-target {
   min-height: 48px;
   min-width: 48px;
@@ -148,9 +132,6 @@ body {
   outline-offset: 2px;
 }
 
-/* ============================================================
-   Card Architecture Rules (Mastercard Pill Style)
-   ============================================================ */
 .food-card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-subtle);
