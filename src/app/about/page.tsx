@@ -65,29 +65,29 @@ export default function AboutPage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-500 hover:text-amber-500 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-label uppercase text-[var(--text-secondary)] hover:text-[#B8422E] transition-colors"
           >
-            <ArrowRight className="w-4 h-4 rotate-180" style={{ color: 'var(--accent-gold)' }} />
+            <ArrowRight className="w-4 h-4 rotate-180 text-[#B8422E]" />
             <span>Back to Discovery Feed</span>
           </Link>
         </div>
 
-        {/* HERO SECTION (Cleaned up, no corporate boilerplate or PDF buttons) */}
-        <section className="bg-slate-950 text-white p-8 sm:p-14 rounded-[40px] flex flex-col items-center text-center gap-4 shadow-2xl border border-slate-800">
+        {/* HERO SECTION */}
+        <section className="bg-[#1A1C1E] text-white p-8 sm:p-12 rounded-lg flex flex-col items-center text-center gap-4 shadow-xs border border-[var(--border-subtle)]">
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-mono font-bold uppercase tracking-widest text-amber-400"
-            style={{ backgroundColor: 'var(--accent-gold-glow)', borderColor: 'var(--border-subtle)' }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border text-xs font-label uppercase tracking-widest text-[#B8422E]"
+            style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.1)' }}
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-3.5 h-3.5 text-[#B8422E]" />
             <span>Addis Ababa Culinary Guide</span>
           </div>
 
-          <h1 className="font-display font-normal text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-none">
-            About <span className="text-amber-400">Addis Foodies</span>
+          <h1 className="font-display font-medium text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-none">
+            About <span className="text-[#B8422E]">Addis Foodies</span>
           </h1>
 
-          <p className="text-slate-300 font-body text-sm sm:text-lg leading-relaxed max-w-2xl">
-            The premier digital food platform and culinary guide celebrating authentic local food, verified pricing, and food culture in Addis Ababa.
+          <p className="text-slate-300 font-body text-sm sm:text-base leading-relaxed max-w-2xl">
+            Architectural minimalism meets journalistic gravitas. The premier digital food platform and culinary guide celebrating authentic local food, verified pricing, and food culture in Addis Ababa.
           </p>
         </section>
 
@@ -96,20 +96,19 @@ export default function AboutPage() {
           {achievements.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="p-6 rounded-3xl border shadow-card text-center flex flex-col gap-2"
-              style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+              transition={{ duration: 0.3, delay: idx * 0.08 }}
+              className="heritage-card text-center flex flex-col gap-2"
             >
-              <span className="font-display font-bold text-3xl sm:text-4xl" style={{ color: 'var(--accent-gold)' }}>
+              <span className="font-display font-medium text-3xl sm:text-4xl text-[#B8422E]">
                 {item.metric}
               </span>
-              <span className="font-display font-bold text-xs sm:text-sm" style={{ color: 'var(--text-primary)' }}>
+              <span className="font-display font-medium text-xs sm:text-sm" style={{ color: 'var(--text-primary)' }}>
                 {item.label}
               </span>
-              <span className="text-[11px] font-mono" style={{ color: 'var(--text-muted)' }}>
+              <span className="text-[11px] font-label" style={{ color: 'var(--text-muted)' }}>
                 {item.sub}
               </span>
             </motion.div>
@@ -118,14 +117,14 @@ export default function AboutPage() {
 
         {/* 2. BRAND TIMELINE */}
         <section
-          className="flex flex-col gap-8 p-8 sm:p-12 rounded-3xl border shadow-card"
+          className="flex flex-col gap-8 p-8 sm:p-10 rounded-lg border shadow-xs"
           style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
         >
           <div>
-            <span className="text-xs font-mono font-bold uppercase tracking-wider" style={{ color: 'var(--accent-gold)' }}>
+            <span className="text-xs font-label uppercase tracking-wider text-[#B8422E]">
               Chronological Journey
             </span>
-            <h2 className="font-display font-normal text-2xl sm:text-4xl" style={{ color: 'var(--text-primary)' }}>
+            <h2 className="font-display font-medium text-2xl sm:text-4xl" style={{ color: 'var(--text-primary)' }}>
               Addis Foodies Journey
             </h2>
           </div>
@@ -134,13 +133,13 @@ export default function AboutPage() {
             {timelineEvents.map((ev, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-2xl border flex flex-col gap-3"
+                className="p-6 rounded-md border flex flex-col gap-3"
                 style={{ backgroundColor: 'var(--bg-app)', borderColor: 'var(--border-subtle)' }}
               >
-                <span className="font-mono font-bold text-3xl" style={{ color: 'var(--accent-gold)' }}>
+                <span className="font-label font-bold text-2xl text-[#B8422E]">
                   {ev.year}
                 </span>
-                <h3 className="font-display font-bold text-base" style={{ color: 'var(--text-primary)' }}>
+                <h3 className="font-display font-medium text-base" style={{ color: 'var(--text-primary)' }}>
                   {ev.title}
                 </h3>
                 <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
@@ -152,12 +151,12 @@ export default function AboutPage() {
         </section>
 
         {/* 3. EDITORIAL METHODOLOGY */}
-        <section className="flex flex-col gap-8 bg-slate-950 text-white p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-xl">
+        <section className="flex flex-col gap-8 bg-[#1A1C1E] text-white p-8 sm:p-10 rounded-lg border border-white/10 shadow-xs">
           <div>
-            <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
+            <span className="text-xs font-label text-[#B8422E] uppercase tracking-wider">
               Verification Standards
             </span>
-            <h2 className="font-display font-normal text-2xl sm:text-4xl text-white">
+            <h2 className="font-display font-medium text-2xl sm:text-4xl text-white">
               4-Step Review Inspection Process
             </h2>
           </div>
@@ -169,9 +168,9 @@ export default function AboutPage() {
               { num: '03', title: 'Authentic Photography', desc: 'Capturing real Kitfo, coffee roasting, and dining atmosphere.' },
               { num: '04', title: 'Independent Review', desc: 'Final ratings published directly by Addis Foodies team—no paid fake reviews.' },
             ].map((step, i) => (
-              <div key={i} className="bg-white/5 p-6 rounded-2xl border border-white/10 flex flex-col gap-2">
-                <span className="font-mono font-black text-2xl text-amber-400">{step.num}</span>
-                <h4 className="font-display font-bold text-sm text-white">{step.title}</h4>
+              <div key={i} className="bg-white/5 p-5 rounded-md border border-white/10 flex flex-col gap-2">
+                <span className="font-label font-bold text-2xl text-[#B8422E]">{step.num}</span>
+                <h4 className="font-display font-medium text-sm text-white">{step.title}</h4>
                 <p className="text-xs text-slate-300 leading-relaxed font-body">{step.desc}</p>
               </div>
             ))}
@@ -181,7 +180,7 @@ export default function AboutPage() {
         {/* 4. PARTNERS & COMMUNITY */}
         <section className="flex flex-col gap-6">
           <div className="border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
-            <h2 className="font-display font-normal text-2xl sm:text-3xl" style={{ color: 'var(--text-primary)' }}>
+            <h2 className="font-display font-medium text-2xl sm:text-3xl" style={{ color: 'var(--text-primary)' }}>
               Featured Restaurant Partners
             </h2>
             <p className="text-xs sm:text-sm font-body pt-1" style={{ color: 'var(--text-secondary)' }}>
@@ -193,12 +192,12 @@ export default function AboutPage() {
             {partners.map((p, idx) => (
               <div
                 key={idx}
-                className="border p-4 rounded-2xl text-center flex flex-col justify-center items-center gap-1 shadow-card"
+                className="border p-4 rounded-md text-center flex flex-col justify-center items-center gap-1 shadow-xs"
                 style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
               >
-                <Building2 className="w-5 h-5 mb-1" style={{ color: 'var(--accent-gold)' }} />
-                <span className="font-display font-bold text-xs" style={{ color: 'var(--text-primary)' }}>{p.name}</span>
-                <span className="text-[10px] font-mono" style={{ color: 'var(--text-muted)' }}>{p.location}</span>
+                <Building2 className="w-5 h-5 mb-1 text-[#B8422E]" />
+                <span className="font-display font-medium text-xs" style={{ color: 'var(--text-primary)' }}>{p.name}</span>
+                <span className="text-[10px] font-label text-slate-400">{p.location}</span>
               </div>
             ))}
           </div>

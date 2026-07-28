@@ -20,22 +20,14 @@ import MobileBottomNav from '../../components/layout/MobileBottomNav';
 
 const festivalHighlights = [
   {
-    id: 'taste-of-addis-2026',
-    title: 'TASTE OF ADDIS (Edition #12)',
-    dates: 'Nov 12 - Nov 14, 2026',
-    location: 'Tropical Gardens • Bole',
-    status: 'FEATURED MEGA FESTIVAL',
-    image: '/telegram-imports/IFTAR PACKAGE.jpg',
-    description: 'Addis Ababa’s largest gastronomy festival featuring 40+ premier restaurants, artisanal coffee cupping, live acoustic bands, and craft tastings.',
-  },
-  {
     id: 'kitfo-fest-2026',
-    title: 'ADDIS KITFO FEST 2026',
+    title: 'ADDIS KITFO FEST 2026 (Tsom Mefcha)',
     dates: 'Oct 03 - Oct 05, 2026',
     location: 'Monarch Rooftop • Piassa',
     status: 'FLAGSHIP CULINARY HUB',
+    organizer: 'Addis Foodies with Tiru Kitfo',
     image: '/telegram-imports/Yado kitfo.jpg',
-    description: '15+ legendary Kitfo houses, Gurage cultural dancers, fresh Ayeb & Gomen pairings, and craft Areke tastings.',
+    description: '15+ legendary Kitfo houses, Gurage cultural dance troupes, fresh Ayeb & Gomen pairings, and authentic Areke tastings. Co-hosted by Addis Foodies with Tiru Kitfo.',
   },
   {
     id: 'christmas-expo-2026',
@@ -43,14 +35,25 @@ const festivalHighlights = [
     dates: 'Jan 02 - Jan 06, 2027',
     location: 'Exhibition Center • Meskel Square',
     status: 'HOLIDAY SPECIAL EXPO',
+    organizer: 'Addis Foodies & City Partners',
     image: '/telegram-imports/Queen Burger.jpg',
     description: 'Grand holiday food expo featuring traditional holiday baking, Doro Wot spice markets, live butcher demonstrations, and family entertainment.',
   },
+  {
+    id: 'rooftop-tsom-kibela-2027',
+    title: 'ROOFTOP TSOM KIBELA EVENT',
+    dates: 'Mar 12 - Mar 14, 2027',
+    location: 'Sky Lounge • Bole',
+    status: 'PRE-FASTING CELEBRATION',
+    organizer: 'Addis Foodies Curation',
+    image: '/telegram-imports/IFTAR PACKAGE.jpg',
+    description: 'Exclusive pre-fasting rooftop feast celebrating Ethiopian meat culture with premium ribeye tibs, kitfo, tej pairings, and live acoustic music.',
+  },
 ];
 
-// Simplified Awards Category Links
+// Awards Category Links
 const awardCategories = [
-  { id: 'best-kitfo',       label: 'Vote Best Kitfo 2026 →',       icon: '🥩', nominees: ['Yado Kitfo Special', 'Kakur Traditional', 'Kategna Restaurant'] },
+  { id: 'best-kitfo',       label: 'Vote Best Kitfo 2026 →',       icon: '🥩', nominees: ['Tiru Kitfo Special', 'Yado Kitfo', 'Kakur Traditional'] },
   { id: 'best-burger',      label: 'Vote Best Burger 2026 →',      icon: '🍔', nominees: ['Titich Gourmet Burger', 'Roadrunner Burger', 'Slam Burger'] },
   { id: 'best-cafe',        label: 'Vote Best Cafe 2026 →',        icon: '☕', nominees: ['Tomoca Coffee', 'Galani Café', 'Kaldi\'s Coffee'] },
   { id: 'best-traditional', label: 'Vote Best Traditional 2026 →', icon: '🍲', nominees: ['Yod Abyssinia', 'Fin Fine Cultural', 'Habesha 2000'] },
@@ -75,29 +78,28 @@ export default function EventsPage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-500 hover:text-amber-500 transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-label uppercase text-[var(--text-secondary)] hover:text-[#B8422E] transition-colors"
           >
-            <ArrowRight className="w-4 h-4 rotate-180" style={{ color: 'var(--accent-gold)' }} />
+            <ArrowRight className="w-4 h-4 rotate-180 text-[#B8422E]" />
             <span>Back to Discovery Feed</span>
           </Link>
         </div>
 
-        {/* 1. FEATURED REAL LOCAL FESTIVALS (Taste of Addis, Kitfo Fest, Christmas Expo) */}
+        {/* 1. FEATURED REAL LOCAL FESTIVALS */}
         <section className="flex flex-col gap-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-3 gap-2" style={{ borderColor: 'var(--border-subtle)' }}>
             <div>
               <div
-                className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider mb-2 border"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-xs font-label uppercase tracking-widest text-[#B8422E] mb-2 border"
                 style={{
-                  backgroundColor: 'var(--accent-gold-glow)',
+                  backgroundColor: 'var(--bg-surface)',
                   borderColor: 'var(--border-subtle)',
-                  color: 'var(--accent-gold)',
                 }}
               >
-                <Flame className="w-4 h-4 fill-current" />
+                <Flame className="w-3.5 h-3.5 fill-current text-[#B8422E]" />
                 <span>Real Local Food Festivals</span>
               </div>
-              <h1 className="font-display font-normal text-3xl sm:text-5xl" style={{ color: 'var(--text-primary)' }}>
+              <h1 className="font-display font-medium text-3xl sm:text-5xl" style={{ color: 'var(--text-primary)' }}>
                 Official Festival Calendar
               </h1>
             </div>
@@ -107,7 +109,7 @@ export default function EventsPage() {
             {festivalHighlights.map((ev) => (
               <div
                 key={ev.id}
-                className="group border rounded-3xl overflow-hidden shadow-card transition-all duration-300 flex flex-col justify-between"
+                className="group border rounded-lg overflow-hidden transition-all duration-300 flex flex-col justify-between"
                 style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
               >
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
@@ -118,22 +120,22 @@ export default function EventsPage() {
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
                   />
-                  <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-slate-950/80 text-amber-400 font-mono font-bold text-[10px] uppercase border border-amber-500/30">
+                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-[#1A1C1E]/90 text-white font-label text-[10px] uppercase border border-white/10">
                     {ev.status}
                   </span>
                 </div>
 
                 <div className="p-6 flex flex-col gap-3 flex-1 justify-between">
                   <div className="flex flex-col gap-2">
-                    <h3 className="font-display font-bold text-xl transition-colors group-hover:text-amber-500" style={{ color: 'var(--text-primary)' }}>
+                    <h3 className="font-display font-medium text-xl transition-colors group-hover:text-[#B8422E]" style={{ color: 'var(--text-primary)' }}>
                       {ev.title}
                     </h3>
-                    <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-amber-500">
+                    <div className="flex items-center gap-1.5 text-xs font-label text-[#B8422E]">
                       <Calendar className="w-3.5 h-3.5" />
                       <span>{ev.dates}</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-xs font-mono text-slate-400">
-                      <MapPin className="w-3.5 h-3.5 text-amber-400" />
+                    <div className="flex items-center gap-1.5 text-xs font-label text-slate-500">
+                      <MapPin className="w-3.5 h-3.5 text-[#B8422E]" />
                       <span>{ev.location}</span>
                     </div>
                     <p className="text-xs font-body leading-relaxed pt-1" style={{ color: 'var(--text-secondary)' }}>
@@ -141,54 +143,53 @@ export default function EventsPage() {
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t flex items-center justify-between" style={{ borderColor: 'var(--border-subtle)' }}>
+                  <div className="pt-4 border-t flex flex-col gap-2" style={{ borderColor: 'var(--border-subtle)' }}>
                     <button
                       onClick={() => setReservedEvent(ev.title)}
-                      className="touch-target w-full py-3 rounded-full text-slate-950 text-xs font-extrabold transition-all shadow-md flex items-center justify-center gap-1.5 cursor-pointer hover:scale-105"
-                      style={{ backgroundColor: 'var(--accent-gold)' }}
+                      className="button-primary w-full py-2.5 rounded-md text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:scale-[1.01]"
                     >
-                      <Ticket className="w-4 h-4 text-slate-950" />
+                      <Ticket className="w-4 h-4 text-white" />
                       <span>Reserve Pass</span>
                     </button>
-                  </div>
 
-                  {reservedEvent === ev.title && (
-                    <div className="p-2.5 rounded-xl bg-emerald-950/90 border border-emerald-500 text-emerald-300 text-[11px] font-mono font-bold flex items-center gap-1.5">
-                      <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Pass Reserved! SMS confirmation sent.</span>
-                    </div>
-                  )}
+                    {reservedEvent === ev.title && (
+                      <div className="p-2.5 rounded-md bg-emerald-500/10 border border-emerald-500 text-emerald-800 text-[11px] font-label font-bold flex items-center gap-1.5">
+                        <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>Pass Reserved! SMS confirmation sent.</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* 2. SIMPLIFIED AWARDS VOTING LINK MATRIX */}
+        {/* 2. AWARDS VOTING MATRIX */}
         <section
           id="awards"
-          className="relative rounded-[32px] overflow-hidden text-white shadow-2xl border border-amber-500/30 p-6 sm:p-10"
-          style={{ background: 'linear-gradient(145deg, #0B0F17, #161E2E, #0B0F17)' }}
+          className="relative rounded-lg overflow-hidden text-white shadow-xs border p-6 sm:p-10"
+          style={{ backgroundColor: '#1A1C1E', borderColor: 'var(--border-subtle)' }}
         >
           <div className="flex flex-col gap-6">
             
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-400">
-                  <Trophy className="w-6 h-6" />
+                <div className="w-10 h-10 rounded-md bg-[#B8422E] flex items-center justify-center text-white">
+                  <Trophy className="w-5 h-5" />
                 </div>
                 <div>
-                  <h2 className="font-display font-normal text-2xl sm:text-4xl text-white">
-                    AddisFoodie <span className="text-amber-400">Awards</span> 2026
+                  <h2 className="font-display font-medium text-2xl sm:text-4xl text-white">
+                    AddisFoodie <span className="text-[#B8422E]">Awards</span> 2026
                   </h2>
-                  <p className="text-xs text-slate-400 font-mono pt-0.5">
+                  <p className="text-xs text-slate-400 font-label pt-0.5">
                     Direct Voting Matrix • Live Public Polls
                   </p>
                 </div>
               </div>
 
-              <div className="px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-300 font-mono font-bold text-xs border border-amber-500/30 w-fit">
+              <div className="px-3.5 py-1.5 rounded-sm bg-white/10 text-white font-label text-xs border border-white/20 w-fit">
                 ⚡ VOTE CATEGORIES
               </div>
             </div>
@@ -200,15 +201,15 @@ export default function EventsPage() {
                 return (
                   <div
                     key={cat.id}
-                    className="rounded-2xl p-5 flex flex-col justify-between gap-4 transition-all border"
+                    className="rounded-md p-5 flex flex-col justify-between gap-4 transition-all border"
                     style={{
                       backgroundColor: 'rgba(255,255,255,0.03)',
-                      borderColor: hasVoted ? 'var(--accent-gold)' : 'rgba(255,255,255,0.1)',
+                      borderColor: hasVoted ? '#B8422E' : 'rgba(255,255,255,0.1)',
                     }}
                   >
                     <div className="flex items-center gap-2.5">
                       <span className="text-2xl">{cat.icon}</span>
-                      <h3 className="font-display font-bold text-base text-amber-400">{cat.label}</h3>
+                      <h3 className="font-display font-medium text-base text-white">{cat.label}</h3>
                     </div>
 
                     <div className="flex flex-col gap-2">
@@ -223,24 +224,24 @@ export default function EventsPage() {
                               }
                             }}
                             disabled={hasVoted && !isSelected}
-                            className="w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between gap-2 cursor-pointer"
+                            className="w-full text-left px-3 py-2 rounded-sm text-xs font-label transition-all flex items-center justify-between gap-2 cursor-pointer"
                             style={{
                               backgroundColor: isSelected
-                                ? 'rgba(245,158,11,0.25)'
+                                ? '#B8422E'
                                 : 'rgba(255,255,255,0.06)',
                               border: isSelected
-                                ? '1px solid var(--accent-gold)'
+                                ? '1px solid #B8422E'
                                 : '1px solid rgba(255,255,255,0.08)',
-                              color: isSelected ? '#F59E0B' : '#F8FAFC',
+                              color: '#FFFFFF',
                               opacity: hasVoted && !isSelected ? 0.4 : 1,
                               cursor: hasVoted && !isSelected ? 'not-allowed' : 'pointer',
                             }}
                           >
                             <span>{nominee}</span>
                             {isSelected ? (
-                              <Star className="w-4 h-4 fill-current text-amber-400 shrink-0" />
+                              <Star className="w-3.5 h-3.5 fill-current text-white shrink-0" />
                             ) : !hasVoted ? (
-                              <span className="text-[11px] font-mono text-amber-400">Vote →</span>
+                              <span className="text-[10px] font-label text-slate-300">Vote →</span>
                             ) : null}
                           </button>
                         );
@@ -248,8 +249,8 @@ export default function EventsPage() {
                     </div>
 
                     {hasVoted && (
-                      <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold px-2.5 py-1.5 rounded-lg bg-amber-500/15 text-amber-300">
-                        <Sparkles className="w-3.5 h-3.5" />
+                      <div className="flex items-center gap-1.5 text-[11px] font-label px-2.5 py-1 rounded-sm bg-white/10 text-white">
+                        <Sparkles className="w-3.5 h-3.5 text-[#B8422E]" />
                         <span>Voted: {votedCategory[cat.id]}</span>
                       </div>
                     )}

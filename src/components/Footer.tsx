@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Phone, ArrowUpRight, MapPin, Clock } from 'lucide-react';
-import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube, FaFacebookF } from 'react-icons/fa';
+import { Phone, ArrowUpRight, MapPin, Clock, Smartphone } from 'lucide-react';
+import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube, FaFacebookF, FaGooglePlay, FaApple } from 'react-icons/fa';
 import AddisFoodieLogo from './ui/AddisFoodieLogo';
 
 export default function Footer() {
@@ -29,6 +29,55 @@ export default function Footer() {
     >
       <div className="site-container py-12 sm:py-16 flex flex-col gap-12">
 
+        {/* Play Store & App Store Delivery Banner Bar in Footer */}
+        <div 
+          className="w-full p-6 sm:p-8 rounded-lg border shadow-xs flex flex-col md:flex-row items-center justify-between gap-6"
+          style={{ backgroundColor: '#1A1C1E', borderColor: 'var(--border-subtle)', color: '#FFFFFF' }}
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-md bg-[#B8422E] text-white flex items-center justify-center font-label font-bold text-xl shadow-xs shrink-0">
+              <Smartphone className="w-6 h-6" />
+            </div>
+            <div className="flex flex-col text-left">
+              <div className="flex items-center gap-2">
+                <span className="font-display font-medium text-xl text-white">addisfoodie</span>
+                <span className="px-2 py-0.5 rounded-sm bg-white/10 text-slate-300 font-label text-[10px] uppercase">Delivery App</span>
+              </div>
+              <p className="text-xs font-body text-slate-300 pt-0.5">
+                Download the official delivery app for Bole, Kazanchis, Piassa, and Sarbet food orders.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="https://play.google.com"
+              target="_blank"
+              rel="noreferrer"
+              className="touch-target px-5 py-2.5 rounded-md bg-white text-[#1A1C1E] font-label font-bold text-xs transition-all flex items-center gap-2 hover:bg-slate-100 cursor-pointer shadow-xs"
+            >
+              <FaGooglePlay className="w-4 h-4 text-[#1A1C1E]" />
+              <div className="flex flex-col text-left leading-none">
+                <span className="text-[8px] font-label uppercase text-slate-600">GET IT ON</span>
+                <span className="text-xs font-label">Google Play</span>
+              </div>
+            </a>
+
+            <a
+              href="https://apple.com"
+              target="_blank"
+              rel="noreferrer"
+              className="touch-target px-5 py-2.5 rounded-md bg-white/10 hover:bg-white/20 text-white font-label font-bold text-xs border border-white/20 transition-all flex items-center gap-2 cursor-pointer backdrop-blur-md"
+            >
+              <FaApple className="w-4 h-4 text-white" />
+              <div className="flex flex-col text-left leading-none">
+                <span className="text-[8px] font-label uppercase text-slate-400">Download on the</span>
+                <span className="text-xs font-label">App Store</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
 
@@ -37,7 +86,7 @@ export default function Footer() {
             <AddisFoodieLogo diluted={false} />
 
             <p className="text-xs sm:text-sm font-body leading-relaxed max-w-md" style={{ color: 'var(--text-secondary)' }}>
-              The premier digital food platform for Addis Ababa. Discover curated dining, verified ETB price audits, and authentic food culture across Bole, Kazanchis, Piassa, and Sarbet.
+              Architectural minimalism meets journalistic gravitas. The premier digital food platform for Addis Ababa. Discover curated dining, verified ETB price audits, and authentic food culture across Bole, Kazanchis, Piassa, and Sarbet.
             </p>
 
             {/* Social Icons Bar */}
@@ -45,7 +94,7 @@ export default function Footer() {
               <a
                 href="https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-full bg-white/10 hover:bg-pink-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-md bg-white/10 hover:bg-pink-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="Instagram @addis.foodie"
               >
                 <FaInstagram size={16} className="text-pink-400" />
@@ -53,7 +102,7 @@ export default function Footer() {
               <a
                 href="https://t.me/addisfoodies"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-full bg-white/10 hover:bg-sky-500 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-md bg-white/10 hover:bg-sky-500 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="Telegram t.me/addisfoodies"
               >
                 <FaTelegramPlane size={16} className="text-sky-400" />
@@ -61,7 +110,7 @@ export default function Footer() {
               <a
                 href="https://www.tiktok.com"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-full bg-white/10 hover:bg-black text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-md bg-white/10 hover:bg-black text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="TikTok @addis.foodie"
               >
                 <FaTiktok size={16} className="text-white" />
@@ -69,7 +118,7 @@ export default function Footer() {
               <a
                 href="https://www.youtube.com"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-full bg-white/10 hover:bg-red-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-md bg-white/10 hover:bg-red-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="YouTube Addis Foodies Official"
               >
                 <FaYoutube size={16} className="text-red-400" />
@@ -77,7 +126,7 @@ export default function Footer() {
               <a
                 href="https://facebook.com"
                 target="_blank" rel="noopener noreferrer"
-                className="touch-target p-2.5 rounded-full bg-white/10 hover:bg-blue-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
+                className="touch-target p-2.5 rounded-md bg-white/10 hover:bg-blue-600 text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="Facebook"
               >
                 <FaFacebookF size={16} className="text-blue-400" />
@@ -86,15 +135,15 @@ export default function Footer() {
 
             {/* Hotline & Hours */}
             <div
-              className="flex flex-col gap-2 pt-2 text-xs font-mono font-bold border-t"
+              className="flex flex-col gap-2 pt-2 text-xs font-label font-bold border-t"
               style={{ borderColor: 'var(--border-subtle)', color: 'var(--text-secondary)' }}
             >
-              <div className="flex items-center gap-2" style={{ color: 'var(--accent-gold)' }}>
+              <div className="flex items-center gap-2" style={{ color: 'var(--accent-tertiary)' }}>
                 <Phone className="w-4 h-4" />
                 <span>Hotline: 0966-55-00-00</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-emerald-400" />
+                <Clock className="w-4 h-4 text-emerald-600" />
                 <span>Mon – Sat (8:30 AM – 6:30 PM EAT)</span>
               </div>
             </div>
@@ -103,8 +152,8 @@ export default function Footer() {
           {/* Column 2: Navigation Sitemap */}
           <div className="flex flex-col gap-3">
             <h4
-              className="font-display font-bold text-xs uppercase tracking-widest"
-              style={{ color: 'var(--accent-gold)' }}
+              className="font-label font-bold text-xs uppercase tracking-widest"
+              style={{ color: 'var(--accent-tertiary)' }}
             >
               Navigation
             </h4>
@@ -113,17 +162,17 @@ export default function Footer() {
                 { href: '/', label: 'Explore Feed' },
                 { href: '/reviews', label: 'Food Reviews & Reels' },
                 { href: '/map', label: 'Food Map' },
-                { href: '/events', label: 'Taste of Addis & Events' },
-                { href: '/services', label: 'Services & Delivery' },
+                { href: '/events', label: 'Events & Festivals' },
+                { href: '/services', label: 'Services & Catering' },
                 { href: '/collaborate', label: 'Work With Us' },
               ].map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
-                  className="hover:text-white transition-colors flex items-center justify-between"
+                  className="hover:text-[var(--text-primary)] transition-colors flex items-center justify-between"
                 >
                   <span>{label}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" style={{ color: 'var(--accent-gold)' }} />
+                  <ArrowUpRight className="w-3.5 h-3.5" style={{ color: 'var(--accent-tertiary)' }} />
                 </Link>
               ))}
             </div>
@@ -132,17 +181,17 @@ export default function Footer() {
           {/* Column 3: Location */}
           <div className="flex flex-col gap-3">
             <h4
-              className="font-display font-bold text-xs uppercase tracking-widest"
-              style={{ color: 'var(--accent-gold)' }}
+              className="font-label font-bold text-xs uppercase tracking-widest"
+              style={{ color: 'var(--accent-tertiary)' }}
             >
               Addis Ababa HQ
             </h4>
             <div
-              className="p-3.5 rounded-2xl flex flex-col gap-2 border"
+              className="p-3.5 rounded-md flex flex-col gap-2 border"
               style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
             >
               <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color: 'var(--text-primary)' }}>
-                <MapPin className="w-4 h-4" style={{ color: 'var(--accent-gold)' }} />
+                <MapPin className="w-4 h-4" style={{ color: 'var(--accent-tertiary)' }} />
                 <span>Bole Medhaniallem, Addis Ababa</span>
               </div>
               <p className="text-[11px] leading-snug" style={{ color: 'var(--text-secondary)' }}>
@@ -151,7 +200,7 @@ export default function Footer() {
               <a
                 href="https://maps.google.com/?q=Bole+Medhaniallem+Addis+Ababa"
                 target="_blank" rel="noopener noreferrer"
-                className="mt-1 px-3 py-1.5 rounded-full text-[11px] font-mono font-bold flex items-center justify-between border transition-colors bg-amber-500/10 text-amber-400 border-amber-500/30"
+                className="mt-1 px-3 py-1.5 rounded-sm text-[11px] font-label font-bold flex items-center justify-between border transition-colors bg-[#B8422E]/10 text-[#B8422E] border-[#B8422E]/30"
               >
                 <span>View Google Maps</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -162,8 +211,8 @@ export default function Footer() {
           {/* Column 4: Newsletter */}
           <div className="flex flex-col gap-3">
             <h4
-              className="font-display font-bold text-xs uppercase tracking-widest"
-              style={{ color: 'var(--accent-gold)' }}
+              className="font-label font-bold text-xs uppercase tracking-widest"
+              style={{ color: 'var(--accent-tertiary)' }}
             >
               Weekly Digest
             </h4>
@@ -172,7 +221,7 @@ export default function Footer() {
             </p>
 
             {subscribed ? (
-              <div className="p-3 rounded-full text-xs font-bold border bg-emerald-500/15 border-emerald-500 text-emerald-400">
+              <div className="p-3 rounded-md text-xs font-bold border bg-emerald-500/15 border-emerald-500 text-emerald-700">
                 ✓ Subscribed! Welcome.
               </div>
             ) : (
@@ -183,12 +232,11 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email..."
-                  className="w-full px-3.5 py-3 text-xs rounded-full bg-white/10 border border-white/15 text-white placeholder-slate-400 focus:outline-none transition-colors"
+                  className="w-full px-3.5 py-3 text-xs rounded-md bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-slate-400 focus:outline-none transition-colors"
                 />
                 <button
                   type="submit"
-                  className="touch-target w-full text-slate-950 font-extrabold text-xs py-3 rounded-full transition-all shadow-md cursor-pointer hover:scale-105 focus-ring"
-                  style={{ backgroundColor: 'var(--accent-gold)' }}
+                  className="button-primary w-full text-xs py-3 rounded-md shadow-xs cursor-pointer focus-ring"
                 >
                   Subscribe Free
                 </button>
@@ -204,9 +252,9 @@ export default function Footer() {
         >
           <p>Addis Foodies © 2026 • Official Digital Food Guide (@addis.foodie &amp; @addis.foodie.delivery)</p>
           <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/about" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link href="/collaborate" className="hover:text-white transition-colors">Work With Us</Link>
+            <Link href="/about" className="hover:text-[var(--text-primary)] transition-colors">Privacy Policy</Link>
+            <Link href="/about" className="hover:text-[var(--text-primary)] transition-colors">Terms of Service</Link>
+            <Link href="/collaborate" className="hover:text-[var(--text-primary)] transition-colors">Work With Us</Link>
           </div>
         </div>
       </div>

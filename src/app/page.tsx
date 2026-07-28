@@ -7,7 +7,10 @@ import {
   Compass, 
   ArrowRight,
   Sparkles,
-  Utensils
+  Utensils,
+  Film,
+  Play,
+  X
 } from 'lucide-react';
 
 import Header from '../components/Header';
@@ -24,9 +27,49 @@ import MobileBottomNav from '../components/layout/MobileBottomNav';
 import { mockPosts } from '../data/mockPosts';
 import { FoodPost } from '../types/post';
 
+const videoReels = [
+  {
+    id: 'reel-1',
+    title: 'Kitfo Preparation Behind The Scenes',
+    restaurant: 'Habesha 2000 • Bole',
+    views: '45.2K',
+    thumbnail: '/telegram-imports/Yado kitfo.jpg',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-cooking-food-in-a-pan-41555-large.mp4',
+    badge: 'INSTAGRAM REEL',
+  },
+  {
+    id: 'reel-2',
+    title: 'Classic Queen Beef Burger Sizzle',
+    restaurant: 'Titich Gourmet • Bole',
+    views: '38.9K',
+    thumbnail: '/telegram-imports/Queen Burger.jpg',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-chef-preparing-a-dish-41553-large.mp4',
+    badge: 'TIKTOK TRENDING',
+  },
+  {
+    id: 'reel-3',
+    title: 'Vanilla Fasting Iced Latte Pour',
+    restaurant: 'Tomoca Coffee • Atlas',
+    views: '29.1K',
+    thumbnail: '/telegram-imports/Vanilla Fasting Iced late.jpg',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-barista-pouring-milk-in-a-coffee-cup-41554-large.mp4',
+    badge: 'TELEGRAM REEL',
+  },
+  {
+    id: 'reel-4',
+    title: 'Grand Habesha Feast Platter Showcase',
+    restaurant: 'Yod Abyssinia • Bole',
+    views: '52.4K',
+    thumbnail: '/telegram-imports/IFTAR PACKAGE.jpg',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-cooking-food-in-a-pan-41555-large.mp4',
+    badge: 'VIRAL SPOTLIGHT',
+  },
+];
+
 export default function HomePage() {
   const [activePost, setActivePost] = useState<FoodPost | null>(null);
   const [activeReceiptPost, setActiveReceiptPost] = useState<FoodPost | null>(null);
+  const [activeVideo, setActiveVideo] = useState<typeof videoReels[0] | null>(null);
 
   // Display strictly the latest 6 official reviews on homepage
   const latestOfficialReviews = mockPosts.slice(0, 6);
@@ -46,7 +89,7 @@ export default function HomePage() {
       className="relative flex flex-col min-h-screen transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden"
       style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)' }}
     >
-      {/* Subtle Visible Homepage Ambient Background Image */}
+      {/* Visible Homepage Ambient Background Image */}
       <div className="absolute top-0 left-0 right-0 h-[600px] pointer-events-none overflow-hidden z-0 opacity-10">
         <Image
           src="/images/ethiopian_feast_hero.png"
@@ -62,7 +105,12 @@ export default function HomePage() {
         {/* 1. FLOATING HEADER NAVIGATION */}
         <Header />
 
-        {/* 2. HERITAGE HERO SECTION WITH VISIBLE BACKGROUND IMAGE */}
+        {/* 2. DISMISSABLE EVENT SPOTLIGHT TOP NOTIFICATION BAR */}
+        <div className="site-container pt-2">
+          <EventBanner />
+        </div>
+
+        {/* 3. HERITAGE HERO SECTION WITH VISIBLE BACKGROUND IMAGE */}
         <HeroSection
           onSearch={handleHeroSearch}
           onExploreClick={scrollToFeed}
@@ -70,21 +118,9 @@ export default function HomePage() {
 
         {/* MAIN HOMEPAGE CONTENT */}
         <main className="site-container py-8 flex flex-col gap-12">
-          
-          {/* 3. EVENT SPOTLIGHT BANNER */}
-          <section className="flex flex-col gap-4">
-            <div className="flex items-center gap-2 text-xs font-label uppercase tracking-wider" style={{ color: 'var(--accent-tertiary)' }}>
-              <Sparkles className="w-4 h-4 text-[#B8422E]" />
-              <span>EVENT SPOTLIGHT — MAJOR FESTIVAL CALENDAR</span>
-            </div>
-            <EventBanner />
-          </section>
 
-          {/* 4. ADDIS FOODIE DELIVERY TEASER CARD */}
-          <DeliveryTeaserCard />
-
-          {/* 5. LATEST OFFICIAL REVIEWS SECTION */}
-          <section id="latest-reviews-section" className="flex flex-col gap-6 pt-4">
+          {/* 4. LATEST OFFICIAL REVIEWS SECTION */}
+          <section id="latest-reviews-section" className="flex flex-col gap-6 pt-2">
             
             <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
               <div>
@@ -127,6 +163,61 @@ export default function HomePage() {
               ))}
             </div>
 
+          </section>
+
+          {/* 5. TRENDING VIDEO REELS STRIP ON HOMEPAGE */}
+          <section className="flex flex-col gap-4">
+            <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
+              <div className="flex items-center gap-2">
+                <Film className="w-5 h-5 text-[#B8422E]" />
+                <h3 className="font-display font-medium text-xl sm:text-2xl" style={{ color: 'var(--text-primary)' }}>
+                  Latest Food Video Reels
+                </h3>
+              </div>
+              <Link href="/reviews" className="text-xs font-label uppercase text-[#B8422E] hover:underline">
+                View All Reels →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {videoReels.map((reel) => (
+                <div
+                  key={reel.id}
+                  onClick={() => setActiveVideo(reel)}
+                  className="group relative aspect-[9/16] w-full rounded-md overflow-hidden bg-slate-900 border border-[var(--border-subtle)] shadow-xs transition-all duration-300 cursor-pointer hover:-translate-y-1"
+                >
+                  <Image
+                    src={reel.thumbnail}
+                    alt={reel.title}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-85 group-hover:brightness-95"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                  <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
+                    <span className="px-2 py-0.5 rounded-sm bg-[#1A1C1E]/90 text-white font-label font-bold text-[9px]">
+                      {reel.badge}
+                    </span>
+                  </div>
+
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <div className="w-10 h-10 rounded-full bg-[#B8422E] text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                      <Play className="w-4 h-4 fill-white ml-0.5" />
+                    </div>
+                  </div>
+
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 flex flex-col gap-1 text-white">
+                    <h4 className="font-display font-medium text-xs line-clamp-2 leading-snug text-white">
+                      {reel.title}
+                    </h4>
+                    <span className="text-[10px] font-label text-slate-300">{reel.restaurant}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
             {/* View All Reviews Button Banner */}
             <div className="flex justify-center pt-4">
               <Link
@@ -138,16 +229,18 @@ export default function HomePage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-
           </section>
+
+          {/* 6. ADDIS FOODIE DELIVERY TEASER CARD */}
+          <DeliveryTeaserCard />
 
         </main>
 
-        {/* 6. FOOTER & NAVIGATION */}
+        {/* 7. FOOTER & NAVIGATION */}
         <Footer />
         <MobileBottomNav />
 
-        {/* 7. INTERACTIVE AI FOODIE BOT */}
+        {/* 8. INTERACTIVE AI FOODIE BOT */}
         <AiFoodieBotModal />
 
         {/* MODALS */}
@@ -163,6 +256,36 @@ export default function HomePage() {
             post={activeReceiptPost}
             onClose={() => setActiveReceiptPost(null)}
           />
+        )}
+
+        {/* Video Lightbox Modal */}
+        {activeVideo && (
+          <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+            <div className="relative w-full max-w-md bg-[#1A1C1E] rounded-md border border-white/10 overflow-hidden shadow-xl flex flex-col">
+              <button
+                onClick={() => setActiveVideo(null)}
+                className="absolute top-3 right-3 z-20 w-8 h-8 rounded-sm bg-black/70 text-white flex items-center justify-center hover:bg-[#B8422E] transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="relative aspect-[9/16] w-full bg-black">
+                <video
+                  src={activeVideo.videoUrl}
+                  controls
+                  autoPlay
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div className="p-4 bg-[#1A1C1E] text-white flex flex-col gap-1">
+                <span className="text-[10px] font-label font-bold text-[#B8422E] uppercase">
+                  {activeVideo.badge} • {activeVideo.restaurant}
+                </span>
+                <h4 className="font-display font-medium text-sm text-white">{activeVideo.title}</h4>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>
