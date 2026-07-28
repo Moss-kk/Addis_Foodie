@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -19,7 +19,9 @@ import {
   Users,
   CheckCircle,
   HelpCircle,
-  Camera
+  Trophy,
+  Star,
+  ThumbsUp
 } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -111,9 +113,22 @@ const festivalsLineup = [
   },
 ];
 
+// Award categories for voting
+const awardCategories = [
+  { id: 'fine-dining',    label: 'Best Fine Dining',      icon: '🍽️',  nominees: ['Yod Abyssinia', 'Monarch Rooftop', 'Habesha 2000'] },
+  { id: 'street-food',   label: 'Best Street Food',      icon: '🌮',  nominees: ['Piassa Tibs Corner', 'Merkato Sambusa', 'Shiro Mado Stall'] },
+  { id: 'coffee',        label: 'Best Coffee & Café',     icon: '☕',  nominees: ['Tomoca Coffee', 'Galani Café', 'Kaldi\'s Coffee'] },
+  { id: 'traditional',   label: 'Best Traditional Spot',  icon: '🍲',  nominees: ['Kategna Restaurant', 'Fin Fine Cultural', 'Yod Abyssinia'] },
+  { id: 'burgers',       label: 'Best Burger Joint',      icon: '🍔',  nominees: ['Titich Gourmet', 'RoadRunner Burger', 'Slam Burger'] },
+  { id: 'pastry',        label: 'Best Pastry & Sweets',   icon: '🧁',  nominees: ['Keremet Pastry', 'Enrico Pastry', 'Fornaio Café'] },
+];
+
 export default function EventsPage() {
   const [reserved, setReserved] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [votedCategory, setVotedCategory] = useState<Record<string, string>>({});
+  const [voteCount, setVoteCount] = useState(4712);
+  const awardsRef = useRef<HTMLElement | null>(null);
 
   const faqs = [
     { q: 'Is there an entrance fee for Kitfo Fest 2026?', a: 'General admission is completely FREE! VIP tasting passes with complimentary drinks can be reserved online.' },
@@ -289,7 +304,156 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {/* 3. UPCOMING FOOD FESTIVALS ROSTER */}
+        {/* 3. ADDISFOODIE AWARDS — VOTING CHALLENGE */}
+        <section
+          id="awards"
+          ref={awardsRef}
+          className="relative rounded-3xl overflow-hidden text-white shadow-2xl"
+          style={{ background: 'linear-gradient(145deg, #0d0d0d, #1a0a00, #0d0d0d)' }}
+        >
+          {/* Gold shimmer top border */}
+          <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: 'linear-gradient(90deg, transparent, #C9A84C, #F5D78A, #C9A84C, transparent)' }} />
+
+          <div className="p-6 sm:p-10 flex flex-col gap-8">
+
+            {/* Header */}
+            <div className="flex flex-col items-center text-center gap-3">
+              {/* Medal icon matching the awards image */}
+              <div
+                className="w-20 h-20 rounded-full flex items-center justify-center shadow-2xl border-4"
+                style={{ background: 'linear-gradient(145deg, #8B6914, #C9A84C, #F5D78A, #C9A84C, #8B6914)', borderColor: '#C9A84C' }}
+              >
+                <div
+                  className="w-14 h-14 rounded-full flex flex-col items-center justify-center"
+                  style={{ backgroundColor: '#0d0d0d' }}
+                >
+                  <Trophy className="w-7 h-7" style={{ color: '#F5D78A' }} />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span
+                    className="text-[10px] font-mono font-black px-3 py-1 rounded-full uppercase tracking-widest"
+                    style={{ backgroundColor: 'rgba(201,168,76,0.2)', color: '#F5D78A', border: '1px solid rgba(201,168,76,0.4)' }}
+                  >
+                    🏆 LIVE VOTING OPEN
+                  </span>
+                </div>
+                <h2 className="font-display font-black text-3xl sm:text-5xl tracking-tight text-white">
+                  AddisFoodie <span style={{ color: '#F5D78A' }}>Awards</span> 2026
+                </h2>
+                <p className="text-stone-400 font-medium text-sm sm:text-base mt-2 max-w-lg mx-auto">
+                  Vote for your favorite restaurants in Addis Ababa and help recognize the best in the industry. Voting closes <strong className="text-white">Sept 28, 2026</strong>.
+                </p>
+              </div>
+
+              {/* Live vote counter */}
+              <div
+                className="flex items-center gap-2 px-5 py-2.5 rounded-full font-mono font-black text-sm border"
+                style={{ backgroundColor: 'rgba(201,168,76,0.12)', borderColor: 'rgba(201,168,76,0.35)', color: '#F5D78A' }}
+              >
+                <Users className="w-4 h-4" />
+                <span>{voteCount.toLocaleString()} votes cast</span>
+              </div>
+            </div>
+
+            {/* Category label */}
+            <div className="text-center">
+              <h3 className="font-display font-bold text-lg text-white mb-1">Categories</h3>
+              <p className="text-xs text-stone-400">Vote across multiple categories including Fine Dining, Cafés, and Street Food.</p>
+            </div>
+
+            {/* Voting Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {awardCategories.map((cat) => {
+                const hasVoted = !!votedCategory[cat.id];
+                return (
+                  <div
+                    key={cat.id}
+                    className="rounded-2xl p-5 flex flex-col gap-4 transition-all"
+                    style={{
+                      backgroundColor: 'rgba(255,255,255,0.04)',
+                      border: hasVoted ? '1px solid rgba(201,168,76,0.6)' : '1px solid rgba(255,255,255,0.08)',
+                    }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{cat.icon}</span>
+                      <h4 className="font-display font-black text-sm text-white">{cat.label}</h4>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      {cat.nominees.map((nominee) => {
+                        const isSelected = votedCategory[cat.id] === nominee;
+                        return (
+                          <button
+                            key={nominee}
+                            onClick={() => {
+                              if (!hasVoted) {
+                                setVotedCategory((prev) => ({ ...prev, [cat.id]: nominee }));
+                                setVoteCount((c) => c + 1);
+                              }
+                            }}
+                            disabled={hasVoted && !isSelected}
+                            className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-between gap-2 cursor-pointer"
+                            style={{
+                              backgroundColor: isSelected
+                                ? 'rgba(201,168,76,0.25)'
+                                : hasVoted
+                                ? 'rgba(255,255,255,0.03)'
+                                : 'rgba(255,255,255,0.06)',
+                              border: isSelected
+                                ? '1px solid rgba(201,168,76,0.7)'
+                                : '1px solid rgba(255,255,255,0.08)',
+                              color: isSelected ? '#F5D78A' : '#D4D1C9',
+                              opacity: hasVoted && !isSelected ? 0.45 : 1,
+                              cursor: hasVoted && !isSelected ? 'not-allowed' : 'pointer',
+                            }}
+                          >
+                            <span>{nominee}</span>
+                            {isSelected ? (
+                              <Star className="w-3.5 h-3.5 fill-current shrink-0" style={{ color: '#F5D78A' }} />
+                            ) : !hasVoted ? (
+                              <ThumbsUp className="w-3.5 h-3.5 shrink-0 opacity-50" />
+                            ) : null}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {hasVoted && (
+                      <div
+                        className="flex items-center gap-1.5 text-[11px] font-mono font-bold px-2 py-1.5 rounded-lg"
+                        style={{ backgroundColor: 'rgba(201,168,76,0.15)', color: '#F5D78A' }}
+                      >
+                        <CheckCircle className="w-3.5 h-3.5" />
+                        <span>Vote recorded for {votedCategory[cat.id]}</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* CTA */}
+            <div className="text-center flex flex-col items-center gap-3">
+              <p className="text-xs text-stone-400 font-mono">
+                Winners announced at Kitfo Fest 2026 — Monarch Hotel Rooftop
+              </p>
+              <Link
+                href="/collaborate"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-extrabold text-sm transition-all hover:scale-105 shadow-xl"
+                style={{ background: 'linear-gradient(90deg, #8B6914, #C9A84C)', color: '#0d0d0d' }}
+              >
+                <Award className="w-4 h-4" />
+                <span>Nominate a Restaurant</span>
+              </Link>
+            </div>
+
+          </div>
+        </section>
+
+        {/* 4. UPCOMING FOOD FESTIVALS ROSTER */}
         <section className="flex flex-col gap-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-stone-200 pb-3 gap-2">
             <div>
