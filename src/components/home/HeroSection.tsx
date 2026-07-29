@@ -10,23 +10,23 @@ import {
   Receipt,
   Award,
   Flame,
-  ShieldCheck
+  Search
 } from 'lucide-react';
 
 interface HeroSectionProps {
-  onSearch?: () => void;
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
   onExploreClick?: () => void;
 }
 
-export default function HeroSection({ onSearch, onExploreClick }: HeroSectionProps) {
+export default function HeroSection({ searchQuery = '', onSearchChange, onExploreClick }: HeroSectionProps) {
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onExploreClick) onExploreClick();
+  };
+
   return (
     <section className="site-container pt-4 pb-8 sm:pt-6 sm:pb-10">
-      {/* 
-        HERITAGE FRAME CONTAINER 
-        Radius: rounded-lg (8px)
-        Background: Flat Warm Limestone (#F7F5F2) with vivid visible background image
-        Border: 1px Hairline (#6C7278 / #E2DDD5)
-      */}
       <div 
         className="relative w-full rounded-lg overflow-hidden transition-all duration-300 border shadow-sm"
         style={{
@@ -44,7 +44,6 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
             sizes="100vw"
             className="object-cover opacity-85 brightness-90 transition-all duration-700 hover:scale-105"
           />
-          {/* Flat Translucent Contrast Layer to ensure broadsheet typography legibility */}
           <div 
             className="absolute inset-0 backdrop-blur-[1px]" 
             style={{
@@ -56,7 +55,7 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
         {/* Hero Content Layer */}
         <div className="relative z-10 p-6 sm:p-12 lg:p-14 flex flex-col lg:flex-row lg:items-center justify-between gap-10">
           
-          {/* Left Column: Brand Statement & Primary Actions */}
+          {/* Left Column: Brand Statement & Primary Search Bar */}
           <div className="flex flex-col gap-6 max-w-2xl text-white">
             
             {/* Journalistic Label Badge */}
@@ -86,6 +85,24 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
               </p>
             </div>
 
+            {/* PROMINENT HOMEPAGE SEARCH BAR INPUT */}
+            <form onSubmit={handleSearchSubmit} className="relative w-full max-w-xl pt-1">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
+                placeholder="Search food, restaurants, Bole, Kitfo, Doro Wat..."
+                className="w-full pl-11 pr-24 py-3.5 rounded-md bg-white/15 border border-white/30 text-white placeholder-slate-300 text-xs sm:text-sm font-medium focus:outline-none focus:border-[#B8422E] backdrop-blur-md transition-colors shadow-inner"
+              />
+              <button
+                type="submit"
+                className="button-primary absolute right-1.5 top-1/2 -translate-y-1/2 px-4 py-2 rounded-sm text-xs uppercase tracking-wider text-white font-label"
+              >
+                Search
+              </button>
+            </form>
+
             {/* Key Value Indicators */}
             <div className="flex flex-wrap items-center gap-3 text-xs font-label text-slate-300">
               <span className="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-sm border border-white/15">
@@ -99,7 +116,7 @@ export default function HeroSection({ onSearch, onExploreClick }: HeroSectionPro
             </div>
 
             {/* Actions: Single Tertiary Accent Rule */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-4 pt-1">
               <button
                 onClick={onExploreClick}
                 className="button-primary cursor-pointer hover:scale-[1.02] flex items-center gap-2"

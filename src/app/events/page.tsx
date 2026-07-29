@@ -163,7 +163,7 @@ export default function EventsPage() {
           </Link>
         </div>
 
-        {/* 1. MAJOR FESTIVALS & AWARDS CARDS */}
+        {/* 1. MAJOR FESTIVALS & AWARDS CARDS (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
         <section className="flex flex-col gap-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-3 gap-2" style={{ borderColor: 'var(--border-subtle)' }}>
             <div>
@@ -183,59 +183,60 @@ export default function EventsPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible scrollbar-none">
             {festivalHighlights.map((ev) => (
-              <div
-                key={ev.id}
-                className="group border rounded-lg overflow-hidden transition-all duration-300 flex flex-col justify-between"
-                style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
-              >
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
-                  <Image
-                    src={ev.image}
-                    alt={ev.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
-                  />
-                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-[#1A1C1E]/90 text-white font-label text-[10px] uppercase border border-white/10">
-                    {ev.status}
-                  </span>
-                </div>
-
-                <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
-                  <div className="flex flex-col gap-2">
-                    <h3 className="font-display font-medium text-lg transition-colors group-hover:text-[#B8422E]" style={{ color: 'var(--text-primary)' }}>
-                      {ev.title}
-                    </h3>
-                    <div className="flex items-center gap-1.5 text-xs font-label text-[#B8422E]">
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>{ev.dates}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-xs font-label text-slate-500">
-                      <MapPin className="w-3.5 h-3.5 text-[#B8422E]" />
-                      <span>{ev.location}</span>
-                    </div>
-                    <p className="text-xs font-body leading-relaxed pt-1" style={{ color: 'var(--text-secondary)' }}>
-                      {ev.description}
-                    </p>
+              <div key={ev.id} className="shrink-0 w-[80vw] sm:w-auto snap-center">
+                <div
+                  className="group border rounded-lg overflow-hidden transition-all duration-300 flex flex-col justify-between h-full"
+                  style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+                >
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
+                    <Image
+                      src={ev.image}
+                      alt={ev.title}
+                      fill
+                      sizes="(max-width: 768px) 80vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
+                    />
+                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-sm bg-[#1A1C1E]/90 text-white font-label text-[10px] uppercase border border-white/10">
+                      {ev.status}
+                    </span>
                   </div>
 
-                  <div className="pt-3 border-t flex flex-col gap-2" style={{ borderColor: 'var(--border-subtle)' }}>
-                    <button
-                      onClick={() => handleAction(ev.title, ev.actionType)}
-                      className="button-primary w-full py-2.5 rounded-md text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:scale-[1.01]"
-                    >
-                      {ev.actionType === 'details' ? <Trophy className="w-4 h-4 text-white" /> : <Ticket className="w-4 h-4 text-white" />}
-                      <span>{ev.btnLabel}</span>
-                    </button>
-
-                    {reservedEvent === ev.title && (
-                      <div className="p-2 rounded-md bg-emerald-500/10 border border-emerald-500 text-emerald-800 text-[11px] font-label font-bold flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                        <span>Pass Reserved! Confirmation logged.</span>
+                  <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                    <div className="flex flex-col gap-2">
+                      <h3 className="font-display font-medium text-lg transition-colors group-hover:text-[#B8422E]" style={{ color: 'var(--text-primary)' }}>
+                        {ev.title}
+                      </h3>
+                      <div className="flex items-center gap-1.5 text-xs font-label text-[#B8422E]">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <span>{ev.dates}</span>
                       </div>
-                    )}
+                      <div className="flex items-center gap-1.5 text-xs font-label text-slate-500">
+                        <MapPin className="w-3.5 h-3.5 text-[#B8422E]" />
+                        <span>{ev.location}</span>
+                      </div>
+                      <p className="text-xs font-body leading-relaxed pt-1" style={{ color: 'var(--text-secondary)' }}>
+                        {ev.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t flex flex-col gap-2" style={{ borderColor: 'var(--border-subtle)' }}>
+                      <button
+                        onClick={() => handleAction(ev.title, ev.actionType)}
+                        className="button-primary w-full py-2.5 rounded-md text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer hover:scale-[1.01]"
+                      >
+                        {ev.actionType === 'details' ? <Trophy className="w-4 h-4 text-white" /> : <Ticket className="w-4 h-4 text-white" />}
+                        <span>{ev.btnLabel}</span>
+                      </button>
+
+                      {reservedEvent === ev.title && (
+                        <div className="p-2 rounded-md bg-emerald-500/10 border border-emerald-500 text-emerald-800 text-[11px] font-label font-bold flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                          <span>Pass Reserved! Confirmation logged.</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -243,7 +244,7 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {/* 2. EVENT VIDEO REELS CAROUSEL STRIP */}
+        {/* 2. EVENT VIDEO REELS CAROUSEL STRIP (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
             <div className="flex items-center gap-2">
@@ -255,47 +256,48 @@ export default function EventsPage() {
             <span className="text-xs font-label text-[#B8422E]">9:16 Festival Clips</span>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible scrollbar-none">
             {eventReels.map((reel) => (
-              <div
-                key={reel.id}
-                onClick={() => setActiveVideo(reel)}
-                className="group relative aspect-[9/16] w-full rounded-md overflow-hidden bg-slate-900 border border-[var(--border-subtle)] shadow-xs transition-all duration-300 cursor-pointer hover:-translate-y-1"
-              >
-                <Image
-                  src={reel.thumbnail}
-                  alt={reel.title}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-85 group-hover:brightness-95"
-                />
+              <div key={reel.id} className="shrink-0 w-[60vw] sm:w-auto snap-center">
+                <div
+                  onClick={() => setActiveVideo(reel)}
+                  className="group relative aspect-[9/16] w-full rounded-md overflow-hidden bg-slate-900 border border-[var(--border-subtle)] shadow-xs transition-all duration-300 cursor-pointer hover:-translate-y-1"
+                >
+                  <Image
+                    src={reel.thumbnail}
+                    alt={reel.title}
+                    fill
+                    sizes="(max-width: 768px) 60vw, 25vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-85 group-hover:brightness-95"
+                  />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
-                  <span className="px-2 py-0.5 rounded-sm bg-[#1A1C1E]/90 text-white font-label font-bold text-[9px]">
-                    {reel.badge}
-                  </span>
-                </div>
-
-                <div className="absolute inset-0 flex items-center justify-center z-10">
-                  <div className="w-10 h-10 rounded-full bg-[#B8422E] text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                    <Play className="w-4 h-4 fill-white ml-0.5" />
+                  <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
+                    <span className="px-2 py-0.5 rounded-sm bg-[#1A1C1E]/90 text-white font-label font-bold text-[9px]">
+                      {reel.badge}
+                    </span>
                   </div>
-                </div>
 
-                <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 flex flex-col gap-1 text-white">
-                  <h4 className="font-display font-medium text-xs line-clamp-2 leading-snug text-white">
-                    {reel.title}
-                  </h4>
-                  <span className="text-[10px] font-label text-slate-300">{reel.restaurant}</span>
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <div className="w-10 h-10 rounded-full bg-[#B8422E] text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                      <Play className="w-4 h-4 fill-white ml-0.5" />
+                    </div>
+                  </div>
+
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 flex flex-col gap-1 text-white">
+                    <h4 className="font-display font-medium text-xs line-clamp-2 leading-snug text-white">
+                      {reel.title}
+                    </h4>
+                    <span className="text-[10px] font-label text-slate-300">{reel.restaurant}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* 3. NEW RESTAURANT OPENINGS & SPOTLIGHT SPOTS */}
+        {/* 3. NEW RESTAURANT OPENINGS & SPOTLIGHT SPOTS (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
         <section className="flex flex-col gap-6">
           <div className="border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
             <div
@@ -316,36 +318,37 @@ export default function EventsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 sm:overflow-visible scrollbar-none">
             {newSpotOpenings.map((spot) => (
-              <div
-                key={spot.id}
-                className="p-6 rounded-lg border flex flex-col sm:flex-row gap-5 items-center shadow-xs"
-                style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
-              >
-                <div className="relative w-full sm:w-36 h-36 rounded-md overflow-hidden shrink-0 bg-slate-900">
-                  <Image
-                    src={spot.image}
-                    alt={spot.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2 flex-1">
-                  <span className="text-[10px] font-label text-[#B8422E] uppercase font-bold">
-                    {spot.openingDate}
-                  </span>
-                  <h3 className="font-display font-medium text-lg" style={{ color: 'var(--text-primary)' }}>
-                    {spot.name}
-                  </h3>
-                  <div className="flex items-center gap-1.5 text-xs font-label text-slate-500">
-                    <MapPin className="w-3.5 h-3.5 text-[#B8422E]" />
-                    <span>{spot.location}</span>
+              <div key={spot.id} className="shrink-0 w-[85vw] sm:w-auto snap-center">
+                <div
+                  className="p-6 rounded-lg border flex flex-col sm:flex-row gap-5 items-center shadow-xs h-full"
+                  style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+                >
+                  <div className="relative w-full sm:w-36 h-36 rounded-md overflow-hidden shrink-0 bg-slate-900">
+                    <Image
+                      src={spot.image}
+                      alt={spot.name}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
-                  <p className="text-xs font-body leading-relaxed pt-1" style={{ color: 'var(--text-secondary)' }}>
-                    {spot.desc}
-                  </p>
+
+                  <div className="flex flex-col gap-2 flex-1">
+                    <span className="text-[10px] font-label text-[#B8422E] uppercase font-bold">
+                      {spot.openingDate}
+                    </span>
+                    <h3 className="font-display font-medium text-lg" style={{ color: 'var(--text-primary)' }}>
+                      {spot.name}
+                    </h3>
+                    <div className="flex items-center gap-1.5 text-xs font-label text-slate-500">
+                      <MapPin className="w-3.5 h-3.5 text-[#B8422E]" />
+                      <span>{spot.location}</span>
+                    </div>
+                    <p className="text-xs font-body leading-relaxed pt-1" style={{ color: 'var(--text-secondary)' }}>
+                      {spot.desc}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}

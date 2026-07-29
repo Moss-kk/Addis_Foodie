@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -65,17 +65,22 @@ const videoReels = [
 ];
 
 export default function HomePage() {
+  const [searchQuery, setSearchQuery] = useState('');
   const [activePost, setActivePost] = useState<FoodPost | null>(null);
   const [activeReceiptPost, setActiveReceiptPost] = useState<FoodPost | null>(null);
   const [activeVideo, setActiveVideo] = useState<typeof videoReels[0] | null>(null);
 
-  // Display strictly the latest 6 official reviews on homepage
-  const latestOfficialReviews = mockPosts.slice(0, 6);
-
-  const handleHeroSearch = () => {
-    const el = document.getElementById('latest-reviews-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+  // Filter homepage official reviews based on Search Bar query
+  const filteredOfficialReviews = useMemo(() => {
+    if (!searchQuery.trim()) return mockPosts.slice(0, 6);
+    const q = searchQuery.toLowerCase().trim();
+    return mockPosts.filter((post) => 
+      post.restaurantName.toLowerCase().includes(q) ||
+      post.location.toLowerCase().includes(q) ||
+      post.category.toLowerCase().includes(q) ||
+      post.caption.toLowerCase().includes(q)
+    ).slice(0, 6);
+  }, [searchQuery]);
 
   const scrollToFeed = () => {
     const el = document.getElementById('latest-reviews-section');
@@ -108,9 +113,10 @@ export default function HomePage() {
           <EventBanner />
         </div>
 
-        {/* 3. HERITAGE HERO SECTION WITH VISIBLE BACKGROUND IMAGE */}
+        {/* 3. HERITAGE HERO SECTION WITH PROMINENT SEARCH BAR */}
         <HeroSection
-          onSearch={handleHeroSearch}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
           onExploreClick={scrollToFeed}
         />
 
@@ -152,7 +158,7 @@ export default function HomePage() {
 
             {/* Side-Scrollable Horizontal Carousel on Mobile Phones */}
             <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible scrollbar-none">
-              {latestOfficialReviews.map((post) => (
+              {filteredOfficialReviews.map((post) => (
                 <div key={post.id} className="shrink-0 w-[85vw] sm:w-auto snap-center">
                   <ReviewCard
                     post={post}
@@ -164,7 +170,7 @@ export default function HomePage() {
 
           </section>
 
-          {/* 5. TRENDING VIDEO REELS STRIP ON HOMEPAGE */}
+          {/* 5. TRENDING VIDEO REELS STRIP ON HOMEPAGE (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
           <section className="flex flex-col gap-4">
             <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
               <div className="flex items-center gap-2">
@@ -178,40 +184,41 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible scrollbar-none">
               {videoReels.map((reel) => (
-                <div
-                  key={reel.id}
-                  onClick={() => setActiveVideo(reel)}
-                  className="group relative aspect-[9/16] w-full rounded-md overflow-hidden bg-slate-900 border border-[var(--border-subtle)] shadow-xs transition-all duration-300 cursor-pointer hover:-translate-y-1"
-                >
-                  <Image
-                    src={reel.thumbnail}
-                    alt={reel.title}
-                    fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-85 group-hover:brightness-95"
-                  />
+                <div key={reel.id} className="shrink-0 w-[60vw] sm:w-auto snap-center">
+                  <div
+                    onClick={() => setActiveVideo(reel)}
+                    className="group relative aspect-[9/16] w-full rounded-md overflow-hidden bg-slate-900 border border-[var(--border-subtle)] shadow-xs transition-all duration-300 cursor-pointer hover:-translate-y-1"
+                  >
+                    <Image
+                      src={reel.thumbnail}
+                      alt={reel.title}
+                      fill
+                      sizes="(max-width: 768px) 60vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-85 group-hover:brightness-95"
+                    />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                  <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
-                    <span className="px-2 py-0.5 rounded-sm bg-[#1A1C1E]/90 text-white font-label font-bold text-[9px]">
-                      {reel.badge}
-                    </span>
-                  </div>
-
-                  <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <div className="w-10 h-10 rounded-full bg-[#B8422E] text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
-                      <Play className="w-4 h-4 fill-white ml-0.5" />
+                    <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
+                      <span className="px-2 py-0.5 rounded-sm bg-[#1A1C1E]/90 text-white font-label font-bold text-[9px]">
+                        {reel.badge}
+                      </span>
                     </div>
-                  </div>
 
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 flex flex-col gap-1 text-white">
-                    <h4 className="font-display font-medium text-xs line-clamp-2 leading-snug text-white">
-                      {reel.title}
-                    </h4>
-                    <span className="text-[10px] font-label text-slate-300">{reel.restaurant}</span>
+                    <div className="absolute inset-0 flex items-center justify-center z-10">
+                      <div className="w-10 h-10 rounded-full bg-[#B8422E] text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                        <Play className="w-4 h-4 fill-white ml-0.5" />
+                      </div>
+                    </div>
+
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 flex flex-col gap-1 text-white">
+                      <h4 className="font-display font-medium text-xs line-clamp-2 leading-snug text-white">
+                        {reel.title}
+                      </h4>
+                      <span className="text-[10px] font-label text-slate-300">{reel.restaurant}</span>
+                    </div>
                   </div>
                 </div>
               ))}

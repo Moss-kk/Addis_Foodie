@@ -6,12 +6,10 @@ import {
   Sparkles, 
   ArrowRight,
   ShieldCheck,
-  Utensils,
   Calendar,
   Truck,
   PartyPopper,
-  CheckCircle2,
-  Phone
+  CheckCircle2
 } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -69,7 +67,7 @@ export default function ServicesPage() {
   return (
     <div
       className="flex flex-col min-h-screen transition-colors duration-300 pb-16 sm:pb-0 max-w-full overflow-x-hidden"
-      style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)' }}
+      style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-[#1A1C1E])' }}
     >
       <Header />
 
@@ -100,56 +98,57 @@ export default function ServicesPage() {
           </p>
         </section>
 
-        {/* 4 CORE SERVICE PILLARS GRID */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* 4 CORE SERVICE PILLARS GRID (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
+        <section className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 sm:overflow-visible scrollbar-none">
           {coreServicesPillars.map((srv) => {
             const Icon = srv.icon;
             return (
-              <div
-                key={srv.id}
-                className="heritage-card flex flex-col justify-between gap-6"
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <span className="px-3 py-1 rounded-sm bg-[#1A1C1E] text-white font-label text-[10px] uppercase border border-white/10">
-                      {srv.badge}
-                    </span>
-                  </div>
-
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-label uppercase tracking-widest text-[#B8422E]">
-                      {srv.subtitle}
-                    </span>
-                    <h2 className="font-display font-medium text-2xl" style={{ color: 'var(--text-primary)' }}>
-                      {srv.title}
-                    </h2>
-                  </div>
-
-                  <p className="text-xs sm:text-sm font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                    {srv.description}
-                  </p>
-
-                  <div className="flex flex-col gap-2 pt-2 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
-                    {srv.highlights.map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-xs font-label text-slate-600 dark:text-slate-300">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#B8422E] shrink-0" />
-                        <span>{item}</span>
+              <div key={srv.id} className="shrink-0 w-[85vw] sm:w-auto snap-center">
+                <div
+                  className="heritage-card flex flex-col justify-between gap-6 h-full"
+                >
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center justify-between">
+                      <div className="w-12 h-12 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
+                        <Icon className="w-6 h-6" />
                       </div>
-                    ))}
-                  </div>
-                </div>
+                      <span className="px-3 py-1 rounded-sm bg-[#1A1C1E] text-white font-label text-[10px] uppercase border border-white/10">
+                        {srv.badge}
+                      </span>
+                    </div>
 
-                <div className="pt-4 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
-                  <Link
-                    href={srv.link}
-                    className="button-primary w-full py-3 text-xs uppercase tracking-wider rounded-md flex items-center justify-center gap-1.5 cursor-pointer hover:scale-[1.01]"
-                  >
-                    <span>{srv.btnLabel}</span>
-                    <ArrowRight className="w-4 h-4 text-white" />
-                  </Link>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] font-label uppercase tracking-widest text-[#B8422E]">
+                        {srv.subtitle}
+                      </span>
+                      <h2 className="font-display font-medium text-2xl" style={{ color: 'var(--text-primary)' }}>
+                        {srv.title}
+                      </h2>
+                    </div>
+
+                    <p className="text-xs sm:text-sm font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                      {srv.description}
+                    </p>
+
+                    <div className="flex flex-col gap-2 pt-2 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
+                      {srv.highlights.map((item, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-xs font-label text-slate-600 dark:text-slate-300">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#B8422E] shrink-0" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t" style={{ borderColor: 'var(--border-subtle)' }}>
+                    <Link
+                      href={srv.link}
+                      className="button-primary w-full py-3 text-xs uppercase tracking-wider rounded-md flex items-center justify-center gap-1.5 cursor-pointer hover:scale-[1.01]"
+                    >
+                      <span>{srv.btnLabel}</span>
+                      <ArrowRight className="w-4 h-4 text-white" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             );

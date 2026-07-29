@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { 
   Sparkles, 
   ArrowRight,
@@ -10,7 +9,6 @@ import {
   Calendar,
   Truck,
   PartyPopper,
-  CheckCircle2,
   Building2,
   Target,
   Award
@@ -92,46 +90,52 @@ export default function AboutPage() {
           </p>
         </section>
 
-        {/* 1. DESCRIPTION, PURPOSE & SPECIALITIES */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="heritage-card flex flex-col gap-3">
-            <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
-              <Sparkles className="w-5 h-5" />
+        {/* 1. DESCRIPTION, PURPOSE & SPECIALITIES (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
+        <section className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-3 sm:overflow-visible scrollbar-none">
+          <div className="shrink-0 w-[80vw] sm:w-auto snap-center">
+            <div className="heritage-card flex flex-col gap-3 h-full">
+              <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
+                <Sparkles className="w-5 h-5" />
+              </div>
+              <h3 className="font-display font-medium text-xl" style={{ color: 'var(--text-primary)' }}>
+                Brand Description
+              </h3>
+              <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                Addis Foodies (@addis.foodie &amp; @addis.foodie.delivery) is Ethiopia’s premier digital food platform, delivering independent restaurant inspections, price audits, and major culinary festival productions.
+              </p>
             </div>
-            <h3 className="font-display font-medium text-xl" style={{ color: 'var(--text-primary)' }}>
-              Brand Description
-            </h3>
-            <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Addis Foodies (@addis.foodie &amp; @addis.foodie.delivery) is Ethiopia’s premier digital food platform, delivering independent restaurant inspections, price audits, and major culinary festival productions.
-            </p>
           </div>
 
-          <div className="heritage-card flex flex-col gap-3">
-            <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
-              <Target className="w-5 h-5" />
+          <div className="shrink-0 w-[80vw] sm:w-auto snap-center">
+            <div className="heritage-card flex flex-col gap-3 h-full">
+              <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
+                <Target className="w-5 h-5" />
+              </div>
+              <h3 className="font-display font-medium text-xl" style={{ color: 'var(--text-primary)' }}>
+                Our Purpose
+              </h3>
+              <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                To empower food lovers in Addis Ababa with 100% itemized ETB price transparency, authentic culinary recommendations, and seamless local food delivery.
+              </p>
             </div>
-            <h3 className="font-display font-medium text-xl" style={{ color: 'var(--text-primary)' }}>
-              Our Purpose
-            </h3>
-            <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              To empower food lovers in Addis Ababa with 100% itemized ETB price transparency, authentic culinary recommendations, and seamless local food delivery.
-            </p>
           </div>
 
-          <div className="heritage-card flex flex-col gap-3">
-            <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
-              <Award className="w-5 h-5" />
+          <div className="shrink-0 w-[80vw] sm:w-auto snap-center">
+            <div className="heritage-card flex flex-col gap-3 h-full">
+              <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 border border-[#B8422E]/30 flex items-center justify-center text-[#B8422E]">
+                <Award className="w-5 h-5" />
+              </div>
+              <h3 className="font-display font-medium text-xl" style={{ color: 'var(--text-primary)' }}>
+                Core Specialities
+              </h3>
+              <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                Mastery in Kitfo joint inspections, Gurage cultural pairing audits, gourmet burger reviews, traditional coffee ceremonies, and large-scale festival hosting.
+              </p>
             </div>
-            <h3 className="font-display font-medium text-xl" style={{ color: 'var(--text-primary)' }}>
-              Core Specialities
-            </h3>
-            <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              Mastery in Kitfo joint inspections, Gurage cultural pairing audits, gourmet burger reviews, traditional coffee ceremonies, and large-scale festival hosting.
-            </p>
           </div>
         </section>
 
-        {/* 2. CORE SERVICES OVERVIEW */}
+        {/* 2. CORE SERVICES OVERVIEW (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
         <section
           className="p-8 sm:p-10 rounded-lg border shadow-xs flex flex-col gap-6"
           style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
@@ -145,28 +149,29 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible scrollbar-none">
             {companyPillars.map((srv, idx) => {
               const Icon = srv.icon;
               return (
-                <div
-                  key={idx}
-                  className="p-5 rounded-md border flex flex-col justify-between gap-4"
-                  style={{ backgroundColor: 'var(--bg-app)', borderColor: 'var(--border-subtle)' }}
-                >
-                  <div className="flex flex-col gap-2">
-                    <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 flex items-center justify-center text-[#B8422E] mb-1">
-                      <Icon className="w-5 h-5" />
+                <div key={idx} className="shrink-0 w-[75vw] sm:w-auto snap-center">
+                  <div
+                    className="p-5 rounded-md border flex flex-col justify-between gap-4 h-full"
+                    style={{ backgroundColor: 'var(--bg-app)', borderColor: 'var(--border-subtle)' }}
+                  >
+                    <div className="flex flex-col gap-2">
+                      <div className="w-10 h-10 rounded-md bg-[#B8422E]/10 flex items-center justify-center text-[#B8422E] mb-1">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <span className="text-[9px] font-label font-bold text-[#B8422E] uppercase">
+                        {srv.subtitle}
+                      </span>
+                      <h3 className="font-display font-medium text-base" style={{ color: 'var(--text-primary)' }}>
+                        {srv.title}
+                      </h3>
+                      <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                        {srv.desc}
+                      </p>
                     </div>
-                    <span className="text-[9px] font-label font-bold text-[#B8422E] uppercase">
-                      {srv.subtitle}
-                    </span>
-                    <h3 className="font-display font-medium text-base" style={{ color: 'var(--text-primary)' }}>
-                      {srv.title}
-                    </h3>
-                    <p className="text-xs font-body leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                      {srv.desc}
-                    </p>
                   </div>
                 </div>
               );
@@ -195,16 +200,17 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-3 lg:grid-cols-6 sm:overflow-visible scrollbar-none">
             {partners.map((p, idx) => (
-              <div
-                key={idx}
-                className="border p-4 rounded-md text-center flex flex-col justify-center items-center gap-1 shadow-xs"
-                style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
-              >
-                <Building2 className="w-5 h-5 mb-1 text-[#B8422E]" />
-                <span className="font-display font-medium text-xs" style={{ color: 'var(--text-primary)' }}>{p.name}</span>
-                <span className="text-[10px] font-label text-slate-400">{p.location}</span>
+              <div key={idx} className="shrink-0 w-[45vw] sm:w-auto snap-center">
+                <div
+                  className="border p-4 rounded-md text-center flex flex-col justify-center items-center gap-1 shadow-xs h-full"
+                  style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+                >
+                  <Building2 className="w-5 h-5 mb-1 text-[#B8422E]" />
+                  <span className="font-display font-medium text-xs" style={{ color: 'var(--text-primary)' }}>{p.name}</span>
+                  <span className="text-[10px] font-label text-slate-400">{p.location}</span>
+                </div>
               </div>
             ))}
           </div>

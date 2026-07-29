@@ -4,33 +4,16 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Menu, X, Globe, Sun, Moon, Handshake } from 'lucide-react';
+import { Menu, X, Globe, Sun, Moon, Handshake } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import AddisFoodieLogo from './ui/AddisFoodieLogo';
 
-interface HeaderProps {
-  searchQuery?: string;
-  onSearchChange?: (query: string) => void;
-}
-
-export default function Header({ searchQuery = '', onSearchChange }: HeaderProps) {
+export default function Header() {
   const pathname = usePathname();
   const { lang, toggleLang } = useLanguage();
   const { toggleTheme, isDark } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-  const [localSearch, setLocalSearch] = useState(searchQuery);
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (onSearchChange) {
-      onSearchChange(localSearch);
-    }
-    setMobileSearchOpen(false);
-    const el = document.getElementById('latest-reviews-section');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
 
   const primaryNavLinks = [
     { href: '/', label: 'Explore' },
@@ -89,21 +72,6 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
         {/* Right Controls */}
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           
-          {/* Search Toggle Button */}
-          <button
-            onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
-            className="touch-target p-2 rounded-sm border focus-ring cursor-pointer flex items-center gap-1.5 text-xs font-label transition-all hover:scale-105"
-            style={{
-              backgroundColor: 'var(--bg-app)',
-              borderColor: 'var(--border-subtle)',
-              color: 'var(--text-primary)',
-            }}
-            aria-label="Toggle Search"
-          >
-            <Search className="w-4 h-4 text-[#B8422E]" />
-            <span className="hidden lg:inline text-[11px] text-[var(--text-muted)]">Search</span>
-          </button>
-
           {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
@@ -163,42 +131,6 @@ export default function Header({ searchQuery = '', onSearchChange }: HeaderProps
 
         </div>
       </div>
-
-      {/* Expandable Search Input */}
-      <AnimatePresence>
-        {mobileSearchOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="pointer-events-auto site-container mx-auto mt-2 p-3 rounded-md border shadow-xs"
-            style={{
-              backgroundColor: 'var(--bg-surface)',
-              borderColor: 'var(--border-subtle)',
-            }}
-          >
-            <form onSubmit={handleSearchSubmit} className="relative flex items-center w-full">
-              <Search className="absolute left-3.5 w-4 h-4 text-[var(--text-muted)]" />
-              <input
-                type="text"
-                value={onSearchChange ? searchQuery : localSearch}
-                onChange={(e) => {
-                  setLocalSearch(e.target.value);
-                  if (onSearchChange) onSearchChange(e.target.value);
-                }}
-                placeholder="Search food, restaurants, Bole, Kitfo, Doro Wat..."
-                className="w-full text-xs sm:text-sm pl-10 pr-4 py-3 rounded-sm border outline-none font-medium shadow-inner"
-                style={{
-                  backgroundColor: 'var(--bg-app)',
-                  color: 'var(--text-primary)',
-                  borderColor: 'var(--border-subtle)',
-                }}
-                autoFocus
-              />
-            </form>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Mobile Drawer Menu */}
       <AnimatePresence>
