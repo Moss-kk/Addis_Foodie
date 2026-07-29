@@ -12,6 +12,7 @@ import {
   Flame,
   Search
 } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface HeroSectionProps {
   searchQuery?: string;
@@ -20,6 +21,8 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ searchQuery = '', onSearchChange, onExploreClick }: HeroSectionProps) {
+  const { t, lang } = useLanguage();
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (onExploreClick) onExploreClick();
@@ -65,23 +68,22 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                 style={{ backgroundColor: 'var(--accent-tertiary)' }}
               >
                 <Sparkles className="w-3.5 h-3.5 text-white" />
-                <span>Addis Ababa Official Food Guide</span>
+                <span>{lang === 'AM' ? 'የአዲስ አበባ ይፋዊ የምግብ መሪ' : 'Addis Ababa Official Food Guide'}</span>
               </div>
 
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-white/10 text-slate-200 border border-white/20 text-xs font-label">
                 <CheckCircle2 className="w-3.5 h-3.5 text-white" />
-                <span>Verified ETB Audits</span>
+                <span>{lang === 'AM' ? 'የተረጋገጡ የብር ዋጋዎች' : 'Verified ETB Audits'}</span>
               </div>
             </div>
 
             {/* Title: Fraunces Serif Header */}
             <div className="flex flex-col gap-3">
               <h1 className="font-display font-medium text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.1] text-white">
-                Discover &amp; Order <br className="hidden sm:inline" />
-                <span className="text-[#F7F5F2] underline decoration-[#B8422E] underline-offset-8">Authentic Food</span> in Addis
+                {t('heroTitle')}
               </h1>
               <p className="text-slate-200 font-body text-base sm:text-lg leading-relaxed max-w-xl">
-                Journalistic gravitas meets culinary excellence. Explore top Kitfo joints, gourmet burgers, and local cafes with verified ETB price breakdowns across Bole, Kazanchis, Piassa, and Sarbet.
+                {t('heroSubtext')}
               </p>
             </div>
 
@@ -92,14 +94,14 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                 type="text"
                 value={searchQuery}
                 onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
-                placeholder="Search food, restaurants, Bole, Kitfo, Doro Wat..."
+                placeholder={t('searchPlaceholder')}
                 className="w-full pl-11 pr-24 py-3.5 rounded-md bg-white/15 border border-white/30 text-white placeholder-slate-300 text-xs sm:text-sm font-medium focus:outline-none focus:border-[#B8422E] backdrop-blur-md transition-colors shadow-inner"
               />
               <button
                 type="submit"
                 className="button-primary absolute right-1.5 top-1/2 -translate-y-1/2 px-4 py-2 rounded-sm text-xs uppercase tracking-wider text-white font-label"
               >
-                Search
+                {lang === 'AM' ? 'ፈልግ' : 'Search'}
               </button>
             </form>
 
@@ -107,11 +109,11 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
             <div className="flex flex-wrap items-center gap-3 text-xs font-label text-slate-300">
               <span className="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-sm border border-white/15">
                 <Receipt className="w-3.5 h-3.5" style={{ color: 'var(--accent-tertiary)' }} />
-                <span>Itemized Price Audits</span>
+                <span>{lang === 'AM' ? 'ዝርዝር የብር ዋጋ ደረሰኞች' : 'Itemized Price Audits'}</span>
               </span>
               <span className="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-sm border border-white/15">
                 <TrendingUp className="w-3.5 h-3.5" style={{ color: 'var(--accent-tertiary)' }} />
-                <span>94.2K Monthly Readers</span>
+                <span>{t('monthlyFoodies')}</span>
               </span>
             </div>
 
@@ -121,7 +123,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                 onClick={onExploreClick}
                 className="button-primary cursor-pointer hover:scale-[1.02] flex items-center gap-2"
               >
-                <span>EXPLORE VERIFIED REVIEWS</span>
+                <span>{t('exploreReviews')}</span>
                 <ArrowRight className="w-4 h-4 text-white" />
               </button>
             </div>
@@ -150,7 +152,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                 </span>
                 <div className="h-[2px] w-16 bg-[#B8422E] my-0.5" />
                 <span className="text-[10px] font-label text-slate-200 uppercase tracking-widest drop-shadow-xs">
-                  ETHIOPIAN CULINARY BRAND
+                  {lang === 'AM' ? 'የኢትዮጵያ የምግብ ብራንድ' : 'ETHIOPIAN CULINARY BRAND'}
                 </span>
               </div>
 
@@ -172,19 +174,19 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
         <div className="relative z-10 border-t border-white/15 px-6 sm:px-12 py-4 bg-[#1A1C1E]/90 backdrop-blur-md grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-white">
           <div>
             <span className="block font-display font-medium text-xl sm:text-2xl" style={{ color: 'var(--accent-tertiary)' }}>500+</span>
-            <span className="text-[10px] sm:text-xs font-label text-slate-300">Verified Reviews</span>
+            <span className="text-[10px] sm:text-xs font-label text-slate-300">{lang === 'AM' ? 'የተረጋገጡ ግምገማዎች' : 'Verified Reviews'}</span>
           </div>
           <div>
             <span className="block font-display font-medium text-xl sm:text-2xl text-white">120+</span>
-            <span className="text-[10px] sm:text-xs font-label text-slate-300">Restaurants Audited</span>
+            <span className="text-[10px] sm:text-xs font-label text-slate-300">{lang === 'AM' ? 'የተጎበኙ ምግብ ቤቶች' : 'Restaurants Audited'}</span>
           </div>
           <div>
             <span className="block font-display font-medium text-xl sm:text-2xl text-white">100%</span>
-            <span className="text-[10px] sm:text-xs font-label text-slate-300">ETB Price Accuracy</span>
+            <span className="text-[10px] sm:text-xs font-label text-slate-300">{lang === 'AM' ? 'እውነተኛ የብር ዋጋዎች' : 'ETB Price Accuracy'}</span>
           </div>
           <div>
             <span className="block font-display font-medium text-xl sm:text-2xl" style={{ color: 'var(--accent-tertiary)' }}>150K+</span>
-            <span className="text-[10px] sm:text-xs font-label text-slate-300">Monthly Foodies</span>
+            <span className="text-[10px] sm:text-xs font-label text-slate-300">{t('monthlyFoodies')}</span>
           </div>
         </div>
 

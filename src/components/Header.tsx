@@ -11,20 +11,20 @@ import AddisFoodieLogo from './ui/AddisFoodieLogo';
 
 export default function Header() {
   const pathname = usePathname();
-  const { lang, toggleLang } = useLanguage();
+  const { lang, toggleLang, t } = useLanguage();
   const { toggleTheme, isDark } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const primaryNavLinks = [
-    { href: '/', label: 'Explore' },
-    { href: '/reviews', label: 'Reviews' },
-    { href: '/events', label: 'Events & Reels' },
-    { href: '/services', label: 'Services' },
-    { href: '/about', label: 'About' },
+    { href: '/', label: t('explore') },
+    { href: '/reviews', label: t('reviews') },
+    { href: '/events', label: t('events') },
+    { href: '/services', label: t('services') },
+    { href: '/about', label: t('about') },
   ];
 
   const secondaryNavLinks = [
-    { href: '/collaborate', label: 'Work With Us' },
+    { href: '/collaborate', label: t('workWithUs') },
   ];
 
   return (
@@ -103,7 +103,7 @@ export default function Header() {
             aria-label="Toggle Language"
           >
             <Globe className="w-3.5 h-3.5 text-[#B8422E]" />
-            <span>{lang === 'EN' ? 'EN|አማ' : 'አማ|EN'}</span>
+            <span>{lang === 'EN' ? 'EN | አማርኛ' : 'አማርኛ | EN'}</span>
           </button>
 
           {/* Primary Work With Us CTA Button */}
@@ -112,7 +112,7 @@ export default function Header() {
             className="button-primary hidden sm:inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs uppercase tracking-wider rounded-sm shadow-xs cursor-pointer hover:scale-105"
           >
             <Handshake className="w-3.5 h-3.5 text-white" />
-            <span>Work With Us</span>
+            <span>{t('workWithUs')}</span>
           </Link>
 
           {/* Mobile Hamburger */}
@@ -178,7 +178,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="button-primary touch-target w-full py-4 text-white font-label text-sm uppercase tracking-wider text-center shadow-xs cursor-pointer"
               >
-                Work With Addis Foodies
+                {t('workWithUs')}
               </Link>
             </div>
           </motion.div>

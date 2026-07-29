@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { Phone, ArrowUpRight, MapPin, Clock, Smartphone, Lock } from 'lucide-react';
 import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube, FaFacebookF, FaGooglePlay, FaApple } from 'react-icons/fa';
 import AddisFoodieLogo from './ui/AddisFoodieLogo';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer() {
+  const { lang, t } = useLanguage();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -39,7 +41,7 @@ export default function Footer() {
             </div>
 
             <p className="text-xs sm:text-sm font-body leading-relaxed max-w-md text-[#9DA3A8]">
-              Architectural minimalism meets journalistic gravitas. The premier digital food platform for Addis Ababa. Discover curated dining, verified ETB price audits, and authentic food culture across Bole, Kazanchis, Piassa, and Sarbet.
+              {t('footerSubtext')}
             </p>
 
             {/* Social Icons Bar */}
@@ -90,11 +92,11 @@ export default function Footer() {
             <div className="flex flex-col gap-2 pt-2 text-xs font-label font-bold border-t border-[#2A2E33] text-[#9DA3A8]">
               <div className="flex items-center gap-2 text-[#B8422E]">
                 <Phone className="w-4 h-4" />
-                <span>Hotline: 0966-55-00-00</span>
+                <span>{lang === 'AM' ? 'ስልክ: 0966-55-00-00' : 'Hotline: 0966-55-00-00'}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-emerald-400" />
-                <span>Mon – Sat (8:30 AM – 6:30 PM EAT)</span>
+                <span>{lang === 'AM' ? 'ሰኞ – ቅዳሜ (2:30 ጠዋት – 12:30 ማታ)' : 'Mon – Sat (8:30 AM – 6:30 PM EAT)'}</span>
               </div>
             </div>
           </div>
@@ -102,16 +104,16 @@ export default function Footer() {
           {/* Column 2: Navigation Sitemap */}
           <div className="flex flex-col gap-3">
             <h4 className="font-label font-bold text-xs uppercase tracking-widest text-[#B8422E]">
-              Navigation
+              {lang === 'AM' ? 'የገፅ ማውጫ' : 'Navigation'}
             </h4>
             <div className="flex flex-col gap-2.5 text-xs font-semibold text-[#9DA3A8]">
               {[
-                { href: '/', label: 'Explore Feed' },
-                { href: '/reviews', label: 'Food Reviews & Reels' },
-                { href: '/events', label: 'Events & Festivals' },
-                { href: '/services', label: 'Services & Catering' },
-                { href: '/collaborate', label: 'Work With Us' },
-                { href: '/admin', label: 'Admin Portal (Dashboard)' },
+                { href: '/', label: t('explore') },
+                { href: '/reviews', label: t('reviews') },
+                { href: '/events', label: t('events') },
+                { href: '/services', label: t('services') },
+                { href: '/collaborate', label: t('workWithUs') },
+                { href: '/admin', label: t('adminPortal') },
               ].map(({ href, label }) => (
                 <Link
                   key={href}
@@ -128,22 +130,22 @@ export default function Footer() {
           {/* Column 3: Location */}
           <div className="flex flex-col gap-3">
             <h4 className="font-label font-bold text-xs uppercase tracking-widest text-[#B8422E]">
-              Addis Ababa HQ
+              {lang === 'AM' ? 'አዲስ አበባ ዋና ቢሮ' : 'Addis Ababa HQ'}
             </h4>
             <div className="p-3.5 rounded-md flex flex-col gap-2 border bg-white/5 border-[#2A2E33]">
               <div className="flex items-center gap-1.5 text-xs font-bold text-[#F7F5F2]">
                 <MapPin className="w-4 h-4 text-[#B8422E]" />
-                <span>Bole Medhaniallem, Addis Ababa</span>
+                <span>{lang === 'AM' ? 'ቦሌ መድኃኔዓለም፣ አዲስ አበባ' : 'Bole Medhaniallem, Addis Ababa'}</span>
               </div>
               <p className="text-[11px] leading-snug text-[#9DA3A8]">
-                Bole Atlas Commercial Area
+                {lang === 'AM' ? 'ቦሌ አትላስ የንግድ አካባቢ' : 'Bole Atlas Commercial Area'}
               </p>
               <a
                 href="https://maps.google.com/?q=Bole+Medhaniallem+Addis+Ababa"
                 target="_blank" rel="noopener noreferrer"
                 className="mt-1 px-3 py-1.5 rounded-sm text-[11px] font-label font-bold flex items-center justify-between border transition-colors bg-[#B8422E]/10 text-[#B8422E] border-[#B8422E]/30"
               >
-                <span>View Google Maps</span>
+                <span>{lang === 'AM' ? 'በካርታ ይመልከቱ' : 'View Google Maps'}</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </div>
@@ -152,15 +154,15 @@ export default function Footer() {
           {/* Column 4: Newsletter */}
           <div className="flex flex-col gap-3">
             <h4 className="font-label font-bold text-xs uppercase tracking-widest text-[#B8422E]">
-              Weekly Digest
+              {t('weeklyDigest')}
             </h4>
             <p className="text-xs font-body leading-relaxed text-[#9DA3A8]">
-              Get food alerts, ETB price updates, and event tickets.
+              {t('newsletterSubtext')}
             </p>
 
             {subscribed ? (
               <div className="p-3 rounded-md text-xs font-bold border bg-emerald-500/15 border-emerald-500 text-emerald-300">
-                ✓ Subscribed! Welcome.
+                {t('subscribedMessage')}
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="flex flex-col gap-2.5">
@@ -169,14 +171,14 @@ export default function Footer() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email..."
+                  placeholder={lang === 'AM' ? 'ኢሜይልዎን ያስገቡ...' : 'Enter your email...'}
                   className="w-full px-3.5 py-3 text-xs rounded-md bg-white/10 border border-[#3A3E42] text-[#F7F5F2] placeholder-slate-400 focus:outline-none transition-colors"
                 />
                 <button
                   type="submit"
                   className="button-primary w-full text-xs py-3 rounded-md shadow-xs cursor-pointer focus-ring"
                 >
-                  Subscribe Free
+                  {t('subscribeFree')}
                 </button>
               </form>
             )}
@@ -191,10 +193,10 @@ export default function Footer() {
             </div>
             <div className="flex flex-col text-left">
               <span className="font-label font-bold text-xs uppercase tracking-wider text-[#F7F5F2]">
-                @addis.foodie.delivery App
+                {t('deliveryTitle')}
               </span>
               <span className="text-[11px] font-body text-[#9DA3A8]">
-                Download our official food delivery app for Bole, Kazanchis, Piassa &amp; Sarbet.
+                {t('deliverySubtext')}
               </span>
             </div>
           </div>
@@ -232,12 +234,12 @@ export default function Footer() {
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold border-t border-[#2A2E33] text-[#9DA3A8]">
           <p>Addis Foodies © 2026 • Official Digital Food Guide (@addis.foodie &amp; @addis.foodie.delivery)</p>
           <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/about" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link href="/collaborate" className="hover:text-white transition-colors">Work With Us</Link>
+            <Link href="/about" className="hover:text-white transition-colors">{lang === 'AM' ? 'የግላዊነት ፖሊሲ' : 'Privacy Policy'}</Link>
+            <Link href="/about" className="hover:text-white transition-colors">{lang === 'AM' ? 'የአገልግሎት ውል' : 'Terms of Service'}</Link>
+            <Link href="/collaborate" className="hover:text-white transition-colors">{t('workWithUs')}</Link>
             <Link href="/admin" className="hover:text-[#B8422E] transition-colors flex items-center gap-1">
               <Lock className="w-3 h-3 text-[#B8422E]" />
-              <span>Admin Portal</span>
+              <span>{t('adminPortal')}</span>
             </Link>
           </div>
         </div>

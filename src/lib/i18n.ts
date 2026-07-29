@@ -4,22 +4,24 @@ export const translations = {
   EN: {
     // Navigation
     home: "Home",
-    reviews: "Reviews",
+    explore: "Explore",
+    reviews: "Reviews & Reels",
     about: "About",
-    events: "Events",
-    services: "Services",
+    events: "Events & Festivals",
+    services: "Services & Catering",
     brandKit: "Brand Kit",
     contact: "Contact",
     workWithUs: "Work With Us",
     promoteSpot: "Promote Spot",
+    adminPortal: "Admin Portal",
 
     // Hero Section
     tagline: "The Official Digital Home of Addis Foodies",
-    heroTitle: "Discover Addis Ababa One Bite at a Time",
-    heroSubtext: "Trusted restaurant reviews, hidden gems, food festivals, and culinary experiences curated by Addis Foodies.",
-    exploreReviews: "Explore Reviews",
+    heroTitle: "Discover & Order Authentic Food in Addis",
+    heroSubtext: "Journalistic gravitas meets culinary excellence. Explore top Kitfo joints, gourmet burgers, and local cafes with verified ETB price breakdowns across Bole, Kazanchis, Piassa, and Sarbet.",
+    exploreReviews: "EXPLORE VERIFIED REVIEWS",
     workWithAddisFoodies: "Work With Addis Foodies",
-    searchPlaceholder: "Search by restaurant, area (Bole, Kazanchis...), dish, or keywords...",
+    searchPlaceholder: "Search food, restaurants, Bole, Kitfo, Doro Wat...",
     trending: "Trending",
     monthlyFoodies: "150,000+ Monthly Foodies",
     curatedSpots: "320+ Curated Spots",
@@ -33,7 +35,7 @@ export const translations = {
     aiSubtext: "Tap any craving below for instant smart recommendations across Addis Ababa.",
     aiBadge: "AI Smart Search",
 
-    latestIngestedReviews: "Latest Ingested Reviews",
+    latestIngestedReviews: "Latest Written Food Inspections",
     liveSyncActive: "LIVE SYNC ACTIVE",
     freshPostsSynced: "Fresh posts synced directly from official Telegram & Instagram channels.",
 
@@ -64,8 +66,12 @@ export const translations = {
     upcomingFestival: "UPCOMING FESTIVAL",
     reservePhone: "Reserve",
 
+    // Delivery Showcase
+    deliveryTitle: "@addis.foodie.delivery App",
+    deliverySubtext: "Official food delivery app bringing top Kitfo joints and cafes directly to your doorstep across Bole, Kazanchis, Piassa, and Sarbet.",
+
     // Footer
-    footerSubtext: "Discovering authentic restaurant reviews, hidden gems, menu prices in ETB, and food festivals across Addis Ababa, Ethiopia.",
+    footerSubtext: "Architectural minimalism meets journalistic gravitas. The premier digital food platform for Addis Ababa. Discover curated dining, verified ETB price audits, and authentic food culture.",
     weeklyDigest: "Weekly Foodie Digest",
     newsletterSubtext: "Get curated reviews and secret food spot alerts delivered directly to your inbox.",
     subscribeFree: "Subscribe Free",
@@ -74,22 +80,24 @@ export const translations = {
   AM: {
     // Navigation
     home: "መነሻ",
-    reviews: "ግምገማዎች",
+    explore: "መዳሰሻ",
+    reviews: "ግምገማዎች እና ሪልስ",
     about: "ስለ እኛ",
-    events: "ሁነቶች",
-    services: "አገልግሎቶች",
+    events: "ሁነቶች እና ፌስቲቫሎች",
+    services: "አገልግሎቶች እና ኬተሪንግ",
     brandKit: "የብራንድ መረጃ",
     contact: "ግንኙነት",
     workWithUs: "ከእኛ ጋር ይስሩ",
     promoteSpot: "ቦታዎን ያስታውቁ",
+    adminPortal: "የአስተዳዳሪ ፖርታል",
 
     // Hero Section
     tagline: "የአዲስ ፉዲዎች ይፋዊ ዲጂታል መኖሪያ",
-    heroTitle: "አዲስ አበባን በአንድ ጉርሻ ያግኙ",
-    heroSubtext: "በአዲስ ፉዲዎች የተመረጡ ታማኝ የምግብ ቤት ግምገማዎች፣ ድብቅ ቦታዎች፣ የምግብ ፌስቲቫሎች እና የጣዕም ልምዶች።",
-    exploreReviews: "ምግብ ቤቶችን ይጎብኙ",
+    heroTitle: "አዲስ አበባ ውስጥ እውነተኛ ጣዕምን ያግኙ እና ይዘዙ",
+    heroSubtext: "በአዲስ ፉዲዎች የተመረጡ ታማኝ የምግብ ቤት ግምገማዎች፣ የክትፎ ቦታዎች፣ የበርገር እና የካፌ መረጃዎች ከእውነተኛ የብር የዋጋ ደረሰኝ ዝርዝር ጋር።",
+    exploreReviews: "የተረጋገጡ ግምገማዎችን ይመልከቱ",
     workWithAddisFoodies: "ከአዲስ ፉዲዎች ጋር ይስሩ",
-    searchPlaceholder: "በምግብ ቤት፣ በሰፈር (ቦሌ፣ ካዛንችስ...)፣ በምግብ አይነት ወይም በቃላት ይፈልጉ...",
+    searchPlaceholder: "በምግብ ቤት፣ በሰፈር (ቦሌ፣ ካዛንችስ...)፣ በክትፎ ወይም በምግብ አይነት ይፈልጉ...",
     trending: "ተወዳጅ",
     monthlyFoodies: "150,000+ ወርሃዊ ተከታዮች",
     curatedSpots: "320+ የተመረጡ ቦታዎች",
@@ -103,7 +111,7 @@ export const translations = {
     aiSubtext: "አዲስ አበባ ውስጥ ፈጣን የምግብ ጥቆማ ለማግኘት ከታች ካሉት አማራጮች አንዱን ይጫኑ።",
     aiBadge: "ስማርት ፍለጋ",
 
-    latestIngestedReviews: "በቅርቡ የገቡ ግምገማዎች",
+    latestIngestedReviews: "የቅርብ ጊዜ የምግብ ቤት አሰሳዎች",
     liveSyncActive: "ቀጥታ ስርጭት ክፍት ነው",
     freshPostsSynced: "ከቴሌግራም እና ኢንስታግራም ገጾቻችን በቀጥታ የተገናኙ አዳዲስ ግምገማዎች።",
 
@@ -133,6 +141,10 @@ export const translations = {
     liveFestival: "ዛሬ!! ቀጥታ ስርጭት",
     upcomingFestival: "የሚመጣ ፌስቲቫል",
     reservePhone: "ቦታ ይያዙ",
+
+    // Delivery Showcase
+    deliveryTitle: "@addis.foodie.delivery መተግበሪያ",
+    deliverySubtext: "የታወቁ የክትፎ ቦታዎችን እና ካፌዎችን ወደ እርሶ ደጃፍ የሚያደርስ ይፋዊ የምግብ ማድረሻ መተግበሪያ።",
 
     // Footer
     footerSubtext: "በአዲስ አበባ ኢትዮጵያ ውስጥ ያሉ እውነተኛ የምግብ ቤት ግምገማዎችን፣ ድብቅ ቦታዎችን፣ የዋጋ ዝርዝሮችን እና የምግብ ፌስቲቫሎችን ያግኙ።",
