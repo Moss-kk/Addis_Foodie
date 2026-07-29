@@ -19,26 +19,10 @@ export default function Header() {
     <header className="sticky top-0 z-40 bg-[#0d0d0d]/90 backdrop-blur-md border-b border-amber-500/10 px-4 md:px-8 py-3 transition-all max-w-full overflow-x-hidden">
       <div className="site-container mx-auto flex items-center justify-between gap-3">
         
-        {/* Brand Logo & Subtitle */}
-        <Link href="/" className="flex items-center gap-3 group shrink-0">
-          <div className="relative w-9 h-9 md:w-10 md:h-10 rounded-full overflow-hidden border border-amber-500/30 group-hover:border-amber-400 transition shadow-sm bg-slate-900 flex items-center justify-center">
-            <Image 
-              src="/images/logo.png" 
-              alt="Addis Foodies Logo" 
-              fill 
-              className="object-cover"
-              sizes="40px"
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-extrabold tracking-wider text-amber-400 text-sm md:text-base block leading-none">
-              ADDIS FOODIES
-            </span>
-            <span className="text-[10px] text-zinc-400 font-medium tracking-tight mt-0.5">
-              Verified ETB Price Audits
-            </span>
-          </div>
-        </Link>
+        {/* Brand Logo */}
+        <div className="flex items-center gap-2">
+          <AddisFoodieLogo diluted={true} />
+        </div>
 
         {/* Desktop Nav Links */}
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-300">
