@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Phone, ArrowUpRight, MapPin, Clock, Smartphone } from 'lucide-react';
+import { Phone, ArrowUpRight, MapPin, Clock, Smartphone, Lock } from 'lucide-react';
 import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube, FaFacebookF, FaGooglePlay, FaApple } from 'react-icons/fa';
 import AddisFoodieLogo from './ui/AddisFoodieLogo';
 
@@ -108,10 +108,10 @@ export default function Footer() {
               {[
                 { href: '/', label: 'Explore Feed' },
                 { href: '/reviews', label: 'Food Reviews & Reels' },
-                { href: '/map', label: 'Food Map' },
                 { href: '/events', label: 'Events & Festivals' },
                 { href: '/services', label: 'Services & Catering' },
                 { href: '/collaborate', label: 'Work With Us' },
+                { href: '/admin', label: 'Admin Portal (Dashboard)' },
               ].map(({ href, label }) => (
                 <Link
                   key={href}
@@ -235,6 +235,10 @@ export default function Footer() {
             <Link href="/about" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/about" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link href="/collaborate" className="hover:text-white transition-colors">Work With Us</Link>
+            <Link href="/admin" className="hover:text-[#B8422E] transition-colors flex items-center gap-1">
+              <Lock className="w-3 h-3 text-[#B8422E]" />
+              <span>Admin Portal</span>
+            </Link>
           </div>
         </div>
       </div>
