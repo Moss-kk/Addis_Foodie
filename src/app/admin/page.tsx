@@ -19,12 +19,103 @@ import {
   RefreshCw,
   Crown,
   UploadCloud,
-  Check
+  Check,
+  Star,
+  MessageSquare,
+  AlertCircle,
+  ThumbsUp,
+  Sliders,
+  Sparkles,
+  Award,
+  ChevronRight
 } from 'lucide-react';
 import { FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import MobileBottomNav from '../../components/layout/MobileBottomNav';
+
+const weeklyTrafficData = [
+  { day: 'Mon', views: 48, label: '48K' },
+  { day: 'Tue', views: 54, label: '54K' },
+  { day: 'Wed', views: 62, label: '62K' },
+  { day: 'Thu', views: 71, label: '71K' },
+  { day: 'Fri', views: 89, label: '89K' },
+  { day: 'Sat', views: 95, label: '95K' },
+  { day: 'Sun', views: 82, label: '82K' },
+];
+
+const feedbackLogs = [
+  {
+    id: 'f-1',
+    user: 'Amanuel Girma',
+    location: 'Bole Atlas',
+    rating: 5,
+    category: 'Kitfo Inspection',
+    comment: 'The Tiru Kitfo price audit was 100% accurate! Found the Ayeb and Gomen pairing recommendations super helpful.',
+    sentiment: 'POSITIVE',
+    date: '2 hours ago',
+  },
+  {
+    id: 'f-2',
+    user: 'Selamawit Tadesse',
+    location: 'Kazanchis',
+    rating: 4,
+    category: 'Fasting Cafes',
+    comment: 'Love the detailed ETB price logs! Please add more fasting vegetarian coffee spots in Kazanchis near UNECA.',
+    sentiment: 'SUGGESTION',
+    date: '5 hours ago',
+  },
+  {
+    id: 'f-3',
+    user: 'Dawit Hailu',
+    location: 'Piassa',
+    rating: 5,
+    category: 'Kitfo Fest 2026',
+    comment: 'Reserved my free pass for Kitfo Fest! Super smooth registration on mobile.',
+    sentiment: 'POSITIVE',
+    date: '1 day ago',
+  },
+  {
+    id: 'f-4',
+    user: 'Tigist Alemayehu',
+    location: 'Sarbet',
+    rating: 4,
+    category: 'Delivery Courier App',
+    comment: 'Delivery app is great, but delivery time to Sarbet during 6 PM rush traffic could be slightly faster.',
+    sentiment: 'IMPROVEMENT AREA',
+    date: '2 days ago',
+  },
+];
+
+const improvementAreas = [
+  {
+    id: 'imp-1',
+    title: 'Expand Fasting Vegetarian Cafes in Kazanchis',
+    priority: 'HIGH PRIORITY',
+    badgeColor: 'bg-red-500/20 text-red-600 border-red-500/40',
+    mentions: '42 user requests',
+    status: 'IN PROGRESS',
+    description: 'Community requested itemized ETB price audits for 10+ new fasting coffee and pastry spots near UNECA Kazanchis.',
+  },
+  {
+    id: 'imp-2',
+    title: 'Optimize Peak Courier Dispatch in Sarbet',
+    priority: 'MEDIUM PRIORITY',
+    badgeColor: 'bg-amber-500/20 text-amber-600 border-amber-500/40',
+    mentions: '18 user requests',
+    status: 'UNDER REVIEW',
+    description: 'Partner with additional courier drivers in Sarbet and Bisrate Gabriel during 5 PM - 7 PM rush hour.',
+  },
+  {
+    id: 'imp-3',
+    title: 'Kitfo Fest 2026 Ticket Fast-Track QR Scanner',
+    priority: 'LOW PRIORITY',
+    badgeColor: 'bg-emerald-500/20 text-emerald-600 border-emerald-500/40',
+    mentions: '9 user requests',
+    status: 'PLANNED',
+    description: 'Add instant offline QR scan validation for festival passes at Monarch Rooftop gate.',
+  },
+];
 
 export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState<'analytics' | 'content' | 'media' | 'automation'>('analytics');
@@ -119,10 +210,10 @@ export default function AdminDashboardPage() {
               </span>
             </div>
             <h1 className="font-display font-medium text-3xl sm:text-4xl text-white">
-              Addis Foodies Control Center
+              Addis Foodies Control Center &amp; Analytics
             </h1>
             <p className="text-xs sm:text-sm font-body text-slate-300">
-              Manage website analytics, add reviews &amp; reels, update photo assets, and control Telegram &amp; Instagram auto-publishing.
+              Manage website analytics, user feedback, improvement areas, add reviews &amp; reels, update photo assets, and control Telegram &amp; Instagram auto-publishing.
             </p>
           </div>
 
@@ -148,7 +239,7 @@ export default function AdminDashboardPage() {
         {/* TAB NAVIGATION BAR */}
         <div className="flex overflow-x-auto snap-x border-b pb-2 gap-2 scrollbar-none" style={{ borderColor: 'var(--border-subtle)' }}>
           {[
-            { id: 'analytics', label: '1. Visitor Analytics', icon: BarChart3 },
+            { id: 'analytics', label: '1. Analytics & Feedback Insights', icon: BarChart3 },
             { id: 'content', label: '2. Add Reviews & Reels', icon: PlusCircle },
             { id: 'media', label: '3. Photo Asset Manager', icon: ImageIcon },
             { id: 'automation', label: '4. Telegram & Instagram Auto', icon: Send },
@@ -172,9 +263,10 @@ export default function AdminDashboardPage() {
           })}
         </div>
 
-        {/* TAB 1: VISITOR ANALYTICS & INSIGHTS */}
+        {/* TAB 1: VISITOR ANALYTICS, FEEDBACK & IMPROVEMENT AREAS */}
         {activeTab === 'analytics' && (
           <div className="flex flex-col gap-8">
+            
             {/* KPI Metrics Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="heritage-card flex flex-col gap-2">
@@ -201,16 +293,18 @@ export default function AdminDashboardPage() {
 
               <div className="heritage-card flex flex-col gap-2">
                 <div className="flex items-center justify-between text-slate-500 text-xs font-label">
-                  <span>Mobile Phone Share</span>
-                  <Smartphone className="w-4 h-4 text-[#B8422E]" />
+                  <span>Customer Rating</span>
+                  <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
                 </div>
-                <span className="font-display font-medium text-3xl text-[#1A1C1E] dark:text-white">84.2%</span>
-                <span className="text-[10px] font-label text-slate-500">15.8% Desktop / Tablet</span>
+                <span className="font-display font-medium text-3xl text-[#1A1C1E] dark:text-white">4.8 / 5.0</span>
+                <span className="text-[10px] font-label text-emerald-600 font-bold">
+                  88% Positive Feedback
+                </span>
               </div>
 
               <div className="heritage-card flex flex-col gap-2">
                 <div className="flex items-center justify-between text-slate-500 text-xs font-label">
-                  <span>Social Traffic Sources</span>
+                  <span>Social Traffic Share</span>
                   <Globe className="w-4 h-4 text-[#B8422E]" />
                 </div>
                 <span className="font-display font-medium text-3xl text-[#1A1C1E] dark:text-white">80%</span>
@@ -218,101 +312,210 @@ export default function AdminDashboardPage() {
               </div>
             </div>
 
-            {/* Neighborhood & Channel Analytics Breakdown */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* WEEKLY VISITOR TRAFFIC GRAPH & SENTIMENT BREAKDOWN */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               
-              {/* Neighborhood Traffic Share */}
-              <div className="heritage-card flex flex-col gap-4">
-                <h3 className="font-display font-medium text-xl border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
-                  Top Neighborhood Interest (Addis Ababa)
-                </h3>
-
-                <div className="flex flex-col gap-3 text-xs font-label">
+              {/* Weekly Visitor Traffic Graph Visualizer (2 Cols) */}
+              <div className="lg:col-span-2 heritage-card flex flex-col gap-5">
+                <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
                   <div>
-                    <div className="flex justify-between pb-1">
-                      <span>Bole (Atlas, Medhaniallem, Edna Mall)</span>
-                      <span className="font-bold text-[#B8422E]">42% (65.0K visitors)</span>
-                    </div>
-                    <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-                      <div className="h-full bg-[#B8422E] rounded-full w-[42%]" />
-                    </div>
+                    <h3 className="font-display font-medium text-xl" style={{ color: 'var(--text-primary)' }}>
+                      Weekly Visitor Traffic Growth (Page Views)
+                    </h3>
+                    <p className="text-xs font-body text-slate-500">Real-time daily page view distribution mapped across Monday - Sunday</p>
                   </div>
+                  <span className="text-xs font-label text-[#B8422E] font-bold">412.6K TOTAL</span>
+                </div>
 
-                  <div>
-                    <div className="flex justify-between pb-1">
-                      <span>Kazanchis (UNECA &amp; Commercial Hub)</span>
-                      <span className="font-bold text-[#B8422E]">28% (43.3K visitors)</span>
+                {/* Graph Visualizer Bars */}
+                <div className="flex items-end justify-between gap-3 h-48 pt-6 pb-2 px-2 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
+                  {weeklyTrafficData.map((item) => (
+                    <div key={item.day} className="flex-1 flex flex-col items-center gap-2 group h-full justify-end">
+                      <span className="text-[10px] font-label font-bold text-[#B8422E] opacity-0 group-hover:opacity-100 transition-opacity">
+                        {item.label}
+                      </span>
+                      <div
+                        className="w-full max-w-[36px] bg-gradient-to-t from-[#1A1C1E] to-[#B8422E] rounded-t-sm transition-all duration-500 group-hover:brightness-125"
+                        style={{ height: `${(item.views / 100) * 100}%` }}
+                      />
+                      <span className="text-xs font-label text-slate-500">{item.day}</span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-                      <div className="h-full bg-[#B8422E] rounded-full w-[28%]" />
-                    </div>
-                  </div>
+                  ))}
+                </div>
 
-                  <div>
-                    <div className="flex justify-between pb-1">
-                      <span>Piassa (Tewdros Sq &amp; Heritage Cafes)</span>
-                      <span className="font-bold text-[#B8422E]">18% (27.8K visitors)</span>
-                    </div>
-                    <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-                      <div className="h-full bg-[#B8422E] rounded-full w-[18%]" />
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between pb-1">
-                      <span>Sarbet &amp; Bisrate Gabriel</span>
-                      <span className="font-bold text-[#B8422E]">12% (18.5K visitors)</span>
-                    </div>
-                    <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
-                      <div className="h-full bg-[#B8422E] rounded-full w-[12%]" />
-                    </div>
-                  </div>
+                <div className="flex items-center justify-between text-xs font-label text-slate-500">
+                  <span>Peak Day: Saturday (95,000 Views)</span>
+                  <span>Average Daily: 73,400 Views</span>
                 </div>
               </div>
 
-              {/* Traffic Acquisition Sources */}
-              <div className="heritage-card flex flex-col gap-4">
-                <h3 className="font-display font-medium text-xl border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
-                  Traffic Acquisition Channels
-                </h3>
+              {/* Customer Sentiment & Rating Distribution (1 Col) */}
+              <div className="heritage-card flex flex-col gap-5">
+                <div className="border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
+                  <h3 className="font-display font-medium text-xl" style={{ color: 'var(--text-primary)' }}>
+                    Customer Sentiment Analysis
+                  </h3>
+                  <p className="text-xs font-body text-slate-500">AI analysis of 1,240 user reviews</p>
+                </div>
 
                 <div className="flex flex-col gap-3 text-xs font-label">
-                  <div className="p-3 rounded-md border flex items-center justify-between" style={{ borderColor: 'var(--border-subtle)' }}>
-                    <div className="flex items-center gap-2.5">
-                      <FaTelegramPlane className="w-5 h-5 text-sky-400" />
-                      <div>
-                        <span className="block font-bold text-sm">Telegram (@addisfoodies)</span>
-                        <span className="text-[10px] text-slate-500">Direct Channel Broadcasts</span>
-                      </div>
+                  <div>
+                    <div className="flex justify-between pb-1">
+                      <span className="flex items-center gap-1 text-emerald-600 font-bold">
+                        <ThumbsUp className="w-3.5 h-3.5" /> Positive Sentiment
+                      </span>
+                      <span className="font-bold text-[#1A1C1E] dark:text-white">88% (1,091 reviews)</span>
                     </div>
-                    <span className="font-bold text-base text-[#B8422E]">45% Share</span>
+                    <div className="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                      <div className="h-full bg-emerald-500 rounded-full w-[88%]" />
+                    </div>
                   </div>
 
-                  <div className="p-3 rounded-md border flex items-center justify-between" style={{ borderColor: 'var(--border-subtle)' }}>
-                    <div className="flex items-center gap-2.5">
-                      <FaInstagram className="w-5 h-5 text-pink-400" />
-                      <div>
-                        <span className="block font-bold text-sm">Instagram (@addis.foodie)</span>
-                        <span className="text-[10px] text-slate-500">Reels &amp; Story Bio Links</span>
-                      </div>
+                  <div>
+                    <div className="flex justify-between pb-1">
+                      <span className="text-sky-600 font-bold">Suggestions &amp; Requests</span>
+                      <span className="font-bold text-[#1A1C1E] dark:text-white">8% (99 reviews)</span>
                     </div>
-                    <span className="font-bold text-base text-[#B8422E]">35% Share</span>
+                    <div className="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                      <div className="h-full bg-sky-500 rounded-full w-[8%]" />
+                    </div>
                   </div>
 
-                  <div className="p-3 rounded-md border flex items-center justify-between" style={{ borderColor: 'var(--border-subtle)' }}>
-                    <div className="flex items-center gap-2.5">
-                      <Globe className="w-5 h-5 text-[#B8422E]" />
-                      <div>
-                        <span className="block font-bold text-sm">Direct &amp; Web Search</span>
-                        <span className="text-[10px] text-slate-500">Google Search &amp; Bookmarks</span>
-                      </div>
+                  <div>
+                    <div className="flex justify-between pb-1">
+                      <span className="text-amber-600 font-bold">Improvement Areas</span>
+                      <span className="font-bold text-[#1A1C1E] dark:text-white">4% (50 reviews)</span>
                     </div>
-                    <span className="font-bold text-base text-[#B8422E]">20% Share</span>
+                    <div className="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                      <div className="h-full bg-amber-500 rounded-full w-[4%]" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Neighborhood Satisfaction Ratings */}
+                <div className="pt-3 border-t flex flex-col gap-2 text-xs font-label" style={{ borderColor: 'var(--border-subtle)' }}>
+                  <span className="text-[10px] uppercase tracking-wider text-[#B8422E] font-bold">Neighborhood Satisfaction Index</span>
+                  <div className="grid grid-cols-2 gap-2 pt-1">
+                    <div className="p-2 rounded-md bg-white/5 border border-[var(--border-subtle)] flex flex-col gap-0.5">
+                      <span className="text-[10px] text-slate-500">Bole Atlas</span>
+                      <span className="font-bold text-sm text-[#B8422E]">4.9 / 5.0 ⭐</span>
+                    </div>
+                    <div className="p-2 rounded-md bg-white/5 border border-[var(--border-subtle)] flex flex-col gap-0.5">
+                      <span className="text-[10px] text-slate-500">Piassa Heritage</span>
+                      <span className="font-bold text-sm text-[#B8422E]">4.8 / 5.0 ⭐</span>
+                    </div>
+                    <div className="p-2 rounded-md bg-white/5 border border-[var(--border-subtle)] flex flex-col gap-0.5">
+                      <span className="text-[10px] text-slate-500">Kazanchis</span>
+                      <span className="font-bold text-sm text-[#B8422E]">4.7 / 5.0 ⭐</span>
+                    </div>
+                    <div className="p-2 rounded-md bg-white/5 border border-[var(--border-subtle)] flex flex-col gap-0.5">
+                      <span className="text-[10px] text-slate-500">Sarbet</span>
+                      <span className="font-bold text-sm text-[#B8422E]">4.6 / 5.0 ⭐</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
             </div>
+
+            {/* AI-EXTRACTED IMPROVEMENT AREAS SECTION */}
+            <section className="flex flex-col gap-4">
+              <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-5 h-5 text-[#B8422E]" />
+                  <h3 className="font-display font-medium text-xl sm:text-2xl" style={{ color: 'var(--text-primary)' }}>
+                    AI-Extracted Community Improvement Areas
+                  </h3>
+                </div>
+                <span className="text-xs font-label text-[#B8422E] font-bold">Actionable Priority Tasks</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {improvementAreas.map((item) => (
+                  <div key={item.id} className="heritage-card flex flex-col justify-between gap-4">
+                    <div className="flex flex-col gap-2.5">
+                      <div className="flex items-center justify-between">
+                        <span className={`px-2.5 py-1 rounded-sm text-[10px] font-label font-bold uppercase border ${item.badgeColor}`}>
+                          {item.priority}
+                        </span>
+                        <span className="text-[10px] font-label text-slate-400">{item.mentions}</span>
+                      </div>
+
+                      <h4 className="font-display font-medium text-base text-[#1A1C1E] dark:text-white leading-snug">
+                        {item.title}
+                      </h4>
+
+                      <p className="text-xs font-body leading-relaxed text-slate-500">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t flex items-center justify-between text-xs font-label" style={{ borderColor: 'var(--border-subtle)' }}>
+                      <span className="text-slate-400">Status: <strong className="text-[#B8422E]">{item.status}</strong></span>
+                      <button
+                        onClick={() => alert(`Task logged: ${item.title}`)}
+                        className="text-[#B8422E] font-bold hover:underline flex items-center gap-1"
+                      >
+                        <span>Resolve</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* LIVE CUSTOMER FEEDBACK LOG STREAM */}
+            <section className="heritage-card flex flex-col gap-5">
+              <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
+                <div className="flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5 text-[#B8422E]" />
+                  <h3 className="font-display font-medium text-xl">Recent User Feedback &amp; Review Logs</h3>
+                </div>
+                <span className="text-xs font-label text-slate-500">Showing latest verified feedback</span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {feedbackLogs.map((fb) => (
+                  <div
+                    key={fb.id}
+                    className="p-4 rounded-md border flex flex-col gap-2.5 bg-white/5"
+                    style={{ borderColor: 'var(--border-subtle)' }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="font-display font-medium text-sm text-[#1A1C1E] dark:text-white">{fb.user}</span>
+                        <span className="text-[10px] font-label text-slate-400">({fb.location})</span>
+                      </div>
+                      <span className={`px-2 py-0.5 rounded-sm text-[9px] font-label font-bold uppercase ${
+                        fb.sentiment === 'POSITIVE' ? 'bg-emerald-500/20 text-emerald-600' :
+                        fb.sentiment === 'SUGGESTION' ? 'bg-sky-500/20 text-sky-600' :
+                        'bg-amber-500/20 text-amber-600'
+                      }`}>
+                        {fb.sentiment}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-3.5 h-3.5 ${i < fb.rating ? 'text-amber-500 fill-amber-500' : 'text-slate-400'}`}
+                        />
+                      ))}
+                      <span className="text-[11px] font-label text-slate-400 ml-1.5">• {fb.category}</span>
+                    </div>
+
+                    <p className="text-xs font-body leading-relaxed text-slate-600 dark:text-slate-300">
+                      "{fb.comment}"
+                    </p>
+
+                    <span className="text-[10px] font-label text-slate-400 pt-1">{fb.date}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
           </div>
         )}
 
