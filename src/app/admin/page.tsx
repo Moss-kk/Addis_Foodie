@@ -17,9 +17,7 @@ import {
   Smartphone,
   Globe,
   RefreshCw,
-  Sliders,
-  Trash2,
-  Edit,
+  Crown,
   UploadCloud,
   Check
 } from 'lucide-react';
@@ -90,13 +88,21 @@ export default function AdminDashboardPage() {
       <main className="flex-1 site-container py-8 sm:py-12 flex flex-col gap-8">
         
         {/* Breadcrumb */}
-        <div>
+        <div className="flex items-center justify-between">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-xs font-label uppercase text-[var(--text-secondary)] hover:text-[#B8422E] transition-colors"
           >
             <ArrowRight className="w-4 h-4 rotate-180 text-[#B8422E]" />
             <span>Back to Main Website</span>
+          </Link>
+
+          <Link
+            href="/admin/super"
+            className="px-3.5 py-1.5 rounded-sm bg-[#B8422E] text-white text-xs font-label font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-xs hover:scale-105 transition-all"
+          >
+            <Crown className="w-3.5 h-3.5 text-white" />
+            <span>Super Admin Portal 👑</span>
           </Link>
         </div>
 
@@ -128,6 +134,14 @@ export default function AdminDashboardPage() {
               <PlusCircle className="w-4 h-4" />
               <span>Add New Review</span>
             </button>
+
+            <Link
+              href="/admin/super"
+              className="px-4 py-2.5 rounded-md bg-white/10 text-white font-label text-xs uppercase border border-white/20 hover:bg-white/20 transition-all flex items-center gap-1.5"
+            >
+              <Crown className="w-4 h-4 text-amber-400" />
+              <span>Super Admin Portal</span>
+            </Link>
           </div>
         </section>
 
