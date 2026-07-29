@@ -38,6 +38,16 @@ export interface FoodPost {
   reelPlatform?: 'instagram_reel' | 'tiktok_video';
   viewsCount?: string; // e.g. "48.5K views"
   rating?: string; // e.g. "4.8"
+  reviewCount?: number; // e.g. 120
+  isOpenNow?: boolean; // e.g. true
+  phone?: string; // e.g. "+251911234567"
+  whatsapp?: string; // e.g. "+251911234567"
+  amenities?: {
+    wifi: boolean;
+    parking: boolean;
+    fastingOptions: boolean;
+    paymentMethods: string[]; // e.g. ["Telebirr", "CBE Birr", "Cash"]
+  };
   reviewer?: ReviewerInfo;
   ratings?: RatingBreakdown;
   reviewerNotes?: string;

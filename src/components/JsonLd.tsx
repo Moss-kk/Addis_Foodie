@@ -1,5 +1,5 @@
 import React from 'react';
-import { FoodPost, CulinaryEvent } from '@/types/post';
+import { FoodPost, CulinaryEvent } from '../types/post';
 
 interface ReviewJsonLdProps {
   post: FoodPost;
@@ -20,6 +20,11 @@ export function ReviewJsonLd({ post }: ReviewJsonLdProps) {
       servesCuisine: post.category,
       priceRange: post.priceFormatted,
       image: post.image,
+      aggregateRating: post.rating ? {
+        '@type': 'AggregateRating',
+        ratingValue: post.rating,
+        reviewCount: post.reviewCount || 120,
+      } : undefined,
     },
     author: {
       '@type': 'Organization',
@@ -31,11 +36,47 @@ export function ReviewJsonLd({ post }: ReviewJsonLdProps) {
     publisher: {
       '@type': 'Organization',
       name: 'Addis Foodies',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://addis-foodie.vercel.app/images/logo.png',
-      },
     },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
+export function RestaurantJsonLd({ post }: ReviewJsonLdProps) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Restaurant',
+    name: post.restaurantName,
+    image: post.images || [post.image],
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Addis Ababa',
+      addressRegion: post.neighborhood,
+      streetAddress: post.location,
+      addressCountry: 'ET',
+    },
+    servesCuisine: [post.category, 'Ethiopian Food'],
+    priceRange: post.priceFormatted,
+    telephone: post.phone || '+251911234567',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: post.rating || '4.9',
+      reviewCount: post.reviewCount || 120,
+    },
+    hasMenu: post.menuItems?.map(item => ({
+      '@type': 'MenuItem',
+      name: item.name,
+      offers: {
+        '@type': 'Offer',
+        price: item.price,
+        priceCurrency: 'ETB',
+      },
+    })),
   };
 
   return (

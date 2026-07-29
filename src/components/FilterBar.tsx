@@ -1,17 +1,21 @@
 'use client';
 
 import React from 'react';
-import { MapPin, Utensils, Coffee, Leaf, Flame, Banknote } from 'lucide-react';
+import { Search, Zap, Flame, Coffee, Leaf, MapPin, Banknote } from 'lucide-react';
 
 interface FilterBarProps {
   selectedLocation: string | null;
   selectedCategory: string | null;
   selectedPriceRange: string | null;
   selectedSort: string;
+  searchQuery?: string;
+  openNowOnly?: boolean;
   onLocationChange: (location: string | null) => void;
   onCategoryChange: (category: string | null) => void;
   onPriceRangeChange: (priceRange: string | null) => void;
   onSortChange: (sort: string) => void;
+  onSearchQueryChange?: (query: string) => void;
+  onToggleOpenNow?: () => void;
 }
 
 export default function FilterBar({
@@ -19,189 +23,142 @@ export default function FilterBar({
   selectedCategory,
   selectedPriceRange,
   selectedSort,
+  searchQuery = '',
+  openNowOnly = false,
   onLocationChange,
   onCategoryChange,
   onPriceRangeChange,
   onSortChange,
+  onSearchQueryChange,
+  onToggleOpenNow,
 }: FilterBarProps) {
-  const locations = [
-    { label: 'Bole',      value: 'Bole',      icon: MapPin },
-    { label: 'Kazanchis', value: 'Kazanchis', icon: MapPin },
-    { label: 'Piassa',    value: 'Piassa',    icon: MapPin },
-    { label: 'Sarbet',    value: 'Sarbet',    icon: MapPin },
+  
+  const presetPills = [
+    { label: '🥩 Kitfo', category: 'Traditional', query: 'Kitfo' },
+    { label: '☕ Fasting Latte', category: 'Coffee', query: 'Latte' },
+    { label: '🌶️ Beyaynetu', category: 'Fasting', query: 'Beyaynetu' },
+    { label: '🍔 Burgers', category: 'Burgers', query: 'Burger' },
+    { label: '📍 Bole', location: 'Bole' },
+    { label: '💰 <500 Br', price: 'under-500' },
   ];
 
-  const categories = [
-    { label: 'Burgers',     value: 'Burgers',     icon: Flame    },
-    { label: 'Coffee',      value: 'Coffee',      icon: Coffee   },
-    { label: 'Fasting',     value: 'Fasting',     icon: Leaf     },
-    { label: 'Traditional', value: 'Traditional', icon: Utensils },
-  ];
-
-  const priceRanges = [
-    { label: 'Under 300 Br', value: 'under-300', icon: Banknote },
-    { label: '300–700 Br',   value: '300-700',   icon: Banknote },
-    { label: '700+ Br',      value: '700-plus',  icon: Banknote },
-  ];
-
-  const isAllActive = !selectedLocation && !selectedCategory && !selectedPriceRange;
-
-  const handleReset = () => {
-    onLocationChange(null);
-    onCategoryChange(null);
-    onPriceRangeChange(null);
-  };
-
-  /* Chip style helpers */
-  const activeChipStyle: React.CSSProperties = {
-    backgroundColor: 'var(--accent-brand)',
-    color: '#ffffff',
-    borderColor: 'var(--accent-brand)',
-    fontWeight: '900',
-    transform: 'scale(1.03)',
-  };
-  const idleChipStyle: React.CSSProperties = {
-    backgroundColor: 'var(--bg-surface)',
-    color: 'var(--text-body)',
-    borderColor: 'var(--border-hairline)',
+  const handlePillClick = (pill: typeof presetPills[number]) => {
+    if (pill.category) {
+      onCategoryChange(selectedCategory === pill.category ? null : pill.category);
+    }
+    if (pill.location) {
+      onLocationChange(selectedLocation === pill.location ? null : pill.location);
+    }
+    if (pill.price) {
+      onPriceRangeChange(selectedPriceRange === pill.price ? null : pill.price);
+    }
+    if (pill.query && onSearchQueryChange) {
+      onSearchQueryChange(searchQuery === pill.query ? '' : pill.query);
+    }
   };
 
   return (
     <div
-      className="sticky top-14 z-30 backdrop-blur-md border-b py-2.5 px-4 sm:px-6 shadow-xs transition-colors"
+      className="sticky top-[72px] z-40 backdrop-blur-xl border-b py-3 px-4 sm:px-6 shadow-md transition-all flex flex-col gap-2.5"
       style={{
-        backgroundColor: 'color-mix(in srgb, var(--bg-canvas) 95%, transparent)',
-        borderColor: 'var(--border-hairline)',
+        backgroundColor: 'color-mix(in srgb, var(--bg-app) 95%, transparent)',
+        borderColor: 'var(--border-subtle)',
       }}
     >
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-
-        {/* Scrollable Chip Row */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-1 pb-1 md:pb-0">
-
-          {/* All Chip */}
-          <button
-            onClick={handleReset}
-            className="flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer"
-            style={isAllActive ? activeChipStyle : idleChipStyle}
-            onMouseEnter={(e) => {
-              if (!isAllActive) e.currentTarget.style.borderColor = 'var(--accent-amber)';
-            }}
-            onMouseLeave={(e) => {
-              if (!isAllActive) e.currentTarget.style.borderColor = 'var(--border-hairline)';
-            }}
-          >
-            All
-          </button>
-
-          <div className="h-5 w-px flex-shrink-0 mx-1" style={{ backgroundColor: 'var(--border-hairline)' }} />
-
-          {/* Location Chips */}
-          <div className="flex items-center gap-2">
-            {locations.map((loc) => {
-              const IconComp = loc.icon;
-              const isActive = selectedLocation === loc.value;
-              return (
-                <button
-                  key={loc.value}
-                  onClick={() => onLocationChange(isActive ? null : loc.value)}
-                  className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5"
-                  style={isActive ? activeChipStyle : idleChipStyle}
-                  onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = 'var(--accent-amber)';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = 'var(--border-hairline)';
-                  }}
-                >
-                  <IconComp className="w-3 h-3" style={{ color: isActive ? '#fff' : 'var(--accent-brand)' }} />
-                  <span>{loc.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="h-5 w-px flex-shrink-0 mx-1" style={{ backgroundColor: 'var(--border-hairline)' }} />
-
-          {/* Category Chips */}
-          <div className="flex items-center gap-2">
-            {categories.map((cat) => {
-              const IconComp = cat.icon;
-              const isActive = selectedCategory === cat.value;
-              return (
-                <button
-                  key={cat.value}
-                  onClick={() => onCategoryChange(isActive ? null : cat.value)}
-                  className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5"
-                  style={isActive ? activeChipStyle : idleChipStyle}
-                  onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = 'var(--accent-amber)';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = 'var(--border-hairline)';
-                  }}
-                >
-                  <IconComp className="w-3 h-3" style={{ color: isActive ? '#fff' : 'var(--accent-amber)' }} />
-                  <span>{cat.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="h-5 w-px flex-shrink-0 mx-1" style={{ backgroundColor: 'var(--border-hairline)' }} />
-
-          {/* Price Range Chips */}
-          <div className="flex items-center gap-2">
-            {priceRanges.map((price) => {
-              const IconComp = price.icon;
-              const isActive = selectedPriceRange === price.value;
-              return (
-                <button
-                  key={price.value}
-                  onClick={() => onPriceRangeChange(isActive ? null : price.value)}
-                  className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all duration-200 border cursor-pointer flex items-center gap-1.5"
-                  style={isActive ? activeChipStyle : idleChipStyle}
-                  onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = 'var(--accent-amber)';
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.borderColor = 'var(--border-hairline)';
-                  }}
-                >
-                  <IconComp className="w-3 h-3" style={{ color: isActive ? '#fff' : 'var(--accent-verified)' }} />
-                  <span>{price.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Sort Dropdown */}
-        <div className="flex items-center gap-2 flex-shrink-0 self-end md:self-auto">
-          <label
-            htmlFor="sort-select"
-            className="text-xs font-mono font-bold whitespace-nowrap"
-            style={{ color: 'var(--text-muted)' }}
-          >
-            Sort:
-          </label>
-          <select
-            id="sort-select"
-            value={selectedSort}
-            onChange={(e) => onSortChange(e.target.value)}
-            className="text-xs font-bold py-1.5 px-3 rounded-full border shadow-xs cursor-pointer focus:outline-none transition-colors"
+      <div className="flex items-center gap-3">
+        {/* Sticky Dish-First Search Input */}
+        <div className="relative flex-1">
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-amber-500" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSearchQueryChange?.(e.target.value)}
+            placeholder="Search dishes (e.g. Kitfo, Shiro, Fasting Latte)..."
+            className="w-full pl-9 pr-4 py-2 rounded-full text-xs font-mono border focus:outline-none focus:border-amber-500 transition-colors shadow-inner"
             style={{
               backgroundColor: 'var(--bg-surface)',
-              color: 'var(--text-body)',
-              borderColor: 'var(--border-hairline)',
+              color: 'var(--text-primary)',
+              borderColor: 'var(--border-subtle)',
             }}
-          >
-            <option value="newest">Newest</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-          </select>
+          />
         </div>
 
+        {/* Sort Selector */}
+        <select
+          value={selectedSort}
+          onChange={(e) => onSortChange(e.target.value)}
+          aria-label="Sort Reviews"
+          className="text-xs font-mono font-bold py-2 px-3 rounded-full border shadow-xs cursor-pointer focus:outline-none shrink-0"
+          style={{
+            backgroundColor: 'var(--bg-surface)',
+            color: 'var(--text-primary)',
+            borderColor: 'var(--border-subtle)',
+          }}
+        >
+          <option value="newest">Newest</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+        </select>
+      </div>
+
+      {/* Horizontally Scrollable Dish-First Pill Carousel */}
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth pb-0.5">
+        {/* Open Now Toggle Pill */}
+        <button
+          type="button"
+          onClick={onToggleOpenNow}
+          className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold transition-all border flex items-center gap-1.5 cursor-pointer ${
+            openNowOnly
+              ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-md scale-105'
+              : 'bg-white/5 text-slate-300 border-white/10 hover:border-emerald-500/40'
+          }`}
+        >
+          <Zap className="w-3.5 h-3.5 text-emerald-400 fill-current" />
+          <span>⚡ Open Now</span>
+        </button>
+
+        <div className="h-4 w-px flex-shrink-0 bg-white/15 mx-0.5" />
+
+        {/* Preset Dish & Neighborhood Pills */}
+        {presetPills.map((pill, idx) => {
+          const isActive =
+            (pill.category && selectedCategory === pill.category) ||
+            (pill.location && selectedLocation === pill.location) ||
+            (pill.price && selectedPriceRange === pill.price) ||
+            (pill.query && searchQuery === pill.query);
+
+          return (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => handlePillClick(pill)}
+              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-mono font-bold transition-all border cursor-pointer ${
+                isActive
+                  ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md scale-105'
+                  : 'bg-white/5 text-slate-300 border-white/10 hover:border-amber-500/40'
+              }`}
+            >
+              <span>{pill.label}</span>
+            </button>
+          );
+        })}
+
+        {/* Reset Filters Pill */}
+        {(selectedCategory || selectedLocation || selectedPriceRange || searchQuery || openNowOnly) && (
+          <button
+            type="button"
+            onClick={() => {
+              onCategoryChange(null);
+              onLocationChange(null);
+              onPriceRangeChange(null);
+              onSearchQueryChange?.('');
+              if (openNowOnly && onToggleOpenNow) onToggleOpenNow();
+            }}
+            className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-mono font-bold text-red-400 hover:text-red-300 border border-red-500/30 bg-red-500/10 cursor-pointer"
+          >
+            ✕ Reset
+          </button>
+        )}
       </div>
     </div>
   );

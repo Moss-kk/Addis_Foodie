@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Public_Sans, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { LanguageProvider } from "../context/LanguageContext";
 import { ThemeProvider } from "../context/ThemeContext";
+import { SavedProvider } from "../context/SavedContext";
 import "./globals.css";
 
 // Heritage Design.md: Display & H1 Headlines (Fraunces serif)
@@ -58,7 +59,9 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <LanguageProvider>
-            {children}
+            <SavedProvider>
+              {children}
+            </SavedProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

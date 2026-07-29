@@ -48,10 +48,72 @@ export default function AiFoodieBotModal() {
   };
 
   useEffect(() => {
+    const handleOpenEvent = (e: Event) => {
+      setIsOpen(true);
+      setIsMinimized(false);
+      const customEvent = e as CustomEvent;
+      if (customEvent.detail?.prompt) {
+        triggerPresetPrompt(customEvent.detail.prompt);
+      }
+    };
+    window.addEventListener('open-ai-foodie', handleOpenEvent);
+    return () => window.removeEventListener('open-ai-foodie', handleOpenEvent);
+  }, []);
+
+  useEffect(() => {
     if (isOpen && !isMinimized) {
       scrollToBottom();
     }
   }, [messages, isOpen, isMinimized]);
+
+  const triggerPresetPrompt = (promptText: string) => {
+    const userMessage: ChatMessage = {
+      id: `user-${Date.now()}`,
+      sender: 'user',
+      text: promptText,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setIsTyping(true);
+
+    setTimeout(() => {
+      const query = promptText.toLowerCase();
+      let botReplyText = `Here are 3 curated options matching "${promptText}":`;
+      let spots: ChatMessage['spots'] = [
+        { name: 'Habesha 2000', dish: 'Kitfo Special & Ayib', price: '450 ETB', location: 'Bole' },
+        { name: 'Titich Gourmet Burger', dish: 'Kitfo Burger & Wedges', price: '580 ETB', location: 'Bole Atlas' },
+        { name: 'Tomoca Coffee', dish: 'Vanilla Fasting Latte', price: '180 ETB', location: 'Sarbet' },
+      ];
+
+      if (query.includes('800') || query.includes('wifi') || query.includes('coffee')) {
+        botReplyText = 'Found 3 quiet cafes in Bole & Sarbet under 800 ETB with Wi-Fi & workspace:';
+        spots = [
+          { name: 'Tomoca Coffee', dish: 'Vanilla Fasting Latte + Croissant', price: '270 ETB total', location: 'Sarbet (Wi-Fi ⚡)' },
+          { name: 'Galani Coffee', dish: 'Single Origin Espresso & Salad', price: '420 ETB total', location: 'Bole (Wi-Fi ⚡)' },
+          { name: 'Titich Lounge', dish: 'Crafted Iced Tea & Sliders', price: '610 ETB total', location: 'Bole Atlas (Wi-Fi ⚡)' },
+        ];
+      } else if (query.includes('kitfo') || query.includes('fasting')) {
+        botReplyText = '3 premier spots for authentic, fast-cut Kitfo after fasting:';
+        spots = [
+          { name: 'Yod Abyssinia', dish: 'Special Lebleb Kitfo + Kocho & Ayeb', price: '850 ETB', location: 'Bole' },
+          { name: 'Habesha 2000', dish: 'Fresh Raw Cut Kitfo & Mitmita', price: '450 ETB', location: 'Bole' },
+          { name: 'Kakur Traditional', dish: 'Traditional Clay Pot Kitfo', price: '490 ETB', location: 'Kazanchis' },
+        ];
+      }
+
+      const botMessage: ChatMessage = {
+        id: `bot-${Date.now()}`,
+        sender: 'bot',
+        text: botReplyText,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        spots,
+      };
+
+      setMessages((prev) => [...prev, botMessage]);
+      setIsTyping(false);
+    }, 800);
+  };
 
   const handleSendMessage = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -287,6 +349,31 @@ export default function AiFoodieBotModal() {
                     )}
 
                     <div ref={messagesEndRef} />
+                  </div>
+
+                  {/* Preset Quick-Prompt Chips */}
+                  <div className="px-3 py-2 bg-[#17191C] border-t border-[#2A2E33] flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                    <button
+                      type="button"
+                      onClick={() => triggerPresetPrompt("I have 800 ETB in Bole, looking for a quiet place with good coffee and Wi-Fi.")}
+                      className="px-2.5 py-1 rounded-full text-[10px] font-mono bg-[#212428] text-amber-300 hover:bg-[#B8422E] hover:text-white border border-amber-500/30 transition-all shrink-0 cursor-pointer"
+                    >
+                      ☕ 800 ETB Bole Coffee &amp; Wi-Fi
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => triggerPresetPrompt("Where can I get the best fast-cut Kitfo after fasting?")}
+                      className="px-2.5 py-1 rounded-full text-[10px] font-mono bg-[#212428] text-amber-300 hover:bg-[#B8422E] hover:text-white border border-amber-500/30 transition-all shrink-0 cursor-pointer"
+                    >
+                      🥩 Best Fast-Cut Kitfo
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => triggerPresetPrompt("Beyaynetu under 500 ETB in Kazanchis")}
+                      className="px-2.5 py-1 rounded-full text-[10px] font-mono bg-[#212428] text-amber-300 hover:bg-[#B8422E] hover:text-white border border-amber-500/30 transition-all shrink-0 cursor-pointer"
+                    >
+                      🌶️ Kazanchis Beyaynetu &lt;500 ETB
+                    </button>
                   </div>
 
                   {/* Chat Input Bar */}

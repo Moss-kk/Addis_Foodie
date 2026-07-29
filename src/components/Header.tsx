@@ -28,7 +28,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-[16px] z-50 w-full px-3 sm:px-6 pointer-events-none mb-6">
+    <header className="sticky top-[16px] z-50 w-full px-3 sm:px-6 pointer-events-none mb-6 max-w-full overflow-x-hidden">
       {/* Floating Heritage Pill Bar */}
       <div
         className="pointer-events-auto site-container mx-auto py-2.5 px-4 sm:px-6 rounded-md border shadow-xs backdrop-blur-xl transition-all duration-300 flex items-center justify-between gap-3"
