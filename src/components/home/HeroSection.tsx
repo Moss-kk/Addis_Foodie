@@ -2,16 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { 
-  Sparkles, 
-  ArrowRight,
-  CheckCircle2,
-  TrendingUp,
-  Receipt,
-  Award,
-  Flame,
-  Search
-} from 'lucide-react';
+import Link from 'next/link';
+import { Search } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface HeroSectionProps {
@@ -21,7 +13,12 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ searchQuery = '', onSearchChange, onExploreClick }: HeroSectionProps) {
-  const { t, lang } = useLanguage();
+  const { lang } = useLanguage();
+
+  const handleChipClick = (chipQuery: string) => {
+    if (onSearchChange) onSearchChange(chipQuery);
+    if (onExploreClick) onExploreClick();
+  };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,164 +26,90 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
   };
 
   return (
-    <section className="site-container pt-4 pb-8 sm:pt-6 sm:pb-10">
-      <div 
-        className="relative w-full rounded-lg overflow-hidden transition-all duration-300 border shadow-sm"
-        style={{
-          backgroundColor: '#1A1C1E',
-          borderColor: 'var(--border-subtle)',
-        }}
-      >
-        {/* Background Atmosphere Image - Fully Visible Ethiopian Feast Image */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <Image
-            src="/images/ethiopian_feast_hero.png"
-            alt="Ethiopian Culinary Heritage Background"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover opacity-85 brightness-90 transition-all duration-700 hover:scale-105"
-          />
-          <div 
-            className="absolute inset-0 backdrop-blur-[1px]" 
-            style={{
-              backgroundColor: 'rgba(26, 28, 30, 0.68)',
-            }}
-          />
+    <section className="relative overflow-hidden pt-6 pb-10 md:py-16 px-4 md:px-8 border-b border-zinc-800/80 bg-[#0d0d0d]">
+      {/* Dark Ambient Background Image with Strong Gradient Overlay for Contrast */}
+      <div className="absolute inset-0 z-0 opacity-40">
+        <Image 
+          src="/images/ethiopian_feast_hero.png"
+          alt="Ethiopian Feast Background"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0d0d0d]/90 via-[#0d0d0d]/80 to-[#0d0d0d]" />
+      </div>
+
+      <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
+        
+        {/* Verification Tag */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold mb-4 backdrop-blur-sm shadow-xs">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          <span>{lang === 'AM' ? 'የተረጋገጡ የብር ዋጋዎች' : 'Verified ETB Price Audits'}</span>
         </div>
 
-        {/* Hero Content Layer */}
-        <div className="relative z-10 p-6 sm:p-12 lg:p-14 flex flex-col lg:flex-row lg:items-center justify-between gap-10">
-          
-          {/* Left Column: Brand Statement & Primary Search Bar */}
-          <div className="flex flex-col gap-6 max-w-2xl text-white">
-            
-            {/* Journalistic Label Badge */}
-            <div className="flex flex-wrap items-center gap-2">
-              <div 
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm text-xs font-label uppercase tracking-widest text-white shadow-xs"
-                style={{ backgroundColor: 'var(--accent-tertiary)' }}
+        {/* Clear 3-Second Headline */}
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight text-white leading-tight mb-4">
+          Find the Best <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">Food Reviews</span> in Addis Ababa
+        </h1>
+
+        {/* Sub-headline */}
+        <p className="text-xs sm:text-sm md:text-lg text-zinc-300 max-w-2xl font-normal leading-relaxed mb-6">
+          Unbiased food audits, verified menu prices in ETB, and top restaurant reels across Bole, Kazanchis, Piassa, and Sarbet.
+        </p>
+
+        {/* Mobile-Friendly Search & Dish Pill Quick-Filters */}
+        <div className="w-full max-w-xl mb-6">
+          <form onSubmit={handleSearchSubmit} className="relative flex items-center">
+            <input 
+              type="text"
+              value={searchQuery}
+              onChange={(e) => onSearchChange?.(e.target.value)}
+              placeholder="Search dishes (Kitfo, Shiro, Burger, Coffee)..."
+              className="w-full bg-zinc-900/90 border border-zinc-700 focus:border-amber-400 text-white text-xs sm:text-sm rounded-full py-3.5 pl-5 pr-12 outline-none shadow-xl transition backdrop-blur-md placeholder:text-zinc-500"
+            />
+            <button 
+              type="submit"
+              className="absolute right-2 p-2 bg-amber-500 rounded-full text-black hover:bg-amber-400 transition cursor-pointer"
+            >
+              <Search className="w-4 h-4 text-black stroke-[2.5]" />
+            </button>
+          </form>
+
+          {/* Horizontally Scrollable Dish Chips (No Wrapping / No Breaking) */}
+          <div className="flex items-center gap-2 mt-3 overflow-x-auto no-scrollbar py-1 text-xs text-zinc-300">
+            <span className="text-zinc-500 font-medium whitespace-nowrap shrink-0">Try:</span>
+            {[
+              { label: "🥩 Kitfo", query: "Kitfo" },
+              { label: "🌶️ Shiro", query: "Shiro" },
+              { label: "🍔 Gourmet Burgers", query: "Burger" },
+              { label: "☕ Fasting Latte", query: "Latte" },
+              { label: "📍 Bole Atlas", query: "Bole" }
+            ].map((chip) => (
+              <button 
+                key={chip.label}
+                type="button"
+                onClick={() => handleChipClick(chip.query)}
+                className="whitespace-nowrap px-3 py-1.5 rounded-full bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-700/60 text-zinc-200 transition cursor-pointer text-xs font-mono font-medium shrink-0"
               >
-                <Sparkles className="w-3.5 h-3.5 text-white" />
-                <span>{lang === 'AM' ? 'የአዲስ አበባ ይፋዊ የምግብ መሪ' : 'Addis Ababa Official Food Guide'}</span>
-              </div>
-
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-white/10 text-slate-200 border border-white/20 text-xs font-label">
-                <CheckCircle2 className="w-3.5 h-3.5 text-white" />
-                <span>{lang === 'AM' ? 'የተረጋገጡ የብር ዋጋዎች' : 'Verified ETB Audits'}</span>
-              </div>
-            </div>
-
-            {/* Title: Fraunces Serif Header */}
-            <div className="flex flex-col gap-3">
-              <h1 className="font-display font-medium text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.1] text-white">
-                {t('heroTitle')}
-              </h1>
-              <p className="text-slate-200 font-body text-base sm:text-lg leading-relaxed max-w-xl">
-                {t('heroSubtext')}
-              </p>
-            </div>
-
-            {/* PROMINENT HOMEPAGE SEARCH BAR INPUT */}
-            <form onSubmit={handleSearchSubmit} className="relative w-full max-w-xl pt-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
-                placeholder={t('searchPlaceholder')}
-                className="w-full pl-11 pr-24 py-3.5 rounded-md bg-white/15 border border-white/30 text-white placeholder-slate-300 text-xs sm:text-sm font-medium focus:outline-none focus:border-[#B8422E] backdrop-blur-md transition-colors shadow-inner"
-              />
-              <button
-                type="submit"
-                className="button-primary absolute right-1.5 top-1/2 -translate-y-1/2 px-4 py-2 rounded-sm text-xs uppercase tracking-wider text-white font-label"
-              >
-                {lang === 'AM' ? 'ፈልግ' : 'Search'}
+                {chip.label}
               </button>
-            </form>
-
-            {/* Key Value Indicators */}
-            <div className="flex flex-wrap items-center gap-3 text-xs font-label text-slate-300">
-              <span className="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-sm border border-white/15">
-                <Receipt className="w-3.5 h-3.5" style={{ color: 'var(--accent-tertiary)' }} />
-                <span>{lang === 'AM' ? 'ዝርዝር የብር ዋጋ ደረሰኞች' : 'Itemized Price Audits'}</span>
-              </span>
-              <span className="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-sm border border-white/15">
-                <TrendingUp className="w-3.5 h-3.5" style={{ color: 'var(--accent-tertiary)' }} />
-                <span>{t('monthlyFoodies')}</span>
-              </span>
-            </div>
-
-            {/* Actions: Single Tertiary Accent Rule */}
-            <div className="flex flex-wrap items-center gap-4 pt-1">
-              <button
-                onClick={onExploreClick}
-                className="button-primary cursor-pointer hover:scale-[1.02] flex items-center gap-2"
-              >
-                <span>{t('exploreReviews')}</span>
-                <ArrowRight className="w-4 h-4 text-white" />
-              </button>
-            </div>
-
+            ))}
           </div>
-
-          {/* Right Column: TRANSPARENT ADDIS FOODIES BRAND MARK SHOWCASE */}
-          <div className="relative flex items-center justify-center shrink-0">
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 p-4 flex flex-col items-center justify-center text-center gap-3 bg-transparent overflow-hidden">
-              
-              {/* Creative Transparent Brand Circle Logo Showcase */}
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-[#B8422E] shadow-2xl flex-shrink-0 bg-transparent">
-                <Image
-                  src="/images/logo.png"
-                  alt="Addis Foodies Master Brand Mark"
-                  fill
-                  priority
-                  className="object-cover scale-105"
-                />
-              </div>
-
-              {/* Signature Heritage Brand Name Badge (Transparent Background) */}
-              <div className="flex flex-col items-center gap-1 z-10">
-                <span className="font-display font-bold text-lg sm:text-xl text-white tracking-wider drop-shadow-md">
-                  ADDIS FOODIES
-                </span>
-                <div className="h-[2px] w-16 bg-[#B8422E] my-0.5" />
-                <span className="text-[10px] font-label text-slate-200 uppercase tracking-widest drop-shadow-xs">
-                  {lang === 'AM' ? 'የኢትዮጵያ የምግብ ብራንድ' : 'ETHIOPIAN CULINARY BRAND'}
-                </span>
-              </div>
-
-              {/* Live Media Stats Badge (Translucent Pill) */}
-              <div className="flex items-center gap-2 text-[10px] sm:text-[11px] font-label text-white bg-white/10 px-3 py-1 rounded-full border border-white/20 backdrop-blur-md">
-                <Flame className="w-3.5 h-3.5 text-[#B8422E]" />
-                <span>150K+ Monthly Reach</span>
-                <span className="text-slate-400">•</span>
-                <Award className="w-3.5 h-3.5 text-amber-400" />
-                <span>#1 Food Guide</span>
-              </div>
-
-            </div>
-          </div>
-
         </div>
 
-        {/* Footer Statistics Strip inside Heritage Container */}
-        <div className="relative z-10 border-t border-white/15 px-6 sm:px-12 py-4 bg-[#1A1C1E]/90 backdrop-blur-md grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-white">
+        {/* Quick Social Proof Bar */}
+        <div className="grid grid-cols-3 gap-3 w-full max-w-md border-t border-zinc-800/80 pt-4 text-center">
           <div>
-            <span className="block font-display font-medium text-xl sm:text-2xl" style={{ color: 'var(--accent-tertiary)' }}>500+</span>
-            <span className="text-[10px] sm:text-xs font-label text-slate-300">{lang === 'AM' ? 'የተረጋገጡ ግምገማዎች' : 'Verified Reviews'}</span>
+            <div className="text-lg font-bold text-amber-400">500+</div>
+            <div className="text-[11px] text-zinc-400">Reviews</div>
           </div>
           <div>
-            <span className="block font-display font-medium text-xl sm:text-2xl text-white">120+</span>
-            <span className="text-[10px] sm:text-xs font-label text-slate-300">{lang === 'AM' ? 'የተጎበኙ ምግብ ቤቶች' : 'Restaurants Audited'}</span>
+            <div className="text-lg font-bold text-amber-400">100%</div>
+            <div className="text-[11px] text-zinc-400">ETB Price Audited</div>
           </div>
           <div>
-            <span className="block font-display font-medium text-xl sm:text-2xl text-white">100%</span>
-            <span className="text-[10px] sm:text-xs font-label text-slate-300">{lang === 'AM' ? 'እውነተኛ የብር ዋጋዎች' : 'ETB Price Accuracy'}</span>
-          </div>
-          <div>
-            <span className="block font-display font-medium text-xl sm:text-2xl" style={{ color: 'var(--accent-tertiary)' }}>150K+</span>
-            <span className="text-[10px] sm:text-xs font-label text-slate-300">{t('monthlyFoodies')}</span>
+            <div className="text-lg font-bold text-amber-400">150K+</div>
+            <div className="text-[11px] text-zinc-400">Monthly Foodies</div>
           </div>
         </div>
 

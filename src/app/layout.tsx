@@ -60,7 +60,9 @@ export default function RootLayout({
         <ThemeProvider>
           <LanguageProvider>
             <SavedProvider>
-              {children}
+              <div className="min-h-screen bg-[#0d0d0d] text-slate-100 overflow-x-hidden relative flex flex-col selection:bg-amber-500 selection:text-black">
+                {children}
+              </div>
             </SavedProvider>
           </LanguageProvider>
         </ThemeProvider>

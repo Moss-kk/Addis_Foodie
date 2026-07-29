@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Star, MapPin, Heart } from 'lucide-react';
+import Link from 'next/link';
+import { Star, Heart } from 'lucide-react';
 import { FoodPost } from '../types/post';
 import { useSaved } from '../context/SavedContext';
 
@@ -16,10 +17,8 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
   const saved = isSaved(post.id);
 
   const ratingValue = post.rating || '4.9';
-  const reviewCount = post.reviewCount || 120;
   const priceDisplay = post.price ? `${post.price} Br` : 'Price on Menu';
   const neighborhoodDisplay = post.neighborhood || 'Bole';
-  const isOpen = post.isOpenNow ?? true;
 
   const handleBookmark = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -29,78 +28,62 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
   return (
     <article
       onClick={onClick}
-      className="food-card cursor-pointer group flex flex-col justify-between overflow-hidden rounded-2xl border shadow-card transition-all duration-300 hover:border-amber-500/50"
-      style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
+      className="bg-zinc-900/60 border border-zinc-800 rounded-2xl overflow-hidden flex flex-col hover:border-amber-500/40 transition duration-300 shadow-md cursor-pointer group"
     >
-      {/* 16:9 Image Thumbnail Container */}
-      <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-900">
-        <Image
-          src={post.image}
+      {/* Image Container with Badges */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-800">
+        <Image 
+          src={post.image} 
           alt={post.restaurantName}
           fill
+          className="object-cover group-hover:scale-105 transition duration-500"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
         />
 
-        {/* Overlay Badges */}
-        {/* Top-Left: Status Badge */}
-        <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold flex items-center gap-1.5 backdrop-blur-md bg-black/70 text-white border border-white/20 shadow-md">
-          <span className={`w-2 h-2 rounded-full ${isOpen ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'}`} />
-          <span>{isOpen ? 'Open Now' : 'Closed'}</span>
+        {/* Rating Overlay Badge */}
+        <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-bold text-amber-400 border border-amber-500/20 flex items-center gap-1">
+          <Star className="w-3.5 h-3.5 fill-current text-amber-400" />
+          <span>{ratingValue}</span>
         </div>
 
-        {/* Top-Right: Quick Bookmark Overlay Button */}
-        <button
-          type="button"
-          onClick={handleBookmark}
-          aria-label="Save Spot"
-          className={`touch-target absolute top-2.5 right-2.5 p-2 rounded-full backdrop-blur-md border shadow-md transition-transform active:scale-90 cursor-pointer ${
-            saved
-              ? 'bg-red-500 text-white border-red-400'
-              : 'bg-black/60 text-white hover:bg-red-500/80 border-white/20'
-          }`}
-        >
-          <Heart className={`w-3.5 h-3.5 ${saved ? 'fill-current' : ''}`} />
-        </button>
+        {/* Price & Location Overlay */}
+        <div className="absolute top-3 right-3 bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-bold text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
+          <span>{priceDisplay}</span>
+          <button
+            type="button"
+            onClick={handleBookmark}
+            className={`p-1 rounded-full transition cursor-pointer ${saved ? 'text-red-500' : 'text-zinc-400 hover:text-white'}`}
+            title="Save Spot"
+          >
+            <Heart className={`w-3.5 h-3.5 ${saved ? 'fill-current' : ''}`} />
+          </button>
+        </div>
       </div>
 
-      {/* Card Content (Anti-Clutter Layout) */}
-      <div className="p-4 flex flex-col justify-between gap-2.5 flex-1">
-        {/* Title Line (Bold White text-base) */}
-        <div className="flex items-start justify-between gap-2">
-          <h3
-            className="font-bold text-base line-clamp-1 group-hover:text-amber-500 transition-colors"
-            style={{ color: 'var(--text-primary)' }}
-          >
+      {/* Content Section */}
+      <div className="p-4 flex flex-col flex-grow justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2 text-[11px] text-amber-400 font-semibold uppercase tracking-wider mb-1 font-mono">
+            <span>{post.category || 'CULINARY'}</span>
+            <span>•</span>
+            <span className="text-zinc-400">{neighborhoodDisplay}</span>
+          </div>
+
+          <h3 className="text-base font-bold text-white line-clamp-1 mb-1.5 group-hover:text-amber-400 transition-colors">
             {post.restaurantName}
           </h3>
 
-          {/* Prominent Gold/Green Price Highlight */}
-          <span className="font-mono font-extrabold text-sm px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0">
-            {priceDisplay}
-          </span>
+          <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed font-body">
+            {post.caption}
+          </p>
         </div>
 
-        {/* Metadata Line: ⭐ 4.9 (120) • 📍 Bole Atlas • 🥩 Category */}
-        <div className="flex items-center flex-wrap gap-x-2 gap-y-1 text-xs font-mono" style={{ color: 'var(--text-secondary)' }}>
-          <div className="flex items-center gap-1 text-amber-400 font-bold">
-            <Star className="w-3.5 h-3.5 fill-current text-amber-400" />
-            <span>{ratingValue}</span>
-            <span className="text-[10px] text-slate-400">({reviewCount})</span>
-          </div>
-
-          <span className="text-slate-500">•</span>
-
-          <div className="flex items-center gap-1">
-            <MapPin className="w-3 h-3 text-red-400 shrink-0" />
-            <span>{neighborhoodDisplay}</span>
-          </div>
-
-          <span className="text-slate-500">•</span>
-
-          <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 text-[10px] font-bold border border-amber-500/20">
-            {post.category}
-          </span>
+        {/* Touch-Friendly Action Button */}
+        <div 
+          className="w-full text-center py-2.5 px-4 rounded-xl bg-zinc-800 group-hover:bg-amber-500 group-hover:text-black border border-zinc-700/60 text-xs font-semibold text-zinc-200 transition duration-200 flex items-center justify-center gap-1 cursor-pointer"
+        >
+          <span>Read Full Audit &amp; Price Breakdown</span>
+          <span>→</span>
         </div>
       </div>
     </article>
