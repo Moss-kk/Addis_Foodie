@@ -142,9 +142,24 @@ export default function MapPage() {
             </div>
           </div>
 
-          {/* RIGHT 40%: Sticky Map View */}
-          <div className={`lg:col-span-5 lg:sticky lg:top-20 h-[550px] rounded-lg overflow-hidden border shadow-sm relative flex flex-col justify-end ${mobileView === 'list' ? 'hidden lg:flex' : 'flex'}`} style={{ backgroundColor: 'var(--bg-app)', borderColor: 'var(--border-subtle)' }}>
-            <AddisMap posts={filteredSpots} activePost={activeSpot} onSelectPost={setActiveSpot} />
+          {/* RIGHT 40%: Sticky Map View with Touch-Friendly Mobile Shield */}
+          <div className={`lg:col-span-5 lg:sticky lg:top-20 h-[520px] sm:h-[550px] rounded-2xl overflow-hidden border shadow-md relative flex flex-col p-1 bg-stone-900 ${mobileView === 'list' ? 'hidden lg:flex' : 'flex'}`} style={{ borderColor: 'var(--border-subtle)' }}>
+            
+            {/* Mobile Touch Gesture Header Bar */}
+            <div className="lg:hidden bg-stone-900 text-stone-200 px-3 py-2 text-xs flex items-center justify-between z-20 border-b border-stone-800">
+              <span className="font-mono text-[11px] text-amber-400 font-bold">📍 Interactive Map Mode</span>
+              <button 
+                type="button" 
+                onClick={() => setMobileView('list')}
+                className="text-[10px] font-label font-bold uppercase bg-[#B8422E] text-white px-2.5 py-1 rounded-sm shadow-xs"
+              >
+                Back to List
+              </button>
+            </div>
+
+            <div className="relative w-full flex-1 rounded-xl overflow-hidden">
+              <AddisMap posts={filteredSpots} activePost={activeSpot} onSelectPost={setActiveSpot} />
+            </div>
           </div>
 
         </div>

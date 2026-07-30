@@ -22,7 +22,7 @@ export interface FoodPost {
   id: string;
   restaurantName: string;
   location: string; // e.g. "Bole, near Millennium Hall"
-  neighborhood: 'Bole' | 'Kazanchis' | 'Piassa' | 'Sarbet'; // for exact filtering
+  neighborhood: string; // for filtering across districts
   image: string; // main/primary image
   images?: string[]; // for multi-image gallery
   caption: string;
@@ -31,7 +31,7 @@ export interface FoodPost {
   sourcePlatform: 'telegram' | 'instagram' | 'tiktok';
   category: string;
   timestamp: string;
-  originalPostUrl: string;
+  originalPostUrl?: string;
   menuItems?: MenuItem[]; // for the detail breakdown table
   mapUrl?: string; // for the Open in Maps button
   videoUrl?: string; // video reel URL

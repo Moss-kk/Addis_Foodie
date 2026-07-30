@@ -60,11 +60,11 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
         </div>
 
         {/* Automatic Addis Foodie™ Watermark Stamp Overlay */}
-        <div className="absolute bottom-2.5 left-2.5 bg-black/80 backdrop-blur-xs px-2 py-0.5 rounded-xs border border-white/20 flex items-center gap-1.5 pointer-events-none">
-          <div className="w-3.5 h-3.5 rounded-full overflow-hidden relative border border-[#B8422E]">
+        <div className="absolute bottom-2.5 left-2.5 bg-white/95 backdrop-blur-xs px-2 py-0.5 rounded-xs border border-stone-300 flex items-center gap-1.5 pointer-events-none shadow-xs">
+          <div className="w-3.5 h-3.5 rounded-full overflow-hidden relative border border-[#B8422E] bg-white">
             <Image src="/images/logo.png" alt="Addis Foodie Logo" fill className="object-cover" />
           </div>
-          <span className="text-[9px] font-label font-bold text-white uppercase tracking-wider">
+          <span className="text-[9px] font-label font-bold text-stone-900 uppercase tracking-wider">
             Addis Foodie™
           </span>
         </div>

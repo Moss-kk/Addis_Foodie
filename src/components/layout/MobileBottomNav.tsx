@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Compass, Utensils, Calendar, Briefcase, Heart } from 'lucide-react';
+import { Compass, Utensils, Calendar, Briefcase, Bookmark } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function MobileBottomNav() {
@@ -15,7 +15,7 @@ export default function MobileBottomNav() {
     { href: '/reviews', label: lang === 'AM' ? 'ግምገማዎች' : 'Reviews', icon: Utensils },
     { href: '/events', label: lang === 'AM' ? 'ሁነቶች' : 'Events', icon: Calendar },
     { href: '/services', label: lang === 'AM' ? 'አገልግሎቶች' : 'Services', icon: Briefcase },
-    { href: '/saved', label: lang === 'AM' ? 'ተወዳጆች' : 'Saved', icon: Heart },
+    { href: '/saved', label: lang === 'AM' ? 'ዝርዝሮች' : 'Lists', icon: Bookmark },
   ];
 
   return (

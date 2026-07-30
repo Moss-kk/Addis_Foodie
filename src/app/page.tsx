@@ -23,7 +23,7 @@ import ReviewCard from '../components/ReviewCard';
 import PostDetailModal from '../components/PostDetailModal';
 import PriceReceiptModal from '../components/PriceReceiptModal';
 import VideoReelModal, { ReelItem } from '../components/VideoReelModal';
-import AddisMap from '../components/AddisMap';
+import AddisFoodieAwards from '../components/home/AddisFoodieAwards';
 import Footer from '../components/Footer';
 import MobileBottomNav from '../components/layout/MobileBottomNav';
 
@@ -201,26 +201,8 @@ export default function HomePage() {
 
           </section>
 
-          {/* 5. INTERACTIVE ADDIS MAP SECTION */}
-          <section className="flex flex-col gap-4">
-            <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-[#B8422E]" />
-                <h3 className="font-display font-medium text-xl sm:text-2xl text-[var(--text-primary)]">
-                  Interactive Addis Food Map
-                </h3>
-              </div>
-              <Link href="/map" className="text-xs font-label uppercase text-[#B8422E] hover:underline font-bold">
-                Open Full Screen Map →
-              </Link>
-            </div>
-
-            <AddisMap
-              posts={mockPosts}
-              activePost={activePost}
-              onSelectPost={(post) => setActivePost(post)}
-            />
-          </section>
+          {/* 5. ADDISFOODIE AWARDS 2026 SECTION */}
+          <AddisFoodieAwards />
 
           {/* 6. TRENDING FOOD VIDEO REELS STRIP (TIKTOK & INSTAGRAM REELS) */}
           <section className="flex flex-col gap-4">

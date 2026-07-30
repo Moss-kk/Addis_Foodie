@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Globe, Sun, Moon } from 'lucide-react';
+import { Menu, X, Globe, Sun, Moon, Bookmark } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 import AddisFoodieLogo from './ui/AddisFoodieLogo';
@@ -68,12 +68,14 @@ export default function Header() {
             <span>{lang === 'EN' ? 'EN | አማ' : 'አማ | EN'}</span>
           </button>
 
-          {/* CTA Button (Desktop) */}
+          {/* Lists Button (Compact & visible on both phone & desktop) */}
           <Link 
-            href="/collaborate" 
-            className="hidden md:inline-flex items-center justify-center button-primary px-4 py-2 text-xs font-label uppercase tracking-wider rounded-md text-white transition cursor-pointer shadow-xs"
+            href="/saved" 
+            className="inline-flex items-center justify-center gap-1 sm:gap-1.5 button-primary px-2.5 py-1 sm:px-3.5 sm:py-1.5 text-[10px] sm:text-xs font-label uppercase tracking-wider rounded-md text-white transition cursor-pointer shadow-xs"
+            title={lang === 'AM' ? 'የተቀመጡ ዝርዝሮች' : 'Lists'}
           >
-            {t('workWithUs')}
+            <Bookmark className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
+            <span>{lang === 'AM' ? 'ዝርዝሮች' : 'Lists'}</span>
           </Link>
 
           {/* Mobile Hamburger Toggle Button */}
@@ -110,8 +112,12 @@ export default function Header() {
           <Link href="/about" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)]">
             {t('about')}
           </Link>
-          <Link href="/collaborate" onClick={() => setMenuOpen(false)} className="mt-2 text-center button-primary py-3 rounded-md text-white font-label text-xs uppercase tracking-wider shadow-xs">
+          <Link href="/collaborate" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)]">
             {t('workWithUs')}
+          </Link>
+          <Link href="/saved" onClick={() => setMenuOpen(false)} className="mt-2 text-center button-primary py-2.5 rounded-md text-white font-label text-xs uppercase tracking-wider shadow-xs flex items-center justify-center gap-2">
+            <Bookmark className="w-4 h-4 text-white" />
+            <span>{lang === 'AM' ? 'የተቀመጡ ዝርዝሮች' : 'Lists / Saved Spots'}</span>
           </Link>
         </div>
       )}

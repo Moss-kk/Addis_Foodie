@@ -42,19 +42,19 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
         borderColor: 'var(--border-subtle)',
       }}
     >
-      {/* Background Hero Image with Subtle Dark Overlay */}
+      {/* Background Hero Image with Vivid Atmosphere & Gradient Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/telegram-imports/event Sunday Brunch at ramadea.jpg"
           alt="Addis Foodie Restaurant Background"
           fill
           priority
-          className="object-cover object-center opacity-20 filter blur-[2px]"
+          className="object-cover object-center opacity-60 transition-opacity"
         />
         <div 
-          className="absolute inset-0 bg-gradient-to-r via-[var(--bg-app)]/85 to-black/70"
+          className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(to right, var(--bg-app) 0%, var(--bg-app) 60%, rgba(0, 0, 0, 0.7) 100%)`
+            backgroundImage: `linear-gradient(to right, var(--bg-app) 0%, color-mix(in srgb, var(--bg-app) 75%, transparent) 50%, rgba(0, 0, 0, 0.4) 100%)`
           }}
         />
       </div>
