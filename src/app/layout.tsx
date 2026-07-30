@@ -10,6 +10,7 @@ const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
   display: "swap",
+  adjustFontFallback: false,
 });
 
 // Heritage Design.md: Body copy (Public Sans)
@@ -17,6 +18,7 @@ const publicSans = Public_Sans({
   variable: "--font-public-sans",
   subsets: ["latin"],
   display: "swap",
+  adjustFontFallback: false,
 });
 
 // Heritage Design.md: Labels & Metadata (Space Grotesk)
@@ -24,6 +26,7 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
   display: "swap",
+  adjustFontFallback: false,
 });
 
 // JetBrains Mono for pricing and itemized codes
@@ -31,10 +34,11 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono-face",
   subsets: ["latin"],
   display: "swap",
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
-  title: "Addis Foodies — Journalistic Gravitas & Ethiopian Culinary Heritage",
+  title: "Addis Foodie — Journalistic Gravitas & Ethiopian Culinary Heritage",
   description:
     "Architectural minimalism meets journalistic gravitas. The premier editorial media brand and food review destination in Addis Ababa.",
 };

@@ -24,7 +24,7 @@ export default function AddisFoodieLogo({ size = 'md' }: AddisFoodieLogoProps) {
 
         {/* Signature Unboxed Brand Mark */}
         <div className="flex flex-col items-start justify-center tracking-tight">
-          <div className="bg-[#B8422E] text-white px-1.5 sm:px-2 py-0.5 rounded-xs text-[9px] sm:text-[10px] font-label font-bold uppercase tracking-wider leading-none shadow-2xs">
+          <div className="bg-stone-950 dark:bg-black text-white border border-stone-800 dark:border-stone-700 px-1.5 sm:px-2 py-0.5 rounded-xs text-[9px] sm:text-[10px] font-label font-bold uppercase tracking-wider leading-none shadow-2xs">
             ADDIS
           </div>
           <div className="text-[10px] sm:text-xs font-label font-black uppercase tracking-widest text-[var(--text-primary)] leading-none mt-0.5">

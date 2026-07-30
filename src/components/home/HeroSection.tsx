@@ -42,19 +42,19 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
         borderColor: 'var(--border-subtle)',
       }}
     >
-      {/* Background Hero Image - High Vibrant Food Visibility */}
+      {/* Background Hero Image - Sleek Editorial Shadow & Rich Food Visibility */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/telegram-imports/food.jpg"
           alt="Authentic Ethiopian Traditional Food Feast"
           fill
           priority
-          className="object-cover object-center opacity-85 transition-opacity"
+          className="object-cover object-center opacity-75 transition-opacity"
         />
         <div 
           className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(to right, color-mix(in srgb, var(--bg-app) 80%, transparent) 0%, color-mix(in srgb, var(--bg-app) 40%, transparent) 60%, transparent 100%)`
+            backgroundImage: `linear-gradient(to right, color-mix(in srgb, var(--bg-app) 92%, black) 0%, color-mix(in srgb, var(--bg-app) 70%, transparent) 55%, rgba(0, 0, 0, 0.6) 100%)`
           }}
         />
       </div>
