@@ -19,6 +19,7 @@ import {
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import MobileBottomNav from '../../components/layout/MobileBottomNav';
+import AddisFoodieAwards from '../../components/home/AddisFoodieAwards';
 
 const festivalHighlights = [
   {
@@ -243,6 +244,9 @@ export default function EventsPage() {
             ))}
           </div>
         </section>
+
+        {/* ADDIS FOODIES AWARDS VOTING SECTION */}
+        <AddisFoodieAwards />
 
         {/* 2. EVENT VIDEO REELS CAROUSEL STRIP (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
         <section className="flex flex-col gap-4">

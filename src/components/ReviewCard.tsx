@@ -31,12 +31,12 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
       className="heritage-card p-0 rounded-lg overflow-hidden flex flex-col transition duration-300 cursor-pointer group hover:border-[#1A1C1E] dark:hover:border-slate-500 shadow-xs"
     >
       {/* Image Container with Responsive Aspect Ratio & Watermark Overlay */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-900 flex items-center justify-center">
         <Image 
           src={post.image} 
           alt={post.restaurantName}
           fill
-          className="object-cover group-hover:scale-105 transition duration-500"
+          className="object-cover object-center group-hover:scale-[1.03] transition-all duration-500"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
 

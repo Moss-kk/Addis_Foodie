@@ -23,7 +23,6 @@ import ReviewCard from '../components/ReviewCard';
 import PostDetailModal from '../components/PostDetailModal';
 import PriceReceiptModal from '../components/PriceReceiptModal';
 import VideoReelModal, { ReelItem } from '../components/VideoReelModal';
-import AddisFoodieAwards from '../components/home/AddisFoodieAwards';
 import Footer from '../components/Footer';
 import MobileBottomNav from '../components/layout/MobileBottomNav';
 
@@ -200,9 +199,6 @@ export default function HomePage() {
             </div>
 
           </section>
-
-          {/* 5. ADDISFOODIE AWARDS 2026 SECTION */}
-          <AddisFoodieAwards />
 
           {/* 6. TRENDING FOOD VIDEO REELS STRIP (TIKTOK & INSTAGRAM REELS) */}
           <section className="flex flex-col gap-4">

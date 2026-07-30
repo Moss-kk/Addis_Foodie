@@ -106,15 +106,15 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
         {/* Scrollable Container */}
         <div className="overflow-y-auto flex-1 no-scrollbar pb-6">
           
-          {/* Main Media Header - Strict 4:3 Aspect Ratio matching ReviewCard */}
-          <div className="relative w-full aspect-[4/3] bg-zinc-100 border-b border-stone-200 overflow-hidden">
+          {/* Main Media Header - Responsive Full Photo Container */}
+          <div className="relative w-full aspect-[4/3] bg-stone-950 border-b border-stone-800 overflow-hidden flex items-center justify-center">
             <Image
               src={postImages[activeImageIndex]}
               alt={post.restaurantName}
               fill
               priority
               sizes="(max-width: 640px) 100vw, 672px"
-              className="object-cover transition-all duration-300"
+              className="object-contain sm:object-cover object-center transition-all duration-300"
             />
             {/* Price Tag Overlay */}
             <div className="absolute bottom-4 right-4 z-10">

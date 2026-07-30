@@ -42,14 +42,14 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
         borderColor: 'var(--border-subtle)',
       }}
     >
-      {/* Background Hero Image with Vivid Atmosphere & Gradient Overlay */}
+      {/* Background Hero Image with Vivid Traditional Ethiopian Food Atmosphere */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/telegram-imports/event Sunday Brunch at ramadea.jpg"
-          alt="Addis Foodie Restaurant Background"
+          src="/telegram-imports/food.jpg"
+          alt="Authentic Ethiopian Traditional Food Feast"
           fill
           priority
-          className="object-cover object-center opacity-60 transition-opacity"
+          className="object-cover object-center opacity-65 transition-opacity"
         />
         <div 
           className="absolute inset-0"
