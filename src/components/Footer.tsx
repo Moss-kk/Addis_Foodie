@@ -37,7 +37,7 @@ export default function Footer() {
           {/* Column 1: Brand & Social Hub */}
           <div className="lg:col-span-2 flex flex-col gap-4">
             <div className="brightness-125">
-              <AddisFoodieLogo diluted={false} />
+              <AddisFoodieLogo size="md" />
             </div>
 
             <p className="text-xs sm:text-sm font-body leading-relaxed max-w-md text-[#9DA3A8]">

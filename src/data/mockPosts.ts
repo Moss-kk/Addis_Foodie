@@ -62,7 +62,6 @@ export const mockPosts: FoodPost[] = [
     images: [
       '/telegram-imports/kito fest.jpg',
       '/telegram-imports/food.jpg',
-      '/images/ethiopian_kitfo_hero.png',
       '/telegram-imports/Yado kitfo.jpg',
     ],
     caption: 'Kitfo Fest #7 at Monarch Hotel! Live butcher station, sizzling clay pot Kitfo with Ayeb & Gomen, traditional horn ceremony, and acoustic live band. Tsom Mefcha celebration at its peak! #Monarch #KitfoFest7 #Bole #AddisFoodies',
@@ -165,6 +164,7 @@ export const mockPosts: FoodPost[] = [
     image: '/telegram-imports/SHRIMP sky light.jpg',
     images: [
       '/telegram-imports/SHRIMP sky light.jpg',
+      '/telegram-imports/food.jpg',
     ],
     caption: 'Pan-seared Norwegian Salmon with Herb Risotto at Le Jardin Suspendu Kazanchis. Crisp skin, buttery interior, served over creamy saffron parmesan risotto and microgreens. High-end garden outdoor dining! #Kazanchis #LeJardinSuspendu #FineDining #AddisFoodies',
     price: 1600,
@@ -212,9 +212,9 @@ export const mockPosts: FoodPost[] = [
     restaurantName: 'O My Grill',
     location: 'Bole, Olympia Area',
     neighborhood: 'Bole',
-    image: '/images/ethiopian_feast_hero.png',
+    image: '/telegram-imports/food.jpg',
     images: [
-      '/images/ethiopian_feast_hero.png',
+      '/telegram-imports/food.jpg',
       '/telegram-imports/IFTAR PACKAGE.jpg',
     ],
     caption: 'Giant Arabic Mandi Rice & Grilled Meat Platter at O My Grill Bole! Fragrant basmati rice topped with tender slow-roasted lamb shoulder, grilled chicken quarters, samosas, and garlic yogurt dip. Serves 4-5 people comfortably! #Bole #OMyGrill #Mandi #AddisFoodies',

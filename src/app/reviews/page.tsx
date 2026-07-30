@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Tag, 
-  Sparkles, 
   MapPin, 
   Film, 
   Play, 
@@ -17,7 +16,8 @@ import {
   Flame,
   Coffee,
   Soup,
-  Sandwich
+  Sandwich,
+  Store
 } from 'lucide-react';
 import Header from '../../components/Header';
 import FilterBar from '../../components/FilterBar';
@@ -39,7 +39,7 @@ const videoReels: ReelItem[] = [
     priceFormatted: '950 Br',
     location: 'Bole Atlas Road',
     views: '148.5K',
-    thumbnail: '/images/ethiopian_kitfo_hero.png',
+    thumbnail: '/telegram-imports/kito fest.jpg',
     badge: 'TIKTOK TRENDING',
     sourcePlatform: 'tiktok',
   },
@@ -85,7 +85,6 @@ export default function ReviewsPage() {
   const [selectedPriceRange, setSelectedPriceRange] = useState<string | null>(null);
   const [selectedSort, setSelectedSort] = useState<string>('newest');
   const [openNowOnly, setOpenNowOnly] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<'dishes' | 'venues'>('dishes');
 
   const [activePost, setActivePost] = useState<FoodPost | null>(null);
   const [showMap, setShowMap] = useState<boolean>(false);
@@ -161,10 +160,10 @@ export default function ReviewsPage() {
 
       {/* Page Hero Header */}
       <section
-        className="w-full border-b py-8 transition-colors"
+        className="w-full border-b py-6 sm:py-8 transition-colors"
         style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
       >
-        <div className="site-container flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="site-container flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
           <div className="flex flex-col gap-2">
             <div
@@ -175,11 +174,11 @@ export default function ReviewsPage() {
             </div>
 
             <h1 className="font-display font-medium text-3xl sm:text-5xl text-[var(--text-primary)]">
-              Addis Foodies Reviews &amp; Sizzles
+              Addis Foodies Reviews Feed
             </h1>
 
             <p className="text-xs sm:text-sm font-body max-w-2xl text-[var(--text-secondary)] leading-relaxed">
-              Discover exact plates, Kitfo dishes, fasting lattes, and verified restaurant inspections across Bole, Kazanchis, Piassa, and Sarbet.
+              Explore Rediscovered Venues first, exact culinary dishes next, followed by trending short-form video reels across Bole, Kazanchis, Piassa, and Sarbet.
             </p>
           </div>
 
@@ -187,10 +186,10 @@ export default function ReviewsPage() {
           <button
             type="button"
             onClick={() => setShowMap(!showMap)}
-            className="button-primary px-5 py-3 rounded-md text-xs font-label uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer text-white shadow-xs"
+            className="button-primary px-4 py-2.5 rounded-md text-xs font-label uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer text-white shadow-xs self-start sm:self-auto"
           >
             <MapIcon className="w-4 h-4 text-white" />
-            <span>{showMap ? 'Hide Interactive Map' : 'Show Interactive Map'}</span>
+            <span>{showMap ? 'Hide Map' : 'Show Interactive Map'}</span>
             {showMap ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           </button>
 
@@ -234,15 +233,59 @@ export default function ReviewsPage() {
       />
 
       {/* Main Content Feed Area */}
-      <main className="site-container py-8 flex flex-col gap-10 flex-1">
+      <main className="site-container py-8 flex flex-col gap-12 flex-1">
 
-        {/* 1. REELS CAROUSEL STRIP */}
+        {/* 1. FIRST: REDISCOVER VENUES FEED (Side-scrollable Horizontal Carousel on Mobile) */}
+        <section className="flex flex-col gap-4">
+          <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
+            <div className="flex items-center gap-2">
+              <Store className="w-5 h-5 text-[#B8422E]" />
+              <h2 className="font-display font-medium text-xl sm:text-3xl text-[var(--text-primary)]">
+                Rediscover Venues ({filteredPosts.length})
+              </h2>
+            </div>
+            <span className="text-xs font-label text-[var(--text-secondary)] uppercase">Swipe ↔</span>
+          </div>
+
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible scrollbar-none">
+            {filteredPosts.map((post) => (
+              <div key={post.id} className="shrink-0 w-[85vw] sm:w-auto snap-center">
+                <ReviewCard
+                  post={post}
+                  onClick={() => setActivePost(post)}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 2. NEXT: EXACT DISHES FEED */}
+        <section className="flex flex-col gap-4">
+          <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
+            <div className="flex items-center gap-2">
+              <Utensils className="w-5 h-5 text-[#B8422E]" />
+              <h2 className="font-display font-medium text-xl sm:text-3xl text-[var(--text-primary)]">
+                Exact Dishes &amp; Plates ({extractedDishes.length})
+              </h2>
+            </div>
+          </div>
+
+          <DishFeed
+            dishes={extractedDishes}
+            onSelectDish={(dish) => {
+              const matchedPost = mockPosts.find(p => p.restaurantName === dish.restaurantName);
+              if (matchedPost) setActivePost(matchedPost);
+            }}
+          />
+        </section>
+
+        {/* 3. THEN BELOW IT: ALL TRENDING REELS (Kitfo Fest Live Summer, Sizzles) */}
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
             <div className="flex items-center gap-2">
               <Film className="w-5 h-5 text-[#B8422E]" />
               <h3 className="font-display font-medium text-xl sm:text-2xl text-[var(--text-primary)]">
-                Trending Food Reels &amp; Sizzles
+                All Reels &amp; Kitfo Fest Live Summer Highlights
               </h3>
             </div>
             <a 
@@ -293,66 +336,6 @@ export default function ReviewsPage() {
               </div>
             ))}
           </div>
-        </section>
-
-        {/* 2. DISH-FIRST vs RESTAURANT VENUES FEED TOGGLE */}
-        <section className="flex flex-col gap-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
-            <div className="flex items-center gap-2">
-              <Utensils className="w-5 h-5 text-[#B8422E]" />
-              <h3 className="font-display font-medium text-xl sm:text-2xl text-[var(--text-primary)]">
-                {viewMode === 'dishes' ? `Dish Discovery Feed (${extractedDishes.length})` : `Restaurant Venues (${filteredPosts.length})`}
-              </h3>
-            </div>
-
-            {/* Switch View Mode Pill Buttons */}
-            <div className="flex items-center gap-2 shrink-0 self-start sm:self-auto">
-              <button
-                type="button"
-                onClick={() => setViewMode('dishes')}
-                className={`px-4 py-1.5 rounded-sm text-xs font-label font-bold uppercase transition-all cursor-pointer border ${
-                  viewMode === 'dishes'
-                    ? 'bg-[#1A1C1E] text-white border-[#1A1C1E]'
-                    : 'bg-[var(--bg-surface)] text-[var(--text-primary)] border-[var(--border-subtle)] hover:border-[#B8422E]'
-                }`}
-              >
-                Dishes ({extractedDishes.length})
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('venues')}
-                className={`px-4 py-1.5 rounded-sm text-xs font-label font-bold uppercase transition-all cursor-pointer border ${
-                  viewMode === 'venues'
-                    ? 'bg-[#1A1C1E] text-white border-[#1A1C1E]'
-                    : 'bg-[var(--bg-surface)] text-[var(--text-primary)] border-[var(--border-subtle)] hover:border-[#B8422E]'
-                }`}
-              >
-                Venues ({filteredPosts.length})
-              </button>
-            </div>
-          </div>
-
-          {/* Side-scrollable Horizontal Carousel on Mobile Phones */}
-          {viewMode === 'dishes' ? (
-            <DishFeed
-              dishes={extractedDishes}
-              onSelectDish={(dish) => {
-                const matchedPost = mockPosts.find(p => p.restaurantName === dish.restaurantName);
-                if (matchedPost) setActivePost(matchedPost);
-              }}
-            />
-          ) : (
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible scrollbar-none">
-              {filteredPosts.map((post) => (
-                <div key={post.id} className="shrink-0 w-[85vw] sm:w-auto snap-center">
-                  <ReviewCard
-                    post={post}
-                    onClick={() => setActivePost(post)}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
         </section>
 
       </main>

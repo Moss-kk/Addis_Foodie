@@ -2,9 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Search, Utensils, Soup, Sandwich, Coffee, MapPin, Compass, ArrowRight } from 'lucide-react';
-import { FaInstagram, FaTelegramPlane, FaTiktok } from 'react-icons/fa';
+import { Search, Utensils, Soup, Sandwich, Coffee, MapPin, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface HeroSectionProps {
@@ -36,7 +34,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
 
   return (
     <section 
-      className="relative overflow-hidden py-10 md:py-16 px-4 md:px-8 border-b"
+      className="relative overflow-hidden py-8 sm:py-12 md:py-16 px-4 md:px-8 border-b"
       style={{
         backgroundColor: 'var(--bg-app)',
         borderColor: 'var(--border-subtle)',
@@ -45,16 +43,11 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
       <div className="site-container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
         {/* Left Side Content - Broadsheet Architectural Layout */}
-        <div className="lg:col-span-7 flex flex-col items-start text-left gap-5">
+        <div className="lg:col-span-7 flex flex-col items-start text-left gap-4 sm:gap-5">
           
-          {/* Authentic Social Handle & Category Badge */}
-          <div className="flex flex-wrap items-center gap-2.5">
-            <span className="px-3 py-1 rounded-sm bg-[#1A1C1E] text-white font-label text-xs uppercase tracking-wider font-bold">
-              @addis.foodie
-            </span>
-            <span className="px-2.5 py-1 rounded-sm bg-[#B8422E]/10 text-[#B8422E] border border-[#B8422E]/20 font-label text-xs uppercase font-bold">
-              Blogger &amp; Culinary Curation
-            </span>
+          {/* Tagline Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-[#1A1C1E] text-white font-label text-xs uppercase tracking-wider font-bold">
+            <span>Official Culinary Guide</span>
           </div>
 
           {/* Fraunces Display Headline */}
@@ -62,60 +55,15 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
             {lang === 'AM' ? 'አዲስ አበባ ውስጥ ቀዳሚው የምግብ ቤት መሪ' : 'Discovering Foods in Addis'}
           </h1>
 
-          {/* Authentic Instagram Bio Copy */}
+          {/* Authentic Bio Copy */}
           <p className="text-sm sm:text-base md:text-lg font-body text-[var(--text-secondary)] leading-relaxed max-w-xl">
             {lang === 'AM' 
               ? 'በአዲስ ፉዲዎች የተመረጡ የምግብ ቤት፣ የሆቴሎች እና የካፌዎች ታማኝ ግምገማዎች እና የብር ዋጋ ዝርዝሮች።'
-              : 'Discovering & Reviewing Restaurant, Hotels & Cafe in Addis Ababa 🇪🇹 — Verified ETB price breakdowns and honest food inspections.'}
+              : 'Discovering & Reviewing Restaurant, Hotels & Cafe in Addis Ababa 🇪🇹 — Honest food inspections and verified menu prices.'}
           </p>
 
-          {/* Social Audience Proof Bar */}
-          <div className="flex items-center gap-6 py-2 border-y border-[var(--border-subtle)] w-full max-w-lg text-xs font-label">
-            <div>
-              <span className="font-bold text-[var(--text-primary)] text-base block">683</span>
-              <span className="text-[var(--text-secondary)] uppercase">Posts</span>
-            </div>
-            <div className="h-6 w-px bg-[var(--border-subtle)]" />
-            <div>
-              <span className="font-bold text-[#B8422E] text-base block">64.8K</span>
-              <span className="text-[var(--text-secondary)] uppercase">Followers</span>
-            </div>
-            <div className="h-6 w-px bg-[var(--border-subtle)]" />
-            <div>
-              <span className="font-bold text-[var(--text-primary)] text-base block">96</span>
-              <span className="text-[var(--text-secondary)] uppercase">Following</span>
-            </div>
-            <div className="h-6 w-px bg-[var(--border-subtle)]" />
-            <div className="flex items-center gap-2 ml-auto">
-              <a
-                href="https://www.instagram.com/p/CK8TFBSngx8/?igshid=1pjzbuzr55jv8"
-                target="_blank" rel="noopener noreferrer"
-                className="p-1.5 rounded-sm bg-[#1A1C1E] text-white hover:bg-[#B8422E] transition-colors"
-                title="Instagram"
-              >
-                <FaInstagram size={14} />
-              </a>
-              <a
-                href="https://t.me/addisfoodies"
-                target="_blank" rel="noopener noreferrer"
-                className="p-1.5 rounded-sm bg-[#1A1C1E] text-white hover:bg-[#B8422E] transition-colors"
-                title="Telegram"
-              >
-                <FaTelegramPlane size={14} />
-              </a>
-              <a
-                href="https://www.tiktok.com/@addis.foodie?_r=1&_t=ZS-98Smpg1WuZg"
-                target="_blank" rel="noopener noreferrer"
-                className="p-1.5 rounded-sm bg-[#1A1C1E] text-white hover:bg-[#B8422E] transition-colors"
-                title="TikTok @addis.foodie"
-              >
-                <FaTiktok size={14} />
-              </a>
-            </div>
-          </div>
-
           {/* Clean Search Input Form */}
-          <div className="w-full max-w-xl pt-1">
+          <div className="w-full max-w-xl pt-2">
             <form onSubmit={handleSearchSubmit} className="relative flex items-center">
               <input 
                 type="text"
@@ -155,7 +103,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
 
         </div>
 
-        {/* Right Side Visual Framing Card */}
+        {/* Right Side Visual Framing Card (Using real imported photos) */}
         <div className="lg:col-span-5 hidden lg:flex flex-col gap-4">
           <div className="heritage-card p-4 relative overflow-hidden bg-[#1A1C1E] text-white border border-[#3A3E42] rounded-lg shadow-sm">
             
@@ -168,7 +116,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                 className="object-cover"
               />
               <div className="absolute top-3 left-3 bg-[#1A1C1E] px-2.5 py-1 rounded-xs text-[10px] font-label font-bold text-white uppercase tracking-wider border border-white/20">
-                Official Post Stamp
+                Addis Foodie™ Review
               </div>
               <div className="absolute bottom-3 right-3 bg-[#B8422E] text-white px-2.5 py-1 rounded-xs text-[10px] font-label font-bold uppercase">
                 580 Br
@@ -177,7 +125,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
 
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between text-xs font-label text-slate-300">
-                <span className="text-[#B8422E] font-bold">@addis.foodie</span>
+                <span className="text-[#B8422E] font-bold">Titich Gourmet</span>
                 <span>Bole Atlas</span>
               </div>
               <h3 className="font-display text-lg text-white font-medium">
@@ -190,7 +138,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                 onClick={onExploreClick}
                 className="mt-2 button-primary py-2 text-xs uppercase tracking-wider rounded-md text-white flex items-center justify-center gap-2"
               >
-                <span>Read Full Inspection</span>
+                <span>Read Inspection</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
