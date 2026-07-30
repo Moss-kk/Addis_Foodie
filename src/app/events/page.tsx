@@ -65,7 +65,7 @@ const festivalHighlights = [
     location: 'Official Online Ballot',
     status: 'ANNUAL CULINARY POLL',
     organizer: 'Addis Foodie Curation',
-    image: '/telegram-imports/Queen Burger.jpg',
+    image: '/telegram-imports/kito fest.jpg',
     description: 'Cast your official vote for the best restaurants, kitfo joints, gourmet burgers, cafes, and street food in Addis Ababa.',
     btnLabel: 'Vote Now',
     actionType: 'vote',

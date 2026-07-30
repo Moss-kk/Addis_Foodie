@@ -203,10 +203,19 @@ export default function HomePage() {
         {/* MAIN HOMEPAGE CONTENT */}
         <main className="site-container py-8 flex flex-col gap-14">
 
-          {/* AI CRAVING FINDER SMART ASSISTANT CHAT BOT */}
-          <AiCravingFinder onSelectPrompt={(prompt) => setSearchQuery(prompt)} />
+          {/* 4. UPFRONT CURATED FEATURED COLLECTIONS (SIDE-SCROLLABLE CAROUSEL) */}
+          <FeaturedCollections onSelectCollection={(query) => {
+            setSearchQuery(query);
+            scrollToFeed();
+          }} />
 
-          {/* 4. LATEST OFFICIAL REVIEWS SECTION (HORIZONTALLY SCROLLABLE STRIP ON DESKTOP & MOBILE) */}
+          {/* AI CRAVING FINDER SMART ASSISTANT CHAT BOT */}
+          <AiCravingFinder onSelectPrompt={(prompt) => {
+            setSearchQuery(prompt);
+            scrollToFeed();
+          }} />
+
+          {/* 5. LATEST OFFICIAL REVIEWS SECTION (HORIZONTALLY SCROLLABLE STRIP ON DESKTOP & MOBILE) */}
           <section id="latest-reviews-section" className="flex flex-col gap-6 pt-2">
             
             <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
@@ -270,9 +279,6 @@ export default function HomePage() {
             </div>
 
           </section>
-
-          {/* 5. CURATED FEATURED COLLECTIONS GRID */}
-          <FeaturedCollections onSelectCollection={(query) => setSearchQuery(query)} />
 
           {/* 6. TRENDING FOOD VIDEO REELS STRIP (TIKTOK & INSTAGRAM REELS) */}
           <section className="flex flex-col gap-4">
