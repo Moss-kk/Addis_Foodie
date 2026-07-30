@@ -13,7 +13,7 @@ export default function AddisFoodieLogo({ size = 'md' }: AddisFoodieLogoProps) {
     <Link href="/" className="group focus-ring rounded-md flex-shrink-0 inline-block">
       <div className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 shadow-sm transition-all duration-300 flex items-center gap-2 sm:gap-2.5 group-hover:border-[#B8422E]">
         {/* Circle Logo Icon */}
-        <div className="relative w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-[var(--border-subtle)] flex-shrink-0 bg-black shadow-xs">
+        <div className="relative w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-[var(--border-subtle)] flex-shrink-0 bg-white shadow-xs">
           <Image
             src="/images/logo.png"
             alt="Addis Foodies Logo"
@@ -22,12 +22,12 @@ export default function AddisFoodieLogo({ size = 'md' }: AddisFoodieLogoProps) {
           />
         </div>
 
-        {/* Signature Black and White Brand Mark */}
-        <div className="flex flex-col items-center justify-center tracking-tight">
-          <div className="bg-[#1A1C1E] text-white px-1.5 sm:px-2 py-0.5 rounded-xs text-[9px] sm:text-[11px] font-label font-bold uppercase tracking-wider border border-zinc-700 leading-none">
+        {/* Full Black & White Typography Brand Mark (Pure Black/White, No Black Pill) */}
+        <div className="flex flex-col items-center justify-center tracking-tight text-center">
+          <div className="text-[var(--text-primary)] text-[10px] sm:text-[12px] font-label font-black uppercase tracking-wider leading-none">
             ADDIS
           </div>
-          <div className="w-full h-[1.5px] bg-[var(--text-primary)] opacity-40 my-0.5" />
+          <div className="w-full h-[1.5px] bg-[var(--text-primary)] my-0.5 opacity-60" />
           <div className="text-[var(--text-primary)] text-[8px] sm:text-[10px] font-label font-bold uppercase tracking-widest leading-none">
             FOODIES
           </div>
