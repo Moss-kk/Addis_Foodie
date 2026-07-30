@@ -7,23 +7,80 @@ import { FoodPost } from '../types/post';
 import VideoReelModal, { ReelItem } from './VideoReelModal';
 
 interface VideoReelsSectionProps {
-  posts: FoodPost[];
+  posts?: FoodPost[];
 }
+
+export const recentInstagramReels: ReelItem[] = [
+  {
+    id: 'rooftop-kitfo-brunch',
+    dishName: 'Rooftop Kitfo Brunch & Tej Ceremony',
+    restaurantName: 'Monarch Hotel • Bole Atlas',
+    priceFormatted: '1,200 Br',
+    location: 'Bole Atlas Road',
+    views: '102K',
+    thumbnail: '/telegram-imports/kito fest.jpg',
+    badge: 'ROOFTOP BRUNCH',
+    sourcePlatform: 'tiktok',
+  },
+  {
+    id: 'kitfo-fest-7',
+    dishName: 'Kitfo Fest #7 Live Butcher Showcase',
+    restaurantName: 'Monarch Lounge • Bole Atlas',
+    priceFormatted: '950 Br',
+    location: 'Bole Atlas',
+    views: '90.7K',
+    thumbnail: '/telegram-imports/Yado kitfo.jpg',
+    badge: 'KITFO FEST #7',
+    sourcePlatform: 'tiktok',
+  },
+  {
+    id: 'pickles-burger',
+    dishName: 'Double Smash Pickles Beef Burger',
+    restaurantName: 'Pickles Burger & Shakes',
+    priceFormatted: '680 Br',
+    location: 'Bole Atlas',
+    views: '90.5K',
+    thumbnail: '/telegram-imports/BURGERR.jpg',
+    badge: 'BURGER SPOTLIGHT',
+    sourcePlatform: 'instagram',
+  },
+  {
+    id: 'brunch-jungle',
+    dishName: 'Brunch In The Jungle Feast',
+    restaurantName: 'Ramada Lounge • Kazanchis',
+    priceFormatted: '1,500 Br',
+    location: 'Kazanchis',
+    views: '6.4K',
+    thumbnail: '/telegram-imports/event Sunday Brunch at ramadea.jpg',
+    badge: 'SUNDAY BRUNCH',
+    sourcePlatform: 'instagram',
+  },
+  {
+    id: 'artist-chef-team',
+    dishName: 'The Artist Kitchen & Pasta Showcase',
+    restaurantName: 'The Artist Lounge • Piassa',
+    priceFormatted: '850 Br',
+    location: 'Piassa',
+    views: '5.9K',
+    thumbnail: '/telegram-imports/FOODS.jpg',
+    badge: 'CHEF SPOTLIGHT',
+    sourcePlatform: 'instagram',
+  },
+  {
+    id: 'catering-service',
+    dishName: 'Addis Foodie Catering Service (0966-55-00-00)',
+    restaurantName: 'Addis Foodie Official Hub',
+    priceFormatted: 'Custom Packages',
+    location: 'Addis Ababa Delivery',
+    views: '6.4K',
+    thumbnail: '/telegram-imports/iftir package event.jpg',
+    badge: 'CATERING SERVICE',
+    sourcePlatform: 'telegram',
+  },
+];
 
 export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
   const [activeReelId, setActiveReelId] = useState<string | null>(null);
-
-  const reelItems: ReelItem[] = posts.slice(0, 4).map((post) => ({
-    id: post.id,
-    restaurantName: post.restaurantName,
-    dishName: post.restaurantName,
-    priceFormatted: post.priceFormatted,
-    location: post.location,
-    thumbnail: post.image,
-    sourcePlatform: post.sourcePlatform === 'telegram' ? 'telegram' : 'instagram',
-    badge: post.category,
-    views: post.viewsCount || '45K views',
-  }));
 
   return (
     <section className="flex flex-col gap-6 bg-[#1A1C1E] text-white p-6 sm:p-10 rounded-lg shadow-sm border border-[var(--border-subtle)] relative overflow-hidden">
@@ -37,10 +94,10 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-sm bg-white/10 text-white text-[10px] font-label font-bold uppercase tracking-widest border border-white/20 mb-1">
               <Flame className="w-3 h-3 text-[#B8422E]" />
-              <span>Official Video Coverage</span>
+              <span>Verified @addis.foodie Reels</span>
             </div>
             <h2 className="font-display font-medium text-2xl sm:text-3xl text-white">
-              TikTok &amp; Instagram Reels Spotlight
+              TikTok &amp; Instagram Recent Video Reels
             </h2>
           </div>
         </div>
@@ -56,8 +113,8 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
       </div>
 
       {/* 9:16 Video Reels Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
-        {reelItems.map((reel) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 relative z-10">
+        {recentInstagramReels.map((reel) => (
           <div
             key={reel.id}
             onClick={() => setActiveReelId(reel.id)}
@@ -69,16 +126,19 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
               alt={reel.dishName}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
 
             {/* Dark Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-black/20" />
 
             {/* Top Badges */}
             <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
               <span className="bg-[#1A1C1E]/90 px-2.5 py-1 rounded-sm text-[10px] font-label font-bold uppercase text-white border border-white/20">
                 {reel.badge}
+              </span>
+              <span className="bg-[#B8422E] px-2 py-0.5 rounded-sm text-[10px] font-label font-bold uppercase text-white">
+                {reel.views} Views
               </span>
             </div>
 
@@ -92,7 +152,7 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
             </div>
 
             {/* Bottom Details Bar */}
-            <div className="absolute bottom-0 inset-x-0 p-4 flex flex-col gap-1 z-10 bg-gradient-to-t from-black/95 to-transparent pt-8">
+            <div className="absolute bottom-0 inset-x-0 p-4 flex flex-col gap-1 z-10 bg-gradient-to-t from-black/95 to-transparent pt-8 text-left">
               <span className="text-[10px] font-label font-bold text-[#B8422E]">
                 {reel.priceFormatted} • {reel.location}
               </span>
@@ -108,7 +168,7 @@ export default function VideoReelsSection({ posts }: VideoReelsSectionProps) {
       {/* Video Player Modal */}
       {activeReelId && (
         <VideoReelModal
-          reels={reelItems}
+          reels={recentInstagramReels}
           activeReelId={activeReelId}
           onClose={() => setActiveReelId(null)}
         />

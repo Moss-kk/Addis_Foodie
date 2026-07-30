@@ -6,17 +6,12 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Tag, 
-  MapPin, 
   Film, 
   Play, 
   Utensils, 
   ChevronDown, 
   ChevronUp, 
   Map as MapIcon,
-  Flame,
-  Coffee,
-  Soup,
-  Sandwich,
   Store
 } from 'lucide-react';
 import Header from '../../components/Header';
@@ -24,59 +19,13 @@ import FilterBar from '../../components/FilterBar';
 import ReviewCard from '../../components/ReviewCard';
 import DishFeed, { DishItem } from '../../components/DishFeed';
 import PostDetailModal from '../../components/PostDetailModal';
-import VideoReelModal, { ReelItem } from '../../components/VideoReelModal';
+import VideoReelModal from '../../components/VideoReelModal';
+import { recentInstagramReels } from '../../components/VideoReelsSection';
 import AddisMap from '../../components/AddisMap';
 import Footer from '../../components/Footer';
 import MobileBottomNav from '../../components/layout/MobileBottomNav';
 import { mockPosts } from '../../data/mockPosts';
 import { FoodPost } from '../../types/post';
-
-const videoReels: ReelItem[] = [
-  {
-    id: 'reel-1',
-    dishName: 'Kitfo Fest #7 Live Atmosphere',
-    restaurantName: 'Monarch Hotel • Bole Atlas',
-    priceFormatted: '950 Br',
-    location: 'Bole Atlas Road',
-    views: '148.5K',
-    thumbnail: '/telegram-imports/kito fest.jpg',
-    badge: 'TIKTOK TRENDING',
-    sourcePlatform: 'tiktok',
-  },
-  {
-    id: 'reel-2',
-    dishName: 'Titich Double Cheese Kitfo Burger Sizzle',
-    restaurantName: 'Titich Gourmet • Bole Atlas',
-    priceFormatted: '580 Br',
-    location: 'Bole Atlas',
-    views: '94.2K',
-    thumbnail: '/telegram-imports/Queen Burger.jpg',
-    badge: 'INSTAGRAM REEL',
-    sourcePlatform: 'instagram',
-  },
-  {
-    id: 'reel-3',
-    dishName: 'Pan-seared Norwegian Salmon',
-    restaurantName: 'Le Jardin Suspendu • Kazanchis',
-    priceFormatted: '1,600 Br',
-    location: 'Kazanchis',
-    views: '104.1K',
-    thumbnail: '/telegram-imports/SHRIMP sky light.jpg',
-    badge: 'INSTAGRAM REEL',
-    sourcePlatform: 'instagram',
-  },
-  {
-    id: 'reel-4',
-    dishName: 'Vanilla Fasting Iced Latte Pour',
-    restaurantName: 'Tomoca Coffee • Sarbet',
-    priceFormatted: '180 Br',
-    location: 'Sarbet',
-    views: '34.8K',
-    thumbnail: '/telegram-imports/Vanilla Fasting Iced late.jpg',
-    badge: 'TELEGRAM REEL',
-    sourcePlatform: 'telegram',
-  },
-];
 
 export default function ReviewsPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -178,7 +127,7 @@ export default function ReviewsPage() {
             </h1>
 
             <p className="text-xs sm:text-sm font-body max-w-2xl text-[var(--text-secondary)] leading-relaxed">
-              Explore Rediscovered Venues first, exact culinary dishes next, followed by trending short-form video reels across Bole, Kazanchis, Piassa, and Sarbet.
+              Explore Rediscovered Venues first, exact culinary dishes next, followed by verified video reels across Bole, Kazanchis, Piassa, and Sarbet.
             </p>
           </div>
 
@@ -279,13 +228,13 @@ export default function ReviewsPage() {
           />
         </section>
 
-        {/* 3. THEN BELOW IT: ALL TRENDING REELS (Kitfo Fest Live Summer, Sizzles) */}
+        {/* 3. THEN BELOW IT: ALL TRENDING REELS (Rooftop Kitfo Brunch, Kitfo Fest #7, Pickles Burger, Sunday Brunch) */}
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
             <div className="flex items-center gap-2">
               <Film className="w-5 h-5 text-[#B8422E]" />
               <h3 className="font-display font-medium text-xl sm:text-2xl text-[var(--text-primary)]">
-                All Reels &amp; Kitfo Fest Live Summer Highlights
+                Recent @addis.foodie Video Reels
               </h3>
             </div>
             <a 
@@ -298,8 +247,8 @@ export default function ReviewsPage() {
             </a>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible scrollbar-none">
-            {videoReels.map((reel) => (
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible scrollbar-none">
+            {recentInstagramReels.map((reel) => (
               <div key={reel.id} className="shrink-0 w-[65vw] sm:w-auto snap-center">
                 <div
                   onClick={() => setActiveReelId(reel.id)}
@@ -309,14 +258,17 @@ export default function ReviewsPage() {
                     src={reel.thumbnail}
                     alt={reel.dishName}
                     fill
-                    sizes="(max-width: 768px) 65vw, 25vw"
+                    sizes="(max-width: 768px) 65vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-85 group-hover:brightness-95"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent" />
 
                   <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
                     <span className="px-2 py-0.5 rounded-sm bg-[#1A1C1E]/90 text-white font-label font-bold text-[9px] uppercase border border-white/10">
                       {reel.badge}
+                    </span>
+                    <span className="px-2 py-0.5 rounded-sm bg-[#B8422E] text-white font-label font-bold text-[9px] uppercase">
+                      {reel.views} Views
                     </span>
                   </div>
 
@@ -354,7 +306,7 @@ export default function ReviewsPage() {
       {/* Vertical TikTok/IG Full-Screen Swipe Reel Modal */}
       {activeReelId && (
         <VideoReelModal
-          reels={videoReels}
+          reels={recentInstagramReels}
           activeReelId={activeReelId}
           onClose={() => setActiveReelId(null)}
         />
