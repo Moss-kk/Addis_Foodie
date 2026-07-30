@@ -63,7 +63,7 @@ export default function Footer() {
                 <FaTelegramPlane size={16} className="text-sky-400" />
               </a>
               <a
-                href="https://www.tiktok.com"
+                href="https://www.tiktok.com/@addis.foodie?_r=1&_t=ZS-98Smpg1WuZg"
                 target="_blank" rel="noopener noreferrer"
                 className="touch-target p-2.5 rounded-md bg-white/10 hover:bg-black text-white transition-all border border-white/10 flex items-center justify-center hover:scale-105"
                 title="TikTok @addis.foodie"
@@ -112,6 +112,7 @@ export default function Footer() {
                 { href: '/reviews', label: t('reviews') },
                 { href: '/events', label: t('events') },
                 { href: '/services', label: t('services') },
+                { href: '/saved', label: lang === 'AM' ? 'ተወዳጅ ምግቦች' : 'Saved Foods' },
                 { href: '/collaborate', label: t('workWithUs') },
                 { href: '/admin', label: t('adminPortal') },
               ].map(({ href, label }) => (

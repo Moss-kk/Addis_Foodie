@@ -1,7 +1,5 @@
-'use client';
-
 import React from 'react';
-import { Search, Zap, Flame, Coffee, Leaf, MapPin, Banknote } from 'lucide-react';
+import { Search, Zap, Flame, Coffee, MapPin, Utensils, Soup, Sandwich, Banknote, X } from 'lucide-react';
 
 interface FilterBarProps {
   selectedLocation: string | null;
@@ -34,12 +32,12 @@ export default function FilterBar({
 }: FilterBarProps) {
   
   const presetPills = [
-    { label: '🥩 Kitfo', category: 'Traditional', query: 'Kitfo' },
-    { label: '☕ Fasting Latte', category: 'Coffee', query: 'Latte' },
-    { label: '🌶️ Beyaynetu', category: 'Fasting', query: 'Beyaynetu' },
-    { label: '🍔 Burgers', category: 'Burgers', query: 'Burger' },
-    { label: '📍 Bole', location: 'Bole' },
-    { label: '💰 <500 Br', price: 'under-500' },
+    { label: 'Kitfo', category: 'Traditional', query: 'Kitfo', icon: Utensils },
+    { label: 'Fasting Latte', category: 'Coffee', query: 'Latte', icon: Coffee },
+    { label: 'Beyaynetu', category: 'Fasting', query: 'Beyaynetu', icon: Soup },
+    { label: 'Burgers', category: 'Burgers', query: 'Burger', icon: Sandwich },
+    { label: 'Bole Atlas', location: 'Bole', icon: MapPin },
+    { label: '<500 Br', price: 'under-500', icon: Banknote },
   ];
 
   const handlePillClick = (pill: typeof presetPills[number]) => {
@@ -59,22 +57,22 @@ export default function FilterBar({
 
   return (
     <div
-      className="sticky top-[72px] z-40 backdrop-blur-xl border-b py-3 px-4 sm:px-6 shadow-md transition-all flex flex-col gap-2.5"
+      className="sticky top-[64px] z-30 backdrop-blur-md border-b py-3 px-4 sm:px-6 transition-all flex flex-col gap-2.5"
       style={{
-        backgroundColor: 'color-mix(in srgb, var(--bg-app) 95%, transparent)',
+        backgroundColor: 'var(--bg-app)',
         borderColor: 'var(--border-subtle)',
       }}
     >
       <div className="flex items-center gap-3">
-        {/* Sticky Dish-First Search Input */}
+        {/* Search Input */}
         <div className="relative flex-1">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-amber-500" />
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#B8422E]" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchQueryChange?.(e.target.value)}
-            placeholder="Search dishes (e.g. Kitfo, Shiro, Fasting Latte)..."
-            className="w-full pl-9 pr-4 py-2 rounded-full text-xs font-mono border focus:outline-none focus:border-amber-500 transition-colors shadow-inner"
+            placeholder="Search dishes (Kitfo, Shiro, Fasting Latte)..."
+            className="w-full pl-9 pr-4 py-2 rounded-md text-xs font-body border focus:outline-none focus:border-[#B8422E] transition-colors shadow-xs"
             style={{
               backgroundColor: 'var(--bg-surface)',
               color: 'var(--text-primary)',
@@ -88,39 +86,40 @@ export default function FilterBar({
           value={selectedSort}
           onChange={(e) => onSortChange(e.target.value)}
           aria-label="Sort Reviews"
-          className="text-xs font-mono font-bold py-2 px-3 rounded-full border shadow-xs cursor-pointer focus:outline-none shrink-0"
+          className="text-xs font-label font-bold py-2 px-3 rounded-md border shadow-xs cursor-pointer focus:outline-none shrink-0"
           style={{
             backgroundColor: 'var(--bg-surface)',
             color: 'var(--text-primary)',
             borderColor: 'var(--border-subtle)',
           }}
         >
-          <option value="newest">Newest</option>
+          <option value="newest">Newest First</option>
           <option value="price-asc">Price: Low to High</option>
           <option value="price-desc">Price: High to Low</option>
         </select>
       </div>
 
-      {/* Horizontally Scrollable Dish-First Pill Carousel */}
+      {/* Horizontally Scrollable Category Pills */}
       <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth pb-0.5">
         {/* Open Now Toggle Pill */}
         <button
           type="button"
           onClick={onToggleOpenNow}
-          className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold transition-all border flex items-center gap-1.5 cursor-pointer ${
+          className={`flex-shrink-0 px-3 py-1.5 rounded-sm text-xs font-label font-bold transition-all border flex items-center gap-1.5 cursor-pointer ${
             openNowOnly
-              ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-md scale-105'
-              : 'bg-white/5 text-slate-300 border-white/10 hover:border-emerald-500/40'
+              ? 'bg-[#B8422E] text-white border-[#B8422E]'
+              : 'bg-[var(--bg-surface)] text-[var(--text-primary)] border-[var(--border-subtle)] hover:border-[#B8422E]'
           }`}
         >
-          <Zap className="w-3.5 h-3.5 text-emerald-400 fill-current" />
-          <span>⚡ Open Now</span>
+          <Zap className="w-3.5 h-3.5" />
+          <span>Open Now</span>
         </button>
 
-        <div className="h-4 w-px flex-shrink-0 bg-white/15 mx-0.5" />
+        <div className="h-4 w-px flex-shrink-0 bg-[var(--border-subtle)] mx-0.5" />
 
-        {/* Preset Dish & Neighborhood Pills */}
+        {/* Preset Category Pills */}
         {presetPills.map((pill, idx) => {
+          const Icon = pill.icon;
           const isActive =
             (pill.category && selectedCategory === pill.category) ||
             (pill.location && selectedLocation === pill.location) ||
@@ -132,12 +131,13 @@ export default function FilterBar({
               key={idx}
               type="button"
               onClick={() => handlePillClick(pill)}
-              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-mono font-bold transition-all border cursor-pointer ${
+              className={`flex-shrink-0 px-3 py-1.5 rounded-sm text-xs font-label font-bold transition-all border flex items-center gap-1.5 cursor-pointer ${
                 isActive
-                  ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md scale-105'
-                  : 'bg-white/5 text-slate-300 border-white/10 hover:border-amber-500/40'
+                  ? 'bg-[#1A1C1E] text-white border-[#1A1C1E]'
+                  : 'bg-[var(--bg-surface)] text-[var(--text-primary)] border-[var(--border-subtle)] hover:border-[#B8422E]'
               }`}
             >
+              <Icon className="w-3.5 h-3.5 text-[#B8422E]" />
               <span>{pill.label}</span>
             </button>
           );
@@ -154,9 +154,10 @@ export default function FilterBar({
               onSearchQueryChange?.('');
               if (openNowOnly && onToggleOpenNow) onToggleOpenNow();
             }}
-            className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-mono font-bold text-red-400 hover:text-red-300 border border-red-500/30 bg-red-500/10 cursor-pointer"
+            className="flex-shrink-0 px-3 py-1.5 rounded-sm text-xs font-label font-bold text-[#B8422E] hover:underline border border-[#B8422E]/30 bg-[#B8422E]/10 cursor-pointer flex items-center gap-1"
           >
-            ✕ Reset
+            <X className="w-3.5 h-3.5" />
+            <span>Reset</span>
           </button>
         )}
       </div>

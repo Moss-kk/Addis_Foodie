@@ -28,8 +28,8 @@ export interface FoodPost {
   caption: string;
   price: number; // raw price for filtering/sorting
   priceFormatted: string; // e.g. "680 Br" or "1,200 Br"
-  sourcePlatform: 'telegram' | 'instagram';
-  category: 'Traditional' | 'Burgers' | 'Coffee' | 'Fasting';
+  sourcePlatform: 'telegram' | 'instagram' | 'tiktok';
+  category: string;
   timestamp: string;
   originalPostUrl: string;
   menuItems?: MenuItem[]; // for the detail breakdown table

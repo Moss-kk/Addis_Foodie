@@ -28,10 +28,10 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
   return (
     <article
       onClick={onClick}
-      className="bg-zinc-900/60 border border-zinc-800 rounded-2xl overflow-hidden flex flex-col hover:border-amber-500/40 transition duration-300 shadow-md cursor-pointer group"
+      className="heritage-card p-0 rounded-lg overflow-hidden flex flex-col transition duration-300 cursor-pointer group hover:border-[#1A1C1E] dark:hover:border-slate-500 shadow-xs"
     >
-      {/* Image Container with Badges */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-800">
+      {/* Image Container with Responsive Aspect Ratio & Watermark Overlay */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
         <Image 
           src={post.image} 
           alt={post.restaurantName}
@@ -41,48 +41,58 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
         />
 
         {/* Rating Overlay Badge */}
-        <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-bold text-amber-400 border border-amber-500/20 flex items-center gap-1">
-          <Star className="w-3.5 h-3.5 fill-current text-amber-400" />
+        <div className="absolute top-2.5 left-2.5 bg-[#1A1C1E]/90 backdrop-blur-md px-2.5 py-1 rounded-sm text-xs font-label font-bold text-white border border-white/10 flex items-center gap-1">
+          <Star className="w-3.5 h-3.5 fill-[#B8422E] text-[#B8422E]" />
           <span>{ratingValue}</span>
         </div>
 
-        {/* Price & Location Overlay */}
-        <div className="absolute top-3 right-3 bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-bold text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
-          <span>{priceDisplay}</span>
+        {/* Price & Bookmark Overlay */}
+        <div className="absolute top-2.5 right-2.5 bg-[#1A1C1E]/90 backdrop-blur-md px-2.5 py-1 rounded-sm text-xs font-label font-bold text-white border border-white/10 flex items-center gap-2">
+          <span className="text-[#B8422E] font-bold">{priceDisplay}</span>
           <button
             type="button"
             onClick={handleBookmark}
-            className={`p-1 rounded-full transition cursor-pointer ${saved ? 'text-red-500' : 'text-zinc-400 hover:text-white'}`}
+            className={`p-1 rounded-sm transition cursor-pointer ${saved ? 'text-red-500' : 'text-slate-400 hover:text-white'}`}
             title="Save Spot"
           >
-            <Heart className={`w-3.5 h-3.5 ${saved ? 'fill-current' : ''}`} />
+            <Heart className={`w-3.5 h-3.5 ${saved ? 'fill-current text-red-500' : ''}`} />
           </button>
+        </div>
+
+        {/* Automatic Addis Foodie™ Watermark Stamp Overlay */}
+        <div className="absolute bottom-2.5 left-2.5 bg-black/80 backdrop-blur-xs px-2 py-0.5 rounded-xs border border-white/20 flex items-center gap-1.5 pointer-events-none">
+          <div className="w-3.5 h-3.5 rounded-full overflow-hidden relative border border-[#B8422E]">
+            <Image src="/images/logo.png" alt="Addis Foodie Logo" fill className="object-cover" />
+          </div>
+          <span className="text-[9px] font-label font-bold text-white uppercase tracking-wider">
+            Addis Foodie™
+          </span>
         </div>
       </div>
 
       {/* Content Section */}
-      <div className="p-4 flex flex-col flex-grow justify-between gap-3">
+      <div className="p-4 flex flex-col flex-grow justify-between gap-3 bg-[var(--bg-surface)]">
         <div>
-          <div className="flex items-center gap-2 text-[11px] text-amber-400 font-semibold uppercase tracking-wider mb-1 font-mono">
+          <div className="flex items-center gap-2 text-[10px] font-label font-bold text-[#B8422E] uppercase tracking-widest mb-1">
             <span>{post.category || 'CULINARY'}</span>
             <span>•</span>
-            <span className="text-zinc-400">{neighborhoodDisplay}</span>
+            <span className="text-[var(--text-secondary)]">{neighborhoodDisplay}</span>
           </div>
 
-          <h3 className="text-base font-bold text-white line-clamp-1 mb-1.5 group-hover:text-amber-400 transition-colors">
+          <h3 className="text-base font-display font-medium text-[var(--text-primary)] line-clamp-1 mb-1.5 group-hover:text-[#B8422E] transition-colors">
             {post.restaurantName}
           </h3>
 
-          <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed font-body">
+          <p className="text-xs text-[var(--text-secondary)] line-clamp-2 leading-relaxed font-body">
             {post.caption}
           </p>
         </div>
 
-        {/* Touch-Friendly Action Button */}
+        {/* Action Trigger Button */}
         <div 
-          className="w-full text-center py-2.5 px-4 rounded-xl bg-zinc-800 group-hover:bg-amber-500 group-hover:text-black border border-zinc-700/60 text-xs font-semibold text-zinc-200 transition duration-200 flex items-center justify-center gap-1 cursor-pointer"
+          className="button-primary w-full py-2 px-3 rounded-md text-xs font-label uppercase tracking-wider text-white transition duration-200 flex items-center justify-center gap-1 cursor-pointer"
         >
-          <span>Read Full Audit &amp; Price Breakdown</span>
+          <span>Read Full Review</span>
           <span>→</span>
         </div>
       </div>
