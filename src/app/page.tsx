@@ -32,32 +32,32 @@ import { FoodPost } from '../types/post';
 const videoReels: ReelItem[] = [
   {
     id: 'reel-1',
-    dishName: 'Kitfo Fest #7 Live Atmosphere',
-    restaurantName: 'Monarch Hotel • Bole Atlas',
-    priceFormatted: '950 Br',
-    location: 'Bole Atlas Road',
+    dishName: 'Authentic Gurage Kitfo Sizzle',
+    restaurantName: 'Yado Kitfo • Kazanchis',
+    priceFormatted: '650 Br',
+    location: 'Kazanchis Total',
     views: '148.5K',
-    thumbnail: '/images/ethiopian_kitfo_hero.png',
+    thumbnail: '/telegram-imports/Yado kitfo.jpg',
     badge: 'TIKTOK TRENDING',
     sourcePlatform: 'tiktok',
   },
   {
     id: 'reel-2',
-    dishName: 'Titich Double Cheese Kitfo Burger Sizzle',
-    restaurantName: 'Titich Gourmet • Bole Atlas',
-    priceFormatted: '580 Br',
+    dishName: 'Sishu Cheese Burger Gourmet Stack',
+    restaurantName: 'Sishu Burger • Bole Atlas',
+    priceFormatted: '710 Br',
     location: 'Bole Atlas',
-    views: '94.2K',
+    views: '194.2K',
     thumbnail: '/telegram-imports/Queen Burger.jpg',
     badge: 'INSTAGRAM REEL',
     sourcePlatform: 'instagram',
   },
   {
     id: 'reel-3',
-    dishName: 'Pan-seared Norwegian Salmon',
-    restaurantName: 'Le Jardin Suspendu • Kazanchis',
-    priceFormatted: '1,600 Br',
-    location: 'Kazanchis',
+    dishName: 'Pan-seared Garlic Butter Shrimp',
+    restaurantName: 'Skylight Hotel • Bole',
+    priceFormatted: '1,250 Br',
+    location: 'Bole Airport Road',
     views: '104.1K',
     thumbnail: '/telegram-imports/SHRIMP sky light.jpg',
     badge: 'INSTAGRAM REEL',
@@ -65,12 +65,78 @@ const videoReels: ReelItem[] = [
   },
   {
     id: 'reel-4',
-    dishName: 'Vanilla Fasting Iced Latte Pour',
-    restaurantName: 'Tomoca Coffee • Sarbet',
-    priceFormatted: '180 Br',
-    location: 'Sarbet',
-    views: '34.8K',
+    dishName: 'Oat Milk Vanilla Fasting Iced Latte',
+    restaurantName: 'Green Bean Roasters • Sarbet',
+    priceFormatted: '210 Br',
+    location: 'Old Airport',
+    views: '84.8K',
     thumbnail: '/telegram-imports/Vanilla Fasting Iced late.jpg',
+    badge: 'TELEGRAM REEL',
+    sourcePlatform: 'telegram',
+  },
+  {
+    id: 'reel-5',
+    dishName: 'Prime Tomahawk Lava Stone Steak',
+    restaurantName: 'Hyatt Regency Grill • Meskel Sq',
+    priceFormatted: '1,850 Br',
+    location: 'Hyatt Regency',
+    views: '162.3K',
+    thumbnail: '/telegram-imports/thomawak.jpg',
+    badge: 'TIKTOK TRENDING',
+    sourcePlatform: 'tiktok',
+  },
+  {
+    id: 'reel-6',
+    dishName: 'Tire Siga Raw Beef Meat Feast',
+    restaurantName: 'Kera Prime Meat House',
+    priceFormatted: '950 Br',
+    location: 'Kera District',
+    views: '210.4K',
+    thumbnail: '/telegram-imports/Tire siga.jpg',
+    badge: 'INSTAGRAM REEL',
+    sourcePlatform: 'instagram',
+  },
+  {
+    id: 'reel-7',
+    dishName: 'Mamma Mia Handmade Meat Lasagna',
+    restaurantName: 'Mamma Mia • Piassa',
+    priceFormatted: '540 Br',
+    location: 'Piassa Churchill Ave',
+    views: '92.6K',
+    thumbnail: '/telegram-imports/LASAGNA.jpg',
+    badge: 'TELEGRAM REEL',
+    sourcePlatform: 'telegram',
+  },
+  {
+    id: 'reel-8',
+    dishName: 'Loaded Pepperoni & Mushroom Pizza',
+    restaurantName: 'Sarbet Slice Pizzeria',
+    priceFormatted: '640 Br',
+    location: 'Sarbet',
+    views: '115.8K',
+    thumbnail: '/telegram-imports/pitza1.jpg',
+    badge: 'INSTAGRAM REEL',
+    sourcePlatform: 'instagram',
+  },
+  {
+    id: 'reel-9',
+    dishName: 'Royal Agelgil Ethiopian Cultural Feast',
+    restaurantName: 'Entoto Park Lodge',
+    priceFormatted: '920 Br',
+    location: 'Entoto Natural Park',
+    views: '185.0K',
+    thumbnail: '/telegram-imports/food.jpg',
+    badge: 'TIKTOK TRENDING',
+    sourcePlatform: 'tiktok',
+  },
+  {
+    id: 'reel-10',
+    dishName: 'Pistachio Layer Cake & Caramel Macchiato',
+    restaurantName: 'Velvet Pastry House • Sarbet',
+    priceFormatted: '380 Br',
+    location: 'Sarbet AU Gate',
+    views: '78.2K',
+    thumbnail: '/telegram-imports/CAKE.jpg',
     badge: 'TELEGRAM REEL',
     sourcePlatform: 'telegram',
   },
@@ -135,7 +201,7 @@ export default function HomePage() {
         {/* MAIN HOMEPAGE CONTENT */}
         <main className="site-container py-8 flex flex-col gap-14">
 
-          {/* 4. LATEST OFFICIAL REVIEWS SECTION (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
+          {/* 4. LATEST OFFICIAL REVIEWS SECTION (HORIZONTALLY SCROLLABLE STRIP ON DESKTOP & MOBILE) */}
           <section id="latest-reviews-section" className="flex flex-col gap-6 pt-2">
             
             <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
@@ -144,13 +210,13 @@ export default function HomePage() {
                   className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-xs font-label uppercase tracking-wider mb-2 border bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[#B8422E]"
                 >
                   <Compass className="w-4 h-4 text-[#B8422E]" />
-                  <span>Official Addis Foodies Curation</span>
+                  <span>Official Addis Foodie Curation</span>
                 </div>
                 <h2 className="font-display font-medium text-2xl sm:text-4xl text-[var(--text-primary)]">
                   Latest Official Reviews
                 </h2>
                 <p className="text-xs sm:text-sm font-body pt-1 text-[var(--text-secondary)]">
-                  Fresh food inspections and itemized ETB price audits (Swipe horizontally on mobile ↔)
+                  Fresh food inspections and itemized ETB price audits (Swipe or scroll horizontally ↔)
                 </p>
               </div>
 
@@ -163,7 +229,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Clean Category Filter Buttons (No Emojis) */}
+            {/* Clean Category Filter Buttons */}
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
               {categoryButtons.map((btn) => {
                 const Icon = btn.icon;
@@ -186,10 +252,10 @@ export default function HomePage() {
               })}
             </div>
 
-            {/* Side-Scrollable Horizontal Carousel on Mobile / Grid on Desktop */}
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible scrollbar-none">
+            {/* Horizontally Scrollable Carousel on both Desktop & Mobile */}
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-thin scrollbar-thumb-stone-400 dark:scrollbar-thumb-stone-700 py-1">
               {filteredOfficialReviews.map((post) => (
-                <div key={post.id} className="shrink-0 w-[85vw] sm:w-auto snap-center">
+                <div key={post.id} className="shrink-0 w-[280px] sm:w-[320px] lg:w-[340px] snap-start">
                   <ReviewCard
                     post={post}
                     onClick={() => setActivePost(post)}

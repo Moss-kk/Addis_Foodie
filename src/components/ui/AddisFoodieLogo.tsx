@@ -11,34 +11,33 @@ interface AddisFoodieLogoProps {
 export default function AddisFoodieLogo({ size = 'md' }: AddisFoodieLogoProps) {
   return (
     <Link href="/" className="group focus-ring rounded-md flex-shrink-0 inline-block">
-      <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 shadow-sm transition-all duration-300 flex items-center gap-2 sm:gap-2.5 group-hover:border-[#B8422E] dark:group-hover:border-[#B8422E]">
+      <div className="bg-transparent border-0 px-0 py-0 flex items-center gap-2 sm:gap-2.5 transition-all duration-300">
         {/* Circle Logo Icon */}
-        <div className="relative w-6 h-6 sm:w-8 sm:h-8 rounded-full overflow-hidden border border-stone-300 dark:border-stone-700 flex-shrink-0 bg-white dark:bg-stone-800 shadow-xs">
+        <div className="relative w-7 h-7 sm:w-9 sm:h-9 rounded-full overflow-hidden border border-stone-300 dark:border-stone-700 flex-shrink-0 bg-transparent shadow-2xs group-hover:scale-105 transition-transform">
           <Image
             src="/images/logo.png"
-            alt="Addis Foodies Logo"
+            alt="Addis Foodie Logo"
             fill
             className="object-cover"
           />
         </div>
 
-        {/* Signature Brand Mark (Black & White Theme Adaptive) */}
-        <div className="flex flex-col items-center justify-center tracking-tight">
-          <div className="bg-stone-900 dark:bg-white text-white dark:text-stone-900 px-1.5 sm:px-2 py-0.5 rounded-xs text-[9px] sm:text-[11px] font-label font-bold uppercase tracking-wider border border-stone-800 dark:border-stone-200 leading-none">
+        {/* Signature Unboxed Brand Mark */}
+        <div className="flex flex-col items-start justify-center tracking-tight">
+          <div className="bg-[#B8422E] text-white px-1.5 sm:px-2 py-0.5 rounded-xs text-[9px] sm:text-[10px] font-label font-bold uppercase tracking-wider leading-none shadow-2xs">
             ADDIS
           </div>
-          <div className="w-full h-[1.5px] bg-stone-300 dark:bg-stone-700 my-0.5" />
-          <div className="text-stone-900 dark:text-stone-100 text-[8px] sm:text-[10px] font-label font-bold uppercase tracking-widest leading-none">
-            FOODIES
+          <div className="text-[10px] sm:text-xs font-label font-black uppercase tracking-widest text-[var(--text-primary)] leading-none mt-0.5">
+            FOODIE
           </div>
         </div>
 
         {/* Tagline Sub-text (Desktop only) */}
-        <div className="hidden md:flex flex-col -space-y-0.5 border-l border-stone-200 dark:border-stone-800 pl-2 text-left">
-          <span className="text-[9px] font-label font-bold text-stone-900 dark:text-stone-100 tracking-wider uppercase">
+        <div className="hidden md:flex flex-col -space-y-0.5 border-l border-stone-300 dark:border-stone-700 pl-2 text-left">
+          <span className="text-[9px] font-label font-bold text-[var(--text-primary)] tracking-wider uppercase">
             Official Curation
           </span>
-          <span className="text-[8px] font-label text-stone-500 dark:text-stone-400 tracking-wider uppercase">
+          <span className="text-[8px] font-label text-[var(--text-secondary)] tracking-wider uppercase">
             Discovering Foods
           </span>
         </div>
