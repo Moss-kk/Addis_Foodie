@@ -75,21 +75,21 @@ const festivalHighlights = [
 const newSpotOpenings = [
   {
     id: 'spot-1',
-    name: 'Burgueriza Capital Lounge',
+    name: 'Burgueriza Gourmet Lounge',
     location: 'Bole Atlas • Ground Floor Kelsam Building',
-    type: 'Gourmet Cheese Burgers & Fries',
+    type: 'Gourmet Cheese Burgers & Waffle Fries',
     openingDate: 'Grand Opening Spotlight',
-    desc: 'Flame-grilled prime beef patties with melted cheddar, jalapeno mayo, and crispy onion rings.',
-    image: '/telegram-imports/Queen Burger.jpg',
+    desc: 'Flame-grilled prime beef patties with melted cheddar, jalapeño glaze, and seasoned waffle fries.',
+    image: '/telegram-imports/burguriiza.jpg',
   },
   {
     id: 'spot-2',
-    name: 'Titich Flame Grill & Bar',
-    location: 'Kazanchis • Near UNECA Main Gate',
-    type: 'Artisanal Double Burgers & Steaks',
-    openingDate: 'Now Open • Soft Launch',
-    desc: 'Craft double beef stacks with Ethiopian kibbeh glaze and handmade brioche buns.',
-    image: '/telegram-imports/BURGERR.jpg',
+    name: 'Capital Hotel & Spa Fine Dining',
+    location: 'Haile Gebreselassie Ave • Near 22 Mazoria',
+    type: 'International Culinary & Fine Ethiopian Feasts',
+    openingDate: 'Now Open • Flagship Dining',
+    desc: 'Luxury buffet and fine dining experience featuring authentic Kitfo, steak cuts, and gourmet desserts.',
+    image: '/telegram-imports/capital.jpg',
   },
 ];
 
@@ -244,9 +244,6 @@ export default function EventsPage() {
             ))}
           </div>
         </section>
-
-        {/* ADDIS FOODIES AWARDS VOTING SECTION */}
-        <AddisFoodieAwards />
 
         {/* 2. EVENT VIDEO REELS CAROUSEL STRIP (SIDE-SCROLLABLE HORIZONTAL CAROUSEL ON MOBILE) */}
         <section className="flex flex-col gap-4">

@@ -17,6 +17,7 @@ import {
 import Header from '../../components/Header';
 import FilterBar from '../../components/FilterBar';
 import ReviewCard from '../../components/ReviewCard';
+import FeaturedCollections from '../../components/home/FeaturedCollections';
 import DishFeed, { DishItem } from '../../components/DishFeed';
 import PostDetailModal from '../../components/PostDetailModal';
 import VideoReelModal from '../../components/VideoReelModal';
@@ -208,25 +209,8 @@ export default function ReviewsPage() {
           </div>
         </section>
 
-        {/* 2. NEXT: EXACT DISHES FEED */}
-        <section className="flex flex-col gap-4">
-          <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
-            <div className="flex items-center gap-2">
-              <Utensils className="w-5 h-5 text-[#B8422E]" />
-              <h2 className="font-display font-medium text-xl sm:text-3xl text-[var(--text-primary)]">
-                Exact Dishes &amp; Plates ({extractedDishes.length})
-              </h2>
-            </div>
-          </div>
-
-          <DishFeed
-            dishes={extractedDishes}
-            onSelectDish={(dish) => {
-              const matchedPost = mockPosts.find(p => p.restaurantName === dish.restaurantName);
-              if (matchedPost) setActivePost(matchedPost);
-            }}
-          />
-        </section>
+        {/* 2. CURATED FEATURED COLLECTIONS GRID */}
+        <FeaturedCollections onSelectCollection={(query) => setSearchQuery(query)} />
 
         {/* 3. THEN BELOW IT: ALL TRENDING REELS (Rooftop Kitfo Brunch, Kitfo Fest #7, Pickles Burger, Sunday Brunch) */}
         <section className="flex flex-col gap-4">

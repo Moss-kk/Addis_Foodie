@@ -146,6 +146,51 @@ export default function ContactPage() {
                   </div>
                 </div>
               </div>
+
+              {/* Official Social Media Channel Links */}
+              <div className="pt-4 border-t border-[var(--border-subtle)] flex flex-col gap-3">
+                <span className="font-display font-bold text-sm uppercase tracking-wider text-[var(--text-primary)]">
+                  Official Social Channels
+                </span>
+                <div className="grid grid-cols-2 gap-2 text-xs font-label font-bold">
+                  <a 
+                    href="https://t.me/addisfoodies" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 p-2.5 rounded-lg bg-sky-500/10 text-sky-500 hover:bg-sky-500/20 border border-sky-500/20 transition-all"
+                  >
+                    <Send className="w-4 h-4 text-sky-400" />
+                    <span>@addisfoodies</span>
+                  </a>
+                  <a 
+                    href="https://instagram.com/addis.foodie" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 p-2.5 rounded-lg bg-purple-500/10 text-purple-500 hover:bg-purple-500/20 border border-purple-500/20 transition-all"
+                  >
+                    <span className="w-4 h-4 rounded-full bg-purple-500 flex items-center justify-center text-[10px] text-white font-black">IG</span>
+                    <span>@addis.foodie</span>
+                  </a>
+                  <a 
+                    href="https://tiktok.com/@addis.foodie" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 p-2.5 rounded-lg bg-pink-500/10 text-pink-500 hover:bg-pink-500/20 border border-pink-500/20 transition-all"
+                  >
+                    <span className="w-4 h-4 rounded-full bg-pink-500 flex items-center justify-center text-[10px] text-white font-black">TT</span>
+                    <span>@addis.foodie</span>
+                  </a>
+                  <a 
+                    href="https://youtube.com/@addisfoodie" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 p-2.5 rounded-lg bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-all"
+                  >
+                    <span className="w-4 h-4 rounded-full bg-red-500 flex items-center justify-center text-[10px] text-white font-black">YT</span>
+                    <span>Addis Foodie</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 

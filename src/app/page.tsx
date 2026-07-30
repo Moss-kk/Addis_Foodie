@@ -20,6 +20,8 @@ import Header from '../components/Header';
 import HeroSection from '../components/home/HeroSection';
 import EventBanner from '../components/EventBanner';
 import ReviewCard from '../components/ReviewCard';
+import FeaturedCollections from '../components/home/FeaturedCollections';
+import AiCravingFinder from '../components/AiCravingFinder';
 import PostDetailModal from '../components/PostDetailModal';
 import PriceReceiptModal from '../components/PriceReceiptModal';
 import VideoReelModal, { ReelItem } from '../components/VideoReelModal';
@@ -201,6 +203,9 @@ export default function HomePage() {
         {/* MAIN HOMEPAGE CONTENT */}
         <main className="site-container py-8 flex flex-col gap-14">
 
+          {/* AI CRAVING FINDER SMART ASSISTANT CHAT BOT */}
+          <AiCravingFinder onSelectPrompt={(prompt) => setSearchQuery(prompt)} />
+
           {/* 4. LATEST OFFICIAL REVIEWS SECTION (HORIZONTALLY SCROLLABLE STRIP ON DESKTOP & MOBILE) */}
           <section id="latest-reviews-section" className="flex flex-col gap-6 pt-2">
             
@@ -265,6 +270,9 @@ export default function HomePage() {
             </div>
 
           </section>
+
+          {/* 5. CURATED FEATURED COLLECTIONS GRID */}
+          <FeaturedCollections onSelectCollection={(query) => setSearchQuery(query)} />
 
           {/* 6. TRENDING FOOD VIDEO REELS STRIP (TIKTOK & INSTAGRAM REELS) */}
           <section className="flex flex-col gap-4">

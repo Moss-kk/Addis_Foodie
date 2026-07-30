@@ -42,19 +42,19 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
         borderColor: 'var(--border-subtle)',
       }}
     >
-      {/* Background Hero Image - Sleek Editorial Shadow & Rich Food Visibility */}
+      {/* Background Hero Image - Deep Warm Dark Editorial Shadow & Vivid Food Visibility */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/telegram-imports/food.jpg"
           alt="Authentic Ethiopian Traditional Food Feast"
           fill
           priority
-          className="object-cover object-center opacity-75 transition-opacity"
+          className="object-cover object-center opacity-70 transition-opacity"
         />
         <div 
           className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(to right, color-mix(in srgb, var(--bg-app) 92%, black) 0%, color-mix(in srgb, var(--bg-app) 70%, transparent) 55%, rgba(0, 0, 0, 0.6) 100%)`
+            backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.85) 100%)`
           }}
         />
       </div>
@@ -71,12 +71,12 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
           </div>
 
           {/* Fraunces Display Headline */}
-          <h1 className="font-display font-medium text-3xl sm:text-5xl lg:text-6xl text-[var(--text-primary)] leading-[1.1] tracking-tight">
+          <h1 className="font-display font-medium text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight">
             {lang === 'AM' ? 'አዲስ አበባ ውስጥ ቀዳሚው የምግብ ቤት መሪ' : 'Discovering Foods in Addis'}
           </h1>
 
           {/* Authentic Bio Copy */}
-          <p className="text-sm sm:text-base md:text-lg font-body text-[var(--text-secondary)] leading-relaxed max-w-xl">
+          <p className="text-sm sm:text-base md:text-lg font-body text-stone-200 leading-relaxed max-w-xl">
             {lang === 'AM' 
               ? 'በአዲስ ፉዲዎች የተመረጡ የምግብ ቤት፣ የሆቴሎች እና የካፌዎች ታማኝ ግምገማዎች እና የብር ዋጋ ዝርዝሮች።'
               : 'Discovering & Reviewing Restaurant, Hotels & Cafe in Addis Ababa 🇪🇹 — Honest food inspections, menu pricing, and live video coverage.'}
@@ -90,7 +90,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                 value={searchQuery}
                 onChange={(e) => onSearchChange?.(e.target.value)}
                 placeholder={lang === 'AM' ? 'ምግቦችን ይፈልጉ (ክትፎ፣ ሽሮ፣ በርገር፣ ፒዛ)...' : 'Search dishes (Kitfo, Burger, Pizza, Juice, Fasting)...'}
-                className="w-full bg-[var(--bg-surface)] border border-[var(--border-subtle)] focus:border-[#B8422E] text-[var(--text-primary)] text-xs sm:text-sm rounded-md py-3 pl-4 pr-12 outline-none shadow-xs transition placeholder:text-[var(--text-secondary)]"
+                className="w-full bg-stone-900/90 border border-stone-700 focus:border-[#B8422E] text-white text-xs sm:text-sm rounded-md py-3 pl-4 pr-12 outline-none shadow-xs transition placeholder:text-stone-400"
               />
               <button 
                 type="submit"
@@ -103,7 +103,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
 
             {/* Category Chips Strip */}
             <div className="flex items-center gap-2 mt-3 overflow-x-auto no-scrollbar py-1">
-              <span className="text-[var(--text-secondary)] font-label text-[10px] uppercase shrink-0">Filter:</span>
+              <span className="text-stone-300 font-label text-[10px] uppercase shrink-0">Filter:</span>
               {quickFilterChips.map((chip) => {
                 const Icon = chip.icon;
                 return (
@@ -111,7 +111,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                     key={chip.label}
                     type="button"
                     onClick={() => handleChipClick(chip.query)}
-                    className="whitespace-nowrap px-3 py-1 rounded-sm bg-[var(--bg-surface)] hover:bg-[#1A1C1E] hover:text-white border border-[var(--border-subtle)] text-[var(--text-primary)] transition cursor-pointer text-xs font-label font-medium shrink-0 flex items-center gap-1.5 shadow-2xs"
+                    className="whitespace-nowrap px-3 py-1 rounded-sm bg-stone-900/90 hover:bg-[#1A1C1E] text-white border border-stone-700 transition cursor-pointer text-xs font-label font-medium shrink-0 flex items-center gap-1.5 shadow-2xs"
                   >
                     <Icon className="w-3.5 h-3.5 text-[#B8422E]" />
                     <span>{chip.label}</span>
@@ -119,40 +119,56 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                 );
               })}
             </div>
+
+            {/* Trust Metrics Strip with Identical Semantic Meaning */}
+            <div className="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-stone-800 text-stone-300 font-label text-[10px] sm:text-xs">
+              <div className="flex flex-col">
+                <span className="font-bold text-white text-sm sm:text-base">150K+</span>
+                <span>{lang === 'AM' ? 'ወርሃዊ ተከታዮች' : 'Monthly Readers'}</span>
+              </div>
+              <div className="flex flex-col border-l border-stone-800 pl-2">
+                <span className="font-bold text-white text-sm sm:text-base">500+</span>
+                <span>{lang === 'AM' ? 'የተረጋገጡ የዋጋ ደረሰኞች' : 'Verified Price Audits'}</span>
+              </div>
+              <div className="flex flex-col border-l border-stone-800 pl-2">
+                <span className="font-bold text-white text-sm sm:text-base">100%</span>
+                <span>{lang === 'AM' ? 'ነጻ እና ታማኝ ግምገማዎች' : 'Independent Reviews'}</span>
+              </div>
+            </div>
           </div>
 
         </div>
 
-        {/* Right Side Visual Framing Card (Rooftop Kitfo Brunch spotlight) */}
+        {/* Right Side Visual Framing Card (Burgueriza Gourmet Lounge Spotlight) */}
         <div className="lg:col-span-5 hidden lg:flex flex-col gap-4">
           <div className="heritage-card p-4 relative overflow-hidden bg-[#1A1C1E] text-white border border-[#3A3E42] rounded-lg shadow-md">
             
             <div className="relative aspect-[4/3] w-full rounded-md overflow-hidden bg-slate-900 border border-white/10 mb-3">
               <Image 
-                src="/telegram-imports/kito fest.jpg"
-                alt="Rooftop Kitfo Brunch Spotlight"
+                src="/telegram-imports/burguriiza.jpg"
+                alt="Burgueriza Gourmet Lounge Spotlight"
                 fill
                 priority
                 className="object-cover"
               />
               <div className="absolute top-3 left-3 bg-[#1A1C1E] px-2.5 py-1 rounded-xs text-[10px] font-label font-bold text-white uppercase tracking-wider border border-white/20">
-                ROOFTOP KITFO BRUNCH
+                OFFICIAL ADDIS FOODIE SELECTION
               </div>
               <div className="absolute bottom-3 right-3 bg-[#B8422E] text-white px-2.5 py-1 rounded-xs text-[10px] font-label font-bold uppercase">
-                102K Views
+                194K Views
               </div>
             </div>
 
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between text-xs font-label text-slate-300">
-                <span className="text-[#B8422E] font-bold">Kitfo Fest #7</span>
-                <span>Monarch Rooftop • Bole</span>
+                <span className="text-[#B8422E] font-bold">Burgueriza Lounge</span>
+                <span>Bole Atlas • Kelsam Bldg</span>
               </div>
               <h3 className="font-display text-lg text-white font-medium">
-                Rooftop Kitfo Brunch &amp; Tsom Mefcha
+                Gourmet Flame-Grilled Cheese Burgers
               </h3>
               <p className="text-xs text-slate-300 font-body line-clamp-2 leading-relaxed">
-                Authentic Gurage Kitfo served with fresh Ayeb, Gomen, and clay pot Niter Kibbeh.
+                Handcrafted double beef patties with melted cheddar, jalapeño glaze, and seasoned waffle fries.
               </p>
               <button 
                 onClick={onExploreClick}
