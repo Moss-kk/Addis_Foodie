@@ -29,7 +29,7 @@ const festivalHighlights = [
     location: 'Monarch Rooftop • Piassa',
     status: 'FLAGSHIP CULINARY HUB',
     organizer: 'Addis Foodies with Tiru Kitfo',
-    image: '/telegram-imports/Yado kitfo.jpg',
+    image: '/telegram-imports/kito fest.jpg',
     description: '15+ legendary Kitfo houses, Gurage cultural dance troupes, fresh Ayeb & Gomen pairings, and authentic Areke tastings. Co-hosted by Addis Foodies with Tiru Kitfo.',
     btnLabel: 'Reserve Free Pass',
     actionType: 'reserve',
