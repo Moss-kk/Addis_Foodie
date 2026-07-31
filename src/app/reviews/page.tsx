@@ -217,7 +217,7 @@ export default function ReviewsPage() {
           </div>
         </section>
 
-        {/* 1. FIRST: REDISCOVER VENUES FEED (Side-scrollable Horizontal Carousel on Mobile) */}
+        {/* 1. FIRST: REDISCOVER VENUES FEED (Side-scrollable Horizontal Carousel on Desktop & Mobile) */}
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
             <div className="flex items-center gap-2">
@@ -226,12 +226,12 @@ export default function ReviewsPage() {
                 Rediscover Venues ({filteredPosts.length})
               </h2>
             </div>
-            <span className="text-xs font-label text-[var(--text-secondary)] uppercase">Swipe ↔</span>
+            <span className="text-xs font-label text-[var(--text-secondary)] uppercase font-bold">Swipe or Scroll Horizontally ↔</span>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible scrollbar-none">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-thin scrollbar-thumb-stone-400 dark:scrollbar-thumb-stone-700 py-1">
             {filteredPosts.map((post) => (
-              <div key={post.id} className="shrink-0 w-[85vw] sm:w-auto snap-center">
+              <div key={post.id} className="shrink-0 w-[280px] sm:w-[320px] lg:w-[340px] snap-start">
                 <ReviewCard
                   post={post}
                   onClick={() => setActivePost(post)}
