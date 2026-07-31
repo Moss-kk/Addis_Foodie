@@ -142,41 +142,42 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
 
         {/* Right Side Visual Framing Card (Burgueriza Gourmet Lounge Spotlight) */}
         <div className="lg:col-span-5 hidden lg:flex flex-col gap-4">
-          <div className="heritage-card p-4 relative overflow-hidden bg-[#1A1C1E] text-white border border-[#3A3E42] rounded-lg shadow-md">
+          <div className="relative overflow-hidden bg-black/65 backdrop-blur-md p-4.5 text-white border border-stone-800/80 rounded-2xl shadow-2xl hover:border-[#B8422E]/50 transition-all group">
             
-            <div className="relative aspect-[4/3] w-full rounded-md overflow-hidden bg-slate-900 border border-white/10 mb-3">
+            <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden bg-stone-950 border border-white/10 mb-3">
               <Image 
                 src="/telegram-imports/burguriiza.jpg"
                 alt="Burgueriza Gourmet Lounge Spotlight"
                 fill
                 priority
-                className="object-cover"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-md border border-stone-700 flex items-center gap-1.5 shadow-md">
+              <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-stone-700/80 flex items-center gap-1.5 shadow-md">
                 <AddisFoodieLogo size="sm" />
               </div>
-              <div className="absolute bottom-3 right-3 bg-[#B8422E] text-white px-2.5 py-1 rounded-xs text-[10px] font-label font-bold uppercase">
+              <div className="absolute bottom-3 right-3 bg-[#B8422E] text-white px-2.5 py-1 rounded-md text-[10px] font-label font-bold uppercase tracking-wider shadow-sm">
                 194K Views
               </div>
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <div className="flex items-center justify-between text-xs font-label text-slate-300">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between text-xs font-label text-stone-300">
                 <span className="text-[#B8422E] font-bold">Burgueriza Lounge</span>
-                <span>Bole Atlas • Kelsam Bldg</span>
+                <span className="text-stone-400">Bole Atlas • Kelsam Bldg</span>
               </div>
-              <h3 className="font-display text-lg text-white font-medium">
+              <h3 className="font-display text-lg text-white font-medium group-hover:text-[#B8422E] transition-colors">
                 Gourmet Flame-Grilled Cheese Burgers
               </h3>
-              <p className="text-xs text-slate-300 font-body line-clamp-2 leading-relaxed">
+              <p className="text-xs text-stone-300 font-body line-clamp-2 leading-relaxed">
                 Handcrafted double beef patties with melted cheddar, jalapeño glaze, and seasoned waffle fries.
               </p>
               <button 
+                type="button"
                 onClick={onExploreClick}
-                className="mt-2 button-primary py-2 text-xs uppercase tracking-wider rounded-md text-white flex items-center justify-center gap-2 cursor-pointer"
+                className="mt-1 button-primary py-2.5 text-xs uppercase tracking-wider rounded-xl text-white flex items-center justify-center gap-2 cursor-pointer transition-all"
               >
                 <span>Inspect Spot</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
 
