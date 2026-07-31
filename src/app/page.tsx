@@ -209,12 +209,6 @@ export default function HomePage() {
             scrollToFeed();
           }} />
 
-          {/* AI CRAVING FINDER SMART ASSISTANT CHAT BOT */}
-          <AiCravingFinder onSelectPrompt={(prompt) => {
-            setSearchQuery(prompt);
-            scrollToFeed();
-          }} />
-
           {/* 5. LATEST OFFICIAL REVIEWS SECTION (HORIZONTALLY SCROLLABLE STRIP ON DESKTOP & MOBILE) */}
           <section id="latest-reviews-section" className="flex flex-col gap-6 pt-2">
             
@@ -299,9 +293,9 @@ export default function HomePage() {
               </a>
             </div>
 
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible scrollbar-none">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-thin scrollbar-thumb-stone-400 dark:scrollbar-thumb-stone-700 py-1">
               {videoReels.map((reel) => (
-                <div key={reel.id} className="shrink-0 w-[65vw] sm:w-auto snap-center">
+                <div key={reel.id} className="shrink-0 w-[200px] sm:w-[220px] lg:w-[240px] snap-start">
                   <div
                     onClick={() => setActiveReelId(reel.id)}
                     className="group relative aspect-[9/16] w-full rounded-md overflow-hidden bg-slate-900 border border-[var(--border-subtle)] shadow-xs transition-all duration-300 cursor-pointer hover:-translate-y-1"

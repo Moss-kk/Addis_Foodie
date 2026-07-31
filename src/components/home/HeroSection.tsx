@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Search, Utensils, Soup, Sandwich, Coffee, MapPin, ArrowRight, Flame, CupSoda, Pizza } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import AddisFoodieLogo from '../ui/AddisFoodieLogo';
 
 interface HeroSectionProps {
   searchQuery?: string;
@@ -72,7 +73,7 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
 
           {/* Fraunces Display Headline */}
           <h1 className="font-display font-medium text-3xl sm:text-5xl lg:text-6xl text-white leading-[1.1] tracking-tight">
-            {lang === 'AM' ? 'አዲስ አበባ ውስጥ ቀዳሚው የምግብ ቤት መሪ' : 'Discovering Foods in Addis'}
+            {lang === 'AM' ? 'በአዲስ አበባ ምግቦችን ማሰስ' : 'Discovering Foods in Addis'}
           </h1>
 
           {/* Authentic Bio Copy */}
@@ -151,8 +152,8 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                 priority
                 className="object-cover"
               />
-              <div className="absolute top-3 left-3 bg-[#1A1C1E] px-2.5 py-1 rounded-xs text-[10px] font-label font-bold text-white uppercase tracking-wider border border-white/20">
-                OFFICIAL ADDIS FOODIE SELECTION
+              <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-md border border-stone-700 flex items-center gap-1.5 shadow-md">
+                <AddisFoodieLogo size="sm" />
               </div>
               <div className="absolute bottom-3 right-3 bg-[#B8422E] text-white px-2.5 py-1 rounded-xs text-[10px] font-label font-bold uppercase">
                 194K Views

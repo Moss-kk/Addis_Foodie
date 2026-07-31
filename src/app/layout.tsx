@@ -3,6 +3,7 @@ import { Fraunces, Public_Sans, Space_Grotesk, JetBrains_Mono } from "next/font/
 import { LanguageProvider } from "../context/LanguageContext";
 import { ThemeProvider } from "../context/ThemeContext";
 import { SavedProvider } from "../context/SavedContext";
+import AiFoodieBotModal from "../components/AiFoodieBotModal";
 import "./globals.css";
 
 // Heritage Design.md: Display & H1 Headlines (Fraunces serif)
@@ -66,6 +67,8 @@ export default function RootLayout({
             <SavedProvider>
               <div className="min-h-screen bg-[var(--bg-app)] text-[var(--text-primary)] overflow-x-hidden relative flex flex-col selection:bg-[#B8422E] selection:text-white">
                 {children}
+                {/* FLOATING MOVABLE AI CHAT BOT ASSISTANT */}
+                <AiFoodieBotModal />
               </div>
             </SavedProvider>
           </LanguageProvider>

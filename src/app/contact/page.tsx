@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Send, CheckCircle, ArrowRight } from 'lucide-react';
+import { FaInstagram, FaTelegramPlane, FaTiktok, FaYoutube } from 'react-icons/fa';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import MobileBottomNav from '../../components/layout/MobileBottomNav';
@@ -157,36 +158,36 @@ export default function ContactPage() {
                     href="https://t.me/addisfoodies" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 p-2.5 rounded-lg bg-sky-500/10 text-sky-500 hover:bg-sky-500/20 border border-sky-500/20 transition-all"
+                    className="flex items-center gap-2.5 p-2.5 rounded-lg bg-sky-500/10 text-sky-500 hover:bg-sky-500/20 border border-sky-500/20 transition-all hover:scale-105"
                   >
-                    <Send className="w-4 h-4 text-sky-400" />
+                    <FaTelegramPlane className="w-4 h-4 text-sky-400 shrink-0" />
                     <span>@addisfoodies</span>
                   </a>
                   <a 
                     href="https://instagram.com/addis.foodie" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 p-2.5 rounded-lg bg-purple-500/10 text-purple-500 hover:bg-purple-500/20 border border-purple-500/20 transition-all"
+                    className="flex items-center gap-2.5 p-2.5 rounded-lg bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 border border-purple-500/20 transition-all hover:scale-105"
                   >
-                    <span className="w-4 h-4 rounded-full bg-purple-500 flex items-center justify-center text-[10px] text-white font-black">IG</span>
+                    <FaInstagram className="w-4 h-4 text-purple-400 shrink-0" />
                     <span>@addis.foodie</span>
                   </a>
                   <a 
                     href="https://tiktok.com/@addis.foodie" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 p-2.5 rounded-lg bg-pink-500/10 text-pink-500 hover:bg-pink-500/20 border border-pink-500/20 transition-all"
+                    className="flex items-center gap-2.5 p-2.5 rounded-lg bg-stone-800 text-white hover:bg-stone-700 border border-stone-700 transition-all hover:scale-105"
                   >
-                    <span className="w-4 h-4 rounded-full bg-pink-500 flex items-center justify-center text-[10px] text-white font-black">TT</span>
+                    <FaTiktok className="w-4 h-4 text-white shrink-0" />
                     <span>@addis.foodie</span>
                   </a>
                   <a 
                     href="https://youtube.com/@addisfoodie" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 p-2.5 rounded-lg bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-all"
+                    className="flex items-center gap-2.5 p-2.5 rounded-lg bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-all hover:scale-105"
                   >
-                    <span className="w-4 h-4 rounded-full bg-red-500 flex items-center justify-center text-[10px] text-white font-black">YT</span>
+                    <FaYoutube className="w-4 h-4 text-red-500 shrink-0" />
                     <span>Addis Foodie</span>
                   </a>
                 </div>

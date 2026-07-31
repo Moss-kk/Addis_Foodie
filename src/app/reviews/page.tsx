@@ -17,7 +17,7 @@ import {
 import Header from '../../components/Header';
 import FilterBar from '../../components/FilterBar';
 import ReviewCard from '../../components/ReviewCard';
-import FeaturedCollections from '../../components/home/FeaturedCollections';
+import FeaturedCollections, { collectionsList } from '../../components/home/FeaturedCollections';
 import DishFeed, { DishItem } from '../../components/DishFeed';
 import PostDetailModal from '../../components/PostDetailModal';
 import VideoReelModal from '../../components/VideoReelModal';
@@ -185,6 +185,38 @@ export default function ReviewsPage() {
       {/* Main Content Feed Area */}
       <main className="site-container py-8 flex flex-col gap-12 flex-1">
 
+        {/* TOP ICON-ONLY FEATURED COLLECTIONS FILTER BAR */}
+        <section className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-label uppercase tracking-wider font-bold text-[var(--text-secondary)]">
+              Curated Collection Quick Filters:
+            </span>
+            <span className="text-[10px] font-mono text-stone-400">Tap to filter</span>
+          </div>
+
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+            {collectionsList.map((item) => {
+              const Icon = item.icon;
+              const isSelected = searchQuery.toLowerCase() === item.query.toLowerCase();
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setSearchQuery(item.query)}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-label font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shrink-0 border ${
+                    isSelected
+                      ? 'bg-[#1A1C1E] text-white border-[#B8422E] shadow-sm'
+                      : 'bg-[var(--bg-surface)] text-[var(--text-primary)] border-[var(--border-subtle)] hover:border-[#B8422E]'
+                  }`}
+                >
+                  <Icon className={`w-4 h-4 ${isSelected ? 'text-[#B8422E]' : 'text-amber-500'}`} />
+                  <span>{item.title}</span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
         {/* 1. FIRST: REDISCOVER VENUES FEED (Side-scrollable Horizontal Carousel on Mobile) */}
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
@@ -209,9 +241,6 @@ export default function ReviewsPage() {
           </div>
         </section>
 
-        {/* 2. CURATED FEATURED COLLECTIONS GRID */}
-        <FeaturedCollections onSelectCollection={(query) => setSearchQuery(query)} />
-
         {/* 3. THEN BELOW IT: ALL TRENDING REELS (Rooftop Kitfo Brunch, Kitfo Fest #7, Pickles Burger, Sunday Brunch) */}
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
@@ -231,9 +260,9 @@ export default function ReviewsPage() {
             </a>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible scrollbar-none">
+          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-thin scrollbar-thumb-stone-400 dark:scrollbar-thumb-stone-700 py-1">
             {recentInstagramReels.map((reel) => (
-              <div key={reel.id} className="shrink-0 w-[65vw] sm:w-auto snap-center">
+              <div key={reel.id} className="shrink-0 w-[200px] sm:w-[220px] lg:w-[240px] snap-start">
                 <div
                   onClick={() => setActiveReelId(reel.id)}
                   className="group relative aspect-[9/16] w-full rounded-md overflow-hidden bg-slate-900 border border-[var(--border-subtle)] shadow-xs transition-all duration-300 cursor-pointer hover:-translate-y-1"
