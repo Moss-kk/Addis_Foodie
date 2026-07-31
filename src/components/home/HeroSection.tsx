@@ -152,9 +152,6 @@ export default function HeroSection({ searchQuery = '', onSearchChange, onExplor
                 priority
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-stone-700/80 flex items-center gap-1.5 shadow-md">
-                <AddisFoodieLogo size="sm" />
-              </div>
               <div className="absolute bottom-3 right-3 bg-[#B8422E] text-white px-2.5 py-1 rounded-md text-[10px] font-label font-bold uppercase tracking-wider shadow-sm">
                 194K Views
               </div>
