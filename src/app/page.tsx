@@ -20,6 +20,7 @@ import Header from '../components/Header';
 import HeroSection from '../components/home/HeroSection';
 import EventBanner from '../components/EventBanner';
 import ReviewCard from '../components/ReviewCard';
+import FoodReviewsInfiniteSlider from '../components/FoodReviewsInfiniteSlider';
 import FeaturedCollections from '../components/home/FeaturedCollections';
 import AiCravingFinder from '../components/AiCravingFinder';
 import PostDetailModal from '../components/PostDetailModal';
@@ -260,17 +261,13 @@ export default function HomePage() {
               })}
             </div>
 
-            {/* Horizontally Scrollable Carousel on both Desktop & Mobile */}
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-thin scrollbar-thumb-stone-400 dark:scrollbar-thumb-stone-700 py-1">
-              {filteredOfficialReviews.map((post) => (
-                <div key={post.id} className="shrink-0 w-[280px] sm:w-[320px] lg:w-[340px] snap-start">
-                  <ReviewCard
-                    post={post}
-                    onClick={() => setActivePost(post)}
-                  />
-                </div>
-              ))}
-            </div>
+            {/* Automatic Infinite Side-Scroll with Morphing Dialog Review Cards */}
+            <FoodReviewsInfiniteSlider
+              posts={filteredOfficialReviews}
+              gap={24}
+              speed={40}
+              speedOnHover={20}
+            />
 
           </section>
 

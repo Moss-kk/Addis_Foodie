@@ -17,6 +17,7 @@ import {
 import Header from '../../components/Header';
 import FilterBar from '../../components/FilterBar';
 import ReviewCard from '../../components/ReviewCard';
+import FoodReviewsInfiniteSlider from '../../components/FoodReviewsInfiniteSlider';
 import FeaturedCollections, { collectionsList } from '../../components/home/FeaturedCollections';
 import DishFeed, { DishItem } from '../../components/DishFeed';
 import PostDetailModal from '../../components/PostDetailModal';
@@ -229,16 +230,13 @@ export default function ReviewsPage() {
             <span className="text-xs font-label text-[var(--text-secondary)] uppercase font-bold">Swipe or Scroll Horizontally ↔</span>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-thin scrollbar-thumb-stone-400 dark:scrollbar-thumb-stone-700 py-1">
-            {filteredPosts.map((post) => (
-              <div key={post.id} className="shrink-0 w-[280px] sm:w-[320px] lg:w-[340px] snap-start">
-                <ReviewCard
-                  post={post}
-                  onClick={() => setActivePost(post)}
-                />
-              </div>
-            ))}
-          </div>
+          {/* Automatic Infinite Side-Scroll with Morphing Dialog Review Cards */}
+          <FoodReviewsInfiniteSlider
+            posts={filteredPosts}
+            gap={24}
+            speed={40}
+            speedOnHover={20}
+          />
         </section>
 
         {/* 3. THEN BELOW IT: ALL TRENDING REELS (Rooftop Kitfo Brunch, Kitfo Fest #7, Pickles Burger, Sunday Brunch) */}
