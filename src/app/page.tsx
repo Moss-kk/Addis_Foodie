@@ -273,7 +273,7 @@ export default function HomePage() {
               </a>
             </div>
 
-            <InfiniteSlider gap={16} speed={35} isPaused={Boolean(activeReelId)}>
+            <InfiniteSlider gap={16} speed={35} reverse={true} isPaused={Boolean(activeReelId)}>
               {videoReels.map((reel) => (
                 <div key={reel.id} className="shrink-0 w-[200px] sm:w-[220px] lg:w-[240px]">
                   <div

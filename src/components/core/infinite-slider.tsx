@@ -17,6 +17,7 @@ export function InfiniteSlider({
   children,
   gap = 24,
   speed = 1,
+  reverse = false,
   className = '',
   isPaused = false,
 }: InfiniteSliderProps) {
@@ -30,15 +31,20 @@ export function InfiniteSlider({
 
     const step = () => {
       if (el && !isPaused) {
-        // Smooth hardware-accelerated scroll increment (0.6px per frame)
-        el.scrollLeft += Math.max(0.4, speed * 0.02);
-        
-        // Loop back seamlessly when scrolling past duplicated content
+        const delta = Math.max(0.4, speed * 0.02);
         const totalContentWidth = el.scrollWidth;
         const oneSetWidth = totalContentWidth / 3;
-        
-        if (oneSetWidth > 0 && el.scrollLeft >= oneSetWidth * 2) {
-          el.scrollLeft -= oneSetWidth;
+
+        if (reverse) {
+          el.scrollLeft -= delta;
+          if (oneSetWidth > 0 && el.scrollLeft <= 0) {
+            el.scrollLeft += oneSetWidth;
+          }
+        } else {
+          el.scrollLeft += delta;
+          if (oneSetWidth > 0 && el.scrollLeft >= oneSetWidth * 2) {
+            el.scrollLeft -= oneSetWidth;
+          }
         }
       }
       animationFrameId = requestAnimationFrame(step);
@@ -49,7 +55,7 @@ export function InfiniteSlider({
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isPaused, speed]);
+  }, [isPaused, reverse, speed]);
 
   return (
     <div
