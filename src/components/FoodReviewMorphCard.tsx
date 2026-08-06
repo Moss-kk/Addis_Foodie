@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { Star, Heart } from 'lucide-react';
 import { FoodPost } from '../types/post';
 import { useSaved } from '../context/SavedContext';
@@ -23,22 +22,20 @@ export default function FoodReviewMorphCard({
 
   const priceDisplay = post.priceFormatted || (post.price ? `${post.price} Br` : 'Price on Menu');
   const ratingValue = post.rating || '4.9';
-  const layoutId = `expandable-food-card-${post.id}`;
 
   return (
-    <motion.div
-      layoutId={layoutId}
+    <div
       onClick={onClick}
       style={{ borderRadius: '16px' }}
       className={`flex ${width} shrink-0 flex-col overflow-hidden border border-[#6C7278]/30 bg-[#1A1C1E] text-white shadow-sm transition-colors duration-200 hover:border-[#B8422E] group cursor-pointer`}
-      whileHover="hover"
     >
-      {/* 1. SHARED LAYOUT IMAGE CONTAINER */}
+      {/* CARD IMAGE CONTAINER */}
       <div className="relative h-48 w-full overflow-hidden bg-stone-900">
-        <motion.img
-          layoutId={`image-${layoutId}`}
+        <Image
           src={post.image}
           alt={post.restaurantName}
+          fill
+          sizes="(max-width: 640px) 280px, 320px"
           className="h-48 w-full object-cover transition-opacity duration-300 group-hover:opacity-90"
         />
 
@@ -61,22 +58,16 @@ export default function FoodReviewMorphCard({
         </div>
       </div>
 
-      {/* 2. CARD DETAILS HEADER */}
+      {/* CARD DETAILS HEADER */}
       <div className="flex grow flex-row items-center justify-between p-3.5 gap-2 bg-[#1A1C1E]">
         <div className="min-w-0 flex-1">
-          <motion.p
-            layoutId={`subtitle-${layoutId}`}
-            className="text-[10px] font-mono font-bold text-[#B8422E] uppercase tracking-wider truncate mb-0.5"
-          >
+          <p className="text-[10px] font-mono font-bold text-[#B8422E] uppercase tracking-wider truncate mb-0.5">
             {post.category || 'Culinary'} • {post.neighborhood || 'Bole'}
-          </motion.p>
+          </p>
 
-          <motion.h3
-            layoutId={`title-${layoutId}`}
-            className="text-base font-display font-medium text-white truncate group-hover:text-[#B8422E] transition-colors"
-          >
+          <h3 className="text-base font-display font-medium text-white truncate group-hover:text-[#B8422E] transition-colors">
             {post.restaurantName}
-          </motion.h3>
+          </h3>
         </div>
 
         <button
@@ -96,6 +87,6 @@ export default function FoodReviewMorphCard({
           <Heart className={`w-4 h-4 ${saved ? 'fill-current' : ''}`} />
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 }
