@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPin, Phone, Receipt, Navigation, Star, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MapPin, Phone, Receipt, Navigation, Star, ShieldCheck, CheckCircle2, X } from 'lucide-react';
 import { FoodPost } from '../types/post';
 import { slugify } from '../lib/restaurants';
 import PriceReceiptModal from './PriceReceiptModal';
@@ -21,7 +22,7 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
   useEffect(() => {
     if (post) {
       document.body.style.overflow = 'hidden';
-      setActiveImageIndex(0); // Reset gallery index
+      setActiveImageIndex(0);
     } else {
       document.body.style.overflow = '';
     }
@@ -44,6 +45,7 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
   if (!post) return null;
 
   const postImages = post.images && post.images.length > 0 ? post.images : [post.image];
+  const layoutId = `expandable-food-card-${post.id}`;
 
   // Highlight hashtags in the review text
   const renderHighlightedText = (text: string) => {
@@ -51,7 +53,7 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
     return words.map((word, idx) => {
       if (word.startsWith('#')) {
         return (
-          <span key={idx} className="text-[#E53935] dark:text-[#FF8C00] font-bold hover:underline">
+          <span key={idx} className="text-[#B8422E] font-bold hover:underline">
             {word}
           </span>
         );
@@ -61,276 +63,267 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
-      {/* Background Backdrop */}
-      <div
-        onClick={onClose}
-        className="absolute inset-0 bg-black/75 backdrop-blur-xs transition-opacity duration-300 animate-fade-in"
-      />
+    <AnimatePresence>
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 select-none">
+        {/* Backdrop */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+          className="absolute inset-0 bg-black/85 backdrop-blur-md"
+        />
 
-      {/* Main Modal Surface (Spacious Wide View Layout) */}
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-white text-zinc-900 rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col animate-slide-up border border-stone-200 transition-colors">
-        {/* Sticky Modal Top Header */}
-        <div className="sticky top-0 z-20 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-stone-200 px-6 py-4 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 flex-wrap">
-            <span className="bg-amber-400 text-zinc-950 text-xs sm:text-sm font-mono font-black py-1 px-3.5 rounded-full shadow-2xs">
-              {post.priceFormatted}
-            </span>
-            <a
-              href="tel:+251911000000"
-              className="bg-[#E53935] hover:bg-[#B71C1C] text-white text-xs font-extrabold py-1 px-3 rounded-full transition-colors cursor-pointer flex items-center gap-1 shadow-xs"
-            >
-              <Phone className="w-3 h-3 text-amber-200" />
-              <span>Call Restaurant</span>
-            </a>
-            <button
-              onClick={() => setShowReceipt(true)}
-              className="bg-stone-100 hover:bg-stone-200 text-zinc-800 text-xs font-mono font-bold py-1 px-3 rounded-full transition-colors cursor-pointer border border-stone-200 flex items-center gap-1"
-            >
-              <Receipt className="w-3 h-3 text-[#E53935]" />
-              <span>Price Breakdown</span>
-            </button>
-          </div>
-
+        {/* Shared Layout Expanded Split Card Modal Surface */}
+        <motion.div
+          layoutId={layoutId}
+          className="relative w-full max-w-4xl h-[88vh] max-h-[850px] bg-[#1A1C1E] text-white rounded-2xl overflow-hidden border border-[#6C7278]/30 z-10 flex flex-col md:flex-row shadow-2xl"
+        >
+          {/* Top Close Button */}
           <button
+            type="button"
             onClick={onClose}
             aria-label="Close modal"
-            className="p-1.5 rounded-full text-zinc-400 hover:text-zinc-800 hover:bg-stone-100 transition-all cursor-pointer flex-shrink-0"
+            className="absolute top-4 right-4 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-[#1A1C1E]/80 hover:bg-[#B8422E] text-white transition-colors border border-white/20 backdrop-blur-sm cursor-pointer"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <X className="w-5 h-5" />
           </button>
-        </div>
 
-        {/* Scrollable Container */}
-        <div className="overflow-y-auto flex-1 no-scrollbar pb-6">
-          
-          {/* Main Media Header - Responsive Full Photo Container */}
-          <div className="relative w-full aspect-[4/3] bg-stone-950 border-b border-stone-800 overflow-hidden flex items-center justify-center">
-            <Image
-              src={postImages[activeImageIndex]}
-              alt={post.restaurantName}
-              fill
-              priority
-              sizes="(max-width: 640px) 100vw, 672px"
-              className="object-contain sm:object-cover object-center transition-all duration-300"
-            />
-            {/* Price Tag Overlay */}
-            <div className="absolute bottom-4 right-4 z-10">
-              <span className="inline-flex items-center px-4 py-2 rounded-full text-xs font-black text-zinc-950 bg-amber-400 shadow-lg tracking-wide border border-white/30">
+          {/* LEFT HALF (md:w-1/2): Food Image & Gallery Thumbnails */}
+          <div className="relative h-64 sm:h-72 w-full shrink-0 overflow-hidden md:h-full md:w-1/2 bg-stone-950 flex flex-col justify-between">
+            <div className="relative w-full h-full">
+              <motion.img
+                layoutId={`image-${layoutId}`}
+                src={postImages[activeImageIndex]}
+                alt={post.restaurantName}
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1A1C1E] via-transparent to-black/30" />
+
+              {/* Price Tag Overlay */}
+              <div className="absolute bottom-4 left-6 z-10 bg-[#B8422E] px-4 py-1.5 rounded-full font-mono font-extrabold text-sm text-white shadow-lg border border-white/20">
                 {post.priceFormatted}
-              </span>
-            </div>
-          </div>
+              </div>
 
-          {/* Interactive Thumbnails switcher */}
-          {postImages.length > 1 && (
-            <div className="flex items-center gap-2 px-6 mt-4 overflow-x-auto no-scrollbar">
-              {postImages.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveImageIndex(idx)}
-                  className={`relative w-14 h-14 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 cursor-pointer ${
-                    activeImageIndex === idx
-                      ? 'border-[#E53935] scale-102 shadow-xs'
-                      : 'border-transparent opacity-65 hover:opacity-100'
-                  }`}
-                >
-                  <Image
-                    src={img}
-                    alt={`${post.restaurantName} view ${idx + 1}`}
-                    fill
-                    sizes="56px"
-                    className="object-cover"
-                  />
-                </button>
-              ))}
+              {/* Quick Call Action Button */}
+              <a
+                href="tel:+251911000000"
+                className="absolute bottom-4 right-6 z-10 bg-[#1A1C1E]/80 hover:bg-[#B8422E] backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-mono font-bold text-white border border-white/20 transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                <Phone className="w-3.5 h-3.5 text-amber-400" />
+                <span>Call Venue</span>
+              </a>
             </div>
-          )}
 
-          {/* Details & Information */}
-          <div className="px-6 pt-5 flex flex-col gap-5">
-            
-            {/* Reviewer Header Card */}
-            {post.reviewer && (
-              <div className="bg-stone-50 border border-stone-200/80 rounded-2xl p-3.5 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#E53935]/30">
+            {/* Interactive Image Gallery Thumbnails */}
+            {postImages.length > 1 && (
+              <div className="absolute top-4 left-4 z-20 flex items-center gap-2 overflow-x-auto no-scrollbar max-w-[80%]">
+                {postImages.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImageIndex(idx)}
+                    className={`relative w-10 h-10 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 cursor-pointer ${
+                      activeImageIndex === idx
+                        ? 'border-[#B8422E] shadow-sm'
+                        : 'border-white/20 opacity-65 hover:opacity-100'
+                    }`}
+                  >
                     <Image
-                      src={post.reviewer.avatar}
-                      alt={post.reviewer.name}
+                      src={img}
+                      alt={`${post.restaurantName} photo ${idx + 1}`}
                       fill
                       sizes="40px"
                       className="object-cover"
                     />
-                  </div>
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-sm text-zinc-950">{post.reviewer.name}</span>
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 fill-emerald-100" />
-                    </div>
-                    <span className="text-[11px] font-mono text-stone-500">{post.reviewer.role} • {post.reviewer.handle}</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 bg-amber-400/20 text-[#FF8C00] border border-amber-400/40 px-2.5 py-1 rounded-full text-xs font-mono font-bold">
-                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                  <span>{post.rating ? `${post.rating} Score` : '4.9 Score'}</span>
-                </div>
+                  </button>
+                ))}
               </div>
             )}
-
-            {/* Title & Category Header */}
-            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-              <div className="flex flex-col gap-1.5">
-                <h2 className="font-syne font-black text-xl sm:text-2xl text-zinc-950 leading-tight">
-                  <Link
-                    href={`/restaurant/${slugify(post.restaurantName)}`}
-                    onClick={onClose}
-                    className="hover:underline hover:text-[#E53935] transition-colors"
-                  >
-                    {post.restaurantName}
-                  </Link>
-                </h2>
-                
-                {/* Location Badge (Bole, Kazanchis, etc.) */}
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-zinc-800 bg-stone-100 px-3 py-1 rounded-full border border-stone-200">
-                    <MapPin className="w-3 h-3 text-[#E53935]" />
-                    <span>{post.location}</span>
-                  </span>
-                  <span className="inline-flex items-center text-[10px] text-[#B71C1C] font-extrabold bg-amber-50 px-3 py-1 rounded-full uppercase tracking-wider border border-amber-200">
-                    {post.category}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Integrated Map & Location Directions Card */}
-            <div className="bg-stone-900 text-white p-4.5 rounded-2xl border border-stone-800 flex flex-col gap-3 relative overflow-hidden">
-              <div className="flex items-center justify-between border-b border-stone-800 pb-2 z-10">
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-[#E53935]" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
-                    GPS Map Location &amp; Venue Address
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono text-stone-400 uppercase">
-                  {post.neighborhood || 'Addis Ababa'}
-                </span>
-              </div>
-
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 z-10">
-                <div className="flex flex-col gap-0.5">
-                  <span className="font-display font-bold text-base text-white">{post.restaurantName}</span>
-                  <span className="text-xs text-stone-300 flex items-center gap-1 font-body">
-                    <Navigation className="w-3 h-3 text-red-400 shrink-0" />
-                    <span>{post.location}</span>
-                  </span>
-                </div>
-
-                <a
-                  href={post.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(post.restaurantName + ' ' + post.location + ' Addis Ababa')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="py-2.5 px-4 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white font-label font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md shrink-0 cursor-pointer"
-                >
-                  <Navigation className="w-3.5 h-3.5" />
-                  <span>Get Map Directions</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Ratings Breakdown Grid */}
-            {post.ratings && (
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-amber-500/5 p-3 rounded-2xl border border-amber-500/20">
-                <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-stone-100 shadow-2xs">
-                  <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider">Taste</span>
-                  <span className="text-sm font-mono font-black text-[#E53935]">{post.ratings.taste}/5.0</span>
-                </div>
-                <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-stone-100 shadow-2xs">
-                  <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider">Ambiance</span>
-                  <span className="text-sm font-mono font-black text-amber-600">{post.ratings.ambiance}/5.0</span>
-                </div>
-                <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-stone-100 shadow-2xs">
-                  <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider">Service</span>
-                  <span className="text-sm font-mono font-black text-emerald-600">{post.ratings.service}/5.0</span>
-                </div>
-                <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-white border border-stone-100 shadow-2xs">
-                  <span className="text-[10px] font-mono text-stone-500 uppercase tracking-wider">Value</span>
-                  <span className="text-sm font-mono font-black text-purple-600">{post.ratings.value}/5.0</span>
-                </div>
-              </div>
-            )}
-
-            {/* Inspector Pro Tip */}
-            {post.reviewerNotes && (
-              <div className="bg-emerald-50 border border-emerald-200 p-3.5 rounded-2xl flex items-start gap-2.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                <div className="flex flex-col gap-0.5 text-xs">
-                  <span className="font-bold text-emerald-950 uppercase tracking-wider text-[10px]">Inspector Tip</span>
-                  <p className="text-emerald-800 font-medium leading-normal">{post.reviewerNotes}</p>
-                </div>
-              </div>
-            )}
-
-            {/* Menu Breakdown Table */}
-            {post.menuItems && post.menuItems.length > 0 && (
-              <div className="bg-stone-50 p-4 rounded-2xl border border-stone-200 flex flex-col gap-2">
-                <h4 className="text-[10px] font-mono font-black text-[#E53935] uppercase tracking-widest border-b border-stone-200 pb-1 w-fit">
-                  Menu & Prices (ETB)
-                </h4>
-                <div className="divide-y divide-stone-200">
-                  {post.menuItems.map((item, idx) => (
-                    <div key={idx} className="flex justify-between items-center py-2 text-xs font-semibold">
-                      <span className="text-zinc-700">{item.name}</span>
-                      <span className="text-[#E53935] font-mono font-bold">{item.price} ETB</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Full Review Text block */}
-            <div className="bg-stone-50 p-4 rounded-2xl border border-stone-200 flex flex-col gap-2">
-              <h4 className="text-[10px] font-mono font-black text-[#E53935] uppercase tracking-widest border-b border-stone-200 pb-1 w-fit">
-                Original Review
-              </h4>
-              <div className="text-zinc-700 text-xs sm:text-sm leading-relaxed whitespace-pre-line font-medium pr-1">
-                {renderHighlightedText(post.caption)}
-              </div>
-            </div>
-
           </div>
-        </div>
 
+          {/* RIGHT HALF (md:w-1/2): Scrollable Information & Review Container */}
+          <div className="p-6 sm:p-8 w-full md:w-1/2 flex flex-col h-full overflow-y-auto custom-scrollbar bg-[#1A1C1E] text-white">
+            
+            {/* Category & Neighborhood Subtitle */}
+            <motion.p
+              layoutId={`subtitle-${layoutId}`}
+              className="text-[#B8422E] text-xs font-mono font-bold tracking-widest uppercase mb-1 flex items-center gap-2"
+            >
+              <span>{post.category || 'CULINARY'}</span>
+              <span>•</span>
+              <span className="text-[#6C7278]">{post.neighborhood || 'BOLE'}</span>
+            </motion.p>
+
+            {/* Restaurant Title */}
+            <motion.h2
+              layoutId={`title-${layoutId}`}
+              className="text-2xl sm:text-3xl font-display font-medium text-white mb-2 leading-tight"
+            >
+              <Link
+                href={`/restaurant/${slugify(post.restaurantName)}`}
+                onClick={onClose}
+                className="hover:underline hover:text-[#B8422E] transition-colors"
+              >
+                {post.restaurantName}
+              </Link>
+            </motion.h2>
+
+            <p className="text-xs font-body text-[#6C7278] flex items-center gap-1.5 mb-5 pb-4 border-b border-[#6C7278]/20">
+              <MapPin className="w-3.5 h-3.5 text-[#B8422E] shrink-0" />
+              <span>{post.location}</span>
+            </p>
+
+            {/* Animated Detailed Content Area */}
+            <motion.div
+              initial={{ opacity: 0, x: 15 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              transition={{ delay: 0.15 }}
+              className="flex flex-col gap-5 grow text-sm font-body text-stone-200"
+            >
+              {/* Reviewer Verified Badge */}
+              {post.reviewer && (
+                <div className="bg-[#1A1C1E] border border-[#6C7278]/30 rounded-xl p-3 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-9 h-9 rounded-full overflow-hidden border border-[#B8422E]">
+                      <Image
+                        src={post.reviewer.avatar}
+                        alt={post.reviewer.name}
+                        fill
+                        sizes="36px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold text-xs text-white">{post.reviewer.name}</span>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      </div>
+                      <span className="text-[10px] font-mono text-[#6C7278]">{post.reviewer.role}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 text-amber-400 font-mono font-bold text-xs bg-black/40 px-2.5 py-1 rounded-md border border-white/10">
+                    <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                    <span>{post.rating || '4.9'}</span>
+                  </div>
+                </div>
+              )}
+
+              {/* 4-Tier Ratings Breakdown Grid */}
+              {post.ratings && (
+                <div className="grid grid-cols-4 gap-2 bg-stone-900/90 p-3 rounded-xl border border-[#6C7278]/20 text-center">
+                  <div>
+                    <span className="block text-[9px] font-mono text-[#6C7278] uppercase">Taste</span>
+                    <span className="font-mono font-bold text-xs text-[#B8422E]">{post.ratings.taste}/5.0</span>
+                  </div>
+                  <div>
+                    <span className="block text-[9px] font-mono text-[#6C7278] uppercase">Ambiance</span>
+                    <span className="font-mono font-bold text-xs text-amber-400">{post.ratings.ambiance}/5.0</span>
+                  </div>
+                  <div>
+                    <span className="block text-[9px] font-mono text-[#6C7278] uppercase">Service</span>
+                    <span className="font-mono font-bold text-xs text-stone-200">{post.ratings.service}/5.0</span>
+                  </div>
+                  <div>
+                    <span className="block text-[9px] font-mono text-[#6C7278] uppercase">Value</span>
+                    <span className="font-mono font-bold text-xs text-stone-300">{post.ratings.value}/5.0</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Inspector Pro Tip */}
+              {post.reviewerNotes && (
+                <div className="bg-stone-900/60 border border-[#B8422E]/30 p-3.5 rounded-xl flex items-start gap-2.5">
+                  <ShieldCheck className="w-4 h-4 text-[#B8422E] shrink-0 mt-0.5" />
+                  <div className="flex flex-col gap-0.5 text-xs">
+                    <span className="font-mono font-bold text-[#B8422E] uppercase tracking-wider text-[9px]">Inspector Note</span>
+                    <p className="text-stone-300 leading-normal">{post.reviewerNotes}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Full Review Text block */}
+              <div className="bg-stone-900/50 p-4 rounded-xl border border-[#6C7278]/20 flex flex-col gap-2">
+                <h4 className="text-[10px] font-mono font-bold text-[#B8422E] uppercase tracking-widest border-b border-[#6C7278]/20 pb-1 w-fit">
+                  Verified Inspection Review
+                </h4>
+                <div className="text-stone-300 text-xs leading-relaxed whitespace-pre-line font-body">
+                  {renderHighlightedText(post.caption)}
+                </div>
+              </div>
+
+              {/* Itemized Menu Prices Breakdown */}
+              {post.menuItems && post.menuItems.length > 0 && (
+                <div className="bg-stone-900 p-4 rounded-xl border border-[#6C7278]/30 flex flex-col gap-2">
+                  <div className="flex items-center justify-between border-b border-[#6C7278]/20 pb-2">
+                    <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-amber-400 uppercase">
+                      <Receipt className="w-3.5 h-3.5 text-[#B8422E]" />
+                      <span>Itemized Menu Receipts (ETB)</span>
+                    </div>
+                    <button
+                      onClick={() => setShowReceipt(true)}
+                      className="text-[10px] font-mono text-[#B8422E] hover:underline font-bold"
+                    >
+                      Audit View →
+                    </button>
+                  </div>
+
+                  <div className="divide-y divide-[#6C7278]/15">
+                    {post.menuItems.map((item, idx) => (
+                      <div key={idx} className="flex justify-between items-center py-1.5 text-xs font-mono">
+                        <span className="text-stone-300 truncate max-w-[200px]">{item.name}</span>
+                        <span className="text-amber-400 font-bold">{item.price} Br</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Integrated GPS Map Location & Directions Box */}
+              <div className="bg-stone-950 p-4 rounded-xl border border-[#6C7278]/30 flex flex-col gap-3 relative overflow-hidden">
+                <div className="flex items-center justify-between border-b border-[#6C7278]/20 pb-2 z-10">
+                  <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-amber-400 uppercase">
+                    <MapPin className="w-3.5 h-3.5 text-[#B8422E]" />
+                    <span>GPS Venue Map Location</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-[#6C7278] uppercase">
+                    {post.neighborhood || 'Addis Ababa'}
+                  </span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 z-10">
+                  <div className="flex flex-col gap-0.5">
+                    <span className="font-display font-medium text-sm text-white">{post.restaurantName}</span>
+                    <span className="text-xs text-[#6C7278] flex items-center gap-1 font-body">
+                      <Navigation className="w-3 h-3 text-[#B8422E] shrink-0" />
+                      <span>{post.location}</span>
+                    </span>
+                  </div>
+
+                  <a
+                    href={post.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(post.restaurantName + ' ' + post.location + ' Addis Ababa')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-2.5 px-4 rounded-lg bg-[#B8422E] hover:bg-[#a33725] text-white font-mono font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-md shrink-0 cursor-pointer"
+                  >
+                    <Navigation className="w-3.5 h-3.5" />
+                    <span>Get Directions</span>
+                  </a>
+                </div>
+              </div>
+
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Itemized Price Receipt Modal Overlay */}
+        {showReceipt && (
+          <PriceReceiptModal
+            post={post}
+            onClose={() => setShowReceipt(false)}
+          />
+        )}
       </div>
-      
-      {/* Itemized Price Receipt Modal Overlay */}
-      {showReceipt && (
-        <PriceReceiptModal
-          post={post}
-          onClose={() => setShowReceipt(false)}
-        />
-      )}
-      
-      {/* CSS animation definitions */}
-      <style jsx global>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes slideUp {
-          from { transform: translateY(16px); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.2s ease-out forwards;
-        }
-        .animate-slide-up {
-          animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-      `}</style>
-    </div>
+    </AnimatePresence>
   );
 }

@@ -21,6 +21,7 @@ import HeroSection from '../components/home/HeroSection';
 import EventBanner from '../components/EventBanner';
 import ReviewCard from '../components/ReviewCard';
 import FoodReviewsInfiniteSlider from '../components/FoodReviewsInfiniteSlider';
+import { InfiniteSlider } from '../components/core/infinite-slider';
 import AiCravingFinder from '../components/AiCravingFinder';
 import PostDetailModal from '../components/PostDetailModal';
 import PriceReceiptModal from '../components/PriceReceiptModal';
@@ -284,31 +285,31 @@ export default function HomePage() {
               </a>
             </div>
 
-            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 scrollbar-thin scrollbar-thumb-stone-400 dark:scrollbar-thumb-stone-700 py-1">
+            <InfiniteSlider gap={16} speed={35} speedOnHover={0}>
               {videoReels.map((reel) => (
-                <div key={reel.id} className="shrink-0 w-[200px] sm:w-[220px] lg:w-[240px] snap-start">
+                <div key={reel.id} className="shrink-0 w-[200px] sm:w-[220px] lg:w-[240px]">
                   <div
                     onClick={() => setActiveReelId(reel.id)}
-                    className="group relative aspect-[9/16] w-full rounded-md overflow-hidden bg-slate-900 border border-[var(--border-subtle)] shadow-xs transition-all duration-300 cursor-pointer hover:-translate-y-1"
+                    className="group relative aspect-[9/16] w-full rounded-md overflow-hidden bg-[#1A1C1E] border border-[var(--border-subtle)] shadow-xs transition-colors duration-200 cursor-pointer hover:border-[#B8422E]"
                   >
                     <Image
                       src={reel.thumbnail}
                       alt={reel.dishName}
                       fill
                       sizes="(max-width: 768px) 65vw, 25vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-85 group-hover:brightness-95"
+                      className="object-cover transition-opacity duration-300 group-hover:opacity-90 brightness-90"
                     />
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent" />
 
                     <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
-                      <span className="px-2 py-0.5 rounded-sm bg-[#1A1C1E]/90 text-white font-label font-bold text-[9px] uppercase border border-white/10">
+                      <span className="px-2 py-0.5 rounded-sm bg-[#1A1C1E]/90 text-white font-mono font-bold text-[9px] uppercase border border-white/10">
                         {reel.badge}
                       </span>
                     </div>
 
                     <div className="absolute inset-0 flex items-center justify-center z-10">
-                      <div className="w-11 h-11 rounded-full bg-[#B8422E] text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                      <div className="w-11 h-11 rounded-full bg-[#B8422E] text-white flex items-center justify-center shadow-md">
                         <Play className="w-5 h-5 fill-white ml-0.5" />
                       </div>
                     </div>
@@ -317,12 +318,12 @@ export default function HomePage() {
                       <h4 className="font-display font-medium text-xs line-clamp-2 leading-snug text-white">
                         {reel.dishName}
                       </h4>
-                      <span className="text-[10px] font-label text-slate-300 truncate">{reel.restaurantName}</span>
+                      <span className="text-[10px] font-mono text-stone-300 truncate">{reel.restaurantName}</span>
                     </div>
                   </div>
                 </div>
               ))}
-            </div>
+            </InfiniteSlider>
 
             {/* View All Reviews Button */}
             <div className="flex justify-center pt-4">

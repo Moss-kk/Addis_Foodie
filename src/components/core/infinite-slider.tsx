@@ -26,6 +26,7 @@ export function InfiniteSlider({
 }: InfiniteSliderProps) {
   const [currentSpeed, setCurrentSpeed] = useState<number>(speed);
   const [contentSize, setContentSize] = useState<number>(0);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -33,14 +34,14 @@ export function InfiniteSlider({
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    if (isPaused) {
+    if (isPaused || isDragging) {
       setCurrentSpeed(0);
     } else if (isHovered && speedOnHover !== undefined) {
       setCurrentSpeed(speedOnHover);
     } else {
       setCurrentSpeed(speed);
     }
-  }, [isHovered, isPaused, speed, speedOnHover]);
+  }, [isHovered, isPaused, isDragging, speed, speedOnHover]);
 
   useEffect(() => {
     if (!contentRef.current) return;
@@ -60,13 +61,29 @@ export function InfiniteSlider({
     return () => observer.disconnect();
   }, [children, direction, gap]);
 
+  // Keep translation wrapped within infinite loop bounds
+  useEffect(() => {
+    const unsubscribe = translation.on('change', (latest) => {
+      if (contentSize <= 0) return;
+      if (latest <= -contentSize) {
+        translation.set(latest % contentSize);
+      } else if (latest > 0) {
+        translation.set(-contentSize + (latest % contentSize));
+      }
+    });
+    return () => unsubscribe();
+  }, [contentSize, translation]);
+
   useEffect(() => {
     if (contentSize === 0 || currentSpeed === 0) return;
 
     let animationControls: ReturnType<typeof animate>;
 
     const target = reverse ? contentSize : -contentSize;
-    const distance = Math.abs(target - translation.get());
+    const currentVal = translation.get();
+    const distance = reverse
+      ? Math.abs(contentSize - currentVal)
+      : Math.abs(-contentSize - currentVal);
     const duration = distance / currentSpeed;
 
     const transition: Transition = {
@@ -77,7 +94,7 @@ export function InfiniteSlider({
       repeatDelay: 0,
     };
 
-    animationControls = animate(translation, [translation.get(), target], {
+    animationControls = animate(translation, [currentVal, target], {
       ...transition,
       onComplete: () => {
         translation.set(0);
@@ -94,12 +111,22 @@ export function InfiniteSlider({
   return (
     <div
       ref={containerRef}
-      className={`overflow-hidden select-none w-full ${className}`}
+      className={`overflow-hidden select-none w-full cursor-grab active:cursor-grabbing ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <motion.div
-        className="flex"
+        className="flex touch-pan-x"
+        drag={direction === 'horizontal' ? 'x' : 'y'}
+        dragConstraints={{
+          left: contentSize ? -contentSize * 2 : -2000,
+          right: 0,
+          top: contentSize ? -contentSize * 2 : -2000,
+          bottom: 0,
+        }}
+        dragElastic={0.05}
+        onDragStart={() => setIsDragging(true)}
+        onDragEnd={() => setIsDragging(false)}
         style={{
           ...(direction === 'horizontal'
             ? { x: translation, flexDirection: 'row', gap: `${gap}px` }

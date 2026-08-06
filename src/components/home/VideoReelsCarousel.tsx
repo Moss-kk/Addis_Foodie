@@ -56,7 +56,7 @@ export default function VideoReelsCarousel() {
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-4 gap-3" style={{ borderColor: 'var(--border-subtle)' }}>
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono font-bold uppercase tracking-widest text-[#F59E0B] w-fit mb-1" style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-mono font-bold uppercase tracking-widest text-[#B8422E] w-fit mb-1" style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}>
             <Film className="w-3.5 h-3.5" />
             <span>Short Video Reviews &amp; Reels</span>
           </div>
@@ -71,7 +71,7 @@ export default function VideoReelsCarousel() {
           style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)', color: 'var(--text-primary)' }}
         >
           <span>View All Reels</span>
-          <ArrowRight className="w-4 h-4 text-[#F59E0B]" />
+          <ArrowRight className="w-4 h-4 text-[#B8422E]" />
         </Link>
       </div>
 
@@ -97,7 +97,7 @@ export default function VideoReelsCarousel() {
 
             {/* Top Badges */}
             <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-              <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[#F59E0B] font-mono font-bold text-[9px] uppercase border border-white/10">
+              <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-amber-400 font-mono font-bold text-[9px] uppercase border border-white/10">
                 {reel.badge}
               </span>
               <span className="px-2 py-0.5 rounded-full bg-black/60 text-white font-mono font-bold text-[10px]">
@@ -107,20 +107,20 @@ export default function VideoReelsCarousel() {
 
             {/* Center Play Button */}
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              <div className="w-12 h-12 rounded-full bg-[#EF4444] text-white flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-full bg-[#B8422E] text-white flex items-center justify-center shadow-xl">
                 <Play className="w-5 h-5 fill-white ml-0.5" />
               </div>
             </div>
 
             {/* Bottom Metadata */}
             <div className="absolute bottom-3 left-3 right-3 z-10 flex flex-col gap-1 text-white">
-              <h3 className="font-display font-bold text-xs sm:text-sm line-clamp-2 leading-snug text-white group-hover:text-[#F59E0B] transition-colors">
+              <h3 className="font-display font-bold text-xs sm:text-sm line-clamp-2 leading-snug text-white group-hover:text-[#B8422E] transition-colors">
                 {reel.title}
               </h3>
               <div className="flex items-center justify-between text-[10px] font-mono text-slate-300 pt-1 border-t border-white/10">
                 <span>{reel.restaurant}</span>
                 <span className="flex items-center gap-1">
-                  <Eye className="w-3 h-3 text-[#F59E0B]" />
+                  <Eye className="w-3 h-3 text-[#B8422E]" />
                   <span>{reel.views}</span>
                 </span>
               </div>
@@ -135,7 +135,7 @@ export default function VideoReelsCarousel() {
           <div className="relative w-full max-w-md rounded-3xl border overflow-hidden shadow-2xl flex flex-col" style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}>
             <button
               onClick={() => setActiveVideo(null)}
-              className="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-[#EF4444] transition-colors cursor-pointer"
+              className="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-[#B8422E] transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -150,13 +150,13 @@ export default function VideoReelsCarousel() {
             </div>
 
             <div className="p-4 flex flex-col gap-2" style={{ backgroundColor: 'var(--bg-surface)' }}>
-              <span className="text-[10px] font-mono font-bold text-[#F59E0B] uppercase">
+              <span className="text-[10px] font-mono font-bold text-[#B8422E] uppercase">
                 {activeVideo.badge} • {activeVideo.restaurant}
               </span>
               <h4 className="font-display font-bold text-base" style={{ color: 'var(--text-primary)' }}>{activeVideo.title}</h4>
               <Link
                 href="/reviews"
-                className="touch-target mt-2 py-2.5 rounded-full bg-[#EF4444] hover:bg-[#DC2626] text-white text-xs font-bold text-center transition-colors flex items-center justify-center gap-1"
+                className="touch-target mt-2 py-2.5 rounded-full bg-[#B8422E] hover:bg-[#a33725] text-white text-xs font-bold text-center transition-colors flex items-center justify-center gap-1"
               >
                 <span>Read Full Verified Review</span>
                 <ArrowRight className="w-3.5 h-3.5" />
