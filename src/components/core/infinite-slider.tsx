@@ -1,7 +1,6 @@
 'use client';
 
-import { useMotionValue, animate, motion, Transition } from 'framer-motion';
-import React, { useState, useEffect, useRef, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 export interface InfiniteSliderProps {
   children: ReactNode;
@@ -17,153 +16,57 @@ export interface InfiniteSliderProps {
 export function InfiniteSlider({
   children,
   gap = 24,
-  speed = 100,
-  speedOnHover,
+  speed = 40,
   direction = 'horizontal',
   reverse = false,
   className = '',
   isPaused = false,
 }: InfiniteSliderProps) {
-  const [currentSpeed, setCurrentSpeed] = useState<number>(speed);
-  const [contentSize, setContentSize] = useState<number>(0);
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const translation = useMotionValue(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    if (isPaused || isDragging) {
-      setCurrentSpeed(0);
-    } else if (isHovered && speedOnHover !== undefined) {
-      setCurrentSpeed(speedOnHover);
-    } else {
-      setCurrentSpeed(speed);
-    }
-  }, [isHovered, isPaused, isDragging, speed, speedOnHover]);
-
-  useEffect(() => {
-    if (!contentRef.current) return;
-
-    const updateSize = () => {
-      if (contentRef.current) {
-        const size = direction === 'horizontal'
-          ? contentRef.current.scrollWidth
-          : contentRef.current.scrollHeight;
-        setContentSize(size);
-      }
-    };
-
-    updateSize();
-    const observer = new ResizeObserver(updateSize);
-    observer.observe(contentRef.current);
-    return () => observer.disconnect();
-  }, [children, direction, gap]);
-
-  // Keep translation wrapped within infinite loop bounds
-  useEffect(() => {
-    const unsubscribe = translation.on('change', (latest) => {
-      if (contentSize <= 0) return;
-      if (latest <= -contentSize) {
-        translation.set(latest % contentSize);
-      } else if (latest > 0) {
-        translation.set(-contentSize + (latest % contentSize));
-      }
-    });
-    return () => unsubscribe();
-  }, [contentSize, translation]);
-
-  useEffect(() => {
-    if (contentSize === 0 || currentSpeed === 0) return;
-
-    let animationControls: ReturnType<typeof animate>;
-
-    const target = reverse ? contentSize : -contentSize;
-    const currentVal = translation.get();
-    const distance = reverse
-      ? Math.abs(contentSize - currentVal)
-      : Math.abs(-contentSize - currentVal);
-    const duration = distance / currentSpeed;
-
-    const transition: Transition = {
-      ease: 'linear',
-      duration: duration,
-      repeat: Infinity,
-      repeatType: 'loop',
-      repeatDelay: 0,
-    };
-
-    animationControls = animate(translation, [currentVal, target], {
-      ...transition,
-      onComplete: () => {
-        translation.set(0);
-      },
-    });
-
-    return () => {
-      if (animationControls) {
-        animationControls.stop();
-      }
-    };
-  }, [contentSize, currentSpeed, direction, reverse, translation]);
+  // Map speed parameter to smooth hardware-accelerated animation duration
+  const duration = Math.max(12, Math.round(1400 / Math.max(speed, 1)));
 
   return (
     <div
-      ref={containerRef}
-      className={`overflow-hidden select-none w-full cursor-grab active:cursor-grabbing ${className}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={`relative w-full overflow-x-auto no-scrollbar select-none group ${className}`}
     >
-      <motion.div
-        className="flex touch-pan-x"
-        drag={direction === 'horizontal' ? 'x' : 'y'}
-        dragConstraints={{
-          left: contentSize ? -contentSize * 2 : -2000,
-          right: 0,
-          top: contentSize ? -contentSize * 2 : -2000,
-          bottom: 0,
-        }}
-        dragElastic={0.05}
-        onDragStart={() => setIsDragging(true)}
-        onDragEnd={() => setIsDragging(false)}
+      <div
+        className={`flex w-max items-center animate-infinite-slider-track ${
+          isPaused ? 'paused' : 'group-hover:paused'
+        }`}
         style={{
-          ...(direction === 'horizontal'
-            ? { x: translation, flexDirection: 'row', gap: `${gap}px` }
-            : { y: translation, flexDirection: 'column', gap: `${gap}px` }),
+          gap: `${gap}px`,
+          animationDuration: `${duration}s`,
+          animationDirection: reverse ? 'reverse' : 'normal',
         }}
       >
-        <div
-          ref={contentRef}
-          className="flex shrink-0 items-center"
-          style={{
-            flexDirection: direction === 'horizontal' ? 'row' : 'column',
-            gap: `${gap}px`,
-          }}
-        >
+        <div className="flex items-center shrink-0" style={{ gap: `${gap}px` }}>
           {children}
         </div>
-        <div
-          className="flex shrink-0 items-center"
-          aria-hidden="true"
-          style={{
-            flexDirection: direction === 'horizontal' ? 'row' : 'column',
-            gap: `${gap}px`,
-          }}
-        >
+        <div className="flex items-center shrink-0" aria-hidden="true" style={{ gap: `${gap}px` }}>
           {children}
         </div>
-        <div
-          className="flex shrink-0 items-center"
-          aria-hidden="true"
-          style={{
-            flexDirection: direction === 'horizontal' ? 'row' : 'column',
-            gap: `${gap}px`,
-          }}
-        >
+        <div className="flex items-center shrink-0" aria-hidden="true" style={{ gap: `${gap}px` }}>
           {children}
         </div>
-      </motion.div>
+      </div>
+
+      <style jsx>{`
+        @keyframes infiniteSliderScroll {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(-33.333%, 0, 0);
+          }
+        }
+        .animate-infinite-slider-track {
+          animation: infiniteSliderScroll linear infinite;
+          will-change: transform;
+        }
+        .animate-infinite-slider-track.paused {
+          animation-play-state: paused !important;
+        }
+      `}</style>
     </div>
   );
 }

@@ -236,7 +236,7 @@ export default function ReviewsPage() {
             posts={filteredPosts}
             gap={24}
             speed={40}
-            speedOnHover={20}
+            isPaused={Boolean(activePost)}
             onSelectPost={(post) => setActivePost(post)}
           />
         </section>
@@ -260,7 +260,7 @@ export default function ReviewsPage() {
             </a>
           </div>
 
-          <InfiniteSlider gap={16} speed={35} speedOnHover={0}>
+          <InfiniteSlider gap={16} speed={35} isPaused={Boolean(activeReelId)}>
             {recentInstagramReels.map((reel) => (
               <div key={reel.id} className="shrink-0 w-[200px] sm:w-[220px] lg:w-[240px]">
                 <div
