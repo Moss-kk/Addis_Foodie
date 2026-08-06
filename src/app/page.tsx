@@ -21,7 +21,6 @@ import HeroSection from '../components/home/HeroSection';
 import EventBanner from '../components/EventBanner';
 import ReviewCard from '../components/ReviewCard';
 import FoodReviewsInfiniteSlider from '../components/FoodReviewsInfiniteSlider';
-import FeaturedCollections from '../components/home/FeaturedCollections';
 import AiCravingFinder from '../components/AiCravingFinder';
 import PostDetailModal from '../components/PostDetailModal';
 import PriceReceiptModal from '../components/PriceReceiptModal';
@@ -204,13 +203,7 @@ export default function HomePage() {
         {/* MAIN HOMEPAGE CONTENT */}
         <main className="site-container py-8 flex flex-col gap-14">
 
-          {/* 4. UPFRONT CURATED FEATURED COLLECTIONS (SIDE-SCROLLABLE CAROUSEL) */}
-          <FeaturedCollections onSelectCollection={(query) => {
-            setSearchQuery(query);
-            scrollToFeed();
-          }} />
-
-          {/* 5. LATEST OFFICIAL REVIEWS SECTION (HORIZONTALLY SCROLLABLE STRIP ON DESKTOP & MOBILE) */}
+          {/* 4. LATEST OFFICIAL REVIEWS SECTION (HORIZONTALLY SCROLLABLE STRIP ON DESKTOP & MOBILE) */}
           <section id="latest-reviews-section" className="flex flex-col gap-6 pt-2">
             
             <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
@@ -261,12 +254,13 @@ export default function HomePage() {
               })}
             </div>
 
-            {/* Automatic Infinite Side-Scroll with Morphing Dialog Review Cards */}
+            {/* Automatic Infinite Side-Scroll Review Cards */}
             <FoodReviewsInfiniteSlider
               posts={filteredOfficialReviews}
               gap={24}
               speed={40}
               speedOnHover={20}
+              onSelectPost={(post) => setActivePost(post)}
             />
 
           </section>

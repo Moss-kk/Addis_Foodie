@@ -47,7 +47,7 @@ export default function DishFeed({ dishes, onSelectDish }: DishFeedProps) {
               alt={dish.dishName}
               fill
               sizes="80px"
-              className="object-cover group-hover:scale-110 transition-transform duration-300"
+              className="object-cover transition-opacity duration-300 group-hover:opacity-90"
             />
             <span className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded-md bg-black/80 text-amber-400 font-mono font-bold text-[9px] border border-amber-500/30">
               {dish.rating} ★

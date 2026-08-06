@@ -11,6 +11,7 @@ export interface InfiniteSliderProps {
   direction?: 'horizontal' | 'vertical';
   reverse?: boolean;
   className?: string;
+  isPaused?: boolean;
 }
 
 export function InfiniteSlider({
@@ -21,6 +22,7 @@ export function InfiniteSlider({
   direction = 'horizontal',
   reverse = false,
   className = '',
+  isPaused = false,
 }: InfiniteSliderProps) {
   const [currentSpeed, setCurrentSpeed] = useState<number>(speed);
   const [contentSize, setContentSize] = useState<number>(0);
@@ -31,12 +33,14 @@ export function InfiniteSlider({
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    if (isHovered && speedOnHover !== undefined) {
+    if (isPaused) {
+      setCurrentSpeed(0);
+    } else if (isHovered && speedOnHover !== undefined) {
       setCurrentSpeed(speedOnHover);
     } else {
       setCurrentSpeed(speed);
     }
-  }, [isHovered, speed, speedOnHover]);
+  }, [isHovered, isPaused, speed, speedOnHover]);
 
   useEffect(() => {
     if (!contentRef.current) return;

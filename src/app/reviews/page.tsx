@@ -230,12 +230,13 @@ export default function ReviewsPage() {
             <span className="text-xs font-label text-[var(--text-secondary)] uppercase font-bold">Swipe or Scroll Horizontally ↔</span>
           </div>
 
-          {/* Automatic Infinite Side-Scroll with Morphing Dialog Review Cards */}
+          {/* Automatic Infinite Side-Scroll Review Cards */}
           <FoodReviewsInfiniteSlider
             posts={filteredPosts}
             gap={24}
             speed={40}
             speedOnHover={20}
+            onSelectPost={(post) => setActivePost(post)}
           />
         </section>
 

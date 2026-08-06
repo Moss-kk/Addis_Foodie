@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Fraunces, Public_Sans, Space_Grotesk, JetBrains_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import { LanguageProvider } from "../context/LanguageContext";
 import { ThemeProvider } from "../context/ThemeContext";
 import { SavedProvider } from "../context/SavedContext";
@@ -74,7 +73,6 @@ export default function RootLayout({
             </SavedProvider>
           </LanguageProvider>
         </ThemeProvider>
-        <Analytics />
       </body>
     </html>
   );

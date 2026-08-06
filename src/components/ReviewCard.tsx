@@ -36,7 +36,7 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
           src={post.image} 
           alt={post.restaurantName}
           fill
-          className="object-cover object-center group-hover:scale-[1.03] transition-all duration-500"
+          className="object-cover object-center transition-opacity duration-300 group-hover:opacity-95"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
 

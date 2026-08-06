@@ -68,8 +68,8 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
         className="absolute inset-0 bg-black/75 backdrop-blur-xs transition-opacity duration-300 animate-fade-in"
       />
 
-      {/* Main Modal Surface */}
-      <div className="relative w-full max-w-2xl max-h-[90vh] bg-white text-zinc-900 rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col animate-slide-up border border-stone-200 transition-colors">
+      {/* Main Modal Surface (Spacious Wide View Layout) */}
+      <div className="relative w-full max-w-4xl max-h-[90vh] bg-white text-zinc-900 rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col animate-slide-up border border-stone-200 transition-colors">
         {/* Sticky Modal Top Header */}
         <div className="sticky top-0 z-20 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-stone-200 px-6 py-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 flex-wrap">
@@ -180,7 +180,7 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
               </div>
             )}
 
-            {/* Title, Neighborhood and Map action */}
+            {/* Title & Category Header */}
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div className="flex flex-col gap-1.5">
                 <h2 className="font-syne font-black text-xl sm:text-2xl text-zinc-950 leading-tight">
@@ -204,19 +204,41 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
                   </span>
                 </div>
               </div>
+            </div>
 
-              {/* Open in Maps button */}
-              {post.mapUrl && (
+            {/* Integrated Map & Location Directions Card */}
+            <div className="bg-stone-900 text-white p-4.5 rounded-2xl border border-stone-800 flex flex-col gap-3 relative overflow-hidden">
+              <div className="flex items-center justify-between border-b border-stone-800 pb-2 z-10">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#E53935]" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
+                    GPS Map Location &amp; Venue Address
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono text-stone-400 uppercase">
+                  {post.neighborhood || 'Addis Ababa'}
+                </span>
+              </div>
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 z-10">
+                <div className="flex flex-col gap-0.5">
+                  <span className="font-display font-bold text-base text-white">{post.restaurantName}</span>
+                  <span className="text-xs text-stone-300 flex items-center gap-1 font-body">
+                    <Navigation className="w-3 h-3 text-red-400 shrink-0" />
+                    <span>{post.location}</span>
+                  </span>
+                </div>
+
                 <a
-                  href={post.mapUrl}
+                  href={post.mapUrl || `https://maps.google.com/?q=${encodeURIComponent(post.restaurantName + ' ' + post.location + ' Addis Ababa')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-black bg-[#E53935] hover:bg-[#B71C1C] text-white transition-all shadow-xs w-fit self-start cursor-pointer"
+                  className="py-2.5 px-4 rounded-xl bg-[#E53935] hover:bg-[#B71C1C] text-white font-label font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md shrink-0 cursor-pointer"
                 >
                   <Navigation className="w-3.5 h-3.5" />
-                  <span>Open in Maps</span>
+                  <span>Get Map Directions</span>
                 </a>
-              )}
+              </div>
             </div>
 
             {/* Ratings Breakdown Grid */}
