@@ -21,7 +21,6 @@ export function InfiniteSlider({
   isPaused = false,
 }: InfiniteSliderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isHoveredRef = useRef<boolean>(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -30,7 +29,7 @@ export function InfiniteSlider({
     let animationFrameId: number;
 
     const step = () => {
-      if (el && !isPaused && !isHoveredRef.current) {
+      if (el && !isPaused) {
         // Smooth hardware-accelerated scroll increment (0.6px per frame)
         el.scrollLeft += Math.max(0.4, speed * 0.02);
         
@@ -56,10 +55,6 @@ export function InfiniteSlider({
     <div
       ref={containerRef}
       className={`relative w-full overflow-x-auto no-scrollbar select-none cursor-grab active:cursor-grabbing ${className}`}
-      onMouseEnter={() => { isHoveredRef.current = true; }}
-      onMouseLeave={() => { isHoveredRef.current = false; }}
-      onTouchStart={() => { isHoveredRef.current = true; }}
-      onTouchEnd={() => { isHoveredRef.current = false; }}
     >
       <div className="flex w-max items-center py-2" style={{ gap: `${gap}px` }}>
         <div className="flex items-center shrink-0" style={{ gap: `${gap}px` }}>

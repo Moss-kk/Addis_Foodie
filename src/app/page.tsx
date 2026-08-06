@@ -204,31 +204,20 @@ export default function HomePage() {
         {/* MAIN HOMEPAGE CONTENT */}
         <main className="site-container py-8 flex flex-col gap-14">
 
-          {/* 4. LATEST OFFICIAL REVIEWS SECTION (HORIZONTALLY SCROLLABLE STRIP ON DESKTOP & MOBILE) */}
-          <section id="latest-reviews-section" className="flex flex-col gap-6 pt-2">
-            
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
-              <div>
-                <div
-                  className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-xs font-label uppercase tracking-wider mb-2 border bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[#B8422E]"
-                >
-                  <Compass className="w-4 h-4 text-[#B8422E]" />
-                  <span>Official Addis Foodie Curation</span>
-                </div>
-                <h2 className="font-display font-medium text-2xl sm:text-4xl text-[var(--text-primary)]">
+          {/* LATEST OFFICIAL REVIEWS CAROUSEL STRIP */}
+          <section id="latest-reviews-section" className="flex flex-col gap-4">
+            <div className="flex items-center justify-between border-b pb-3" style={{ borderColor: 'var(--border-subtle)' }}>
+              <div className="flex items-center gap-2">
+                <Compass className="w-5 h-5 text-[#B8422E]" />
+                <h2 className="font-display font-medium text-xl sm:text-2xl text-[var(--text-primary)]">
                   Latest Official Reviews
                 </h2>
-                <p className="text-xs sm:text-sm font-body pt-1 text-[var(--text-secondary)]">
-                  Fresh food inspections and itemized ETB price audits (Swipe or scroll horizontally ↔)
-                </p>
               </div>
-
-              <Link
-                href="/reviews"
-                className="button-primary px-5 py-2.5 rounded-md text-white font-label text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 w-fit hover:scale-[1.02]"
+              <Link 
+                href="/reviews" 
+                className="text-xs font-label uppercase text-[#B8422E] hover:underline font-bold"
               >
-                <span>Explore All Reviews</span>
-                <ArrowRight className="w-4 h-4" />
+                Explore All Reviews →
               </Link>
             </div>
 
@@ -258,12 +247,11 @@ export default function HomePage() {
             {/* Automatic Infinite Side-Scroll Review Cards */}
             <FoodReviewsInfiniteSlider
               posts={filteredOfficialReviews}
-              gap={24}
-              speed={40}
+              gap={20}
+              speed={35}
               isPaused={Boolean(activePost)}
               onSelectPost={(post) => setActivePost(post)}
             />
-
           </section>
 
           {/* 6. TRENDING FOOD VIDEO REELS STRIP (TIKTOK & INSTAGRAM REELS) */}
