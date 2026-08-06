@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import React, { useRef, useEffect, ReactNode } from 'react';
 
 export interface InfiniteSliderProps {
   children: ReactNode;
@@ -16,29 +16,52 @@ export interface InfiniteSliderProps {
 export function InfiniteSlider({
   children,
   gap = 24,
-  speed = 40,
-  direction = 'horizontal',
-  reverse = false,
+  speed = 1,
   className = '',
   isPaused = false,
 }: InfiniteSliderProps) {
-  // Map speed parameter to smooth hardware-accelerated animation duration
-  const duration = Math.max(12, Math.round(1400 / Math.max(speed, 1)));
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isHoveredRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    let animationFrameId: number;
+
+    const step = () => {
+      if (el && !isPaused && !isHoveredRef.current) {
+        // Smooth hardware-accelerated scroll increment (0.6px per frame)
+        el.scrollLeft += Math.max(0.4, speed * 0.02);
+        
+        // Loop back seamlessly when scrolling past duplicated content
+        const totalContentWidth = el.scrollWidth;
+        const oneSetWidth = totalContentWidth / 3;
+        
+        if (oneSetWidth > 0 && el.scrollLeft >= oneSetWidth * 2) {
+          el.scrollLeft -= oneSetWidth;
+        }
+      }
+      animationFrameId = requestAnimationFrame(step);
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isPaused, speed]);
 
   return (
     <div
-      className={`relative w-full overflow-x-auto no-scrollbar select-none group ${className}`}
+      ref={containerRef}
+      className={`relative w-full overflow-x-auto no-scrollbar select-none cursor-grab active:cursor-grabbing ${className}`}
+      onMouseEnter={() => { isHoveredRef.current = true; }}
+      onMouseLeave={() => { isHoveredRef.current = false; }}
+      onTouchStart={() => { isHoveredRef.current = true; }}
+      onTouchEnd={() => { isHoveredRef.current = false; }}
     >
-      <div
-        className={`flex w-max items-center animate-infinite-slider-track ${
-          isPaused ? 'paused' : 'group-hover:paused'
-        }`}
-        style={{
-          gap: `${gap}px`,
-          animationDuration: `${duration}s`,
-          animationDirection: reverse ? 'reverse' : 'normal',
-        }}
-      >
+      <div className="flex w-max items-center py-2" style={{ gap: `${gap}px` }}>
         <div className="flex items-center shrink-0" style={{ gap: `${gap}px` }}>
           {children}
         </div>
@@ -49,24 +72,6 @@ export function InfiniteSlider({
           {children}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes infiniteSliderScroll {
-          0% {
-            transform: translate3d(0, 0, 0);
-          }
-          100% {
-            transform: translate3d(-33.333%, 0, 0);
-          }
-        }
-        .animate-infinite-slider-track {
-          animation: infiniteSliderScroll linear infinite;
-          will-change: transform;
-        }
-        .animate-infinite-slider-track.paused {
-          animation-play-state: paused !important;
-        }
-      `}</style>
     </div>
   );
 }
