@@ -71,24 +71,24 @@ export default function Header() {
             <span>{lang === 'EN' ? 'EN | አማ' : 'አማ | EN'}</span>
           </button>
 
-          {/* Direct Contact Button */}
+          {/* Direct Contact Button (Desktop/Tablet) */}
           <Link 
             href="/contact" 
-            className="inline-flex items-center justify-center gap-1 sm:gap-1.5 button-primary px-2.5 py-1 sm:px-3.5 sm:py-1.5 text-[10px] sm:text-xs font-label uppercase tracking-wider rounded-md text-white transition cursor-pointer shadow-xs"
+            className="hidden sm:inline-flex items-center justify-center gap-1 sm:gap-1.5 button-primary px-2.5 py-1 sm:px-3.5 sm:py-1.5 text-[10px] sm:text-xs font-label uppercase tracking-wider rounded-md text-white transition cursor-pointer shadow-xs"
             title={lang === 'AM' ? 'ግንኙነት' : 'Contact Us'}
           >
             <PhoneCall className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
             <span>{lang === 'AM' ? 'ግንኙነት' : 'Contact'}</span>
           </Link>
 
-          {/* Mobile 3-Dash Menu Toggle Button */}
+          {/* Mobile 3-Dash Hamburger Menu Toggle Button */}
           <button 
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-1.5 text-[var(--text-primary)] hover:text-[#B8422E] focus:outline-none cursor-pointer rounded-md border border-[var(--border-subtle)]"
+            className="md:hidden p-2 text-[var(--text-primary)] hover:text-[#B8422E] focus:outline-none cursor-pointer rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-app)] shadow-xs"
             aria-label="Toggle Navigation Menu"
           >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5 text-[#B8422E]" />}
           </button>
         </div>
 

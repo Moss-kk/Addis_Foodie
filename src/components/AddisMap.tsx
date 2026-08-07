@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { FoodPost } from '../types/post';
-import { Compass, Navigation, ExternalLink, Star } from 'lucide-react';
+import { Compass, Navigation, ExternalLink, Star, X } from 'lucide-react';
 import { getAwardsUrl } from '../lib/awardsLinks';
 
 interface AddisMapProps {
@@ -18,7 +18,8 @@ export default function AddisMap({ posts, activePost, onSelectPost }: AddisMapPr
   const markersRef = useRef<any[]>([]);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [isLocating, setIsLocating] = useState(false);
-  const [selectedSpot, setSelectedSpot] = useState<FoodPost | null>(activePost || posts[0] || null);
+  // Default selectedSpot to null so mobile map view is completely clean!
+  const [selectedSpot, setSelectedSpot] = useState<FoodPost | null>(null);
 
   // GPS Near Me
   const handleLocateMe = () => {
@@ -80,7 +81,7 @@ export default function AddisMap({ posts, activePost, onSelectPost }: AddisMapPr
       L.control.zoom({ position: 'bottomright' }).addTo(map);
       mapInstanceRef.current = map;
 
-      // Add Restaurant Markers displaying Restaurant Names
+      // Add Real Location Pins for Restaurants
       posts.forEach((post, index) => {
         const coords: [number, number] = [
           post.latitude || 9.0050 + (index * 0.005 - 0.01),
@@ -116,9 +117,18 @@ export default function AddisMap({ posts, activePost, onSelectPost }: AddisMapPr
     <div className="relative w-full h-full bg-[#120907]">
       <div ref={mapContainerRef} className="w-full h-full z-10" />
 
+      {/* Dismissible popup card visible ONLY when pin is clicked */}
       {selectedSpot && (
         <div className="absolute bottom-4 left-4 right-4 z-20 pointer-events-auto max-w-md mx-auto">
-          <div className="heritage-card p-3 rounded-2xl bg-[#1A1C1E] text-white border border-[#3A3E42] flex items-center gap-3 shadow-2xl">
+          <div className="heritage-card p-3 rounded-2xl bg-[#1A1C1E] text-white border border-[#3A3E42] flex items-center gap-3 shadow-2xl relative">
+            <button
+              type="button"
+              onClick={() => setSelectedSpot(null)}
+              className="absolute top-2 right-2 text-stone-400 hover:text-white p-1"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
             <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-slate-800 shrink-0 border border-white/10">
               <Image
                 src={selectedSpot.image}
@@ -128,7 +138,7 @@ export default function AddisMap({ posts, activePost, onSelectPost }: AddisMapPr
               />
             </div>
             
-            <div className="flex flex-col flex-1 min-w-0">
+            <div className="flex flex-col flex-1 min-w-0 pr-4">
               <div className="flex items-center justify-between text-[10px] font-mono text-[#F59E0B]">
                 <span className="font-bold uppercase tracking-wider">{selectedSpot.category}</span>
                 <span className="text-white font-bold">{selectedSpot.priceFormatted}</span>

@@ -4,7 +4,7 @@ import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import { FoodPost } from '../types/post';
-import { Compass, Navigation, ExternalLink, Star, MapPin } from 'lucide-react';
+import { Compass, Navigation, ExternalLink, Star, X } from 'lucide-react';
 import { getAwardsUrl } from '../lib/awardsLinks';
 import AddisMap from './AddisMap';
 
@@ -47,7 +47,8 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
   });
 
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  const [selectedSpot, setSelectedSpot] = useState<FoodPost | null>(activePost || posts[0] || null);
+  // Default selectedSpot to null so mobile map view is completely clean and unobstructed!
+  const [selectedSpot, setSelectedSpot] = useState<FoodPost | null>(null);
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [isLocating, setIsLocating] = useState(false);
 
@@ -59,7 +60,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
     setMap(null);
   }, []);
 
-  // Geolocation "Places Near Me"
+  // Geolocation "Near Me"
   const handleLocateMe = () => {
     if (!navigator.geolocation) {
       alert('Geolocation is not supported by your browser.');
@@ -107,15 +108,15 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
   return (
     <div className="relative w-full h-full bg-[#120907]">
       
-      {/* Floating Category Chips Overlay rendered directly on top of the Map */}
+      {/* Floating Category Chips Overlay on top of Map */}
       {overlayElement}
 
-      {/* GPS Near Me Button in bottom right */}
+      {/* GPS Near Me Button */}
       <button
         type="button"
         onClick={handleLocateMe}
         disabled={isLocating}
-        className="absolute bottom-4 right-4 z-30 button-primary px-3 py-1.5 text-[11px] font-label uppercase tracking-wider rounded-xl text-white flex items-center gap-1.5 shadow-xl cursor-pointer"
+        className="absolute bottom-3 right-3 z-30 button-primary px-3 py-1.5 text-[11px] font-label uppercase tracking-wider rounded-xl text-white flex items-center gap-1.5 shadow-xl cursor-pointer"
       >
         <Navigation className={`w-3.5 h-3.5 ${isLocating ? 'animate-spin' : ''}`} />
         <span>{isLocating ? 'Locating...' : 'Near Me'}</span>
@@ -128,13 +129,14 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
         zoom={13}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        onClick={() => setSelectedSpot(null)}
         options={{
           styles: darkMapStyle,
           disableDefaultUI: false,
           zoomControl: true,
         }}
       >
-        {/* User Location Blue Dot Marker */}
+        {/* User Location Marker */}
         {userLocation && (
           <Marker
             position={userLocation}
@@ -149,7 +151,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
           />
         )}
 
-        {/* Seeded Restaurant Markers (Showing Restaurant Name labels) */}
+        {/* Real Location Pin Markers (Desktop & Mobile) */}
         {posts.map((post, idx) => {
           const lat = post.latitude || 9.005 + (idx * 0.005 - 0.01);
           const lng = post.longitude || 38.775 + (idx * 0.006 - 0.015);
@@ -163,9 +165,9 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
               label={{
                 text: post.restaurantName,
                 color: isSelected ? '#FFFFFF' : '#F59E0B',
-                fontSize: '11px',
+                fontSize: '10px',
                 fontWeight: 'bold',
-                className: 'bg-black/80 px-2 py-0.5 rounded border border-white/20 shadow-md translate-y-6',
+                className: 'bg-black/80 px-2 py-0.5 rounded border border-white/20 shadow-md translate-y-6 hidden sm:inline-block',
               }}
               onClick={() => {
                 setSelectedSpot(post);
@@ -173,7 +175,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
               }}
               icon={{
                 path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                scale: isSelected ? 9 : 7,
+                scale: isSelected ? 8 : 6,
                 fillColor: isSelected ? '#A81D1D' : '#F59E0B',
                 fillOpacity: 1,
                 strokeColor: '#FFFFFF',
@@ -183,7 +185,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
           );
         })}
 
-        {/* Detailed Info Window Popup showing full restaurant review */}
+        {/* InfoWindow popup rendered ONLY when pin is clicked */}
         {selectedSpot && (
           <InfoWindow
             position={{
@@ -192,7 +194,20 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
             }}
             onCloseClick={() => setSelectedSpot(null)}
           >
-            <div className="p-2 max-w-[240px] text-stone-900 font-body flex flex-col gap-2">
+            <div className="p-2 max-w-[220px] text-stone-900 font-body flex flex-col gap-1.5">
+              <div className="flex items-center justify-between border-b pb-1">
+                <span className="text-[10px] font-mono font-bold uppercase text-[#A81D1D]">
+                  {selectedSpot.category}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setSelectedSpot(null)}
+                  className="text-stone-500 hover:text-stone-950 font-bold text-xs"
+                >
+                  ✕
+                </button>
+              </div>
+
               <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden bg-slate-900 border border-stone-200">
                 <Image
                   src={selectedSpot.image}
@@ -200,38 +215,25 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
                   fill
                   className="object-cover"
                 />
-                <span className="absolute top-1.5 right-1.5 bg-black/80 text-[#F59E0B] font-mono text-[10px] font-bold px-2 py-0.5 rounded">
+                <span className="absolute top-1 right-1 bg-black/80 text-[#F59E0B] font-mono text-[9px] font-bold px-1.5 py-0.5 rounded">
                   {selectedSpot.priceFormatted}
                 </span>
               </div>
 
               <div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#A81D1D]">
-                    {selectedSpot.category}
-                  </span>
-                  <div className="flex items-center gap-0.5 text-[10px] font-bold text-amber-600">
-                    <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
-                    <span>{selectedSpot.rating || '4.8'}</span>
-                  </div>
-                </div>
-
-                <h4 className="font-syne font-bold text-xs text-[#111827] mt-0.5 truncate">
+                <h4 className="font-syne font-bold text-xs text-[#111827] truncate">
                   {selectedSpot.restaurantName}
                 </h4>
                 <p className="text-[10px] text-stone-500 truncate">
                   📍 {selectedSpot.location}
                 </p>
-                <p className="text-[10px] text-stone-700 line-clamp-2 mt-1 leading-snug">
-                  {selectedSpot.caption}
-                </p>
               </div>
 
-              <div className="flex items-center justify-between pt-1.5 border-t border-stone-200 text-[10px] font-mono">
+              <div className="flex items-center justify-between pt-1 border-t border-stone-200 text-[10px] font-mono font-bold">
                 <button
                   type="button"
                   onClick={() => onSelectPost?.(selectedSpot)}
-                  className="font-bold text-[#A81D1D] hover:underline"
+                  className="text-[#A81D1D] hover:underline"
                 >
                   Inspect Review →
                 </button>
@@ -239,7 +241,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
                   href={getAwardsUrl(selectedSpot.category)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-bold text-[#F59E0B] hover:underline flex items-center gap-0.5"
+                  className="text-[#F59E0B] hover:underline flex items-center gap-0.5"
                 >
                   <span>Vote</span>
                   <ExternalLink className="w-2.5 h-2.5" />

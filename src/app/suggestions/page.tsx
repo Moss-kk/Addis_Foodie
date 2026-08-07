@@ -13,8 +13,8 @@ import {
   Compass, 
   Star, 
   MapPin, 
-  PlusCircle, 
-  Flame 
+  Flame,
+  ArrowRight
 } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -74,8 +74,6 @@ export default function SuggestionsPage() {
   const bestKitfoSpots = mockPosts.filter((p) => p.category.includes('Siga Bet'));
   const bestBurgerSpots = mockPosts.filter((p) => p.category.includes('Burgers'));
   const bestCoffeeSpots = mockPosts.filter((p) => p.category.includes('Cafés'));
-  const bestFastingSpots = mockPosts.filter((p) => p.category.includes('Fasting'));
-  const bestFineDiningSpots = mockPosts.filter((p) => p.category.includes('Fine Dining'));
 
   return (
     <div
@@ -124,7 +122,7 @@ export default function SuggestionsPage() {
         </div>
       </section>
 
-      {/* COLLAPSIBLE NOMINATION FORM SECTION (Visible only when toggle clicked) */}
+      {/* COLLAPSIBLE NOMINATION FORM SECTION */}
       {isFormOpen && (
         <section className="w-full bg-[var(--bg-surface)] border-b border-[var(--border-subtle)] py-8 animate-fadeIn">
           <div className="site-container max-w-2xl mx-auto">
@@ -274,10 +272,10 @@ export default function SuggestionsPage() {
         </section>
       )}
 
-      {/* EDITORIAL "WHERE TO GO" CURATED RECOMMENDATIONS SECTIONS */}
+      {/* EDITORIAL "WHERE TO GO" SIDE-SCROLLABLE CAROUSELS */}
       <main className="site-container py-10 flex flex-col gap-12 flex-1">
         
-        {/* 1. BEST KITFO & MEAT HOUSES (SIGA BET) */}
+        {/* 1. BEST KITFO & MEAT HOUSES CAROUSEL */}
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b pb-3 border-[var(--border-subtle)]">
             <div className="flex items-center gap-2.5">
@@ -286,34 +284,43 @@ export default function SuggestionsPage() {
                 Best Gurage Kitfo &amp; Siga Bet Recommendations
               </h2>
             </div>
-            <Link href="/reviews-map?category=siga-bet" className="text-xs font-mono font-bold text-[#F59E0B] hover:underline">
-              View All Kitfo →
+            <Link href="/reviews-map?category=siga-bet" className="text-xs font-mono font-bold text-[#F59E0B] hover:underline flex items-center gap-1">
+              <span>Swipe All Kitfo</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex items-stretch gap-5 overflow-x-auto no-scrollbar pb-3 pt-1 snap-x snap-mandatory">
             {bestKitfoSpots.map((spot) => (
-              <div key={spot.id} className="heritage-card p-4 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-col gap-3 shadow-xs hover:shadow-lg transition-all">
-                <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-900">
-                  <Image src={spot.image} alt={spot.restaurantName} fill className="object-cover" />
-                  <span className="absolute top-2 right-2 bg-black/80 text-[#F59E0B] font-mono text-xs font-bold px-2.5 py-1 rounded-full">
-                    {spot.priceFormatted}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-bold">
-                    <span>📍 {spot.neighborhood}</span>
-                    <span className="text-amber-500 font-mono">⭐ {spot.rating || '5.0'}</span>
+              <div key={spot.id} className="shrink-0 w-[280px] sm:w-[320px] snap-start flex flex-col">
+                <div className="heritage-card p-4 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-col gap-3 shadow-xs hover:shadow-lg transition-all h-full justify-between">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-900">
+                      <Image src={spot.image} alt={spot.restaurantName} fill className="object-cover" />
+                      <span className="absolute top-2 right-2 bg-black/80 text-[#F59E0B] font-mono text-xs font-bold px-2.5 py-1 rounded-full">
+                        {spot.priceFormatted}
+                      </span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-bold">
+                        <span>📍 {spot.neighborhood}</span>
+                        <span className="text-amber-500 font-mono">⭐ {spot.rating || '5.0'}</span>
+                      </div>
+                      <h3 className="font-syne font-bold text-lg text-[var(--text-primary)]">{spot.restaurantName}</h3>
+                      <p className="text-xs text-[var(--text-secondary)] line-clamp-2">{spot.caption}</p>
+                    </div>
                   </div>
-                  <h3 className="font-syne font-bold text-lg text-[var(--text-primary)]">{spot.restaurantName}</h3>
-                  <p className="text-xs text-[var(--text-secondary)] line-clamp-2">{spot.caption}</p>
+
+                  <Link href={`/reviews-map?category=siga-bet`} className="mt-3 text-xs font-mono font-bold text-[#A81D1D] hover:underline">
+                    Inspect Spot Details →
+                  </Link>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* 2. BEST GOURMET BURGERS */}
+        {/* 2. BEST GOURMET BURGERS CAROUSEL */}
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b pb-3 border-[var(--border-subtle)]">
             <div className="flex items-center gap-2.5">
@@ -322,34 +329,43 @@ export default function SuggestionsPage() {
                 Best Gourmet Burger Joints in Addis
               </h2>
             </div>
-            <Link href="/reviews-map?category=fast-food-burgers" className="text-xs font-mono font-bold text-[#F59E0B] hover:underline">
-              View All Burgers →
+            <Link href="/reviews-map?category=fast-food-burgers" className="text-xs font-mono font-bold text-[#F59E0B] hover:underline flex items-center gap-1">
+              <span>Swipe All Burgers</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex items-stretch gap-5 overflow-x-auto no-scrollbar pb-3 pt-1 snap-x snap-mandatory">
             {bestBurgerSpots.map((spot) => (
-              <div key={spot.id} className="heritage-card p-4 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-col gap-3 shadow-xs hover:shadow-lg transition-all">
-                <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-900">
-                  <Image src={spot.image} alt={spot.restaurantName} fill className="object-cover" />
-                  <span className="absolute top-2 right-2 bg-black/80 text-[#F59E0B] font-mono text-xs font-bold px-2.5 py-1 rounded-full">
-                    {spot.priceFormatted}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-bold">
-                    <span>📍 {spot.neighborhood}</span>
-                    <span className="text-amber-500 font-mono">⭐ {spot.rating || '4.8'}</span>
+              <div key={spot.id} className="shrink-0 w-[280px] sm:w-[320px] snap-start flex flex-col">
+                <div className="heritage-card p-4 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-col gap-3 shadow-xs hover:shadow-lg transition-all h-full justify-between">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-900">
+                      <Image src={spot.image} alt={spot.restaurantName} fill className="object-cover" />
+                      <span className="absolute top-2 right-2 bg-black/80 text-[#F59E0B] font-mono text-xs font-bold px-2.5 py-1 rounded-full">
+                        {spot.priceFormatted}
+                      </span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-bold">
+                        <span>📍 {spot.neighborhood}</span>
+                        <span className="text-amber-500 font-mono">⭐ {spot.rating || '4.8'}</span>
+                      </div>
+                      <h3 className="font-syne font-bold text-lg text-[var(--text-primary)]">{spot.restaurantName}</h3>
+                      <p className="text-xs text-[var(--text-secondary)] line-clamp-2">{spot.caption}</p>
+                    </div>
                   </div>
-                  <h3 className="font-syne font-bold text-lg text-[var(--text-primary)]">{spot.restaurantName}</h3>
-                  <p className="text-xs text-[var(--text-secondary)] line-clamp-2">{spot.caption}</p>
+
+                  <Link href={`/reviews-map?category=fast-food-burgers`} className="mt-3 text-xs font-mono font-bold text-[#A81D1D] hover:underline">
+                    Inspect Spot Details →
+                  </Link>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* 3. BEST SPECIALTY COFFEE & CAFES */}
+        {/* 3. BEST SPECIALTY COFFEE & CAFES CAROUSEL */}
         <section className="flex flex-col gap-4">
           <div className="flex items-center justify-between border-b pb-3 border-[var(--border-subtle)]">
             <div className="flex items-center gap-2.5">
@@ -358,27 +374,36 @@ export default function SuggestionsPage() {
                 Best Specialty Coffee &amp; Cafés
               </h2>
             </div>
-            <Link href="/reviews-map?category=cafes-coffee" className="text-xs font-mono font-bold text-[#F59E0B] hover:underline">
-              View All Cafés →
+            <Link href="/reviews-map?category=cafes-coffee" className="text-xs font-mono font-bold text-[#F59E0B] hover:underline flex items-center gap-1">
+              <span>Swipe All Cafés</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex items-stretch gap-5 overflow-x-auto no-scrollbar pb-3 pt-1 snap-x snap-mandatory">
             {bestCoffeeSpots.map((spot) => (
-              <div key={spot.id} className="heritage-card p-4 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-col gap-3 shadow-xs hover:shadow-lg transition-all">
-                <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-900">
-                  <Image src={spot.image} alt={spot.restaurantName} fill className="object-cover" />
-                  <span className="absolute top-2 right-2 bg-black/80 text-[#F59E0B] font-mono text-xs font-bold px-2.5 py-1 rounded-full">
-                    {spot.priceFormatted}
-                  </span>
-                </div>
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-bold">
-                    <span>📍 {spot.neighborhood}</span>
-                    <span className="text-amber-500 font-mono">⭐ {spot.rating || '5.0'}</span>
+              <div key={spot.id} className="shrink-0 w-[280px] sm:w-[320px] snap-start flex flex-col">
+                <div className="heritage-card p-4 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-col gap-3 shadow-xs hover:shadow-lg transition-all h-full justify-between">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-900">
+                      <Image src={spot.image} alt={spot.restaurantName} fill className="object-cover" />
+                      <span className="absolute top-2 right-2 bg-black/80 text-[#F59E0B] font-mono text-xs font-bold px-2.5 py-1 rounded-full">
+                        {spot.priceFormatted}
+                      </span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-bold">
+                        <span>📍 {spot.neighborhood}</span>
+                        <span className="text-amber-500 font-mono">⭐ {spot.rating || '5.0'}</span>
+                      </div>
+                      <h3 className="font-syne font-bold text-lg text-[var(--text-primary)]">{spot.restaurantName}</h3>
+                      <p className="text-xs text-[var(--text-secondary)] line-clamp-2">{spot.caption}</p>
+                    </div>
                   </div>
-                  <h3 className="font-syne font-bold text-lg text-[var(--text-primary)]">{spot.restaurantName}</h3>
-                  <p className="text-xs text-[var(--text-secondary)] line-clamp-2">{spot.caption}</p>
+
+                  <Link href={`/reviews-map?category=cafes-coffee`} className="mt-3 text-xs font-mono font-bold text-[#A81D1D] hover:underline">
+                    Inspect Spot Details →
+                  </Link>
                 </div>
               </div>
             ))}
