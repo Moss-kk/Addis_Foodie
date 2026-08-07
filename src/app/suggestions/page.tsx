@@ -13,7 +13,10 @@ import {
   Compass, 
   ArrowRight,
   Filter,
-  Utensils
+  Utensils,
+  X,
+  Star,
+  MapPin
 } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -31,6 +34,9 @@ export default function SuggestionsPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [modalPost, setModalPost] = useState<FoodPost | null>(null);
   
+  // State to dismiss/remove the hero featured Burgueriza Lounge card
+  const [isHeroSpotDismissed, setIsHeroSpotDismissed] = useState(false);
+
   // Interactive Category Filter States for the Two Rows
   const [activeCuisineTab, setActiveCuisineTab] = useState<string>('all');
   const [activeFoodTab, setActiveFoodTab] = useState<string>('all');
@@ -47,6 +53,28 @@ export default function SuggestionsPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Featured Burgueriza Lounge Spot Object for Modal Inspection
+  const burguerizaSpot: FoodPost = {
+    id: 'burgueriza-lounge-atlas',
+    restaurantName: 'Burgueriza Lounge',
+    location: 'Bole Atlas • Kelsam Bldg',
+    neighborhood: 'Bole',
+    latitude: 9.0010,
+    longitude: 38.7820,
+    image: '/telegram-imports/Queen Burger.jpg',
+    images: ['/telegram-imports/Queen Burger.jpg'],
+    caption: 'Gourmet Flame-Grilled Cheese Burgers — Handcrafted double beef patties with melted cheddar, jalapeño glaze, and seasoned waffle fries.',
+    price: 740,
+    priceFormatted: '740 Br',
+    sourcePlatform: 'instagram',
+    category: 'Fast Food & Burgers',
+    timestamp: '2026-08-01T12:00:00Z',
+    rating: '4.9',
+    reviewCount: 210,
+    isOpenNow: true,
+    menuItems: [{ name: 'Gourmet Flame-Grilled Double Burger', price: 740 }],
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,33 +149,79 @@ export default function SuggestionsPage() {
     >
       <Header />
 
-      {/* Hero Header */}
+      {/* Hero Section */}
       <section
         className="w-full py-10 sm:py-14 border-b transition-colors"
         style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)' }}
       >
-        <div className="site-container flex flex-col items-center text-center gap-4">
+        <div className="site-container flex flex-col items-center text-center gap-5">
           
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/20">
             <Compass className="w-4 h-4 text-[#F59E0B]" />
-            <span>{lang === 'AM' ? 'ወደ የት እንሂድ? የመመገቢያ ጥቆማዎች' : 'Where To Go Guide — Two Main Rows'}</span>
+            <span>{lang === 'AM' ? 'ወደ የት እንሂድ? የመመገቢያ ጥቆማዎች' : 'Where To Go Guide — Restaurant Inspections'}</span>
           </div>
 
           <h1 className="font-syne font-black text-3xl sm:text-5xl text-[var(--text-primary)]">
             {lang === 'AM' ? 'ምርጥ የምግብ ቦታዎች ጥቆማ' : 'Where To Go — Spot Recommendations'}
           </h1>
 
-          <p className="text-xs sm:text-sm font-body text-[var(--text-secondary)] leading-relaxed max-w-2xl">
-            {lang === 'AM' 
-              ? 'በአዲስ ፉዲዎች የተመረጡ የክትፎ፣ የበርገር፣ የካፌ እና የቪገን ቦታዎች ጥቆማዎች። ድብቅ ቦታ ካለዎት ደግሞ ለቀጣይ ግምገማ ይጠቁሙን!' 
-              : 'Explore verified restaurant reviews in two main auto side-scrolling rows. Filter by Restaurant Types or Food Craving!'}
-          </p>
+          {/* DISMISSIBLE HERO FEATURED SPOT CARD (Burgueriza Lounge) */}
+          {!isHeroSpotDismissed && (
+            <div className="relative w-full max-w-xl p-5 rounded-3xl bg-gradient-to-r from-stone-900 via-[#1E1412] to-stone-900 border border-[#F59E0B]/40 shadow-2xl text-left flex flex-col sm:flex-row items-center gap-4 my-1 animate-fadeIn">
+              {/* Dismiss Button X */}
+              <button
+                type="button"
+                onClick={() => setIsHeroSpotDismissed(true)}
+                className="absolute top-3 right-3 p-1 rounded-full bg-black/60 text-stone-300 hover:text-white border border-white/20 transition cursor-pointer"
+                title="Dismiss Card"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-slate-800 shrink-0 border border-white/10">
+                <Image
+                  src={burguerizaSpot.image}
+                  alt="Burgueriza Lounge"
+                  fill
+                  className="object-cover"
+                />
+                <span className="absolute top-1.5 right-1.5 bg-black/80 text-[#F59E0B] font-mono text-[10px] font-bold px-2 py-0.5 rounded">
+                  740 Br
+                </span>
+              </div>
+
+              <div className="flex flex-col flex-1 min-w-0 pr-6">
+                <div className="flex items-center gap-2 text-[10px] font-mono font-bold text-[#F59E0B]">
+                  <span className="flex items-center gap-1">📍 Bole Atlas • Kelsam Bldg</span>
+                  <span>•</span>
+                  <span className="text-amber-400">⭐ 4.9</span>
+                </div>
+
+                <h3 className="font-syne font-black text-lg text-white mt-0.5">
+                  Burgueriza Lounge
+                </h3>
+
+                <p className="text-xs text-stone-300 font-body line-clamp-2 mt-1 leading-snug">
+                  Gourmet Flame-Grilled Cheese Burgers — Handcrafted double beef patties with melted cheddar, jalapeño glaze, and seasoned waffle fries.
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => setModalPost(burguerizaSpot)}
+                  className="mt-2 inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#A81D1D] hover:underline"
+                >
+                  <span>Inspect Spot</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* COLLAPSIBLE NOMINATION FORM TOGGLE BUTTON */}
           <button
             type="button"
             onClick={() => setIsFormOpen(!isFormOpen)}
-            className="mt-2 button-primary px-6 py-3 rounded-2xl text-xs font-label uppercase tracking-wider text-white font-bold flex items-center gap-2.5 shadow-lg cursor-pointer hover:scale-102 transition-transform"
+            className="mt-1 button-primary px-6 py-3 rounded-2xl text-xs font-label uppercase tracking-wider text-white font-bold flex items-center gap-2.5 shadow-lg cursor-pointer hover:scale-102 transition-transform"
           >
             <Sparkles className="w-4 h-4 text-white" />
             <span>
@@ -311,8 +385,15 @@ export default function SuggestionsPage() {
         </section>
       )}
 
+      {/* REPOSITIONED HEADER DESCRIPTION ABOVE THE TWO ROWS */}
+      <div className="w-full pt-8 pb-2 bg-[var(--bg-app)] border-b border-[var(--border-subtle)] text-center">
+        <p className="text-xs sm:text-sm font-body text-[var(--text-secondary)] leading-relaxed max-w-xl mx-auto px-4">
+          Explore verified restaurant reviews in two main auto side-scrolling rows. Filter by Restaurant Types or Food Craving!
+        </p>
+      </div>
+
       {/* TWO MAIN ROWS CONTENT AREA */}
-      <main className="site-container py-10 flex flex-col gap-14 flex-1">
+      <main className="site-container py-8 flex flex-col gap-14 flex-1">
         
         {/* ROW 1: BY RESTAURANT & CUISINE TYPE */}
         <section className="flex flex-col gap-4">
