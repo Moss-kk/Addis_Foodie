@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -11,7 +11,9 @@ import {
   ChevronDown, 
   ChevronUp, 
   Compass, 
-  ArrowRight
+  ArrowRight,
+  Filter,
+  Utensils
 } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -28,6 +30,10 @@ export default function SuggestionsPage() {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [modalPost, setModalPost] = useState<FoodPost | null>(null);
+  
+  // Interactive Filter States
+  const [selectedCuisineFilter, setSelectedCuisineFilter] = useState<string>('all');
+  const [selectedFoodFilter, setSelectedFoodFilter] = useState<string>('all');
 
   const [formData, setFormData] = useState({
     userName: '',
@@ -72,6 +78,41 @@ export default function SuggestionsPage() {
     }
   };
 
+  // Specific Food Item Categories List
+  const FOOD_ITEM_CATEGORIES = [
+    { id: 'all', label: 'All Foods', emoji: '🍽️' },
+    { id: 'burgers', label: 'Burgers & Fries', emoji: '🍔' },
+    { id: 'pizzas', label: 'Pizzas & Pasta', emoji: '🍕' },
+    { id: 'kitfo', label: 'Kitfo & Tibs', emoji: '🥩' },
+    { id: 'doro-wat', label: 'Doro Wat Stew', emoji: '🍲' },
+    { id: 'coffee', label: 'Coffee & Pastry', emoji: '☕' },
+    { id: 'beyaynetu', label: 'Beyaynetu (Fasting)', emoji: '🥗' },
+  ];
+
+  // Filter Categories synchronously based on user tab selection
+  const filteredCategories = useMemo(() => {
+    return CUISINE_CATEGORIES.filter((cat) => {
+      // Cuisine filter check
+      if (selectedCuisineFilter !== 'all') {
+        if (cat.slug.toLowerCase() !== selectedCuisineFilter.toLowerCase() && cat.id.toLowerCase() !== selectedCuisineFilter.toLowerCase()) {
+          return false;
+        }
+      }
+
+      // Food item filter check
+      if (selectedFoodFilter !== 'all') {
+        if (selectedFoodFilter === 'burgers' && !cat.slug.includes('burgers')) return false;
+        if (selectedFoodFilter === 'pizzas' && !cat.slug.includes('italian')) return false;
+        if (selectedFoodFilter === 'kitfo' && !cat.slug.includes('siga-bet') && !cat.slug.includes('traditional')) return false;
+        if (selectedFoodFilter === 'doro-wat' && !cat.slug.includes('traditional')) return false;
+        if (selectedFoodFilter === 'coffee' && !cat.slug.includes('cafes') && !cat.slug.includes('bakery')) return false;
+        if (selectedFoodFilter === 'beyaynetu' && !cat.slug.includes('fasting')) return false;
+      }
+
+      return true;
+    });
+  }, [selectedCuisineFilter, selectedFoodFilter]);
+
   return (
     <div
       className="flex flex-col min-h-screen transition-colors duration-300 pb-20 sm:pb-0 max-w-full overflow-x-hidden"
@@ -88,7 +129,7 @@ export default function SuggestionsPage() {
           
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/20">
             <Compass className="w-4 h-4 text-[#F59E0B]" />
-            <span>{lang === 'AM' ? 'ወደ የት እንሂድ? የመመገቢያ ጥቆማዎች' : 'Where To Go Guide — All Categories'}</span>
+            <span>{lang === 'AM' ? 'ወደ የት እንሂድ? የመመገቢያ ጥቆማዎች' : 'Where To Go Guide — Interactive Filters'}</span>
           </div>
 
           <h1 className="font-syne font-black text-3xl sm:text-5xl text-[var(--text-primary)]">
@@ -98,7 +139,7 @@ export default function SuggestionsPage() {
           <p className="text-xs sm:text-sm font-body text-[var(--text-secondary)] leading-relaxed max-w-2xl">
             {lang === 'AM' 
               ? 'በአዲስ ፉዲዎች የተመረጡ የክትፎ፣ የበርገር፣ የካፌ እና የቪገን ቦታዎች ጥቆማዎች። ድብቅ ቦታ ካለዎት ደግሞ ለቀጣይ ግምገማ ይጠቁሙን!' 
-              : 'Explore verified restaurant reviews across all 10 cuisine categories in Addis Ababa. Have an undiscovered gem? Nominate it for an official inspection!'}
+              : 'Explore verified restaurant reviews across all cuisine categories in Addis Ababa. Filter by restaurant type or food craving!'}
           </p>
 
           {/* COLLAPSIBLE NOMINATION FORM TOGGLE BUTTON */}
@@ -115,6 +156,73 @@ export default function SuggestionsPage() {
             </span>
             {isFormOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           </button>
+
+        </div>
+      </section>
+
+      {/* DUAL CLICKABLE SIDE-SCROLLABLE CATEGORY NAVIGATION BARS */}
+      <section className="w-full bg-[var(--bg-surface)] border-b border-[var(--border-subtle)] py-4 sticky top-14 z-20 shadow-xs">
+        <div className="site-container flex flex-col gap-3">
+          
+          {/* BAR 1: BY CUISINE / RESTAURANT TYPE */}
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <span className="text-[10px] font-mono font-bold uppercase text-[#A81D1D] bg-[#A81D1D]/10 px-2.5 py-1 rounded-lg border border-[#A81D1D]/20 shrink-0 flex items-center gap-1">
+              <Filter className="w-3 h-3 text-[#A81D1D]" />
+              <span>Cuisine Type:</span>
+            </span>
+
+            <button
+              type="button"
+              onClick={() => setSelectedCuisineFilter('all')}
+              className={`px-3 py-1 rounded-xl text-xs font-mono font-bold transition-all shrink-0 cursor-pointer border ${
+                selectedCuisineFilter === 'all'
+                  ? 'bg-[#A81D1D] text-white border-[#A81D1D] shadow-xs'
+                  : 'bg-[var(--bg-app)] text-[var(--text-primary)] border-[var(--border-subtle)] hover:border-[#A81D1D]'
+              }`}
+            >
+              All Cuisines ⭐
+            </button>
+
+            {CUISINE_CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setSelectedCuisineFilter(cat.slug)}
+                className={`px-3 py-1 rounded-xl text-xs font-mono font-bold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 border ${
+                  selectedCuisineFilter === cat.slug
+                    ? 'bg-[#A81D1D] text-white border-[#A81D1D] shadow-xs'
+                    : 'bg-[var(--bg-app)] text-[var(--text-primary)] border-[var(--border-subtle)] hover:border-[#A81D1D]'
+                }`}
+              >
+                <span>{cat.emoji}</span>
+                <span>{cat.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* BAR 2: BY SPECIFIC FOOD ITEM */}
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <span className="text-[10px] font-mono font-bold uppercase text-[#F59E0B] bg-[#F59E0B]/10 px-2.5 py-1 rounded-lg border border-[#F59E0B]/20 shrink-0 flex items-center gap-1">
+              <Utensils className="w-3 h-3 text-[#F59E0B]" />
+              <span>Food Craving:</span>
+            </span>
+
+            {FOOD_ITEM_CATEGORIES.map((food) => (
+              <button
+                key={food.id}
+                type="button"
+                onClick={() => setSelectedFoodFilter(food.id)}
+                className={`px-3 py-1 rounded-xl text-xs font-mono font-bold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 border ${
+                  selectedFoodFilter === food.id
+                    ? 'bg-[#F59E0B] text-zinc-950 border-[#F59E0B] shadow-xs'
+                    : 'bg-[var(--bg-app)] text-[var(--text-primary)] border-[var(--border-subtle)] hover:border-[#F59E0B]'
+                }`}
+              >
+                <span>{food.emoji}</span>
+                <span>{food.label}</span>
+              </button>
+            ))}
+          </div>
 
         </div>
       </section>
@@ -269,51 +377,70 @@ export default function SuggestionsPage() {
         </section>
       )}
 
-      {/* ALL 10 CUISINE CATEGORIES SIDE-SCROLLABLE REVIEWS */}
+      {/* FILTERED CATEGORIES SIDE-SCROLLABLE REVIEWS */}
       <main className="site-container py-10 flex flex-col gap-12 flex-1">
-        {CUISINE_CATEGORIES.map((cat) => {
-          // Filter reviews for this category
-          const categoryReviews = mockPosts.filter((p) => {
-            const catLabel = cat.label.toLowerCase();
-            const pCat = p.category.toLowerCase();
-            return pCat === catLabel || pCat.includes(cat.slug.toLowerCase()) || catLabel.includes(pCat);
-          });
+        {filteredCategories.length === 0 ? (
+          <div className="p-10 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-center flex flex-col items-center gap-3">
+            <Utensils className="w-8 h-8 text-amber-500" />
+            <h3 className="font-syne font-bold text-lg text-[var(--text-primary)]">
+              No categories match your active filters
+            </h3>
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedCuisineFilter('all');
+                setSelectedFoodFilter('all');
+              }}
+              className="mt-2 button-primary px-4 py-2 rounded-xl text-xs font-label uppercase text-white font-bold"
+            >
+              Reset Filters
+            </button>
+          </div>
+        ) : (
+          filteredCategories.map((cat) => {
+            // Filter reviews for this category
+            const categoryReviews = mockPosts.filter((p) => {
+              const catLabel = cat.label.toLowerCase();
+              const pCat = p.category.toLowerCase();
+              return pCat === catLabel || pCat.includes(cat.slug.toLowerCase()) || catLabel.includes(pCat);
+            });
 
-          // Fallback if no specific reviews match, show general list
-          const displayReviews = categoryReviews.length > 0 ? categoryReviews : mockPosts.slice(0, 3);
+            // Fallback if no specific reviews match, show general list
+            const displayReviews = categoryReviews.length > 0 ? categoryReviews : mockPosts.slice(0, 3);
 
-          return (
-            <section key={cat.id} className="flex flex-col gap-4">
-              <div className="flex items-center justify-between border-b pb-3 border-[var(--border-subtle)]">
-                <div className="flex items-center gap-2.5">
-                  <span className="text-xl">{cat.emoji}</span>
-                  <h2 className="font-syne font-bold text-xl sm:text-2xl text-[var(--text-primary)]">
-                    {lang === 'AM' ? cat.labelAm : cat.label}
-                  </h2>
-                </div>
-                <Link
-                  href={`/reviews-map?category=${cat.slug}`}
-                  className="text-xs font-mono font-bold text-[#F59E0B] hover:underline flex items-center gap-1"
-                >
-                  <span>{lang === 'AM' ? 'በካርታ ላይ ይመልከቱ' : 'View on Map'}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-
-              {/* Side-Scrollable Horizontal Track of Standardized Review Cards */}
-              <div className="flex items-stretch gap-5 overflow-x-auto no-scrollbar pb-3 pt-1 snap-x snap-mandatory">
-                {displayReviews.map((post) => (
-                  <div key={post.id} className="shrink-0 w-[280px] sm:w-[320px] lg:w-[340px] snap-start flex flex-col">
-                    <ReviewCard
-                      post={post}
-                      onClick={() => setModalPost(post)}
-                    />
+            return (
+              <section key={cat.id} className="flex flex-col gap-4">
+                <div className="flex items-center justify-between border-b pb-3 border-[var(--border-subtle)]">
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-xl">{cat.emoji}</span>
+                    <h2 className="font-syne font-bold text-xl sm:text-2xl text-[var(--text-primary)]">
+                      {lang === 'AM' ? cat.labelAm : cat.label}
+                    </h2>
                   </div>
-                ))}
-              </div>
-            </section>
-          );
-        })}
+                  <Link
+                    href={`/reviews-map?category=${cat.slug}`}
+                    className="text-xs font-mono font-bold text-[#F59E0B] hover:underline flex items-center gap-1"
+                  >
+                    <span>{lang === 'AM' ? 'በካርታ ላይ ይመልከቱ' : 'View on Map'}</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+
+                {/* Side-Scrollable Horizontal Track of Standardized Review Cards */}
+                <div className="flex items-stretch gap-5 overflow-x-auto no-scrollbar pb-3 pt-1 snap-x snap-mandatory">
+                  {displayReviews.map((post) => (
+                    <div key={post.id} className="shrink-0 w-[280px] sm:w-[320px] lg:w-[340px] snap-start flex flex-col">
+                      <ReviewCard
+                        post={post}
+                        onClick={() => setModalPost(post)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            );
+          })
+        )}
       </main>
 
       <Footer />

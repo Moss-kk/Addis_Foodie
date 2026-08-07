@@ -4,7 +4,7 @@ import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import { FoodPost } from '../types/post';
-import { Compass, Navigation, ExternalLink, Star, X } from 'lucide-react';
+import { Compass, Navigation, ExternalLink, Star, X, MapPin } from 'lucide-react';
 import { getAwardsUrl } from '../lib/awardsLinks';
 import AddisMap from './AddisMap';
 
@@ -21,8 +21,18 @@ const mapContainerStyle = {
 };
 
 const defaultCenter = {
-  lat: 9.0192,
-  lng: 38.7525, // Addis Ababa Center
+  lat: 9.0050,
+  lng: 38.7750, // Close-up on Bole / Kazanchis commercial corridor
+};
+
+// District Coordinates for Quick Zoom Jumps
+const DISTRICT_COORDS: Record<string, { lat: number; lng: number }> = {
+  'Bole': { lat: 8.9980, lng: 38.7830 },
+  'Kazanchis': { lat: 9.0195, lng: 38.7660 },
+  'Piassa': { lat: 9.0350, lng: 38.7500 },
+  'Sarbet': { lat: 8.9900, lng: 38.7350 },
+  'Gotera': { lat: 8.9850, lng: 38.7580 },
+  'CMC': { lat: 9.0100, lng: 38.8150 },
 };
 
 // Dark Obsidian Heritage Map Styling
@@ -47,8 +57,8 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
   });
 
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  // Default selectedSpot to null so mobile map view is completely clean and unobstructed!
   const [selectedSpot, setSelectedSpot] = useState<FoodPost | null>(null);
+  const [activeDistrict, setActiveDistrict] = useState<string>('all');
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [isLocating, setIsLocating] = useState(false);
 
@@ -59,6 +69,20 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
   const onUnmount = useCallback(() => {
     setMap(null);
   }, []);
+
+  // Quick District Zoom Handler
+  const handleDistrictJump = (district: string) => {
+    setActiveDistrict(district);
+    if (!map) return;
+
+    if (district === 'all') {
+      map.panTo(defaultCenter);
+      map.setZoom(13);
+    } else if (DISTRICT_COORDS[district]) {
+      map.panTo(DISTRICT_COORDS[district]);
+      map.setZoom(15); // Close-up street view zoom
+    }
+  };
 
   // Geolocation "Near Me"
   const handleLocateMe = () => {
@@ -75,7 +99,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
         setIsLocating(false);
         if (map) {
           map.panTo(coords);
-          map.setZoom(14);
+          map.setZoom(15);
         }
       },
       () => {
@@ -111,6 +135,27 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
       {/* Floating Category Chips Overlay on top of Map */}
       {overlayElement}
 
+      {/* Floating Neighborhood District Quick-Jump Chips (Bole, Kazanchis, Piassa, Sarbet) */}
+      <div className="absolute top-16 left-3 right-3 z-30 flex items-center gap-1.5 overflow-x-auto no-scrollbar pointer-events-auto">
+        <span className="text-[10px] font-mono font-bold uppercase text-stone-300 bg-black/80 px-2 py-1 rounded-lg border border-white/10 shrink-0">
+          📍 Close-Up:
+        </span>
+        {['Bole', 'Kazanchis', 'Piassa', 'Sarbet', 'Gotera', 'CMC'].map((dist) => (
+          <button
+            key={dist}
+            type="button"
+            onClick={() => handleDistrictJump(dist)}
+            className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold transition-all shrink-0 cursor-pointer border ${
+              activeDistrict === dist
+                ? 'bg-[#F59E0B] text-zinc-950 border-[#F59E0B] shadow-md'
+                : 'bg-black/70 text-stone-200 border-white/20 hover:border-[#F59E0B]'
+            }`}
+          >
+            {dist}
+          </button>
+        ))}
+      </div>
+
       {/* GPS Near Me Button */}
       <button
         type="button"
@@ -122,11 +167,11 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
         <span>{isLocating ? 'Locating...' : 'Near Me'}</span>
       </button>
 
-      {/* Google Map Canvas */}
+      {/* Google Map Canvas (Zoom 14 Close-Up) */}
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={defaultCenter}
-        zoom={13}
+        zoom={14}
         onLoad={onLoad}
         onUnmount={onUnmount}
         onClick={() => setSelectedSpot(null)}
@@ -151,7 +196,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
           />
         )}
 
-        {/* Real Location Pin Markers (Desktop & Mobile) */}
+        {/* Seeded Pins */}
         {posts.map((post, idx) => {
           const lat = post.latitude || 9.005 + (idx * 0.005 - 0.01);
           const lng = post.longitude || 38.775 + (idx * 0.006 - 0.015);
@@ -185,7 +230,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
           );
         })}
 
-        {/* InfoWindow popup rendered ONLY when pin is clicked */}
+        {/* InfoWindow popup */}
         {selectedSpot && (
           <InfoWindow
             position={{
