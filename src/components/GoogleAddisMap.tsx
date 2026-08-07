@@ -1,16 +1,17 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import Image from 'next/image';
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import { FoodPost } from '../types/post';
-import { Compass, Navigation, ExternalLink, MapPin } from 'lucide-react';
+import { Compass, Navigation, ExternalLink } from 'lucide-react';
+import { getAwardsUrl } from '../lib/awardsLinks';
 import AddisMap from './AddisMap';
 
 interface GoogleAddisMapProps {
   posts: FoodPost[];
   activePost?: FoodPost | null;
   onSelectPost?: (post: FoodPost) => void;
+  overlayElement?: React.ReactNode;
 }
 
 const mapContainerStyle = {
@@ -23,20 +24,20 @@ const defaultCenter = {
   lng: 38.7525, // Addis Ababa Center
 };
 
-// Dark Heritage Google Map Style Customization
+// Dark Obsidian Heritage Map Styling
 const darkMapStyle = [
-  { elementType: 'geometry', stylers: [{ color: '#212121' }] },
+  { elementType: 'geometry', stylers: [{ color: '#1A100C' }] },
   { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
-  { elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
-  { elementType: 'labels.text.stroke', stylers: [{ color: '#212121' }] },
-  { featureType: 'administrative', elementType: 'geometry', stylers: [{ color: '#757575' }] },
-  { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
-  { featureType: 'road', elementType: 'geometry.fill', stylers: [{ color: '#2c2c2c' }] },
-  { featureType: 'road.highway', elementType: 'geometry.fill', stylers: [{ color: '#3c3c3c' }] },
-  { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#000000' }] },
+  { elementType: 'labels.text.fill', stylers: [{ color: '#D1C2BD' }] },
+  { elementType: 'labels.text.stroke', stylers: [{ color: '#120907' }] },
+  { featureType: 'administrative', elementType: 'geometry', stylers: [{ color: '#3A2E2B' }] },
+  { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#F59E0B' }] },
+  { featureType: 'road', elementType: 'geometry.fill', stylers: [{ color: '#261915' }] },
+  { featureType: 'road.highway', elementType: 'geometry.fill', stylers: [{ color: '#3D251F' }] },
+  { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0A0504' }] },
 ];
 
-export default function GoogleAddisMap({ posts, activePost, onSelectPost }: GoogleAddisMapProps) {
+export default function GoogleAddisMap({ posts, activePost, onSelectPost, overlayElement }: GoogleAddisMapProps) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
   const { isLoaded, loadError } = useJsApiLoader({
@@ -57,7 +58,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost }: Goog
     setMap(null);
   }, []);
 
-  // Handle Geolocation "Places Near Me"
+  // Geolocation "Places Near Me"
   const handleLocateMe = () => {
     if (!navigator.geolocation) {
       alert('Geolocation is not supported by your browser.');
@@ -77,47 +78,49 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost }: Goog
       },
       () => {
         setIsLocating(false);
-        alert('Unable to retrieve your location. Defaulting to Addis Ababa center.');
+        alert('Unable to retrieve location. Defaulting to Addis Ababa center.');
       },
       { timeout: 10000 }
     );
   };
 
-  // If no API key provided or load error, fall back to Leaflet Map safely!
+  // Fallback to Leaflet if API Key is missing or load error
   if (!apiKey || loadError) {
-    return <AddisMap posts={posts} activePost={activePost} onSelectPost={onSelectPost} />;
+    return (
+      <div className="relative w-full h-full">
+        {overlayElement}
+        <AddisMap posts={posts} activePost={activePost} onSelectPost={onSelectPost} />
+      </div>
+    );
   }
 
   if (!isLoaded) {
     return (
-      <div className="w-full h-[520px] rounded-2xl bg-stone-900 border border-[var(--border-subtle)] flex items-center justify-center text-stone-400 font-mono text-xs">
-        Loading Google Maps Addis Ababa...
+      <div className="relative w-full h-full bg-[#120907] flex items-center justify-center text-stone-400 font-mono text-xs">
+        {overlayElement}
+        <span>Loading Live Google Maps...</span>
       </div>
     );
   }
 
   return (
-    <div className="relative w-full h-[520px] rounded-2xl overflow-hidden border border-[var(--border-subtle)] bg-stone-900 shadow-md">
+    <div className="relative w-full h-full bg-[#120907]">
       
-      {/* Map Control Bar Header */}
-      <div className="absolute top-3 left-3 right-3 z-20 flex items-center justify-between pointer-events-none">
-        <div className="flex items-center gap-2 bg-[#1A1C1E] text-white px-3.5 py-1.5 rounded-lg text-xs font-label uppercase tracking-wider border border-white/10 pointer-events-auto shadow-md">
-          <Compass className="w-4 h-4 text-[#F59E0B] animate-pulse" />
-          <span>Google Maps Addis Ababa</span>
-        </div>
+      {/* Floating Category Chips Overlay rendered directly on top of the Map */}
+      {overlayElement}
 
-        <button
-          type="button"
-          onClick={handleLocateMe}
-          disabled={isLocating}
-          className="button-primary px-3.5 py-1.5 text-xs font-label uppercase tracking-wider rounded-lg text-white flex items-center gap-1.5 pointer-events-auto cursor-pointer shadow-md"
-        >
-          <Navigation className={`w-3.5 h-3.5 ${isLocating ? 'animate-spin' : ''}`} />
-          <span>{isLocating ? 'Locating...' : 'Places Near Me'}</span>
-        </button>
-      </div>
+      {/* GPS Near Me Button in bottom right */}
+      <button
+        type="button"
+        onClick={handleLocateMe}
+        disabled={isLocating}
+        className="absolute bottom-4 right-4 z-30 button-primary px-3 py-1.5 text-[11px] font-label uppercase tracking-wider rounded-xl text-white flex items-center gap-1.5 shadow-xl cursor-pointer"
+      >
+        <Navigation className={`w-3.5 h-3.5 ${isLocating ? 'animate-spin' : ''}`} />
+        <span>{isLocating ? 'Locating...' : 'Near Me'}</span>
+      </button>
 
-      {/* Google Map Container */}
+      {/* Google Map Canvas */}
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={defaultCenter}
@@ -130,7 +133,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost }: Goog
           zoomControl: true,
         }}
       >
-        {/* User Geolocation Marker */}
+        {/* User Location Blue Dot Marker */}
         {userLocation && (
           <Marker
             position={userLocation}
@@ -145,7 +148,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost }: Goog
           />
         )}
 
-        {/* Seeded Restaurant Markers */}
+        {/* Seeded Restaurant Markers (Warm Amber default, Primary Crimson selected) */}
         {posts.map((post, idx) => {
           const lat = post.latitude || 9.005 + (idx * 0.005 - 0.01);
           const lng = post.longitude || 38.775 + (idx * 0.006 - 0.015);
@@ -161,7 +164,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost }: Goog
               }}
               icon={{
                 path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                scale: isSelected ? 7 : 5,
+                scale: isSelected ? 8 : 6,
                 fillColor: isSelected ? '#A81D1D' : '#F59E0B',
                 fillOpacity: 1,
                 strokeColor: '#FFFFFF',
@@ -180,12 +183,21 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost }: Goog
             }}
             onCloseClick={() => setSelectedSpot(null)}
           >
-            <div className="p-1 max-w-[200px] text-stone-900 font-body">
-              <h4 className="font-bold text-xs font-syne">{selectedSpot.restaurantName}</h4>
+            <div className="p-1 max-w-[210px] text-stone-900 font-body">
+              <h4 className="font-bold text-xs font-syne text-[#111827]">{selectedSpot.restaurantName}</h4>
               <p className="text-[10px] text-stone-600 truncate">{selectedSpot.location}</p>
-              <div className="flex items-center justify-between pt-1 mt-1 border-t text-[10px] font-mono">
+              
+              <div className="flex items-center justify-between pt-1.5 mt-1 border-t border-stone-200 text-[10px] font-mono">
                 <span className="font-bold text-[#A81D1D]">{selectedSpot.priceFormatted}</span>
-                <span className="uppercase text-amber-600 font-bold">{selectedSpot.category}</span>
+                <a
+                  href={getAwardsUrl(selectedSpot.category)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-[#F59E0B] hover:underline flex items-center gap-0.5"
+                >
+                  <span>Vote</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
               </div>
             </div>
           </InfoWindow>
