@@ -8,7 +8,9 @@ import {
   MapPin as MapPinIcon, 
   ExternalLink, 
   Tag,
-  Filter
+  Sparkles,
+  ChevronRight,
+  UtensilsCrossed
 } from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -114,14 +116,39 @@ function ReviewsMapContent() {
       {/* SCROLLABLE REVIEWS FEED UNDERNEATH THE STICKY MAP */}
       <main className="flex-1 site-container py-8 flex flex-col gap-6">
         
+        {/* Prominent "Where to Go? Suggest a Spot" Banner Button */}
+        <div className="w-full p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-stone-900 via-[#1A100C] to-stone-900 border border-[#F59E0B]/30 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5 text-[#F59E0B]" />
+            </div>
+            <div>
+              <h3 className="font-syne font-bold text-base sm:text-lg text-white">
+                Where to Go? Suggest a Restaurant
+              </h3>
+              <p className="text-xs text-stone-300 font-body">
+                Know a hidden gem or top dining spot in Addis? Request an official inspection &amp; review!
+              </p>
+            </div>
+          </div>
+
+          <Link
+            href="/suggestions"
+            className="button-primary px-5 py-2.5 rounded-xl text-xs font-label uppercase tracking-wider text-white font-bold shrink-0 flex items-center gap-2 shadow-md hover:scale-102 transition-transform"
+          >
+            <UtensilsCrossed className="w-4 h-4 text-white" />
+            <span>Suggest a Restaurant →</span>
+          </Link>
+        </div>
+
         {/* Controls & Price Band Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
           <div>
-            <h1 className="font-syne font-bold text-2xl sm:text-4xl text-[var(--text-primary)]">
+            <h2 className="font-syne font-bold text-xl sm:text-3xl text-[var(--text-primary)]">
               Food Inspections &amp; Reviews
-            </h1>
+            </h2>
             <p className="text-xs sm:text-sm font-body pt-1 text-[var(--text-secondary)]">
-              Showing {filteredSpots.length} venue inspections matching your active map filters.
+              Showing {filteredSpots.length} venue inspections (Swipe horizontally ↔)
             </p>
           </div>
 
@@ -150,7 +177,7 @@ function ReviewsMapContent() {
           </div>
         </div>
 
-        {/* Scrollable Single-Column Grid of Review Cards */}
+        {/* SIDE-SCROLLABLE HORIZONTAL CAROUSEL OF REVIEW CARDS */}
         {filteredSpots.length === 0 ? (
           <div className="p-10 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-center flex flex-col items-center gap-3">
             <Tag className="w-8 h-8 text-amber-500" />
@@ -168,9 +195,9 @@ function ReviewsMapContent() {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex items-stretch gap-5 overflow-x-auto no-scrollbar pb-4 pt-1 snap-x snap-mandatory">
             {filteredSpots.map((spot) => (
-              <div key={spot.id} className="flex flex-col gap-2">
+              <div key={spot.id} className="shrink-0 w-[280px] sm:w-[320px] lg:w-[340px] snap-start flex flex-col gap-2">
                 <ReviewCard
                   post={spot}
                   onClick={() => setModalPost(spot)}
