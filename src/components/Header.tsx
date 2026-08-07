@@ -162,14 +162,7 @@ export default function Header() {
               <span>{lang === 'EN' ? 'EN | አማ' : 'አማ | EN'}</span>
             </button>
 
-            {/* Work With Us / Collaborate Button */}
-            <Link
-              href="/collaborate"
-              className="hidden xl:inline-flex items-center gap-1.5 button-primary px-4 py-1.5 rounded-full text-xs font-label uppercase tracking-wider text-white font-bold shadow-md hover:scale-105 transition-transform"
-            >
-              <span>{lang === 'AM' ? 'አብረውን ይስሩ' : 'Work With Us'}</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-white" />
-            </Link>
+
 
             {/* Mobile Hamburger Menu Toggle Button */}
             <button
