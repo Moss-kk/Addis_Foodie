@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
+import Image from 'next/image';
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import { FoodPost } from '../types/post';
-import { Compass, Navigation, ExternalLink } from 'lucide-react';
+import { Compass, Navigation, ExternalLink, Star, MapPin } from 'lucide-react';
 import { getAwardsUrl } from '../lib/awardsLinks';
 import AddisMap from './AddisMap';
 
@@ -148,7 +149,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
           />
         )}
 
-        {/* Seeded Restaurant Markers (Warm Amber default, Primary Crimson selected) */}
+        {/* Seeded Restaurant Markers (Showing Restaurant Name labels) */}
         {posts.map((post, idx) => {
           const lat = post.latitude || 9.005 + (idx * 0.005 - 0.01);
           const lng = post.longitude || 38.775 + (idx * 0.006 - 0.015);
@@ -158,13 +159,21 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
             <Marker
               key={post.id}
               position={{ lat, lng }}
+              title={post.restaurantName}
+              label={{
+                text: post.restaurantName,
+                color: isSelected ? '#FFFFFF' : '#F59E0B',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                className: 'bg-black/80 px-2 py-0.5 rounded border border-white/20 shadow-md translate-y-6',
+              }}
               onClick={() => {
                 setSelectedSpot(post);
                 onSelectPost?.(post);
               }}
               icon={{
                 path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                scale: isSelected ? 8 : 6,
+                scale: isSelected ? 9 : 7,
                 fillColor: isSelected ? '#A81D1D' : '#F59E0B',
                 fillOpacity: 1,
                 strokeColor: '#FFFFFF',
@@ -174,7 +183,7 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
           );
         })}
 
-        {/* Info Window Popover */}
+        {/* Detailed Info Window Popup showing full restaurant review */}
         {selectedSpot && (
           <InfoWindow
             position={{
@@ -183,12 +192,49 @@ export default function GoogleAddisMap({ posts, activePost, onSelectPost, overla
             }}
             onCloseClick={() => setSelectedSpot(null)}
           >
-            <div className="p-1 max-w-[210px] text-stone-900 font-body">
-              <h4 className="font-bold text-xs font-syne text-[#111827]">{selectedSpot.restaurantName}</h4>
-              <p className="text-[10px] text-stone-600 truncate">{selectedSpot.location}</p>
-              
-              <div className="flex items-center justify-between pt-1.5 mt-1 border-t border-stone-200 text-[10px] font-mono">
-                <span className="font-bold text-[#A81D1D]">{selectedSpot.priceFormatted}</span>
+            <div className="p-2 max-w-[240px] text-stone-900 font-body flex flex-col gap-2">
+              <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden bg-slate-900 border border-stone-200">
+                <Image
+                  src={selectedSpot.image}
+                  alt={selectedSpot.restaurantName}
+                  fill
+                  className="object-cover"
+                />
+                <span className="absolute top-1.5 right-1.5 bg-black/80 text-[#F59E0B] font-mono text-[10px] font-bold px-2 py-0.5 rounded">
+                  {selectedSpot.priceFormatted}
+                </span>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#A81D1D]">
+                    {selectedSpot.category}
+                  </span>
+                  <div className="flex items-center gap-0.5 text-[10px] font-bold text-amber-600">
+                    <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                    <span>{selectedSpot.rating || '4.8'}</span>
+                  </div>
+                </div>
+
+                <h4 className="font-syne font-bold text-xs text-[#111827] mt-0.5 truncate">
+                  {selectedSpot.restaurantName}
+                </h4>
+                <p className="text-[10px] text-stone-500 truncate">
+                  📍 {selectedSpot.location}
+                </p>
+                <p className="text-[10px] text-stone-700 line-clamp-2 mt-1 leading-snug">
+                  {selectedSpot.caption}
+                </p>
+              </div>
+
+              <div className="flex items-center justify-between pt-1.5 border-t border-stone-200 text-[10px] font-mono">
+                <button
+                  type="button"
+                  onClick={() => onSelectPost?.(selectedSpot)}
+                  className="font-bold text-[#A81D1D] hover:underline"
+                >
+                  Inspect Review →
+                </button>
                 <a
                   href={getAwardsUrl(selectedSpot.category)}
                   target="_blank"

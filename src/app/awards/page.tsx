@@ -44,15 +44,15 @@ export default function AwardsPage() {
 
         <div className="relative z-10 flex flex-col items-center gap-6 max-w-4xl mx-auto">
           
-          {/* Official AddisFoodie Awards Seal Image Logo */}
-          <div className="relative w-40 h-40 sm:w-52 sm:h-52 drop-shadow-2xl hover:scale-105 transition-transform duration-500 my-1">
+          {/* Official AddisFoodie Awards Seal Image Logo (Circular Cropped) */}
+          <div className="relative w-44 h-44 sm:w-56 sm:h-56 rounded-full overflow-hidden border-2 border-amber-400/40 shadow-2xl shadow-amber-500/25 my-1 group hover:scale-105 transition-transform duration-500 bg-black">
             <Image
               src="/images/addisfoodie-awards-seal.png"
               alt="Official AddisFoodie Awards Seal"
               fill
               priority
-              sizes="(max-width: 768px) 160px, 208px"
-              className="object-contain"
+              sizes="(max-width: 768px) 176px, 224px"
+              className="object-cover scale-115"
             />
           </div>
 
