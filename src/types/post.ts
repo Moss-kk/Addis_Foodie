@@ -23,6 +23,8 @@ export interface FoodPost {
   restaurantName: string;
   location: string; // e.g. "Bole, near Millennium Hall"
   neighborhood: string; // for filtering across districts
+  latitude?: number; // GPS latitude coordinate
+  longitude?: number; // GPS longitude coordinate
   image: string; // main/primary image
   images?: string[]; // for multi-image gallery
   caption: string;
