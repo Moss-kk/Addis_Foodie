@@ -3,216 +3,235 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Trophy, Award, ExternalLink, ArrowRight, Sparkles, Share2, UtensilsCrossed, Grid } from 'lucide-react';
+import { 
+  Award, 
+  ExternalLink, 
+  ArrowRight, 
+  Sparkles, 
+  Share2, 
+  UtensilsCrossed, 
+  Grid,
+  CheckCircle,
+  Trophy
+} from 'lucide-react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import MobileBottomNav from '../../components/layout/MobileBottomNav';
-import { AWARDS_CATEGORIES_URL, AWARDS_CATEGORY_URLS } from '../../lib/awardsLinks';
+import { CUISINE_CATEGORIES } from '../../lib/categories';
+import { getAwardsUrl, AWARDS_CATEGORIES_URL } from '../../lib/awardsLinks';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function AwardsPage() {
   const { lang } = useLanguage();
 
-  const popularCategories = [
-    {
-      title: 'Cafés',
-      titleAm: 'ካፌዎች እና ቡና',
-      emoji: '☕',
-      desc: 'Discover cozy coffee spots, macchiatos, and artisanal bakeries in Addis.',
-      url: 'https://addisfoodie-awards.netlify.app/categories/cafes?sbbom=true',
-    },
-    {
-      title: 'Chinese',
-      titleAm: 'የቻይና ምግቦች',
-      emoji: '🥟',
-      desc: 'Enjoy classic Chinese dishes like handmade dumplings, hotpot, and stir-fry.',
-      url: 'https://addisfoodie-awards.netlify.app/categories/chinese?sbbom=true',
-    },
-    {
-      title: 'Italian',
-      titleAm: 'የጣሊያን ምግቦች',
-      emoji: '🍕',
-      desc: 'Indulge in wood-fired sourdough pasta, pizza, and rich Italian flavors.',
-      url: 'https://addisfoodie-awards.netlify.app/categories/italian?sbbom=true',
-    },
-    {
-      title: 'Traditional',
-      titleAm: 'ባህላዊ ምግቦች',
-      emoji: '🍲',
-      desc: 'Experience authentic Ethiopian Kitfo, Doro Wat, and cultural feasts.',
-      url: 'https://addisfoodie-awards.netlify.app/categories/traditional?sbbom=true',
-    },
-    {
-      title: 'Burgers & Fast Food',
-      titleAm: 'በርገር እና ፈጣን ምግቦች',
-      emoji: '🍔',
-      desc: 'Savor craft beef burgers, crispy fried chicken, and loaded sides.',
-      url: 'https://addisfoodie-awards.netlify.app/categories/burgers?sbbom=true',
-    },
-    {
-      title: 'Fine Dining',
-      titleAm: 'ከፍተኛ ደረጃ ምግቦች',
-      emoji: '🍷',
-      desc: 'Luxury multi-course gastronomy, cocktail lounges, and romantic ambiance.',
-      url: 'https://addisfoodie-awards.netlify.app/categories/fine-dining?sbbom=true',
-    },
-  ];
-
   return (
     <div
-      className="flex flex-col min-h-screen bg-[#0D0706] text-white transition-colors duration-300 pb-20 sm:pb-0 max-w-full overflow-x-hidden"
+      className="flex flex-col min-h-screen transition-colors duration-300 pb-20 sm:pb-0 max-w-full overflow-x-hidden"
+      style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)' }}
     >
       <Header />
 
-      {/* Hero Section with Gold Badge & Radial Glow */}
-      <section className="relative w-full py-14 sm:py-20 flex flex-col items-center justify-center text-center px-4 overflow-hidden border-b border-stone-800/60">
-        
-        {/* Radial Gold Aura Background */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none" />
+      {/* HERO SECTION WITH OFFICIAL GOLD SEAL LOGO & RADIAL AURA */}
+      <section
+        className="relative w-full py-16 sm:py-24 flex flex-col items-center justify-center text-center px-4 overflow-hidden border-b transition-colors"
+        style={{
+          backgroundColor: 'var(--bg-surface)',
+          borderColor: 'var(--border-subtle)',
+        }}
+      >
+        {/* Soft Golden Radial Glow Aura */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#F59E0B]/10 blur-[130px] rounded-full pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col items-center gap-5 max-w-3xl mx-auto">
+        <div className="relative z-10 flex flex-col items-center gap-6 max-w-4xl mx-auto">
           
-          {/* Top Brand Sub-label */}
-          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-stone-400">
-            <span className="w-6 h-[1px] bg-amber-500/50" />
-            <span>AddisFoodie PRESENTS</span>
-            <span className="w-6 h-[1px] bg-amber-500/50" />
+          {/* Official AddisFoodie Awards Seal Image Logo */}
+          <div className="relative w-40 h-40 sm:w-52 sm:h-52 drop-shadow-2xl hover:scale-105 transition-transform duration-500 my-1">
+            <Image
+              src="/images/addisfoodie-awards-seal.png"
+              alt="Official AddisFoodie Awards Seal"
+              fill
+              priority
+              sizes="(max-width: 768px) 160px, 208px"
+              className="object-contain"
+            />
           </div>
 
-          {/* Golden Medal Badge Emblem */}
-          <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-gradient-to-tr from-amber-600 via-amber-400 to-yellow-200 p-1 shadow-2xl shadow-amber-500/20 my-2 group hover:scale-105 transition-transform duration-500">
-            <div className="w-full h-full rounded-full bg-[#120907] flex flex-col items-center justify-center p-3 border border-amber-300/30 text-center">
-              <UtensilsCrossed className="w-8 h-8 sm:w-10 sm:h-10 text-amber-400 mb-1 animate-pulse" />
-              <span className="font-syne font-black text-[10px] sm:text-xs text-amber-300 tracking-wider uppercase leading-none">
-                ADDISFOODIE
-              </span>
-              <span className="font-mono text-[8px] sm:text-[9px] text-stone-300 font-bold uppercase tracking-widest mt-0.5">
-                AWARDS
-              </span>
-            </div>
+          {/* Sub-Brand Tagline */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-widest bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/30 shadow-xs">
+            <Trophy className="w-4 h-4 text-[#F59E0B]" />
+            <span>{lang === 'AM' ? 'የ2026 ይፋዊ የምግብ ቤት ሽልማት' : 'Official 2026 Culinary Competition'}</span>
           </div>
 
-          {/* Hero Heading */}
-          <h1 className="font-syne font-black text-4xl sm:text-6xl text-white tracking-tight leading-tight">
-            AddisFoodie Awards
+          {/* Headline */}
+          <h1 className="font-syne font-black text-4xl sm:text-6xl text-[var(--text-primary)] tracking-tight leading-tight max-w-3xl">
+            {lang === 'AM' ? 'አዲስ ፉዲ ሽልማቶች 2026' : 'AddisFoodie Awards'}
           </h1>
 
           {/* Subtitle */}
-          <p className="text-sm sm:text-base font-body text-stone-300 max-w-xl leading-relaxed">
+          <p className="text-sm sm:text-base font-body text-[var(--text-secondary)] max-w-2xl leading-relaxed">
             {lang === 'AM'
-              ? 'በአዲስ አበባ የሚገኙ ምርጥ የምግብ ቤቶችን ለመምረጥ እና እውቅና ለመስጠት ይምረጡ'
-              : 'Vote for your favorite restaurants in Addis Ababa and help recognize the best in the industry.'}
+              ? 'በአዲስ አበባ ውስጥ ያሉ ምርጥ የምግብ ቤቶችን፣ የክትፎ ቦታዎችን፣ ካፌዎችን እና የቪገን ቦታዎችን ለመምረጥ እና እውቅና ለመስጠት ይምረጡ።'
+              : 'Vote for your favorite restaurants in Addis Ababa and help recognize the finest Kitfo joints, cafes, burgers, and culinary destinations in the industry.'}
           </p>
 
-          {/* Main "Start Voting" Button */}
+          {/* Primary CTA Button (Design system Primary Crimson #A81D1D / 48px touch target) */}
           <a
-            href="https://addisfoodie-awards.netlify.app/categories"
+            href={AWARDS_CATEGORIES_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 px-8 py-3.5 rounded-full bg-white hover:bg-stone-200 text-black font-syne font-bold text-sm tracking-wide transition-all shadow-xl hover:scale-105 flex items-center gap-2 cursor-pointer"
+            className="mt-2 button-primary px-8 py-3.5 rounded-xl font-syne font-bold text-sm text-white tracking-wide transition-all shadow-xl hover:scale-105 flex items-center gap-2.5 cursor-pointer touch-target"
           >
-            <span>Start Voting</span>
-            <ExternalLink className="w-4 h-4 text-black" />
+            <span>{lang === 'AM' ? 'አሁኑኑ ድምጽ መስጠት ይጀምሩ' : 'Start Voting Now'}</span>
+            <ExternalLink className="w-4 h-4 text-white" />
           </a>
 
         </div>
       </section>
 
-      {/* Three Info Feature Columns */}
-      <section className="w-full py-12 border-b border-stone-800/60 bg-[#120A08]">
-        <div className="site-container grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-4">
+      {/* THREE CURATED VALUE PILLARS */}
+      <section className="w-full py-12 border-b border-[var(--border-subtle)] bg-[var(--bg-app)]">
+        <div className="site-container grid grid-cols-1 md:grid-cols-3 gap-6 text-center px-4">
           
-          <div className="flex flex-col items-center gap-2.5 p-6 rounded-2xl bg-stone-900/40 border border-stone-800/80">
-            <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 mb-1">
-              <Grid className="w-5 h-5" />
+          <div className="heritage-card p-6 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-col items-center gap-3 shadow-xs hover:shadow-md transition-all">
+            <div className="w-12 h-12 rounded-2xl bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex items-center justify-center text-[#F59E0B]">
+              <Grid className="w-6 h-6" />
             </div>
-            <h3 className="font-syne font-bold text-lg text-white">Categories</h3>
-            <p className="text-xs text-stone-400 leading-relaxed max-w-xs">
-              Vote across multiple categories including Fine Dining, Cafés, Traditional, and Street Food.
+            <h3 className="font-syne font-bold text-lg text-[var(--text-primary)]">
+              {lang === 'AM' ? '10 የምግብ ዘርፎች' : '10 Cuisine Categories'}
+            </h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed max-w-xs font-body">
+              {lang === 'AM'
+                ? 'ከባህላዊ የሐበሻ ምግቦች እስከ ባህር ማዶ ምግቦች፣ ካፌዎች እና የቪገን አማራጮች ይምረጡ።'
+                : 'Vote across multiple categories including Traditional Habesha, Siga Bet, Cafés, Fine Dining, and Street Food.'}
             </p>
           </div>
 
-          <div className="flex flex-col items-center gap-2.5 p-6 rounded-2xl bg-stone-900/40 border border-stone-800/80">
-            <div className="w-10 h-10 rounded-full bg-[#A81D1D]/10 flex items-center justify-center text-[#A81D1D] mb-1">
-              <Sparkles className="w-5 h-5" />
+          <div className="heritage-card p-6 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-col items-center gap-3 shadow-xs hover:shadow-md transition-all">
+            <div className="w-12 h-12 rounded-2xl bg-[#A81D1D]/10 border border-[#A81D1D]/20 flex items-center justify-center text-[#A81D1D]">
+              <Sparkles className="w-6 h-6" />
             </div>
-            <h3 className="font-syne font-bold text-lg text-white">Nominations</h3>
-            <p className="text-xs text-stone-400 leading-relaxed max-w-xs">
-              Nominate your favorite restaurants or submit your establishment for official consideration.
+            <h3 className="font-syne font-bold text-lg text-[var(--text-primary)]">
+              {lang === 'AM' ? 'የህዝብ ጥቆማ እና መረጣ' : 'Community Nominations'}
+            </h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed max-w-xs font-body">
+              {lang === 'AM'
+                ? 'የሚወዱትን ቦታ ይጠቁሙ ወይም ለተጨማሪ ግምገማ እንዲቀርብ ያድርጉ።'
+                : 'Nominate your favorite undiscovered spot or submit your establishment for official consideration.'}
             </p>
             <Link href="/suggestions" className="text-xs font-bold text-[#F59E0B] hover:underline pt-1">
-              Nominate a Spot →
+              {lang === 'AM' ? 'ቦታ ይጠቁሙ →' : 'Nominate a Spot →'}
             </Link>
           </div>
 
-          <div className="flex flex-col items-center gap-2.5 p-6 rounded-2xl bg-stone-900/40 border border-stone-800/80">
-            <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 mb-1">
-              <Share2 className="w-5 h-5" />
+          <div className="heritage-card p-6 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-col items-center gap-3 shadow-xs hover:shadow-md transition-all">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500">
+              <Share2 className="w-6 h-6" />
             </div>
-            <h3 className="font-syne font-bold text-lg text-white">Share your favorite restaurants</h3>
-            <p className="text-xs text-stone-400 leading-relaxed max-w-xs">
-              Share your favorite restaurants and verified price reviews with your friends and family.
+            <h3 className="font-syne font-bold text-lg text-[var(--text-primary)]">
+              {lang === 'AM' ? 'ለወዳጅ ዘመድ ያካፍሉ' : 'Share Favorite Spots'}
+            </h3>
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed max-w-xs font-body">
+              {lang === 'AM'
+                ? 'የተረጋገጡ የምግብ ቤት ግምገማዎችን እና የዋጋ መረጃዎችን ለጓደኛዎ ያካፍሉ።'
+                : 'Share your favorite restaurants, price audits, and voting links with your friends and family.'}
             </p>
           </div>
 
         </div>
       </section>
 
-      {/* Popular Categories Grid Section */}
-      <section className="site-container py-14 flex flex-col items-center gap-10">
+      {/* POPULAR CUISINE CATEGORIES GRID */}
+      <main className="site-container py-16 flex flex-col items-center gap-12 flex-1">
         
-        <div className="text-center flex flex-col gap-2">
-          <h2 className="font-syne font-black text-2xl sm:text-4xl text-white">
-            Popular Categories
+        <div className="text-center flex flex-col gap-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider text-[#A81D1D] bg-[#A81D1D]/10 border border-[#A81D1D]/20 mx-auto">
+            <span>Browse Category Ballots</span>
+          </div>
+
+          <h2 className="font-syne font-black text-3xl sm:text-5xl text-[var(--text-primary)]">
+            {lang === 'AM' ? 'የተወዳጅ ምግቦች ዘርፎች' : 'Popular Categories'}
           </h2>
-          <p className="text-xs sm:text-sm text-stone-400">
-            Select a category below to jump straight to voting on the official awards platform.
+
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)] max-w-lg font-body">
+            Select a category below to jump straight to voting on the official AddisFoodie Awards platform.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
-          {popularCategories.map((cat) => (
-            <div
-              key={cat.title}
-              className="p-6 rounded-2xl bg-[#170E0B] border border-stone-800 hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between gap-4 group shadow-lg"
-            >
-              <div className="flex flex-col gap-3">
-                <div className="w-10 h-10 rounded-xl bg-stone-800/80 flex items-center justify-center text-xl">
-                  {cat.emoji}
-                </div>
-                <h3 className="font-syne font-bold text-xl text-white group-hover:text-amber-400 transition-colors">
-                  {cat.title}
-                </h3>
-                <p className="text-xs text-stone-400 leading-relaxed">
-                  {cat.desc}
-                </p>
-              </div>
+        {/* 10 Category Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          {CUISINE_CATEGORIES.map((cat) => {
+            const netlifyUrl = getAwardsUrl(cat.slug);
 
-              <a
-                href={cat.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-mono font-bold text-stone-300 group-hover:text-white flex items-center gap-1 transition-colors pt-2 border-t border-stone-800/60"
+            return (
+              <div
+                key={cat.id}
+                className="heritage-card group relative p-6 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[#A81D1D] transition-all duration-300 flex flex-col justify-between gap-5 shadow-xs hover:shadow-xl"
               >
-                <span>Vote Now</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-amber-400" />
-              </a>
+                <div className="flex flex-col gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-[var(--bg-app)] border border-[var(--border-subtle)] flex items-center justify-center text-2xl shadow-inner">
+                    {cat.emoji}
+                  </div>
+
+                  <h3 className="font-syne font-bold text-xl text-[var(--text-primary)] group-hover:text-[#A81D1D] transition-colors">
+                    {lang === 'AM' ? cat.labelAm : cat.label}
+                  </h3>
+
+                  <p className="text-xs font-body text-[var(--text-secondary)] leading-relaxed">
+                    {lang === 'AM' ? cat.descriptionAm : cat.description}
+                  </p>
+                </div>
+
+                <a
+                  href={netlifyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-between pt-3 border-t border-[var(--border-subtle)] text-xs font-mono font-bold text-[var(--text-primary)] group-hover:text-[#A81D1D] transition-colors"
+                >
+                  <span className="flex items-center gap-1">
+                    <span>{lang === 'AM' ? 'አሁኑኑ ይምረጡ' : 'Vote Now'}</span>
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-[#F59E0B] group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Community Nomination Banner */}
+        <div className="w-full p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-stone-950 via-[#1A100C] to-stone-950 text-white border border-[#F59E0B]/30 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl mt-4">
+          <div className="flex flex-col gap-2 max-w-xl">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#F59E0B] font-bold uppercase">
+              <Sparkles className="w-4 h-4 text-[#F59E0B]" />
+              <span>Know an Undiscovered Gem?</span>
             </div>
-          ))}
+            <h3 className="font-syne font-black text-xl sm:text-2xl text-white">
+              Nominate a Restaurant for Official Review
+            </h3>
+            <p className="text-xs text-stone-300 font-body leading-relaxed">
+              Help our team discover hidden Kitfo spots, artisanal bakeries, and traditional kitchens across Addis Ababa.
+            </p>
+          </div>
+
+          <Link
+            href="/suggestions"
+            className="button-primary px-6 py-3.5 rounded-xl font-label text-xs font-bold uppercase tracking-wider text-white shrink-0 shadow-lg hover:scale-105 transition-transform"
+          >
+            Nominate a Spot Now →
+          </Link>
         </div>
 
         {/* View All Categories Bottom Button */}
         <a
-          href="https://addisfoodie-awards.netlify.app/categories"
+          href={AWARDS_CATEGORIES_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 px-6 py-3 rounded-xl border border-stone-700 hover:border-white text-stone-300 hover:text-white font-syne font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2"
+          className="mt-2 px-8 py-3.5 rounded-2xl border border-[var(--border-subtle)] hover:border-[#A81D1D] bg-[var(--bg-surface)] text-[var(--text-primary)] hover:text-[#A81D1D] font-syne font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-xs"
         >
-          <span>View all categories</span>
-          <ArrowRight className="w-4 h-4 text-amber-400" />
+          <span>{lang === 'AM' ? 'ሁሉንም የምግብ ዘርፎች ይመልከቱ' : 'View All Categories on Netlify'}</span>
+          <ArrowRight className="w-4 h-4 text-[#F59E0B]" />
         </a>
 
-      </section>
+      </main>
 
       <Footer />
       <MobileBottomNav />
