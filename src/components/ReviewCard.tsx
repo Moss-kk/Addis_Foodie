@@ -73,13 +73,13 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
       {/* Content Section */}
       <div className="p-4 flex flex-col flex-grow justify-between gap-3 bg-[var(--bg-surface)]">
         <div>
-          <div className="flex items-center gap-2 text-[10px] font-label font-bold text-[#B8422E] uppercase tracking-widest mb-1">
-            <span>{post.category || 'CULINARY'}</span>
-            <span>•</span>
-            <span className="text-[var(--text-secondary)]">{neighborhoodDisplay}</span>
+          {/* Location Icon & Neighborhood Header First */}
+          <div className="flex items-center gap-1.5 text-[11px] font-label font-bold text-[#B8422E] uppercase tracking-wider mb-1">
+            <span>📍</span>
+            <span>{post.location ? post.location : `${neighborhoodDisplay}, Addis Ababa`}</span>
           </div>
 
-          <h3 className="text-base font-display font-medium text-[var(--text-primary)] line-clamp-1 mb-1.5 group-hover:text-[#B8422E] transition-colors">
+          <h3 className="text-base font-syne font-bold text-[var(--text-primary)] line-clamp-1 mb-1 group-hover:text-[#B8422E] transition-colors">
             {post.restaurantName}
           </h3>
 
@@ -88,9 +88,9 @@ export default function ReviewCard({ post, onClick }: ReviewCardProps) {
           </p>
         </div>
 
-        {/* Action Trigger Button */}
+        {/* Clean Simple Action Trigger Button */}
         <div 
-          className="button-primary w-full py-2 px-3 rounded-md text-xs font-label uppercase tracking-wider text-white transition duration-200 flex items-center justify-center gap-1 cursor-pointer"
+          className="button-primary w-full py-2 px-3 rounded-xl text-xs font-label uppercase tracking-wider text-white transition duration-200 flex items-center justify-center gap-1.5 cursor-pointer font-bold shadow-xs"
         >
           <span>Read Full Review</span>
           <span>→</span>
