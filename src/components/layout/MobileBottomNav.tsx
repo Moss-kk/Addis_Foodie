@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Compass, Film, Calendar, Briefcase, PhoneCall } from 'lucide-react';
+import { Compass, MapPin, Trophy, UtensilsCrossed, Calendar } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function MobileBottomNav() {
@@ -11,11 +11,11 @@ export default function MobileBottomNav() {
   const { lang } = useLanguage();
 
   const navItems = [
-    { href: '/', label: lang === 'AM' ? 'መዳሰሻ' : 'Explore', icon: Compass },
-    { href: '/reviews', label: lang === 'AM' ? 'ግምገማዎች' : 'Reviews', icon: Film },
+    { href: '/', label: lang === 'AM' ? 'መነሻ' : 'Home', icon: Compass },
+    { href: '/reviews-map', label: lang === 'AM' ? 'ግምገማዎች' : 'Map & Reviews', icon: MapPin },
+    { href: '/awards', label: lang === 'AM' ? 'ሽልማት' : 'Awards', icon: Trophy },
+    { href: '/suggestions', label: lang === 'AM' ? 'ጥቆማ' : 'Suggest', icon: UtensilsCrossed },
     { href: '/events', label: lang === 'AM' ? 'ሁነቶች' : 'Events', icon: Calendar },
-    { href: '/services', label: lang === 'AM' ? 'አገልግሎቶች' : 'Services', icon: Briefcase },
-    { href: '/contact', label: lang === 'AM' ? 'ግንኙነት' : 'Contact', icon: PhoneCall },
   ];
 
   return (

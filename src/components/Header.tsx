@@ -26,10 +26,16 @@ export default function Header() {
         {/* Desktop Nav Links */}
         <nav className="hidden md:flex items-center gap-6 text-xs font-label uppercase tracking-wider text-[var(--text-secondary)]">
           <Link href="/" className={`transition hover:text-[#B8422E] ${pathname === '/' ? 'text-[#B8422E] font-bold' : ''}`}>
-            {t('explore')}
+            {t('home')}
           </Link>
-          <Link href="/reviews" className={`transition hover:text-[#B8422E] ${pathname === '/reviews' ? 'text-[#B8422E] font-bold' : ''}`}>
-            {t('reviews')}
+          <Link href="/reviews-map" className={`transition hover:text-[#B8422E] ${pathname === '/reviews-map' ? 'text-[#B8422E] font-bold' : ''}`}>
+            {t('reviewsMap')}
+          </Link>
+          <Link href="/awards" className={`transition hover:text-[#B8422E] ${pathname === '/awards' ? 'text-[#B8422E] font-bold' : ''}`}>
+            {t('awards')}
+          </Link>
+          <Link href="/suggestions" className={`transition hover:text-[#B8422E] ${pathname === '/suggestions' ? 'text-[#B8422E] font-bold' : ''}`}>
+            {t('suggestions')}
           </Link>
           <Link href="/events" className={`transition hover:text-[#B8422E] ${pathname === '/events' ? 'text-[#B8422E] font-bold' : ''}`}>
             {t('events')}
@@ -37,14 +43,8 @@ export default function Header() {
           <Link href="/services" className={`transition hover:text-[#B8422E] ${pathname === '/services' ? 'text-[#B8422E] font-bold' : ''}`}>
             {t('services')}
           </Link>
-          <Link href="/saved" className={`transition hover:text-[#B8422E] ${pathname === '/saved' ? 'text-[#B8422E] font-bold' : ''}`}>
-            {lang === 'AM' ? 'ተወዳጆች' : 'Saved'}
-          </Link>
           <Link href="/about" className={`transition hover:text-[#B8422E] ${pathname === '/about' ? 'text-[#B8422E] font-bold' : ''}`}>
             {t('about')}
-          </Link>
-          <Link href="/contact" className={`transition hover:text-[#B8422E] ${pathname === '/contact' ? 'text-[#B8422E] font-bold' : ''}`}>
-            {lang === 'AM' ? 'ግንኙነት' : 'Contact'}
           </Link>
         </nav>
 
@@ -98,19 +98,22 @@ export default function Header() {
       {menuOpen && (
         <div className="md:hidden mt-2 pt-3 border-t border-[var(--border-subtle)] flex flex-col gap-2 pb-2 animate-fadeIn bg-[var(--bg-surface)] px-2 rounded-b-lg shadow-md">
           <Link href="/" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)]">
-            {t('explore')}
+            {t('home')}
           </Link>
-          <Link href="/reviews" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)]">
-            {t('reviews')}
+          <Link href="/reviews-map" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)]">
+            {t('reviewsMap')}
+          </Link>
+          <Link href="/awards" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)] font-bold text-[#F59E0B]">
+            {t('awards')} 🏆
+          </Link>
+          <Link href="/suggestions" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)]">
+            {t('suggestions')}
           </Link>
           <Link href="/events" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)]">
             {t('events')}
           </Link>
           <Link href="/services" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)]">
             {t('services')}
-          </Link>
-          <Link href="/saved" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)]">
-            {lang === 'AM' ? 'ተወዳጆች' : 'Saved Foods'}
           </Link>
           <Link href="/about" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 text-[var(--text-primary)] hover:text-[#B8422E] font-label text-xs uppercase tracking-wider rounded-md hover:bg-[var(--bg-app)]">
             {t('about')}
