@@ -26,7 +26,7 @@ export default function AwardsPage() {
 
   return (
     <div
-      className="flex flex-col min-h-screen transition-colors duration-300 pb-20 sm:pb-0 max-w-full overflow-x-hidden"
+      className="flex flex-col min-h-screen bg-[#1A110F] transition-colors duration-300 pb-20 sm:pb-0 max-w-full overflow-x-hidden"
       style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-primary)' }}
     >
       <Header />

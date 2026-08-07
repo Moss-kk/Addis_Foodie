@@ -104,7 +104,7 @@ function ReviewsMapContent() {
       <Header />
 
       {/* STICKY TOP GOOGLE MAP CONTAINER WITH FLOATING OVERLAY CHIPS */}
-      <section className="sticky top-14 z-20 w-full h-[300px] sm:h-[420px] max-h-[50vh] border-b border-zinc-800 bg-[#120907] shadow-xl">
+      <section className="sticky top-14 z-20 w-full h-[300px] sm:h-[420px] max-h-[50vh] border-b border-zinc-800 bg-[#1A110F] shadow-xl">
         <GoogleAddisMap
           posts={filteredSpots}
           activePost={activeSpot}
@@ -116,31 +116,6 @@ function ReviewsMapContent() {
       {/* SCROLLABLE REVIEWS FEED UNDERNEATH THE STICKY MAP */}
       <main className="flex-1 site-container py-8 flex flex-col gap-6">
         
-        {/* Prominent "Where to Go? Suggest a Spot" Banner Button */}
-        <div className="w-full p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-stone-900 via-[#1A100C] to-stone-900 border border-[#F59E0B]/30 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex items-center justify-center shrink-0">
-              <Sparkles className="w-5 h-5 text-[#F59E0B]" />
-            </div>
-            <div>
-              <h3 className="font-syne font-bold text-base sm:text-lg text-white">
-                Where to Go? Suggest a Restaurant
-              </h3>
-              <p className="text-xs text-stone-300 font-body">
-                Know a hidden gem or top dining spot in Addis? Request an official inspection &amp; review!
-              </p>
-            </div>
-          </div>
-
-          <Link
-            href="/suggestions"
-            className="button-primary px-5 py-2.5 rounded-xl text-xs font-label uppercase tracking-wider text-white font-bold shrink-0 flex items-center gap-2 shadow-md hover:scale-102 transition-transform"
-          >
-            <UtensilsCrossed className="w-4 h-4 text-white" />
-            <span>Suggest a Restaurant →</span>
-          </Link>
-        </div>
-
         {/* Controls & Price Band Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-4 gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
           <div>
@@ -219,6 +194,31 @@ function ReviewsMapContent() {
             ))}
           </div>
         )}
+
+        {/* Prominent "Where to Go? Suggest a Spot" Banner Button (Positioned at Bottom) */}
+        <div className="w-full mt-4 p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-stone-900 via-[#1E1412] to-stone-900 border border-[#F59E0B]/30 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-5">
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-2xl bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5 text-[#F59E0B]" />
+            </div>
+            <div>
+              <h3 className="font-syne font-bold text-base sm:text-xl text-white">
+                Where to Go? Suggest a Restaurant
+              </h3>
+              <p className="text-xs text-stone-300 font-body pt-0.5">
+                Know a hidden gem or top dining spot in Addis? Request an official inspection &amp; review!
+              </p>
+            </div>
+          </div>
+
+          <Link
+            href="/suggestions"
+            className="button-primary px-6 py-3 rounded-xl text-xs font-label uppercase tracking-wider text-white font-bold shrink-0 flex items-center gap-2 shadow-lg hover:scale-105 transition-transform"
+          >
+            <UtensilsCrossed className="w-4 h-4 text-white" />
+            <span>Suggest a Restaurant →</span>
+          </Link>
+        </div>
 
       </main>
 
